@@ -1,135 +1,142 @@
 "use client";
 
+import React from "react";
+import { assets } from "@/assets/assets";
+import OrderSummary from "@/components/OrderSummary";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import OrderSummary from "@/components/OrderSummary";
 import { useAppContext } from "@/context/AppContext";
-import { assets } from "@/assets/assets";
+
+const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 const Cart = () => {
-  const {
-    products,
-    router,
-    cartItems,
-    addToCart,
-    updateCartQuantity,
-    getCartCount,
-    getCartAmount,
-  } = useAppContext();
+  const { products, router, cartItems, addToCart, updateCartQuantity, getCartCount, getCartAmount } =
+    useAppContext();
+
+  // Helper to get product image
+  const getFirstImage = (product) => {
+    let imageUrls = [];
+    try {
+      imageUrls = product.images ? JSON.parse(product.images) : [];
+    } catch {
+      imageUrls = [];
+    }
+    if (imageUrls.length === 0) return "/upload_area_placeholder.png";
+    const first = imageUrls[0];
+    return first.startsWith("http")
+      ? first
+      : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${first}/view?project=${PROJECT_ID}`;
+  };
 
   return (
     <>
       <Navbar />
+
       <div className="flex flex-col md:flex-row gap-10 px-6 md:px-16 lg:px-32 pt-14 mb-20">
+        {/* Cart Table */}
         <div className="flex-1">
-          <div className="flex items-center justify-between mb-8 border-b border-gray-500/30 pb-6">
-            <p className="text-2xl md:text-3xl text-gray-500">
+          <div className="flex items-center justify-between mb-8 border-b border-gray-200 pb-6">
+            <p className="text-2xl md:text-3xl text-gray-800">
               Your <span className="font-medium text-orange-600">Cart</span>
             </p>
             <p className="text-lg md:text-xl text-gray-500/80">{getCartCount()} Items</p>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full table-auto">
-              <thead className="text-left">
-                <tr>
-                  <th className="text-nowrap pb-6 md:px-4 px-1 text-gray-600 font-medium">
-                    Product Details
-                  </th>
-                  <th className="pb-6 md:px-4 px-1 text-gray-600 font-medium">Price</th>
-                  <th className="pb-6 md:px-4 px-1 text-gray-600 font-medium">Quantity</th>
-                  <th className="pb-6 md:px-4 px-1 text-gray-600 font-medium">Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(cartItems).map((itemId) => {
-                  const product = products.find((p) => p._id === itemId);
+          {getCartCount() === 0 ? (
+            <div className="w-full flex justify-center items-center py-20">
+              <p className="text-gray-500 text-lg">Your cart is empty</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="min-w-full border border-gray-200 rounded-lg">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Product</th>
+                    <th className="px-4 py-3 text-gray-600 font-medium">Price</th>
+                    <th className="px-4 py-3 text-gray-600 font-medium">Quantity</th>
+                    <th className="px-4 py-3 text-gray-600 font-medium">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {Object.keys(cartItems).map((itemId) => {
+                    const product = products.find((p) => p.$id === itemId);
+                    if (!product || cartItems[itemId] <= 0) return null;
 
-                  if (!product || cartItems[itemId] <= 0) return null;
-
-                  return (
-                    <tr key={itemId}>
-                      <td className="flex items-center gap-4 py-4 md:px-4 px-1">
-                        <div>
-                          <div className="rounded-lg overflow-hidden bg-gray-500/10 p-2">
+                    return (
+                      <tr key={itemId} className="hover:bg-gray-50 transition">
+                        <td className="flex items-center gap-4 px-4 py-4">
+                          <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
                             <Image
-                              src={product.image[0]}
+                              src={getFirstImage(product)}
                               alt={product.name}
-                              className="w-16 h-auto object-cover mix-blend-multiply"
-                              width={1280}
-                              height={720}
+                              className="w-16 h-16 object-cover"
+                              width={64}
+                              height={64}
                             />
                           </div>
-                          <button
-                            className="md:hidden text-xs text-orange-600 mt-1"
-                            onClick={() => updateCartQuantity(product._id, 0)}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                        <div className="text-sm hidden md:block">
-                          <p className="text-gray-800">{product.name}</p>
-                          <button
-                            className="text-xs text-orange-600 mt-1"
-                            onClick={() => updateCartQuantity(product._id, 0)}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </td>
-                      <td className="py-4 md:px-4 px-1 text-gray-600">${product.offerPrice}</td>
-                      <td className="py-4 md:px-4 px-1">
-                        <div className="flex items-center md:gap-2 gap-1">
-                          <button onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}>
-                            <Image
-                              src={assets.decrease_arrow}
-                              alt="decrease_arrow"
-                              className="w-4 h-4"
-                            />
-                          </button>
-                          <input
-                            type="number"
-                            value={cartItems[itemId]}
-                            min={0}
-                            onChange={(e) =>
-                              updateCartQuantity(product._id, Math.max(0, Number(e.target.value)))
-                            }
-                            className="w-8 border text-center appearance-none"
-                          />
-                          <button onClick={() => addToCart(product._id)}>
-                            <Image
-                              src={assets.increase_arrow}
-                              alt="increase_arrow"
-                              className="w-4 h-4"
-                            />
-                          </button>
-                        </div>
-                      </td>
-                      <td className="py-4 md:px-4 px-1 text-gray-600">
-                        ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                          <div>
+                            <p className="text-gray-800 font-medium">{product.name}</p>
+                            <button
+                              className="text-xs text-orange-600 mt-1 hover:underline"
+                              onClick={() => updateCartQuantity(product.$id, 0)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </td>
 
+                        <td className="px-4 py-4 text-gray-600 font-medium">${product.offerPrice}</td>
+
+                        <td className="px-4 py-4">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() =>
+                                updateCartQuantity(product.$id, cartItems[itemId] - 1)
+                              }
+                            >
+                              <Image src={assets.decrease_arrow} alt="decrease" className="w-4 h-4" />
+                            </button>
+                            <input
+                              type="number"
+                              value={cartItems[itemId]}
+                              min={0}
+                              onChange={(e) =>
+                                updateCartQuantity(product.$id, Math.max(0, Number(e.target.value)))
+                              }
+                              className="w-12 border text-center rounded"
+                            />
+                            <button onClick={() => addToCart(product.$id)}>
+                              <Image src={assets.increase_arrow} alt="increase" className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </td>
+
+                        <td className="px-4 py-4 text-gray-600 font-medium">
+                          ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Continue Shopping */}
           <button
             onClick={() => router.push("/all-products")}
-            className="group flex items-center mt-6 gap-2 text-orange-600"
+            className="group flex items-center mt-6 gap-2 text-orange-600 font-medium hover:underline"
           >
-            <Image
-              className="group-hover:-translate-x-1 transition"
-              src={assets.arrow_right_icon_colored}
-              alt="arrow_right_icon_colored"
-            />
+            <Image className="group-hover:-translate-x-1 transition" src={assets.arrow_right_icon_colored} alt="arrow" />
             Continue Shopping
           </button>
         </div>
 
-        <OrderSummary totalAmount={getCartAmount()} totalCount={getCartCount()} />
-
+        {/* Order Summary */}
+        <div className="w-full md:w-1/3">
+          <OrderSummary totalAmount={getCartAmount()} totalCount={getCartCount()} />
+        </div>
       </div>
     </>
   );

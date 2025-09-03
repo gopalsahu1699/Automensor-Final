@@ -8,77 +8,154 @@ import Footer from "@/components/Footer";
 import Loading from "@/components/Loading";
 import { useAppContext } from "@/context/AppContext";
 
+const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+
 const Product = () => {
   const { id } = useParams();
-  const { products, addToCart, router } = useAppContext();
+  const { products, addToCart, router, currency } = useAppContext();
 
   const [productData, setProductData] = useState(null);
   const [mainImage, setMainImage] = useState(null);
 
+  // For Lightbox modal
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState(null);
+
   useEffect(() => {
     if (products.length) {
-      const prod = products.find((p) => p._id === id);
+      const prod = products.find((p) => p.$id === id);
       setProductData(prod);
-      if (prod && prod.image && prod.image.length) setMainImage(prod.image[0]);
+
+      if (prod && prod.images && prod.images.length) {
+        let imgs = [];
+        try {
+          imgs = JSON.parse(prod.images);
+        } catch {
+          imgs = prod.images;
+        }
+        const firstImg = imgs[0].startsWith("http")
+          ? imgs[0]
+          : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${imgs[0]}/view?project=${PROJECT_ID}`;
+        setMainImage(firstImg);
+      }
     }
   }, [id, products]);
 
+  // Close lightbox on Escape key
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+    };
+    if (lightboxOpen) {
+      window.addEventListener("keydown", handleEsc);
+    } else {
+      window.removeEventListener("keydown", handleEsc);
+    }
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [lightboxOpen]);
+
   if (!productData) return <Loading />;
+
+  let imageUrls = [];
+  try {
+    imageUrls = productData.images ? JSON.parse(productData.images) : [];
+  } catch {
+    imageUrls = [];
+  }
+  const fullImageUrls = imageUrls.map((img) =>
+    img.startsWith("http")
+      ? img
+      : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${img}/view?project=${PROJECT_ID}`
+  );
+
+  // Open lightbox with image
+  const openLightbox = (img) => {
+    setLightboxImage(img);
+    setLightboxOpen(true);
+  };
 
   return (
     <>
       <Navbar />
       <div className="px-6 md:px-16 lg:px-32 pt-14 space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          {/* Images */}
           <div className="px-5 lg:px-16 xl:px-20">
-            <div className="rounded-lg overflow-hidden bg-gray-500/10 mb-4">
+            {/* Main Image */}
+            <div
+              onClick={() => openLightbox(mainImage)}
+              className="relative rounded-lg overflow-hidden bg-gray-100 mb-6 aspect-[16/9] cursor-zoom-in"
+              role="button"
+              tabIndex={0}
+              onKeyPress={(e) => e.key === "Enter" && openLightbox(mainImage)}
+              aria-label="View larger image"
+            >
               <Image
-                src={mainImage}
+                src={mainImage || "/upload_area_placeholder.png"}
                 alt={productData.name}
-                className="w-full h-auto object-cover mix-blend-multiply"
-                width={1280}
-                height={720}
+                priority
+                fill
+                style={{ objectFit: "contain" }}
+                className="transition-transform duration-500 hover:scale-105"
               />
             </div>
+
+            {/* Thumbnail Images */}
             <div className="grid grid-cols-4 gap-4">
-              {productData.image.map((img, idx) => (
-                <div
+              {fullImageUrls.map((img, idx) => (
+                <button
                   key={idx}
                   onClick={() => setMainImage(img)}
-                  className="cursor-pointer rounded-lg overflow-hidden bg-gray-500/10"
+                  onDoubleClick={() => openLightbox(img)}
+                  className={`relative rounded-lg overflow-hidden aspect-square focus:outline-none focus:ring-2 focus:ring-orange-500 transition-transform ${
+                    mainImage === img ? "ring-2 ring-orange-500" : ""
+                  } cursor-pointer`}
+                  aria-label={`View image ${idx + 1}`}
+                  tabIndex={0}
                 >
                   <Image
                     src={img}
                     alt={`${productData.name} ${idx + 1}`}
-                    className="w-full h-auto object-cover mix-blend-multiply"
-                    width={1280}
-                    height={720}
+                    fill
+                    style={{ objectFit: "contain" }}
+                    className="transition-transform duration-300 hover:scale-110"
+                    draggable={false}
                   />
-                </div>
+                </button>
               ))}
             </div>
           </div>
 
+          {/* Product Details */}
           <div className="flex flex-col">
-            <h1 className="text-3xl font-medium text-gray-800/90 mb-4">{productData.name}</h1>
-            <p className="text-gray-600 mt-3">{productData.description}</p>
-            <p className="text-3xl font-medium mt-6">
-              ₹{productData.offerPrice}{" "}
-              <span className="text-base font-normal text-gray-800/60 line-through ml-2">₹{productData.price}</span>
+            <h1 className="text-3xl font-semibold text-gray-900 mb-4">
+              {productData.name}
+            </h1>
+            <p className="text-gray-700 text-lg leading-relaxed">{productData.description}</p>
+            <p className="text-4xl font-extrabold mt-8 text-gray-900">
+              {currency}
+              {productData.offerPrice}{" "}
+              <span className="text-xl font-normal text-gray-600 line-through ml-4">
+                {currency}
+                {productData.price}
+              </span>
             </p>
-            <div className="flex items-center mt-10 gap-4">
+
+            {/* Buttons */}
+            <div className="flex items-center mt-12 gap-6">
               <button
-                onClick={() => addToCart(productData._id)} 
-                className="w-full py-3.5 bg-gray-100 text-gray-800/80 hover:bg-gray-200 transition"
+                onClick={() => addToCart(productData.$id)}
+                className="flex-1 py-4 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition focus:outline-none focus:ring-4 focus:ring-gray-300"
               >
                 Add to Cart
               </button>
               <button
                 onClick={() => {
-                  addToCart(productData._id);
+                  addToCart(productData.$id);
                   router.push("/cart");
                 }}
-                className="w-full py-3.5 bg-orange-500 text-white hover:bg-orange-600 transition"
+                className="flex-1 py-4 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition focus:outline-none focus:ring-4 focus:ring-orange-300"
               >
                 Buy now
               </button>
@@ -87,6 +164,39 @@ const Product = () => {
         </div>
       </div>
       <Footer />
+
+      {/* Lightbox Modal */}
+      {lightboxOpen && (
+        <div
+          onClick={() => setLightboxOpen(false)}
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 cursor-zoom-out"
+          aria-modal="true"
+          role="dialog"
+          tabIndex={-1}
+        >
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setLightboxOpen(false);
+            }}
+            className="absolute top-6 right-6 text-white bg-black bg-opacity-60 hover:bg-opacity-80 rounded-full p-3 text-2xl focus:outline-none focus:ring-4 focus:ring-white"
+            aria-label="Close large image"
+          >
+            &times;
+          </button>
+
+          <div className="relative w-full max-w-5xl max-h-[90vh] p-4">
+            <Image
+              src={lightboxImage}
+              alt="Large product view"
+              fill
+              style={{ objectFit: "contain" }}
+              draggable={false}
+              priority
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };

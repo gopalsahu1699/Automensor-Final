@@ -7,8 +7,8 @@ import { ID } from "appwrite";
 
 const MyAccountPage = () => {
   const { user, loading } = useAuth();
-  const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
-  const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID;
+  const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_DATABASE_ID;
+  const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID;
 
   const [name, setName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");

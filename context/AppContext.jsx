@@ -1,14 +1,17 @@
+// AppContext.jsx
 "use client";
-
 import { createContext, useContext, useEffect, useState } from "react";
+import { Client, Databases } from "appwrite";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/AuthProvider"; // Appwrite AuthProvider
+import { useAuth } from "@/components/AuthProvider";
 import { toast } from "react-toastify";
 
-
 export const AppContext = createContext();
-
 export const useAppContext = () => useContext(AppContext);
+
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
+const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
 
 export const AppContextProvider = ({ children }) => {
   const currency = process.env.NEXT_PUBLIC_CURRENCY || "₹";
@@ -17,28 +20,41 @@ export const AppContextProvider = ({ children }) => {
 
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
-  // For demo, fetch products from dummy data or API
   useEffect(() => {
-    // Replace this with your Appwrite fetch logic if any
-    import("@/assets/assets").then((mod) => setProducts(mod.productsDummyData));
+    const client = new Client()
+      .setEndpoint("https://fra.cloud.appwrite.io/v1")
+      .setProject(PROJECT_ID);
+    const databases = new Databases(client);
+
+    databases
+      .listDocuments(DATABASE_ID, COLLECTION_ID)
+      .then((res) => {
+        setProducts(res.documents);
+        setLoadingProducts(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+        setLoadingProducts(false);
+      });
   }, []);
 
-  const addToCart = (itemId) => {
+  const addToCart = (productId) => {
     setCartItems((prev) => {
       const newCart = { ...prev };
-      if (newCart[itemId]) newCart[itemId] += 1;
-      else newCart[itemId] = 1;
-      return newCart; 
+      if (newCart[productId]) newCart[productId] += 1;
+      else newCart[productId] = 1;
+      return newCart;
     });
-    toast.info("Added to cart");
+    toast.success("🛒 Added to cart");
   };
 
-  const updateCartQuantity = (itemId, quantity) => {
+  const updateCartQuantity = (productId, quantity) => {
     setCartItems((prev) => {
       const newCart = { ...prev };
-      if (quantity <= 0) delete newCart[itemId];
-      else newCart[itemId] = quantity;
+      if (quantity <= 0) delete newCart[productId];
+      else newCart[productId] = quantity;
       return newCart;
     });
   };
@@ -48,9 +64,9 @@ export const AppContextProvider = ({ children }) => {
 
   const getCartAmount = () => {
     let total = 0;
-    for (const itemId in cartItems) {
-      const product = products.find((p) => p._id === itemId);
-      if (product) total += product.offerPrice * cartItems[itemId];
+    for (const productId in cartItems) {
+      const product = products.find((p) => p.$id === productId);
+      if (product) total += product.offerPrice * cartItems[productId];
     }
     return total.toFixed(2);
   };
@@ -67,6 +83,7 @@ export const AppContextProvider = ({ children }) => {
         updateCartQuantity,
         getCartCount,
         getCartAmount,
+        loadingProducts,
       }}
     >
       {children}
