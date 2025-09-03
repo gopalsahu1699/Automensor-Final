@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { assets } from "@/assets/assets";
 import OrderSummary from "@/components/OrderSummary";
 import Image from "next/image";
@@ -13,6 +13,16 @@ const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 const Cart = () => {
   const { products, router, cartItems, addToCart, updateCartQuantity, getCartCount, getCartAmount } =
     useAppContext();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate waiting for data or some async setup
+    // You can replace this with actual loading condition, e.g. products loading or context ready
+    if (products && Object.keys(cartItems).length >= 0) {
+      setLoading(false);
+    }
+  }, [products, cartItems]);
 
   // Helper to get product image
   const getFirstImage = (product) => {
@@ -29,10 +39,20 @@ const Cart = () => {
       : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${first}/view?project=${PROJECT_ID}`;
   };
 
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex justify-center items-center h-[70vh]">
+          <p className="text-gray-500 text-lg">Loading cart...</p>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Navbar />
-
       <div className="flex flex-col md:flex-row gap-10 px-6 md:px-16 lg:px-32 pt-14 mb-20">
         {/* Cart Table */}
         <div className="flex-1">

@@ -13,6 +13,7 @@ const MyAccountPage = () => {
   const [name, setName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [addresses, setAddresses] = useState([]);
+  const [loadingAddresses, setLoadingAddresses] = useState(true);
   const [editProfile, setEditProfile] = useState(false);
   const [editingAddressId, setEditingAddressId] = useState(null);
   const [addingAddress, setAddingAddress] = useState(false);
@@ -24,7 +25,8 @@ const MyAccountPage = () => {
     state: "",
     pincode: "",
   });
-  const [updating, setUpdating] = useState(false);
+  const [updatingProfile, setUpdatingProfile] = useState(false);
+  const [updatingAddress, setUpdatingAddress] = useState(false);
 
   // Fetch user info and addresses
   useEffect(() => {
@@ -34,11 +36,14 @@ const MyAccountPage = () => {
     setAvatarUrl(user.prefs?.avatar || user.imageUrl || "/default-avatar.png");
 
     const fetchAddresses = async () => {
+      setLoadingAddresses(true);
       try {
         const res = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
         setAddresses(res.documents);
       } catch (err) {
         console.error("Error fetching addresses:", err);
+      } finally {
+        setLoadingAddresses(false);
       }
     };
 
@@ -47,7 +52,7 @@ const MyAccountPage = () => {
 
   // Update profile name
   const handleProfileUpdate = async () => {
-    setUpdating(true);
+    setUpdatingProfile(true);
     try {
       await account.updateName(name);
       setEditProfile(false);
@@ -56,7 +61,7 @@ const MyAccountPage = () => {
       console.error(err);
       alert("Failed to update profile.");
     } finally {
-      setUpdating(false);
+      setUpdatingProfile(false);
     }
   };
 
@@ -70,16 +75,18 @@ const MyAccountPage = () => {
 
     const payload = { ...addressForm };
 
+    setUpdatingAddress(true);
+
     try {
       if (editingAddressId) {
         await databases.updateDocument(DATABASE_ID, COLLECTION_ID, editingAddressId, payload);
-        setAddresses(prev =>
-          prev.map(a => (a.$id === editingAddressId ? { ...a, ...payload } : a))
+        setAddresses((prev) =>
+          prev.map((a) => (a.$id === editingAddressId ? { ...a, ...payload } : a))
         );
         setEditingAddressId(null);
       } else {
         const res = await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), payload);
-        setAddresses(prev => [...prev, res]);
+        setAddresses((prev) => [...prev, res]);
         setAddingAddress(false);
       }
 
@@ -94,22 +101,24 @@ const MyAccountPage = () => {
     } catch (err) {
       console.error(err);
       alert("Failed to save address.");
+    } finally {
+      setUpdatingAddress(false);
     }
   };
 
   // Delete address
-  const handleDeleteAddress = async id => {
+  const handleDeleteAddress = async (id) => {
     if (!confirm("Are you sure you want to delete this address?")) return;
     try {
       await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
-      setAddresses(prev => prev.filter(a => a.$id !== id));
+      setAddresses((prev) => prev.filter((a) => a.$id !== id));
     } catch (err) {
       console.error(err);
       alert("Failed to delete address.");
     }
   };
 
-  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (loading) return <p className="text-center mt-20">Loading user info...</p>;
   if (!user) return <p className="text-center mt-20">Please login to view your account.</p>;
 
   return (
@@ -130,17 +139,19 @@ const MyAccountPage = () => {
                 type="text"
                 className="w-full border px-3 py-2 rounded-lg mb-2"
                 value={name}
-                onChange={e => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
+                disabled={updatingProfile}
               />
               <button
                 onClick={handleProfileUpdate}
-                disabled={updating}
+                disabled={updatingProfile}
                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
               >
-                {updating ? "Updating..." : "Save"}
+                {updatingProfile ? "Updating..." : "Save"}
               </button>
               <button
                 onClick={() => setEditProfile(false)}
+                disabled={updatingProfile}
                 className="ml-2 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
               >
                 Cancel
@@ -165,107 +176,126 @@ const MyAccountPage = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Saved Addresses</h2>
 
-        {addresses.map(addr => (
-          <div key={addr.$id} className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
-            {editingAddressId === addr.$id ? (
-              <>
-                {["fullName", "phoneNumber", "area", "city", "state", "pincode"].map(field => (
-                  <input
-                    key={field}
-                    type="text"
-                    placeholder={field.replace(/([A-Z])/g, " $1")}
-                    value={addressForm[field] || ""}
-                    onChange={e => setAddressForm({ ...addressForm, [field]: e.target.value })}
-                    className="border px-3 py-2 rounded-lg mb-2 w-full"
-                  />
-                ))}
+        {loadingAddresses ? (
+          <p className="text-center text-gray-600">Loading addresses...</p>
+        ) : (
+          <>
+            {addresses.map((addr) => (
+              <div
+                key={addr.$id}
+                className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4"
+              >
+                {editingAddressId === addr.$id ? (
+                  <>
+                    {["fullName", "phoneNumber", "area", "city", "state", "pincode"].map((field) => (
+                      <input
+                        key={field}
+                        type="text"
+                        placeholder={field.replace(/([A-Z])/g, " $1")}
+                        value={addressForm[field] || ""}
+                        onChange={(e) =>
+                          setAddressForm({ ...addressForm, [field]: e.target.value })
+                        }
+                        className="border px-3 py-2 rounded-lg mb-2 w-full"
+                        disabled={updatingAddress}
+                      />
+                    ))}
+                    <button
+                      onClick={handleSaveAddress}
+                      disabled={updatingAddress}
+                      className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 mr-2"
+                    >
+                      {updatingAddress ? "Saving..." : "Save"}
+                    </button>
+                    <button
+                      onClick={() => setEditingAddressId(null)}
+                      disabled={updatingAddress}
+                      className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <p className="font-medium">{addr.fullName}</p>
+                    <p>{addr.phoneNumber}</p>
+                    <p>
+                      {addr.area}, {addr.city}, {addr.state} - {addr.pincode}
+                    </p>
+                    <div className="mt-2 flex gap-2">
+                      <button
+                        onClick={() => {
+                          setEditingAddressId(addr.$id);
+                          setAddressForm(addr);
+                        }}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteAddress(addr.$id)}
+                        className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+
+            {!addingAddress && (
+              <button
+                onClick={() => setAddingAddress(true)}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              >
+                Add New Address
+              </button>
+            )}
+
+            {addingAddress && (
+              <div className="bg-white p-6 rounded-lg shadow-md mt-4">
+                <h3 className="text-xl font-semibold mb-4">Add New Address</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {["fullName", "phoneNumber", "area", "city", "state", "pincode"].map((field) => (
+                    <input
+                      key={field}
+                      type="text"
+                      placeholder={field.replace(/([A-Z])/g, " $1")}
+                      value={addressForm[field] || ""}
+                      onChange={(e) => setAddressForm({ ...addressForm, [field]: e.target.value })}
+                      className="border px-3 py-2 rounded-lg mb-2 w-full"
+                      disabled={updatingAddress}
+                    />
+                  ))}
+                </div>
                 <button
                   onClick={handleSaveAddress}
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 mr-2"
+                  disabled={updatingAddress}
+                  className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
                 >
-                  Save
+                  {updatingAddress ? "Saving..." : "Save Address"}
                 </button>
                 <button
-                  onClick={() => setEditingAddressId(null)}
-                  className="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
+                  onClick={() => {
+                    setAddingAddress(false);
+                    setAddressForm({
+                      fullName: "",
+                      phoneNumber: "",
+                      area: "",
+                      city: "",
+                      state: "",
+                      pincode: "",
+                    });
+                  }}
+                  disabled={updatingAddress}
+                  className="ml-2 mt-4 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
                 >
                   Cancel
                 </button>
-              </>
-            ) : (
-              <>
-                <p className="font-medium">{addr.fullName}</p>
-                <p>{addr.phoneNumber}</p>
-                <p>{addr.area}, {addr.city}, {addr.state} - {addr.pincode}</p>
-                <div className="mt-2 flex gap-2">
-                  <button
-                    onClick={() => {
-                      setEditingAddressId(addr.$id);
-                      setAddressForm(addr);
-                    }}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteAddress(addr.$id)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </>
+              </div>
             )}
-          </div>
-        ))}
-
-        {!addingAddress && (
-          <button
-            onClick={() => setAddingAddress(true)}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-          >
-            Add New Address
-          </button>
-        )}
-
-        {addingAddress && (
-          <div className="bg-white p-6 rounded-lg shadow-md mt-4">
-            <h3 className="text-xl font-semibold mb-4">Add New Address</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {["fullName", "phoneNumber", "area", "city", "state", "pincode"].map(field => (
-                <input
-                  key={field}
-                  type="text"
-                  placeholder={field.replace(/([A-Z])/g, " $1")}
-                  value={addressForm[field] || ""}
-                  onChange={e => setAddressForm({ ...addressForm, [field]: e.target.value })}
-                  className="border px-3 py-2 rounded-lg mb-2 w-full"
-                />
-              ))}
-            </div>
-            <button
-              onClick={handleSaveAddress}
-              className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
-            >
-              Save Address
-            </button>
-            <button
-              onClick={() => {
-                setAddingAddress(false);
-                setAddressForm({
-                  fullName: "",
-                  phoneNumber: "",
-                  area: "",
-                  city: "",
-                  state: "",
-                  pincode: "",
-                });
-              }}
-              className="ml-2 mt-4 bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400"
-            >
-              Cancel
-            </button>
-          </div>
+          </>
         )}
       </section>
     </main>

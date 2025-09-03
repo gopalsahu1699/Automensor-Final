@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
@@ -48,10 +48,7 @@ const AllProducts = () => {
       <div className="flex flex-col md:flex-row px-6 md:px-12 lg:px-20 pt-12 md:pt-16 gap-8 min-h-[calc(100vh-160px)] bg-gray-50">
         {/* Mobile dropdown with styled select */}
         <div className="md:hidden mb-4 w-full max-w-sm mx-auto">
-          <label
-            htmlFor="category-select"
-            className="block mb-2 font-semibold text-gray-700"
-          >
+          <label htmlFor="category-select" className="block mb-2 font-semibold text-gray-700">
             Choose Category
           </label>
           <select
@@ -73,9 +70,7 @@ const AllProducts = () => {
           className="hidden md:block w-48 border-r border-gray-300 py-6 md:py-16 pr-4 sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto bg-white rounded-lg shadow-sm"
           aria-label="Product Categories"
         >
-          <h2 className="text-xl font-semibold mb-6 text-gray-900 tracking-tight">
-            Categories
-          </h2>
+          <h2 className="text-xl font-semibold mb-6 text-gray-900 tracking-tight">Categories</h2>
           <ul className="space-y-3" role="list">
             {categories.map((cat) => (
               <li key={cat}>
@@ -90,7 +85,8 @@ const AllProducts = () => {
                       ? "bg-orange-600 text-white shadow-lg shadow-orange-300/50"
                       : "text-gray-700 hover:bg-gray-100"
                   }`}
-                  aria-current={selectedCategory === cat ? "true" : "false"}
+                  aria-current={selectedCategory === cat ? "true" : undefined}
+                  aria-label={`Filter products by ${cat}`}
                 >
                   {cat}
                 </motion.button>
@@ -109,9 +105,7 @@ const AllProducts = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              {selectedCategory === "All"
-                ? "All Products"
-                : `${selectedCategory} Products`}
+              {selectedCategory === "All" ? "All Products" : `${selectedCategory} Products`}
             </motion.p>
             <motion.div
               className="w-24 h-1 bg-orange-600 rounded-full mt-2 origin-left"
@@ -123,10 +117,8 @@ const AllProducts = () => {
 
           {/* Loading / No Products */}
           {loadingProducts ? (
-            <div className="flex-grow flex justify-center items-center py-20 px-4">
-              <p className="text-gray-500 text-lg select-none">
-                ⏳ Loading products...
-              </p>
+            <div className="flex-grow flex justify-center items-center py-20 px-4" aria-live="polite">
+              <p className="text-gray-500 text-lg select-none">⏳ Loading products...</p>
             </div>
           ) : filteredProducts.length === 0 ? (
             <div className="flex-grow flex justify-center items-center py-20 px-4">

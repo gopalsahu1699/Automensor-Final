@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Client, Storage, Databases, ID, Account } from "appwrite";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -11,15 +11,20 @@ const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
+const client = new Client()
+  .setEndpoint("https://fra.cloud.appwrite.io/v1")
+  .setProject(PROJECT_ID);
+
 function SellerContent() {
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
   const editId = searchParams.get("id");
   const isEdit = page === "edit";
-
   const router = useRouter();
 
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState([null, null, null, null]);
+  const [filePreviews, setFilePreviews] = useState([null, null, null, null]);
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Earphone");
@@ -27,21 +32,23 @@ function SellerContent() {
   const [offerPrice, setOfferPrice] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  const [databases, setDatabases] = useState(null);
-  const [storage, setStorage] = useState(null);
+  const [databases] = useState(new Databases(client));
+  const [storage] = useState(new Storage(client));
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [productToEdit, setProductToEdit] = useState(null);
   const [allowed, setAllowed] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // Cleanup created object URLs on files change
   useEffect(() => {
-    const appwriteClient = new Client()
-      .setEndpoint("https://fra.cloud.appwrite.io/v1")
-      .setProject(PROJECT_ID);
+    // Revoke old URLs when files change
+    return () => {
+      filePreviews.forEach((url) => url && URL.revokeObjectURL(url));
+    };
+  }, [filePreviews]);
 
-    const appwriteAccount = new Account(appwriteClient);
-    setStorage(new Storage(appwriteClient));
-    setDatabases(new Databases(appwriteClient));
+  useEffect(() => {
+    const appwriteAccount = new Account(client);
 
     const checkAuth = async () => {
       try {
@@ -74,20 +81,56 @@ function SellerContent() {
           setCategory(doc.category || "Earphone");
           setPrice(doc.price || "");
           setOfferPrice(doc.offerPrice || "");
+
+          let imgs = [];
+          try {
+            imgs = doc.images ? JSON.parse(doc.images) : [];
+          } catch {
+            imgs = [];
+          }
+          // Preload previews with URLs for editing
+          const previews = imgs.map(
+            (id) =>
+              `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${id}/view?project=${PROJECT_ID}`
+          );
+
+          setFilePreviews((prev) => {
+            const newPreviews = [...prev];
+            for (let i = 0; i < previews.length && i < 4; i++) {
+              newPreviews[i] = previews[i];
+            }
+            return newPreviews;
+          });
         })
         .catch((err) => console.error("Failed to load product:", err));
     }
   }, [isEdit, editId, databases]);
+
+  const handleFileChange = (index, file) => {
+    if (!file) return;
+    // Revoke old URL if present to avoid memory leak
+    if (filePreviews[index]) {
+      URL.revokeObjectURL(filePreviews[index]);
+    }
+    const newFiles = [...files];
+    newFiles[index] = file;
+    setFiles(newFiles);
+
+    const newPreviews = [...filePreviews];
+    newPreviews[index] = URL.createObjectURL(file);
+    setFilePreviews(newPreviews);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUploading(true);
 
     try {
+      let newImageIds = [];
+
       if (isEdit && productToEdit) {
-        let newImageIds = [];
-        if (files.length > 0) {
-          // delete old files
+        // Delete old files if new files uploaded
+        if (files.some((f) => f !== null)) {
           try {
             const oldImages = JSON.parse(productToEdit.images || "[]");
             for (const oldFileId of oldImages) {
@@ -97,15 +140,19 @@ function SellerContent() {
             console.error("Failed to delete old images:", err);
           }
 
-          // upload new files
-          newImageIds = await Promise.all(
-            files.map(async (file) => {
-              const response = await storage.createFile(BUCKET_ID, ID.unique(), file);
-              return response.$id;
-            })
-          );
+          // Upload new files
+          newImageIds = (
+            await Promise.all(
+              files
+                .filter((f) => f !== null)
+                .map(async (file) => {
+                  const response = await storage.createFile(BUCKET_ID, ID.unique(), file);
+                  return response.$id;
+                })
+            )
+          ) || [];
         } else {
-          // keep old images if none uploaded
+          // Keep old images if none uploaded
           newImageIds = JSON.parse(productToEdit.images || "[]");
         }
 
@@ -120,11 +167,20 @@ function SellerContent() {
 
         toast.success("✅ Product updated!");
       } else {
+        // New product - upload all files that are non-null
+        if (!files.some((f) => f !== null)) {
+          toast.error("❌ Please upload at least one image");
+          setUploading(false);
+          return;
+        }
+
         const uploadedFiles = await Promise.all(
-          files.map(async (file) => {
-            const response = await storage.createFile(BUCKET_ID, ID.unique(), file);
-            return response.$id;
-          })
+          files
+            .filter((f) => f !== null)
+            .map(async (file) => {
+              const response = await storage.createFile(BUCKET_ID, ID.unique(), file);
+              return response.$id;
+            })
         );
 
         await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
@@ -140,12 +196,15 @@ function SellerContent() {
       }
 
       // reset form
-      setFiles([]);
+      setFiles([null, null, null, null]);
+      setFilePreviews([null, null, null, null]);
       setName("");
       setDescription("");
       setCategory("Earphone");
       setPrice("");
       setOfferPrice("");
+
+      router.push("/seller");
     } catch (error) {
       console.error("Failed to save product:", error);
       toast.error("❌ Failed to save product");
@@ -164,28 +223,21 @@ function SellerContent() {
     <div className="flex-1 min-h-screen flex flex-col justify-between">
       <form onSubmit={handleSubmit} className="md:p-10 p-4 space-y-5 max-w-lg">
         <div>
-          <p className="text-base font-medium">Product Image</p>
+          <p className="text-base font-medium">Product Images (up to 4)</p>
           <div className="flex flex-wrap items-center gap-3 mt-2">
             {[...Array(4)].map((_, index) => (
               <label key={index} htmlFor={`image${index}`}>
                 <input
-                  onChange={(e) => {
-                    const updatedFiles = [...files];
-                    updatedFiles[index] = e.target.files[0];
-                    setFiles(updatedFiles);
-                  }}
+                  onChange={(e) => handleFileChange(index, e.target.files[0])}
+                  accept="image/*"
                   type="file"
                   id={`image${index}`}
                   hidden
                 />
                 <img
-                  className="max-w-24 cursor-pointer"
-                  src={
-                    files[index]
-                      ? URL.createObjectURL(files[index])
-                      : "/upload_area_placeholder.png"
-                  }
-                  alt="Upload IMG"
+                  className="max-w-24 max-h-24 cursor-pointer"
+                  src={filePreviews[index] || "/upload_area_placeholder.png"}
+                  alt={`Upload IMG ${index + 1}`}
                   width={100}
                   height={100}
                 />
@@ -257,6 +309,8 @@ function SellerContent() {
               onChange={(e) => setPrice(e.target.value)}
               value={price}
               required
+              min={0}
+              step="0.01"
             />
           </div>
 
@@ -272,6 +326,8 @@ function SellerContent() {
               onChange={(e) => setOfferPrice(e.target.value)}
               value={offerPrice}
               required
+              min={0}
+              step="0.01"
             />
           </div>
         </div>
@@ -279,7 +335,7 @@ function SellerContent() {
         <button
           type="submit"
           disabled={uploading || !isSignedIn}
-          className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded disabled:opacity-50"
+          className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded disabled:opacity-50 transition"
         >
           {uploading ? "Uploading..." : isEdit ? "Update Product" : "Add Product"}
         </button>

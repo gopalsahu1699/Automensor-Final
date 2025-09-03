@@ -6,7 +6,6 @@ import { useAuth } from "@/components/AuthProvider";
 import { createAuth0Client } from "@auth0/auth0-spa-js";
 import { toast } from "react-toastify";
 
-
 const LoginPage = () => {
   const router = useRouter();
   const { login, loginWithGoogle } = useAuth();
@@ -16,22 +15,31 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [auth0Client, setAuth0Client] = useState(null);
+  const [auth0Loading, setAuth0Loading] = useState(true); // Loading during Auth0 init
+  const [auth0LoginLoading, setAuth0LoginLoading] = useState(false); // Loading during Auth0 login
+  const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
 
   useEffect(() => {
     // Initialize Auth0 client
     const initAuth0 = async () => {
-      const auth0 = await createAuth0Client({
-        domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN,
-        client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
-        redirect_uri: window.location.origin,
-      });
-      setAuth0Client(auth0);
+      try {
+        const auth0 = await createAuth0Client({
+          domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN,
+          client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
+          redirect_uri: window.location.origin,
+        });
+        setAuth0Client(auth0);
 
-      // Handle redirect callback after Auth0 login
-      if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
-        await auth0.handleRedirectCallback();
-        const user = await auth0.getUser();
-        if (user) router.push("/");
+        // Handle redirect callback after Auth0 login
+        if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
+          await auth0.handleRedirectCallback();
+          const user = await auth0.getUser();
+          if (user) router.push("/");
+        }
+      } catch (err) {
+        setError("Failed to initialize Auth0");
+      } finally {
+        setAuth0Loading(false);
       }
     };
     initAuth0();
@@ -54,10 +62,13 @@ const LoginPage = () => {
 
   const handleGoogleLogin = async () => {
     setError("");
+    setGoogleLoginLoading(true);
     try {
       await loginWithGoogle();
     } catch (err) {
       setError(err.message || "Google login failed");
+    } finally {
+      setGoogleLoginLoading(false);
     }
   };
 
@@ -67,12 +78,23 @@ const LoginPage = () => {
       setError("Auth0 not initialized yet");
       return;
     }
+    setAuth0LoginLoading(true);
     try {
       await auth0Client.loginWithRedirect();
     } catch (err) {
       setError(err.message || "Auth0 login failed");
+    } finally {
+      setAuth0LoginLoading(false);
     }
   };
+
+  if (auth0Loading) {
+    return (
+      <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+        <p className="text-gray-500 text-lg">Loading authentication...</p>
+      </main>
+    );
+  }
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
@@ -81,9 +103,7 @@ const LoginPage = () => {
 
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
-        <label htmlFor="email" className="block mb-2 text-sm font-medium">
-          Email
-        </label>
+        <label htmlFor="email" className="block mb-2 text-sm font-medium">Email</label>
         <input
           id="email"
           type="email"
@@ -91,12 +111,10 @@ const LoginPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          disabled={loading}
+          disabled={loading || googleLoginLoading || auth0LoginLoading}
         />
 
-        <label htmlFor="password" className="block mb-2 text-sm font-medium">
-          Password
-        </label>
+        <label htmlFor="password" className="block mb-2 text-sm font-medium">Password</label>
         <input
           id="password"
           type="password"
@@ -104,12 +122,12 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          disabled={loading}
+          disabled={loading || googleLoginLoading || auth0LoginLoading}
         />
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || googleLoginLoading || auth0LoginLoading}
           className={`w-full py-2 rounded-lg text-white ${
             loading ? "bg-gray-400 cursor-not-allowed" : "bg-gray-800 hover:bg-gray-900"
           }`}
@@ -126,17 +144,23 @@ const LoginPage = () => {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 mb-4"
+          disabled={loading || googleLoginLoading || auth0LoginLoading}
+          className={`w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 mb-4 ${
+            googleLoginLoading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
         >
-          Continue with Google
+          {googleLoginLoading ? "Processing..." : "Continue with Google"}
         </button>
 
         <button
           type="button"
           onClick={handleAuth0Login}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+          disabled={loading || googleLoginLoading || auth0LoginLoading}
+          className={`w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 ${
+            auth0LoginLoading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
         >
-          Continue with Auth0
+          {auth0LoginLoading ? "Redirecting..." : "Continue with Auth0"}
         </button>
 
         <p className="text-sm mt-4 text-center">

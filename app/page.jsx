@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HeaderSlider from "@/components/HeaderSlider";
 import Banner from "@/components/Banner";
 import NewsLetter from "@/components/NewsLetter";
@@ -11,10 +11,24 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading state — replace with actual data loading logic if needed
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000); // 1 second loading
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white">
+        <p className="text-xl font-semibold text-gray-700">Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <>
-
-
       <Navbar />
       <div className="px-6 md:px-16 lg:px-32">
         {/* Hero Section */}
@@ -145,7 +159,6 @@ const Home = () => {
         </section>
 
         <HeaderSlider />
-        
         <FeaturedProduct />
         <Banner />
         <NewsLetter />

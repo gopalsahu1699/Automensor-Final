@@ -23,21 +23,23 @@ const Product = () => {
   const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
-    if (products.length) {
+    if (Array.isArray(products) && products.length) {
       const prod = products.find((p) => p.$id === id);
       setProductData(prod);
 
-      if (prod && prod.images && prod.images.length) {
+      if (prod && prod.images) {
         let imgs = [];
         try {
           imgs = JSON.parse(prod.images);
         } catch {
           imgs = prod.images;
         }
-        const firstImg = imgs[0].startsWith("http")
-          ? imgs[0]
-          : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${imgs[0]}/view?project=${PROJECT_ID}`;
-        setMainImage(firstImg);
+        if (imgs.length > 0) {
+          const firstImg = imgs[0].startsWith("http")
+            ? imgs[0]
+            : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${imgs[0]}/view?project=${PROJECT_ID}`;
+          setMainImage(firstImg);
+        }
       }
     }
   }, [id, products]);
@@ -63,13 +65,13 @@ const Product = () => {
   } catch {
     imageUrls = [];
   }
+
   const fullImageUrls = imageUrls.map((img) =>
     img.startsWith("http")
       ? img
       : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${img}/view?project=${PROJECT_ID}`
   );
 
-  // Open lightbox with image
   const openLightbox = (img) => {
     setLightboxImage(img);
     setLightboxOpen(true);
@@ -97,7 +99,7 @@ const Product = () => {
                 priority
                 fill
                 style={{ objectFit: "contain" }}
-                className="transition-transform duration-500 hover:scale-105"
+                draggable={false}
               />
             </div>
 
@@ -129,9 +131,7 @@ const Product = () => {
 
           {/* Product Details */}
           <div className="flex flex-col">
-            <h1 className="text-3xl font-semibold text-gray-900 mb-4">
-              {productData.name}
-            </h1>
+            <h1 className="text-3xl font-semibold text-gray-900 mb-4">{productData.name}</h1>
             <p className="text-gray-700 text-lg leading-relaxed">{productData.description}</p>
             <p className="text-4xl font-extrabold mt-8 text-gray-900">
               {currency}

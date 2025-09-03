@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
@@ -27,10 +27,18 @@ const AddAddress = () => {
   });
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const handleChange = (e) => {
+    setErrorMsg("");
+    setSuccessMsg("");
+    setAddress((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setErrorMsg("");
+    setSuccessMsg("");
     setSaving(true);
 
     try {
@@ -43,15 +51,23 @@ const AddAddress = () => {
       if (!address.state.trim()) throw new Error("State is required");
       if (!user) throw new Error("You must be logged in to save an address");
 
-      const payload = {
-        ...address,
-        userId: user.$id,
-      };
+      const payload = { ...address, userId: user.$id };
 
       await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), payload);
 
-      alert("Address saved successfully!");
-      router.push("/my-account");
+      setSuccessMsg("Address saved successfully!");
+      setAddress({
+        fullName: "",
+        phoneNumber: "",
+        pincode: "",
+        area: "",
+        city: "",
+        state: "",
+      });
+
+      setTimeout(() => {
+        router.push("/my-account");
+      }, 1500);
     } catch (error) {
       setErrorMsg(error.message || "Failed to save address");
       console.error(error);
@@ -63,63 +79,118 @@ const AddAddress = () => {
   return (
     <>
       <Navbar />
-      <div className="px-6 md:px-16 lg:px-32 py-16 flex flex-col md:flex-row justify-between">
-        <form onSubmit={onSubmitHandler} className="w-full max-w-lg space-y-5">
+      <main className="px-6 md:px-16 lg:px-32 py-16 flex flex-col md:flex-row justify-between">
+        <form onSubmit={onSubmitHandler} className="w-full max-w-lg space-y-5" noValidate>
           <h2 className="text-2xl md:text-3xl text-gray-700 mb-6">
             Add Shipping <span className="font-semibold text-orange-600">Address</span>
           </h2>
 
-          {errorMsg && <p className="text-red-600 font-medium">{errorMsg}</p>}
+          {(errorMsg || successMsg) && (
+            <p
+              className={`font-medium ${
+                errorMsg ? "text-red-600" : "text-green-600"
+              }`}
+              role="alert"
+              aria-live="polite"
+            >
+              {errorMsg || successMsg}
+            </p>
+          )}
 
-          <input
-            type="text"
-            placeholder="Full name"
-            value={address.fullName}
-            onChange={(e) => setAddress({ ...address, fullName: e.target.value })}
-            className="input-style w-full"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Phone number"
-            value={address.phoneNumber}
-            onChange={(e) => setAddress({ ...address, phoneNumber: e.target.value })}
-            className="input-style w-full"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Pin code"
-            value={address.pincode}
-            onChange={(e) => setAddress({ ...address, pincode: e.target.value })}
-            className="input-style w-full"
-            required
-          />
-          <textarea
-            rows={4}
-            placeholder="Address (Area and Street)"
-            value={address.area}
-            onChange={(e) => setAddress({ ...address, area: e.target.value })}
-            className="input-style w-full resize-none"
-            required
-          />
+          <label htmlFor="fullName" className="block">
+            <span className="sr-only">Full name</span>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              placeholder="Full name"
+              value={address.fullName}
+              onChange={handleChange}
+              className="input-style w-full"
+              required
+              disabled={saving}
+            />
+          </label>
+
+          <label htmlFor="phoneNumber" className="block">
+            <span className="sr-only">Phone number</span>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              type="tel"
+              placeholder="Phone number"
+              value={address.phoneNumber}
+              onChange={handleChange}
+              className="input-style w-full"
+              required
+              disabled={saving}
+              pattern="[0-9+ -]{7,15}"
+              title="Enter a valid phone number"
+            />
+          </label>
+
+          <label htmlFor="pincode" className="block">
+            <span className="sr-only">Pin code</span>
+            <input
+              id="pincode"
+              name="pincode"
+              type="text"
+              placeholder="Pin code"
+              value={address.pincode}
+              onChange={handleChange}
+              className="input-style w-full"
+              required
+              disabled={saving}
+              pattern="[0-9]{4,10}"
+              title="Enter a valid pin code"
+            />
+          </label>
+
+          <label htmlFor="area" className="block">
+            <span className="sr-only">Address (Area and Street)</span>
+            <textarea
+              id="area"
+              name="area"
+              rows={4}
+              placeholder="Address (Area and Street)"
+              value={address.area}
+              onChange={handleChange}
+              className="input-style w-full resize-none"
+              required
+              disabled={saving}
+            />
+          </label>
+
           <div className="flex space-x-3">
-            <input
-              type="text"
-              placeholder="City/District/Town"
-              value={address.city}
-              onChange={(e) => setAddress({ ...address, city: e.target.value })}
-              className="input-style flex-1"
-              required
-            />
-            <input
-              type="text"
-              placeholder="State"
-              value={address.state}
-              onChange={(e) => setAddress({ ...address, state: e.target.value })}
-              className="input-style flex-1"
-              required
-            />
+            <label htmlFor="city" className="flex-1">
+              <span className="sr-only">City/District/Town</span>
+              <input
+                id="city"
+                name="city"
+                type="text"
+                placeholder="City/District/Town"
+                value={address.city}
+                onChange={handleChange}
+                className="input-style w-full"
+                required
+                disabled={saving}
+              />
+            </label>
+
+            <label htmlFor="state" className="flex-1">
+              <span className="sr-only">State</span>
+              <input
+                id="state"
+                name="state"
+                type="text"
+                placeholder="State"
+                value={address.state}
+                onChange={handleChange}
+                className="input-style w-full"
+                required
+                disabled={saving}
+              />
+            </label>
           </div>
 
           <button
@@ -136,12 +207,12 @@ const AddAddress = () => {
         <Image
           className="md:ml-16 mt-16 md:mt-0"
           src={assets.my_location_image}
-          alt="My location"
+          alt="My location illustration"
           width={400}
           height={400}
           priority
         />
-      </div>
+      </main>
       <Footer />
     </>
   );

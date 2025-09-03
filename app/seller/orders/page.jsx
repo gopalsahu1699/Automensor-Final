@@ -39,7 +39,7 @@ const Orders = () => {
           router.push("/"); // not admin → redirect
         }
       } catch (error) {
-        console.error("Not logged in:", error);
+        console.error("User not logged in or failed to fetch user:", error);
         router.push("/"); // not logged in → redirect
       } finally {
         setLoading(false);
@@ -47,7 +47,7 @@ const Orders = () => {
     };
 
     checkAdmin();
-  }, []);
+  }, [router]);
 
   if (loading) return <Loading />;
 
@@ -75,14 +75,14 @@ const Orders = () => {
                 <Image
                   className="max-w-16 max-h-16 object-cover"
                   src={assets.box_icon}
-                  alt="box_icon"
+                  alt="box icon"
+                  width={64}
+                  height={64}
                 />
                 <p className="flex flex-col gap-3">
                   <span className="font-medium">
                     {order.items
-                      .map(
-                        (item) => item.product.name + ` x ${item.quantity}`
-                      )
+                      .map((item) => item.product.name + ` x ${item.quantity}`)
                       .join(", ")}
                   </span>
                   <span>Items : {order.items.length}</span>
@@ -90,9 +90,7 @@ const Orders = () => {
               </div>
               <div>
                 <p>
-                  <span className="font-medium">
-                    {order.address.fullName}
-                  </span>
+                  <span className="font-medium">{order.address.fullName}</span>
                   <br />
                   <span>{order.address.area}</span>
                   <br />
@@ -108,9 +106,7 @@ const Orders = () => {
               <div>
                 <p className="flex flex-col">
                   <span>Method : COD</span>
-                  <span>
-                    Date : {new Date(order.date).toLocaleDateString()}
-                  </span>
+                  <span>Date : {new Date(order.date).toLocaleDateString()}</span>
                   <span>Payment : Pending</span>
                 </p>
               </div>
