@@ -5,6 +5,8 @@ import { Client, Databases, ID } from "appwrite";
 import Image from "next/image";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import { useRouter } from "next/navigation";
+
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
@@ -13,6 +15,8 @@ const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
 
   const client = new Client()
     .setEndpoint("https://fra.cloud.appwrite.io/v1")
@@ -44,11 +48,10 @@ const ProductList = () => {
       console.error("Failed to delete product:", error);
     }
   };
+const handleEditClick = (productId) => {
+  router.push(`/seller?page=edit&id=${productId}`);
+};
 
-  const handleEdit = (productId) => {
-    console.log("Edit product:", productId);
-    // Optionally redirect to edit page: router.push(`/edit-product/${productId}`);
-  };
 
   return (
     <div className="flex-1 min-h-screen flex flex-col justify-between">
@@ -98,20 +101,22 @@ const ProductList = () => {
                       <td className="px-4 py-3 max-sm:hidden">{product.description || "-"}</td>
                       <td className="px-4 py-3">${product.price}</td>
                       <td className="px-4 py-3">${product.offerPrice}</td>
-                      <td className="px-4 py-3 flex space-x-2">
-                        <button
-                          onClick={() => handleEdit(product.$id)}
-                          className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(product.$id)}
-                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
-                        >
-                          Delete
-                        </button>
-                      </td>
+                     <td className="px-4 py-3">
+  <div className="flex flex-wrap gap-2">
+    <button
+      onClick={() => handleEditClick(product.$id)}
+      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+    >
+      Edit
+    </button>
+    <button
+      onClick={() => handleDelete(product.$id)}
+      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+    >
+      Delete
+    </button>
+  </div>
+</td>
                     </tr>
                   );
                 })}

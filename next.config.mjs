@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbo: true,
+  turbopack: {
+    // Optional Turbopack config options can go here
   },
   images: {
     domains: ['fra.cloud.appwrite.io'],
@@ -21,4 +21,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-

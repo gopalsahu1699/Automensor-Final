@@ -9,10 +9,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import Link from "next/link";
-    console.log(
-  "DB:", process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID,
-  "COL:", process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID
-)
 
 const Home = () => {
   return (
