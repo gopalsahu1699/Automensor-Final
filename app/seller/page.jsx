@@ -10,7 +10,7 @@ const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
 
 // ✅ set your admin email in .env
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "youremail@example.com";
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
 // ---------------- Seller Content ----------------
 function SellerContent() {

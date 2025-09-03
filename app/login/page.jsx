@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { createAuth0Client } from "@auth0/auth0-spa-js";
+import { toast } from "react-toastify";
 
 
 const LoginPage = () => {
@@ -45,6 +46,7 @@ const LoginPage = () => {
       router.push("/");
     } catch (err) {
       setError(err.message || "Failed to login");
+      toast.error("❌ Incorrect credentials");
     } finally {
       setLoading(false);
     }
