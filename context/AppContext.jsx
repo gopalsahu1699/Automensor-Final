@@ -3,6 +3,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider"; // Appwrite AuthProvider
+import { toast } from "react-toastify";
+
 
 export const AppContext = createContext();
 
@@ -27,8 +29,9 @@ export const AppContextProvider = ({ children }) => {
       const newCart = { ...prev };
       if (newCart[itemId]) newCart[itemId] += 1;
       else newCart[itemId] = 1;
-      return newCart;
+      return newCart; 
     });
+    toast.info("Added to cart");
   };
 
   const updateCartQuantity = (itemId, quantity) => {

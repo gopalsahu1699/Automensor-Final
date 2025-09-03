@@ -3,18 +3,16 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Client, Storage, Databases, ID, Account } from "appwrite";
 import { useSearchParams, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
-
-// ✅ set your admin email in .env
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL;
 
-// ---------------- Seller Content ----------------
 function SellerContent() {
-  const searchParams = useSearchParams(); // ✅ now safe inside Suspense
+  const searchParams = useSearchParams();
   const page = searchParams.get("page");
   const editId = searchParams.get("id");
   const isEdit = page === "edit";
@@ -27,8 +25,8 @@ function SellerContent() {
   const [category, setCategory] = useState("Earphone");
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
-
   const [uploading, setUploading] = useState(false);
+
   const [databases, setDatabases] = useState(null);
   const [storage, setStorage] = useState(null);
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -48,16 +46,15 @@ function SellerContent() {
     const checkAuth = async () => {
       try {
         const user = await appwriteAccount.get();
-
         if (user.email === ADMIN_EMAIL) {
           setAllowed(true);
           setIsSignedIn(true);
         } else {
-          router.push("/"); // redirect non-admins
+          router.push("/");
         }
-      } catch (error) {
+      } catch {
         setIsSignedIn(false);
-        router.push("/"); // redirect if not signed in
+        router.push("/");
       } finally {
         setLoading(false);
       }
@@ -88,14 +85,40 @@ function SellerContent() {
 
     try {
       if (isEdit && productToEdit) {
+        let newImageIds = [];
+        if (files.length > 0) {
+          // delete old files
+          try {
+            const oldImages = JSON.parse(productToEdit.images || "[]");
+            for (const oldFileId of oldImages) {
+              await storage.deleteFile(BUCKET_ID, oldFileId);
+            }
+          } catch (err) {
+            console.error("Failed to delete old images:", err);
+          }
+
+          // upload new files
+          newImageIds = await Promise.all(
+            files.map(async (file) => {
+              const response = await storage.createFile(BUCKET_ID, ID.unique(), file);
+              return response.$id;
+            })
+          );
+        } else {
+          // keep old images if none uploaded
+          newImageIds = JSON.parse(productToEdit.images || "[]");
+        }
+
         await databases.updateDocument(DATABASE_ID, COLLECTION_ID, productToEdit.$id, {
           name,
           description,
           category,
           price,
           offerPrice,
+          images: JSON.stringify(newImageIds),
         });
-        alert("✅ Product updated!");
+
+        toast.success("✅ Product updated!");
       } else {
         const uploadedFiles = await Promise.all(
           files.map(async (file) => {
@@ -104,20 +127,16 @@ function SellerContent() {
           })
         );
 
-        const productImages = uploadedFiles.map(
-          (fileId) =>
-            `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${fileId}/view?project=${PROJECT_ID}`
-        );
-
         await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
-          images: JSON.stringify(productImages),
+          images: JSON.stringify(uploadedFiles),
           name,
           description,
           category,
           price: price.toString(),
           offerPrice: offerPrice.toString(),
         });
-        alert("✅ Product added!");
+
+        toast.success("✅ Product added!");
       }
 
       // reset form
@@ -129,6 +148,7 @@ function SellerContent() {
       setOfferPrice("");
     } catch (error) {
       console.error("Failed to save product:", error);
+      toast.error("❌ Failed to save product");
     } finally {
       setUploading(false);
     }
@@ -268,7 +288,6 @@ function SellerContent() {
   );
 }
 
-// ---------------- Page Wrapper with Suspense ----------------
 export default function SellerPage() {
   return (
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading seller page…</div>}>
