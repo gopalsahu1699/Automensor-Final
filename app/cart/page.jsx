@@ -6,25 +6,26 @@ import OrderSummary from "@/components/OrderSummary";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { useAppContext } from "@/context/AppContext";
+import { useAuth } from "@/components/AuthProvider";
+import { useRouter } from "next/navigation";
 
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 const Cart = () => {
-  const { products, router, cartItems, addToCart, updateCartQuantity, getCartCount, getCartAmount } =
-    useAppContext();
-
+  const { products, cartItems, addToCart, updateCartQuantity, getCartCount, getCartAmount } = useAppContext();
+  const { user } = useAuth();
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Simulate waiting for data or some async setup
-    // You can replace this with actual loading condition, e.g. products loading or context ready
     if (products && Object.keys(cartItems).length >= 0) {
       setLoading(false);
     }
   }, [products, cartItems]);
 
-  // Helper to get product image
+  // Helper to get product image URL
   const getFirstImage = (product) => {
     let imageUrls = [];
     try {
@@ -105,9 +106,7 @@ const Cart = () => {
                             </button>
                           </div>
                         </td>
-
                         <td className="px-4 py-4 text-gray-600 font-medium">${product.offerPrice}</td>
-
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-2">
                             <button
@@ -131,7 +130,6 @@ const Cart = () => {
                             </button>
                           </div>
                         </td>
-
                         <td className="px-4 py-4 text-gray-600 font-medium">
                           ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
                         </td>
@@ -143,12 +141,18 @@ const Cart = () => {
             </div>
           )}
 
+          {error && <p className="text-red-600 mt-4">{error}</p>}
+
           {/* Continue Shopping */}
           <button
             onClick={() => router.push("/all-products")}
             className="group flex items-center mt-6 gap-2 text-orange-600 font-medium hover:underline"
           >
-            <Image className="group-hover:-translate-x-1 transition" src={assets.arrow_right_icon_colored} alt="arrow" />
+            <Image
+              className="group-hover:-translate-x-1 transition"
+              src={assets.arrow_right_icon_colored}
+              alt="arrow"
+            />
             Continue Shopping
           </button>
         </div>
