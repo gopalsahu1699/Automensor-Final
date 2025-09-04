@@ -12,10 +12,37 @@ import { useRouter } from "next/navigation";
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
+function getFirstImage(product) {
+  if (!product) return "/upload_area_placeholder.png";
+
+  let imageUrls = [];
+  try {
+    imageUrls = product.images ? JSON.parse(product.images) : [];
+  } catch {
+    imageUrls = [];
+  }
+
+  if (imageUrls.length === 0) return "/upload_area_placeholder.png";
+
+  const first = imageUrls[0];
+  return first.startsWith("http")
+    ? first
+    : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${first}/view?project=${PROJECT_ID}`;
+}
+
 const Cart = () => {
-  const { products, cartItems, addToCart, updateCartQuantity, getCartCount, getCartAmount } = useAppContext();
+  const {
+    products,
+    cartItems,
+    addToCart,
+    updateCartQuantity,
+    getCartCount,
+    getCartAmount,
+  } = useAppContext();
+
   const { user } = useAuth();
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -24,16 +51,6 @@ const Cart = () => {
       setLoading(false);
     }
   }, [products, cartItems]);
-
-  // Helper to get product image URL
-  const getFirstImage = (product) => {
-    let imageIds = [];
-try {
-  imageIds = order.image_ids ? JSON.parse(order.image_ids) : [];
-} catch {
-  imageIds = [];
-}
-  };
 
   if (loading) {
     return (
@@ -56,7 +73,9 @@ try {
             <p className="text-2xl md:text-3xl text-gray-800">
               Your <span className="font-medium text-orange-600">Cart</span>
             </p>
-            <p className="text-lg md:text-xl text-gray-500/80">{getCartCount()} Items</p>
+            <p className="text-lg md:text-xl text-gray-500/80">
+              {getCartCount()} Items
+            </p>
           </div>
 
           {getCartCount() === 0 ? (
@@ -68,10 +87,18 @@ try {
               <table className="min-w-full border border-gray-200 rounded-lg">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="text-left px-4 py-3 text-gray-600 font-medium">Product</th>
-                    <th className="px-4 py-3 text-gray-600 font-medium">Price</th>
-                    <th className="px-4 py-3 text-gray-600 font-medium">Quantity</th>
-                    <th className="px-4 py-3 text-gray-600 font-medium">Subtotal</th>
+                    <th className="text-left px-4 py-3 text-gray-600 font-medium">
+                      Product
+                    </th>
+                    <th className="px-4 py-3 text-gray-600 font-medium">
+                      Price
+                    </th>
+                    <th className="px-4 py-3 text-gray-600 font-medium">
+                      Quantity
+                    </th>
+                    <th className="px-4 py-3 text-gray-600 font-medium">
+                      Subtotal
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -81,21 +108,22 @@ try {
 
                     return (
                       <tr key={itemId} className="hover:bg-gray-50 transition">
+                        {/* Product Info */}
                         <td className="flex items-center gap-4 px-4 py-4">
                           <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
-                          <Image
-  className="w-16 h-16 object-cover rounded"
-  src={getFirstImage(order.items[0].product)}
-  alt={order.items[0].product?.name || "Product"}
-  width={64}
-  height={64}
-  unoptimized
-/>
-
-
+                            <Image
+                              className="w-16 h-16 object-cover rounded"
+                              src={getFirstImage(product)}
+                              alt={product.name || "Product"}
+                              width={64}
+                              height={64}
+                              unoptimized
+                            />
                           </div>
                           <div>
-                            <p className="text-gray-800 font-medium">{product.name}</p>
+                            <p className="text-gray-800 font-medium">
+                              {product.name}
+                            </p>
                             <button
                               className="text-xs text-orange-600 mt-1 hover:underline"
                               onClick={() => updateCartQuantity(product.$id, 0)}
@@ -104,30 +132,52 @@ try {
                             </button>
                           </div>
                         </td>
-                        <td className="px-4 py-4 text-gray-600 font-medium">${product.offerPrice}</td>
+
+                        {/* Price */}
+                        <td className="px-4 py-4 text-gray-600 font-medium">
+                          ${product.offerPrice}
+                        </td>
+
+                        {/* Quantity Controls */}
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() =>
-                                updateCartQuantity(product.$id, cartItems[itemId] - 1)
+                                updateCartQuantity(
+                                  product.$id,
+                                  cartItems[itemId] - 1
+                                )
                               }
                             >
-                              <Image src={assets.decrease_arrow} alt="decrease" className="w-4 h-4" />
+                              <Image
+                                src={assets.decrease_arrow}
+                                alt="decrease"
+                                className="w-4 h-4"
+                              />
                             </button>
                             <input
                               type="number"
                               value={cartItems[itemId]}
                               min={0}
                               onChange={(e) =>
-                                updateCartQuantity(product.$id, Math.max(0, Number(e.target.value)))
+                                updateCartQuantity(
+                                  product.$id,
+                                  Math.max(0, Number(e.target.value))
+                                )
                               }
                               className="w-12 border text-center rounded"
                             />
                             <button onClick={() => addToCart(product.$id)}>
-                              <Image src={assets.increase_arrow} alt="increase" className="w-4 h-4" />
+                              <Image
+                                src={assets.increase_arrow}
+                                alt="increase"
+                                className="w-4 h-4"
+                              />
                             </button>
                           </div>
                         </td>
+
+                        {/* Subtotal */}
                         <td className="px-4 py-4 text-gray-600 font-medium">
                           ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
                         </td>
@@ -157,7 +207,10 @@ try {
 
         {/* Order Summary */}
         <div className="w-full md:w-1/3">
-          <OrderSummary totalAmount={getCartAmount()} totalCount={getCartCount()} />
+          <OrderSummary
+            totalAmount={getCartAmount()}
+            totalCount={getCartCount()}
+          />
         </div>
       </div>
     </>
