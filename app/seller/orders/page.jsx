@@ -20,6 +20,9 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const [filterType, setFilterType] = useState("all"); // 'all', 'date', 'month', 'year', 'orderId'
+  const [filterValue, setFilterValue] = useState(""); // user input for filter
+
   const router = useRouter();
 
   const client = new Client()
@@ -29,10 +32,33 @@ const Orders = () => {
   const account = new Account(client);
   const databases = new Databases(client);
 
+  // Utility function to check if order date matches filter
+  const filterOrderByDate = (orderDateStr) => {
+    if (!filterValue) return true; // no filtering
+    if (!orderDateStr) return false;
+    const orderDate = new Date(orderDateStr);
+    if (filterType === "date") {
+      return orderDate.toISOString().slice(0, 10) === filterValue;
+    }
+    if (filterType === "month") {
+      return orderDate.toISOString().slice(0, 7) === filterValue;
+    }
+    if (filterType === "year") {
+      return orderDate.getFullYear().toString() === filterValue;
+    }
+    return true;
+  };
+
+  // Filter orders by order ID substring (case insensitive)
+  const filterOrderById = (orderId) => {
+    if (!filterValue) return true; // no filtering
+    if (!orderId) return false;
+    return orderId.toLowerCase().includes(filterValue.toLowerCase());
+  };
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        // Check if logged in user is admin
         const user = await account.get();
         if (user.email !== ADMIN_EMAIL) {
           router.push("/");
@@ -40,14 +66,12 @@ const Orders = () => {
         }
         setIsAdmin(true);
 
-        // Fetch orders from Appwrite DB, ordered by created date descending
         const response = await databases.listDocuments(
           ORDER_DATABASE_ID,
           ORDER_COLLECTION_ID,
           [Query.orderDesc("$createdAt")]
         );
 
-        console.log("Fetched orders:", response.documents);
         setOrders(response.documents);
       } catch (error) {
         console.error("Error fetching orders or checking admin:", error);
@@ -59,20 +83,6 @@ const Orders = () => {
 
     fetchOrders();
   }, [router]);
-
-  console.log("Orders state updated:", orders);
-
-  if (loading) return <Loading />;
-
-  if (!isAdmin) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-xl font-semibold text-red-600">
-          🚫 Access Denied — Admins only
-        </p>
-      </div>
-    );
-  }
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
@@ -93,16 +103,100 @@ const Orders = () => {
     }
   };
 
+  if (loading) return <Loading />;
+
+  if (!isAdmin) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-xl font-semibold text-red-600">
+          🚫 Access Denied — Admins only
+        </p>
+      </div>
+    );
+  }
+
+  // Filter orders by date or order ID
+  const filteredOrders = orders.filter((order) => {
+    if (filterType === "orderId") {
+      return filterOrderById(order.$id);
+    }
+    if (filterType === "all") {
+      return true;
+    }
+    return filterOrderByDate(order.date);
+  });
+
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
       <div className="md:p-10 p-4 space-y-5">
         <h2 className="text-lg font-medium">Orders</h2>
+
+        {/* Filter Controls */}
+        <div className="flex gap-4 mb-4 items-center flex-wrap">
+          <label className="font-medium">Filter by:</label>
+          <select
+            value={filterType}
+            onChange={(e) => {
+              setFilterType(e.target.value);
+              setFilterValue(""); // reset filter value on type change
+            }}
+            className="border border-gray-300 rounded p-1"
+          >
+            <option value="all">All</option>
+            <option value="date">Date</option>
+            <option value="month">Month</option>
+            <option value="year">Year</option>
+            <option value="orderId">Order ID</option>
+          </select>
+
+          {(filterType === "date" || filterType === "month" || filterType === "year") && (
+            <>
+              {filterType === "date" && (
+                <input
+                  type="date"
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="border border-gray-300 rounded p-1"
+                />
+              )}
+              {filterType === "month" && (
+                <input
+                  type="month"
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="border border-gray-300 rounded p-1"
+                />
+              )}
+              {filterType === "year" && (
+                <input
+                  type="number"
+                  min="2000"
+                  max="2100"
+                  placeholder="Year"
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="border border-gray-300 rounded p-1 w-24"
+                />
+              )}
+            </>
+          )}
+
+          {filterType === "orderId" && (
+            <input
+              type="text"
+              placeholder="Enter Order ID"
+              value={filterValue}
+              onChange={(e) => setFilterValue(e.target.value)}
+              className="border border-gray-300 rounded p-1"
+            />
+          )}
+        </div>
+
         <div className="max-w-4xl rounded-md">
-          {orders.length === 0 ? (
+          {filteredOrders.length === 0 ? (
             <p>No orders found.</p>
           ) : (
-            orders.map((order, index) => {
-              // Parse JSON fields safely
+            filteredOrders.map((order, index) => {
               let items = [];
               let address = {};
               try {
@@ -163,10 +257,7 @@ const Orders = () => {
                     <p className="flex flex-col">
                       <span>Method : {order.paymentMethod || "COD"}</span>
                       <span>
-                        Date:{" "}
-                        {order.date
-                          ? new Date(order.date).toLocaleDateString()
-                          : "N/A"}
+                        Date: {order.date ? new Date(order.date).toLocaleDateString() : "N/A"}
                       </span>
                       <span>Payment : {order.paymentStatus || "Pending"}</span>
                     </p>
@@ -175,9 +266,7 @@ const Orders = () => {
                     <select
                       className="border border-gray-300 rounded-md p-2"
                       value={order.orderStatus || "Pending"}
-                      onChange={(e) =>
-                        handleStatusChange(order.$id, e.target.value)
-                      }
+                      onChange={(e) => handleStatusChange(order.$id, e.target.value)}
                     >
                       <option value="Pending">Pending</option>
                       <option value="Processing">Processing</option>
