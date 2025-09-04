@@ -55,6 +55,7 @@ const MyAccountPage = () => {
       await account.updateName(name);
       setEditProfile(false);
       alert("Profile updated successfully!");
+      router.refresh();
     } catch (err) {
       console.error(err);
       alert("Failed to update profile.");
