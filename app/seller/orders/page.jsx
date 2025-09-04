@@ -74,6 +74,25 @@ const Orders = () => {
     );
   }
 
+  const handleStatusChange = async (orderId, newStatus) => {
+    try {
+      await databases.updateDocument(
+        ORDER_DATABASE_ID,
+        ORDER_COLLECTION_ID,
+        orderId,
+        { orderStatus: newStatus }
+      );
+      setOrders((prevOrders) =>
+        prevOrders.map((order) =>
+          order.$id === orderId ? { ...order, orderStatus: newStatus } : order
+        )
+      );
+    } catch (err) {
+      console.error("Failed to update order status:", err);
+      alert("Failed to update order status.");
+    }
+  };
+
   return (
     <div className="flex-1 h-screen overflow-scroll flex flex-col justify-between text-sm">
       <div className="md:p-10 p-4 space-y-5">
@@ -87,12 +106,18 @@ const Orders = () => {
               let items = [];
               let address = {};
               try {
-                items = typeof order.items === "string" ? JSON.parse(order.items) : order.items || [];
+                items =
+                  typeof order.items === "string"
+                    ? JSON.parse(order.items)
+                    : order.items || [];
               } catch {
                 items = [];
               }
               try {
-                address = typeof order.address === "string" ? JSON.parse(order.address) : order.address || {};
+                address =
+                  typeof order.address === "string"
+                    ? JSON.parse(order.address)
+                    : order.address || {};
               } catch {
                 address = {};
               }
@@ -138,10 +163,28 @@ const Orders = () => {
                     <p className="flex flex-col">
                       <span>Method : {order.paymentMethod || "COD"}</span>
                       <span>
-                        Date : {order.date ? new Date(order.date).toLocaleDateString() : "N/A"}
+                        Date:{" "}
+                        {order.date
+                          ? new Date(order.date).toLocaleDateString()
+                          : "N/A"}
                       </span>
                       <span>Payment : {order.paymentStatus || "Pending"}</span>
                     </p>
+                  </div>
+                  <div>
+                    <select
+                      className="border border-gray-300 rounded-md p-2"
+                      value={order.orderStatus || "Pending"}
+                      onChange={(e) =>
+                        handleStatusChange(order.$id, e.target.value)
+                      }
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Processing">Processing</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
                   </div>
                 </div>
               );
