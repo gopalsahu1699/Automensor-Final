@@ -1,26 +1,29 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { assets } from "@/assets/assets";
-import OrderSummary from "@/components/OrderSummary";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import OrderSummary from "@/components/OrderSummary";
 import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
-import { useRouter } from "next/navigation";
+import { assets } from "@/assets/assets";
 
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 function getFirstImage(product) {
   if (!product) return "/upload_area_placeholder.png";
+
   let imageUrls = [];
   try {
     imageUrls = product.images ? JSON.parse(product.images) : [];
   } catch {
     imageUrls = [];
   }
+
   if (imageUrls.length === 0) return "/upload_area_placeholder.png";
+
   const first = imageUrls[0];
   return first.startsWith("http")
     ? first
@@ -35,19 +38,29 @@ const Cart = () => {
     updateCartQuantity,
     getCartCount,
     getCartAmount,
+    setCartItems,
   } = useAppContext();
 
   const { user } = useAuth();
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
+  // Load cartItems from localStorage on mount
   useEffect(() => {
-    if (products && Object.keys(cartItems).length >= 0) {
-      setLoading(false);
+    try {
+      const savedCart = localStorage.getItem("cartItems");
+      if (savedCart) setCartItems(JSON.parse(savedCart));
+    } catch (err) {
+      console.error("Failed to parse cart from localStorage", err);
     }
-  }, [products, cartItems]);
+    setLoading(false);
+  }, [setCartItems]);
+
+  // Save cartItems to localStorage on change
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   if (loading) {
     return (
@@ -72,7 +85,9 @@ const Cart = () => {
             <p className="text-2xl md:text-3xl text-gray-800">
               Your <span className="font-medium text-orange-600">Cart</span>
             </p>
-            <p className="text-lg md:text-xl text-gray-500/80">{cartCount} Items</p>
+            <p className="text-lg md:text-xl text-gray-500/80">
+              {cartCount} Items
+            </p>
           </div>
 
           {cartCount === 0 ? (
@@ -81,7 +96,7 @@ const Cart = () => {
             </div>
           ) : (
             <>
-              {/* Table for md+ */}
+              {/* Table for desktop */}
               <div className="hidden md:block overflow-x-auto">
                 <table className="min-w-full border border-gray-200 rounded-lg">
                   <thead className="bg-gray-50">
@@ -89,9 +104,15 @@ const Cart = () => {
                       <th className="text-left px-4 py-3 text-gray-600 font-medium">
                         Product
                       </th>
-                      <th className="px-4 py-3 text-gray-600 font-medium">Price</th>
-                      <th className="px-4 py-3 text-gray-600 font-medium">Quantity</th>
-                      <th className="px-4 py-3 text-gray-600 font-medium">Subtotal</th>
+                      <th className="px-4 py-3 text-gray-600 font-medium">
+                        Price
+                      </th>
+                      <th className="px-4 py-3 text-gray-600 font-medium">
+                        Quantity
+                      </th>
+                      <th className="px-4 py-3 text-gray-600 font-medium">
+                        Subtotal
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -104,11 +125,11 @@ const Cart = () => {
                           <td className="flex items-center gap-4 px-4 py-4">
                             <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
                               <Image
-                                className="w-16 h-16 object-cover rounded"
                                 src={getFirstImage(product)}
                                 alt={product.name || "Product"}
                                 width={64}
                                 height={64}
+                                className="w-16 h-16 object-cover rounded"
                                 unoptimized
                               />
                             </div>
@@ -118,14 +139,16 @@ const Cart = () => {
                               </p>
                               <button
                                 className="text-xs text-orange-600 mt-1 hover:underline"
-                                onClick={() => updateCartQuantity(product.$id, 0)}
+                                onClick={() =>
+                                  updateCartQuantity(product.$id, 0)
+                                }
                               >
                                 Remove
                               </button>
                             </div>
                           </td>
                           <td className="px-4 py-4 text-gray-600 font-medium">
-                            ${product.offerPrice}
+                            ₹{product.offerPrice}
                           </td>
                           <td className="px-4 py-4">
                             <div className="flex items-center gap-2">
@@ -172,7 +195,9 @@ const Cart = () => {
                             </div>
                           </td>
                           <td className="px-4 py-4 text-gray-600 font-medium">
-                            ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                            ₹{(product.offerPrice * cartItems[itemId]).toFixed(
+                              2
+                            )}
                           </td>
                         </tr>
                       );
@@ -181,11 +206,12 @@ const Cart = () => {
                 </table>
               </div>
 
-              {/* Card layout for mobile */}
+              {/* Mobile card layout */}
               <div className="md:hidden flex flex-col gap-4">
                 {Object.keys(cartItems).map((itemId) => {
                   const product = products.find((p) => p.$id === itemId);
                   if (!product || cartItems[itemId] <= 0) return null;
+
                   return (
                     <div
                       key={itemId}
@@ -206,12 +232,15 @@ const Cart = () => {
                           {product.name}
                         </p>
                         <p className="text-orange-600 font-semibold mt-1">
-                          ${product.offerPrice}
+                          ₹{product.offerPrice}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
                             onClick={() =>
-                              updateCartQuantity(product.$id, cartItems[itemId] - 1)
+                              updateCartQuantity(
+                                product.$id,
+                                cartItems[itemId] - 1
+                              )
                             }
                             aria-label="Decrease quantity"
                             className="p-1"
@@ -255,7 +284,7 @@ const Cart = () => {
                         </button>
                       </div>
                       <div className="text-gray-600 font-semibold text-right min-w-[70px]">
-                        ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                        ₹{(product.offerPrice * cartItems[itemId]).toFixed(2)}
                       </div>
                     </div>
                   );
@@ -264,17 +293,15 @@ const Cart = () => {
             </>
           )}
 
-          {error && <p className="text-red-600 mt-4">{error}</p>}
-
           {/* Continue Shopping */}
           <button
             onClick={() => router.push("/all-products")}
             className="group flex items-center mt-6 gap-2 text-orange-600 font-medium hover:underline"
           >
             <Image
-              className="group-hover:-translate-x-1 transition"
               src={assets.arrow_right_icon_colored}
               alt="arrow"
+              className="group-hover:-translate-x-1 transition"
             />
             Continue Shopping
           </button>
@@ -282,7 +309,10 @@ const Cart = () => {
 
         {/* Order Summary */}
         <div className="w-full md:w-1/3">
-          <OrderSummary totalAmount={getCartAmount()} totalCount={getCartCount()} />
+          <OrderSummary
+            totalAmount={getCartAmount()}
+            totalCount={getCartCount()}
+          />
         </div>
       </div>
     </>

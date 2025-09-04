@@ -1,7 +1,7 @@
-// AppContext.jsx
 "use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
-import { Client, Databases } from "appwrite";
+import { Client, Databases, ID, Query } from "appwrite";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { toast } from "react-toastify";
@@ -9,9 +9,13 @@ import { toast } from "react-toastify";
 export const AppContext = createContext();
 export const useAppContext = () => useContext(AppContext);
 
+// ✅ Use separate env vars for Products and Cart
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
-const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
-const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
+const PRODUCT_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
+const PRODUCT_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
+
+const CART_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_CART_DATABASE_ID;
+const CART_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_CART_COLLECTION_ID;
 
 export const AppContextProvider = ({ children }) => {
   const currency = process.env.NEXT_PUBLIC_CURRENCY || "₹";
@@ -22,14 +26,16 @@ export const AppContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  useEffect(() => {
-    const client = new Client()
-      .setEndpoint("https://fra.cloud.appwrite.io/v1")
-      .setProject(PROJECT_ID);
-    const databases = new Databases(client);
+  // Appwrite client
+  const client = new Client()
+    .setEndpoint("https://fra.cloud.appwrite.io/v1")
+    .setProject(PROJECT_ID);
+  const databases = new Databases(client);
 
+  // --- Load Products ---
+  useEffect(() => {
     databases
-      .listDocuments(DATABASE_ID, COLLECTION_ID)
+      .listDocuments(PRODUCT_DATABASE_ID, PRODUCT_COLLECTION_ID)
       .then((res) => {
         setProducts(res.documents);
         setLoadingProducts(false);
@@ -40,11 +46,98 @@ export const AppContextProvider = ({ children }) => {
       });
   }, []);
 
+  // --- Load Cart (per user) ---
+  useEffect(() => {
+    if (!user) {
+      setCartItems({});
+      return;
+    }
+
+    databases
+      .listDocuments(CART_DATABASE_ID, CART_COLLECTION_ID, [
+        Query.equal("userId", user.$id),
+      ])
+      .then((res) => {
+        if (res.documents.length > 0) {
+          try {
+            const stored = res.documents[0].cartItems;
+            setCartItems(
+              typeof stored === "string" ? JSON.parse(stored) : stored || {}
+            );
+          } catch {
+            setCartItems({});
+          }
+        } else {
+          // fallback from localStorage
+          const saved = localStorage.getItem("cartItems");
+          if (saved) {
+            try {
+              setCartItems(JSON.parse(saved));
+            } catch {
+              setCartItems({});
+            }
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching cart from Appwrite:", err);
+        // fallback localStorage
+        const saved = localStorage.getItem("cartItems");
+        if (saved) {
+          try {
+            setCartItems(JSON.parse(saved));
+          } catch {
+            setCartItems({});
+          }
+        }
+      });
+  }, [user]);
+
+  // --- Sync Cart (localStorage + backend) ---
+  useEffect(() => {
+    if (!user) {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      return;
+    }
+
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    databases
+      .listDocuments(CART_DATABASE_ID, CART_COLLECTION_ID, [
+        Query.equal("userId", user.$id),
+      ])
+      .then(async (res) => {
+        const existing = res.documents[0];
+        const payload = {
+          userId: user.$id,
+          cartItems: JSON.stringify(cartItems), // ✅ save as string
+          updatedAt: new Date().toISOString(),
+        };
+
+        if (existing) {
+          await databases.updateDocument(
+            CART_DATABASE_ID,
+            CART_COLLECTION_ID,
+            existing.$id,
+            payload
+          );
+        } else {
+          await databases.createDocument(
+            CART_DATABASE_ID,
+            CART_COLLECTION_ID,
+            ID.unique(),
+            payload
+          );
+        }
+      })
+      .catch((err) => console.error("Error saving cart to Appwrite:", err));
+  }, [cartItems, user]);
+
+  // --- Cart Helpers ---
   const addToCart = (productId) => {
     setCartItems((prev) => {
       const newCart = { ...prev };
-      if (newCart[productId]) newCart[productId] += 1;
-      else newCart[productId] = 1;
+      newCart[productId] = (newCart[productId] || 0) + 1;
       return newCart;
     });
     toast.success("🛒 Added to cart");
@@ -79,6 +172,7 @@ export const AppContextProvider = ({ children }) => {
         router,
         products,
         cartItems,
+        setCartItems,
         addToCart,
         updateCartQuantity,
         getCartCount,
