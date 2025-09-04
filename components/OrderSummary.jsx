@@ -7,12 +7,9 @@ import { databases } from "@/lib/appwrite";
 import { useRouter } from "next/navigation";
 import { ID } from "appwrite";
 
-
-//FOR USER ADDRESS DATABASE
 const USER_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_DATABASE_ID;
 const USER_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID;
 
-//FOR ORDER DATABASE
 const ORDER_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_DATABASE_ID;
 const ORDER_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_COLLECTION_ID;
 
@@ -20,7 +17,6 @@ const OrderSummary = () => {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
-  // Call hooks here at component level
   const {
     currency = "$",
     getCartCount = () => 0,
@@ -37,6 +33,7 @@ const OrderSummary = () => {
   const [placingOrder, setPlacingOrder] = useState(false);
   const [error, setError] = useState("");
 
+  // ✅ Load saved addresses for user
   useEffect(() => {
     if (!authLoading && !user) {
       router.push("/login");
@@ -47,8 +44,13 @@ const OrderSummary = () => {
       const fetchUserAddresses = async () => {
         setLoadingAddresses(true);
         try {
-          const response = await databases.listDocuments(USER_DATABASE_ID, USER_COLLECTION_ID);
-          const addresses = (response.documents || []).filter((doc) => doc.userId === user.$id);
+          const response = await databases.listDocuments(
+            USER_DATABASE_ID,
+            USER_COLLECTION_ID
+          );
+          const addresses = (response.documents || []).filter(
+            (doc) => doc.userId === user.$id
+          );
           setUserAddresses(addresses);
           if (addresses.length > 0 && !selectedAddress) {
             setSelectedAddress(addresses[0]);
@@ -70,61 +72,78 @@ const OrderSummary = () => {
     setIsDropdownOpen(false);
   };
 
-  const createOrder = async () => {
-    setError("");
-    if (!selectedAddress) {
-      alert("Please select an address before placing the order.");
-      return;
-    }
-    if (!user) {
-      alert("You must be logged in to place an order.");
-      router.push("/login");
-      return;
-    }
-    if (getCartCount() === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
+  // ✅ Create order with image array stored
+ const createOrder = async () => {
+  setError("");
+  if (!selectedAddress) {
+    alert("Please select an address before placing the order.");
+    return;
+  }
+  if (!user) {
+    alert("You must be logged in to place an order.");
+    router.push("/login");
+    return;
+  }
+  if (getCartCount() === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
 
-    setPlacingOrder(true);
-    try {
-      // Prepare items array with product details and quantity
-      const items = Object.keys(cartItems).map((itemId) => {
-        const product = products.find((p) => p.$id === itemId);
-        return {
-          product: {
-            $id: product.$id,
-            name: product.name,
-            offerPrice: product.offerPrice,
-          },
-          quantity: cartItems[itemId],
-        };
-      });
-
-      const orderDoc = {
-        userId: user.$id,
-        items: JSON.stringify(items),
-        amount: getCartAmount().toString(),
-        address: JSON.stringify(selectedAddress),
-        date: new Date().toISOString(),
-        paymentMethod: "COD",
-        paymentStatus: "Pending",
+  setPlacingOrder(true);
+  try {
+    // Build items with images
+    const items = Object.keys(cartItems).map((itemId) => {
+      const product = products.find((p) => p.$id === itemId);
+      return {
+        $id: product.$id,
+        name: product.name,
+        offerPrice: product.offerPrice,
+        images: (() => {
+          try {
+            return Array.isArray(product.images)
+              ? product.images
+              : JSON.parse(product.images);
+          } catch {
+            return product.images ? [product.images] : [];
+          }
+        })(),
+        quantity: cartItems[itemId],
       };
+    });
 
-      await databases.createDocument(ORDER_DATABASE_ID, ORDER_COLLECTION_ID, ID.unique(), orderDoc);
+    // ✅ Prepare orderDoc
+    const orderDoc = {
+      userId: user.$id,
+      items: JSON.stringify(items), // save full product details
+      amount: getCartAmount().toString(),
+      address: JSON.stringify(selectedAddress),
+      date: new Date().toISOString(),
+      paymentMethod: "COD",
+      paymentStatus: "Pending",
 
-      alert(`Order placed successfully for ${selectedAddress.fullName}`);
+      // ✅ Save all image IDs in a separate array attribute
+      image_ids: JSON.stringify(items.flatMap((item) => item.images || [])),
+    };
 
-      if (typeof clearCart === "function") clearCart();
+    await databases.createDocument(
+      ORDER_DATABASE_ID,
+      ORDER_COLLECTION_ID,
+      ID.unique(),
+      orderDoc
+    );
 
-      router.push("/my-orders");
-    } catch (err) {
-      console.error("Failed to create order:", err);
-      setError("Failed to place order. Please try again.");
-    } finally {
-      setPlacingOrder(false);
-    }
-  };
+    alert(`Order placed successfully for ${selectedAddress.fullName}`);
+    if (typeof clearCart === "function") clearCart();
+
+    router.push("/my-orders");
+  } catch (err) {
+    console.error("Failed to create order:", err);
+    setError("Failed to place order. Please try again.");
+  } finally {
+    setPlacingOrder(false);
+  }
+};
+
 
   return (
     <div className="w-full md:w-96 bg-gray-500/5 p-5">

@@ -11,6 +11,17 @@ import { databases } from "@/lib/appwrite";
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_DATABASE_ID;
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_COLLECTION_ID;
+const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+
+
+function getImageUrl(idOrUrl) {
+  if (!idOrUrl) return "/upload_area_placeholder.png";
+  return idOrUrl.startsWith("http")
+    ? idOrUrl
+    : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${idOrUrl}/view?project=${PROJECT_ID}`;
+}
+
 
 const MyOrders = () => {
   const { currency = "$" } = useAppContext();
@@ -20,46 +31,62 @@ const MyOrders = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Defensive fetch for authenticated user's orders
+  //checking database 
+
+  
+
+  // ✅ Fetch user orders
   const fetchOrders = async () => {
     if (!user) {
       setOrders([]);
       setLoading(false);
       return;
     }
+
     setLoading(true);
     setError(null);
 
     try {
       const res = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
-
-      // Defensive JSON parsing for each order
+ console.log("📦 Raw Appwrite response:", res); //
       const userOrders = res.documents
         .filter((order) => order.userId === user.$id)
         .map((order) => {
-          // Use try/catch for JSON parse to avoid runtime error on corrupt/incomplete data
+          console.log("📝 Raw order document:", order);
           let items = [];
           let address = {};
+          let imageIds = [];
+
           try {
             items = order.items ? JSON.parse(order.items) : [];
           } catch {
             items = [];
           }
+
           try {
             address = order.address ? JSON.parse(order.address) : {};
           } catch {
             address = {};
           }
+
+          try {
+            imageIds = order.image_ids ? JSON.parse(order.image_ids) : [];
+          } catch {
+            imageIds = [];
+          }
+
           return {
             ...order,
             items,
             address,
+            imageIds,
             amount: parseFloat(order.amount || "0"),
           };
         });
+
       setOrders(userOrders);
     } catch (err) {
-      console.error("Failed to load orders:", err);
+      console.error("❌ Failed to load orders:", err);
       setError("Failed to load orders.");
     } finally {
       setLoading(false);
@@ -106,34 +133,43 @@ const MyOrders = () => {
                   key={order.$id || index}
                   className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300"
                 >
+                  {/* ✅ Product Image + Items */}
                   <div className="flex-1 flex gap-5 max-w-80">
                     <Image
-                      className="max-w-16 max-h-16 object-cover"
-                      src="/box_icon.svg"
-                      alt="box_icon"
+                      className="w-16 h-16 object-cover rounded"
+                      src={
+                        order.imageIds.length > 0
+                          ? getImageUrl(order.imageIds[0])
+                          : "/upload_area_placeholder.png"
+                      }
+                      alt="Order product"
                       width={64}
                       height={64}
                       unoptimized
                     />
+
                     <p className="flex flex-col gap-3">
                       <span className="font-medium text-base">
-                        {order.items && order.items.length > 0
+                        {order.items.length > 0
                           ? order.items
                               .map((item) =>
-                                item.product && item.product.name
-                                  ? `${item.product.name} x ${item.quantity}`
+                                item.name
+                                  ? `${item.name} x ${item.quantity}`
                                   : "Unknown item"
                               )
                               .join(", ")
                           : "No items"}
                       </span>
-                      <span>Items: {order.items ? order.items.length : 0}</span>
+                      <span>Items: {order.items.length}</span>
                     </p>
                   </div>
 
+                  {/* ✅ Shipping Address */}
                   <div>
                     <p>
-                      <span className="font-medium">{order.address?.fullName || "Unknown"}</span>
+                      <span className="font-medium">
+                        {order.address?.fullName || "Unknown"}
+                      </span>
                       <br />
                       <span>{order.address?.area || ""}</span>
                       <br />
@@ -145,11 +181,15 @@ const MyOrders = () => {
                     </p>
                   </div>
 
+                  {/* ✅ Total Amount */}
                   <p className="font-medium my-auto">
                     {currency}
-                    {Number.isFinite(order.amount) ? order.amount.toFixed(2) : "-"}
+                    {Number.isFinite(order.amount)
+                      ? order.amount.toFixed(2)
+                      : "-"}
                   </p>
 
+                  {/* ✅ Payment Info */}
                   <div>
                     <p className="flex flex-col">
                       <span>Method: {order.paymentMethod || "COD"}</span>

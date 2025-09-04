@@ -27,17 +27,12 @@ const Cart = () => {
 
   // Helper to get product image URL
   const getFirstImage = (product) => {
-    let imageUrls = [];
-    try {
-      imageUrls = product.images ? JSON.parse(product.images) : [];
-    } catch {
-      imageUrls = [];
-    }
-    if (imageUrls.length === 0) return "/upload_area_placeholder.png";
-    const first = imageUrls[0];
-    return first.startsWith("http")
-      ? first
-      : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${first}/view?project=${PROJECT_ID}`;
+    let imageIds = [];
+try {
+  imageIds = order.image_ids ? JSON.parse(order.image_ids) : [];
+} catch {
+  imageIds = [];
+}
   };
 
   if (loading) {
@@ -88,13 +83,16 @@ const Cart = () => {
                       <tr key={itemId} className="hover:bg-gray-50 transition">
                         <td className="flex items-center gap-4 px-4 py-4">
                           <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
-                            <Image
-                              src={getFirstImage(product)}
-                              alt={product.name}
-                              className="w-16 h-16 object-cover"
-                              width={64}
-                              height={64}
-                            />
+                          <Image
+  className="w-16 h-16 object-cover rounded"
+  src={getFirstImage(order.items[0].product)}
+  alt={order.items[0].product?.name || "Product"}
+  width={64}
+  height={64}
+  unoptimized
+/>
+
+
                           </div>
                           <div>
                             <p className="text-gray-800 font-medium">{product.name}</p>
