@@ -50,8 +50,8 @@ const Navbar = () => {
 
   // Helper to handle menu click and close dropdown
   const handleMenuClick = (path) => {
-    setMenuOpen(false);
     router.push(path);
+    setMenuOpen(false);
   };
 
   return (

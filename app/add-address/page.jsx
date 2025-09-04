@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { databases } from "@/lib/appwrite";
 import { ID } from "appwrite";
@@ -13,7 +13,10 @@ const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID;
 
 const AddAddress = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user } = useAuth();
+
+  const id = searchParams.get("id"); // Get address ID from query param if editing
 
   const [address, setAddress] = useState({
     fullName: "",
@@ -23,9 +26,38 @@ const AddAddress = () => {
     city: "",
     state: "",
   });
+
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
+  useEffect(() => {
+    if (id && user) {
+      // Fetch address to edit
+      databases
+        .getDocument(DATABASE_ID, COLLECTION_ID, id)
+        .then((doc) => {
+          if (doc.userId === user.$id) {
+            setAddress({
+              fullName: doc.fullName || "",
+              phoneNumber: doc.phoneNumber || "",
+              pincode: doc.pincode || "",
+              area: doc.area || "",
+              city: doc.city || "",
+              state: doc.state || "",
+            });
+          } else {
+            alert("You are not authorized to edit this address");
+            router.push("/my-account");
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch address:", err);
+          alert("Failed to load address for edit");
+          router.push("/my-account");
+        });
+    }
+  }, [id, user, router]);
 
   const handleChange = (e) => {
     setErrorMsg("");
@@ -50,20 +82,28 @@ const AddAddress = () => {
 
       const payload = { ...address, userId: user.$id };
 
-      await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), payload);
-
-      setSuccessMsg("Address saved successfully!");
-      setAddress({
-        fullName: "",
-        phoneNumber: "",
-        pincode: "",
-        area: "",
-        city: "",
-        state: "",
-      });
+      if (id) {
+        // Update existing address
+        await databases.updateDocument(DATABASE_ID, COLLECTION_ID, id, payload);
+        setSuccessMsg("Address updated successfully!");
+       
+      } else {
+        // Create new address
+        await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), payload);
+        setSuccessMsg("Address saved successfully!");
+        setAddress({
+          fullName: "",
+          phoneNumber: "",
+          pincode: "",
+          area: "",
+          city: "",
+          state: "",
+        });
+        
+      }
 
       setTimeout(() => {
-        router.push("/cart"); // Redirect after save
+        router.push("/my-account"); // Redirect after save
       }, 1500);
     } catch (error) {
       setErrorMsg(error.message || "Failed to save address");
@@ -78,7 +118,7 @@ const AddAddress = () => {
       <Navbar />
       <main className="max-w-lg mx-auto px-6 py-16">
         <h2 className="text-3xl font-semibold mb-6 text-gray-700">
-          Add Shipping <span className="text-orange-600">Address</span>
+          {id ? "Edit" : "Add"} Shipping <span className="text-orange-600">Address</span>
         </h2>
 
         {(errorMsg || successMsg) && (
@@ -148,7 +188,7 @@ const AddAddress = () => {
               saving ? "bg-gray-400 cursor-not-allowed" : "bg-orange-600 hover:bg-orange-700"
             } transition`}
           >
-            {saving ? "Saving..." : "Save Address"}
+            {saving ? "Saving..." : id ? "Update Address" : "Save Address"}
           </button>
         </form>
       </main>
