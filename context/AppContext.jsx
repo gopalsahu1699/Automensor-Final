@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 export const AppContext = createContext();
 export const useAppContext = () => useContext(AppContext);
 
-// ✅ Use separate env vars for Products and Cart
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 const PRODUCT_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
 const PRODUCT_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
@@ -26,7 +25,6 @@ export const AppContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  // Appwrite client
   const client = new Client()
     .setEndpoint("https://fra.cloud.appwrite.io/v1")
     .setProject(PROJECT_ID);
@@ -68,39 +66,18 @@ export const AppContextProvider = ({ children }) => {
             setCartItems({});
           }
         } else {
-          // fallback from localStorage
-          const saved = localStorage.getItem("cartItems");
-          if (saved) {
-            try {
-              setCartItems(JSON.parse(saved));
-            } catch {
-              setCartItems({});
-            }
-          }
+          setCartItems({});
         }
       })
       .catch((err) => {
         console.error("Error fetching cart from Appwrite:", err);
-        // fallback localStorage
-        const saved = localStorage.getItem("cartItems");
-        if (saved) {
-          try {
-            setCartItems(JSON.parse(saved));
-          } catch {
-            setCartItems({});
-          }
-        }
+        setCartItems({});
       });
   }, [user]);
 
-  // --- Sync Cart (localStorage + backend) ---
+  // --- Sync Cart with Appwrite ---
   useEffect(() => {
-    if (!user) {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-      return;
-    }
-
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    if (!user) return;
 
     databases
       .listDocuments(CART_DATABASE_ID, CART_COLLECTION_ID, [
@@ -110,7 +87,7 @@ export const AppContextProvider = ({ children }) => {
         const existing = res.documents[0];
         const payload = {
           userId: user.$id,
-          cartItems: JSON.stringify(cartItems), // ✅ save as string
+          cartItems: JSON.stringify(cartItems),
           updatedAt: new Date().toISOString(),
         };
 
@@ -152,6 +129,30 @@ export const AppContextProvider = ({ children }) => {
     });
   };
 
+  // ✅ Clear cart (state + database)
+  const clearCart = async () => {
+    setCartItems({});
+    if (!user) return;
+
+    try {
+      const res = await databases.listDocuments(
+        CART_DATABASE_ID,
+        CART_COLLECTION_ID,
+        [Query.equal("userId", user.$id)]
+      );
+      if (res.documents.length > 0) {
+        await databases.deleteDocument(
+          CART_DATABASE_ID,
+          CART_COLLECTION_ID,
+          res.documents[0].$id
+        );
+      }
+      // toast.info("🧹 Cart cleared");
+    } catch (err) {
+      console.error("Error clearing cart from Appwrite:", err);
+    }
+  };
+
   const getCartCount = () =>
     Object.values(cartItems).reduce((a, b) => a + b, 0);
 
@@ -175,6 +176,7 @@ export const AppContextProvider = ({ children }) => {
         setCartItems,
         addToCart,
         updateCartQuantity,
+        clearCart, // ✅ added
         getCartCount,
         getCartAmount,
         loadingProducts,

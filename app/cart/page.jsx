@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -38,41 +38,10 @@ const Cart = () => {
     updateCartQuantity,
     getCartCount,
     getCartAmount,
-    setCartItems,
   } = useAppContext();
 
   const { user } = useAuth();
   const router = useRouter();
-
-  const [loading, setLoading] = useState(true);
-
-  // Load cartItems from localStorage on mount
-  useEffect(() => {
-    try {
-      const savedCart = localStorage.getItem("cartItems");
-      if (savedCart) setCartItems(JSON.parse(savedCart));
-    } catch (err) {
-      console.error("Failed to parse cart from localStorage", err);
-    }
-    setLoading(false);
-  }, [setCartItems]);
-
-  // Save cartItems to localStorage on change
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
-  if (loading) {
-    return (
-      <>
-        <Navbar />
-        <div className="flex justify-center items-center h-[70vh]">
-          <p className="text-gray-500 text-lg">Loading cart...</p>
-        </div>
-      </>
-    );
-  }
-
   const cartCount = getCartCount();
 
   return (
@@ -90,13 +59,14 @@ const Cart = () => {
             </p>
           </div>
 
+          {/* Empty cart */}
           {cartCount === 0 ? (
             <div className="w-full flex justify-center items-center py-20">
               <p className="text-gray-500 text-lg">Your cart is empty</p>
             </div>
           ) : (
             <>
-              {/* Table for desktop */}
+              {/* Desktop Table */}
               <div className="hidden md:block overflow-x-auto">
                 <table className="min-w-full border border-gray-200 rounded-lg">
                   <thead className="bg-gray-50">
@@ -116,12 +86,15 @@ const Cart = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {Object.keys(cartItems).map((itemId) => {
+                    {Object.entries(cartItems).map(([itemId, qty]) => {
                       const product = products.find((p) => p.$id === itemId);
-                      if (!product || cartItems[itemId] <= 0) return null;
+                      if (!product || qty <= 0) return null;
 
                       return (
-                        <tr key={itemId} className="hover:bg-gray-50 transition">
+                        <tr
+                          key={itemId}
+                          className="hover:bg-gray-50 transition"
+                        >
                           <td className="flex items-center gap-4 px-4 py-4">
                             <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
                               <Image
@@ -139,9 +112,7 @@ const Cart = () => {
                               </p>
                               <button
                                 className="text-xs text-orange-600 mt-1 hover:underline"
-                                onClick={() =>
-                                  updateCartQuantity(product.$id, 0)
-                                }
+                                onClick={() => updateCartQuantity(itemId, 0)}
                               >
                                 Remove
                               </button>
@@ -154,10 +125,7 @@ const Cart = () => {
                             <div className="flex items-center gap-2">
                               <button
                                 onClick={() =>
-                                  updateCartQuantity(
-                                    product.$id,
-                                    cartItems[itemId] - 1
-                                  )
+                                  updateCartQuantity(itemId, qty - 1)
                                 }
                                 aria-label="Decrease quantity"
                                 className="p-1"
@@ -170,11 +138,11 @@ const Cart = () => {
                               </button>
                               <input
                                 type="number"
-                                value={cartItems[itemId]}
+                                value={qty}
                                 min={0}
                                 onChange={(e) =>
                                   updateCartQuantity(
-                                    product.$id,
+                                    itemId,
                                     Math.max(0, Number(e.target.value))
                                   )
                                 }
@@ -182,7 +150,7 @@ const Cart = () => {
                                 aria-label="Quantity"
                               />
                               <button
-                                onClick={() => addToCart(product.$id)}
+                                onClick={() => addToCart(itemId)}
                                 aria-label="Increase quantity"
                                 className="p-1"
                               >
@@ -195,9 +163,7 @@ const Cart = () => {
                             </div>
                           </td>
                           <td className="px-4 py-4 text-gray-600 font-medium">
-                            ₹{(product.offerPrice * cartItems[itemId]).toFixed(
-                              2
-                            )}
+                            ₹{(product.offerPrice * qty).toFixed(2)}
                           </td>
                         </tr>
                       );
@@ -206,11 +172,11 @@ const Cart = () => {
                 </table>
               </div>
 
-              {/* Mobile card layout */}
+              {/* Mobile Cards */}
               <div className="md:hidden flex flex-col gap-4">
-                {Object.keys(cartItems).map((itemId) => {
+                {Object.entries(cartItems).map(([itemId, qty]) => {
                   const product = products.find((p) => p.$id === itemId);
-                  if (!product || cartItems[itemId] <= 0) return null;
+                  if (!product || qty <= 0) return null;
 
                   return (
                     <div
@@ -236,12 +202,7 @@ const Cart = () => {
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
-                            onClick={() =>
-                              updateCartQuantity(
-                                product.$id,
-                                cartItems[itemId] - 1
-                              )
-                            }
+                            onClick={() => updateCartQuantity(itemId, qty - 1)}
                             aria-label="Decrease quantity"
                             className="p-1"
                           >
@@ -253,11 +214,11 @@ const Cart = () => {
                           </button>
                           <input
                             type="number"
-                            value={cartItems[itemId]}
+                            value={qty}
                             min={0}
                             onChange={(e) =>
                               updateCartQuantity(
-                                product.$id,
+                                itemId,
                                 Math.max(0, Number(e.target.value))
                               )
                             }
@@ -265,7 +226,7 @@ const Cart = () => {
                             aria-label="Quantity"
                           />
                           <button
-                            onClick={() => addToCart(product.$id)}
+                            onClick={() => addToCart(itemId)}
                             aria-label="Increase quantity"
                             className="p-1"
                           >
@@ -278,13 +239,13 @@ const Cart = () => {
                         </div>
                         <button
                           className="text-xs text-orange-600 mt-2 hover:underline"
-                          onClick={() => updateCartQuantity(product.$id, 0)}
+                          onClick={() => updateCartQuantity(itemId, 0)}
                         >
                           Remove
                         </button>
                       </div>
                       <div className="text-gray-600 font-semibold text-right min-w-[70px]">
-                        ₹{(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                        ₹{(product.offerPrice * qty).toFixed(2)}
                       </div>
                     </div>
                   );
