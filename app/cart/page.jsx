@@ -14,16 +14,13 @@ const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 function getFirstImage(product) {
   if (!product) return "/upload_area_placeholder.png";
-
   let imageUrls = [];
   try {
     imageUrls = product.images ? JSON.parse(product.images) : [];
   } catch {
     imageUrls = [];
   }
-
   if (imageUrls.length === 0) return "/upload_area_placeholder.png";
-
   const first = imageUrls[0];
   return first.startsWith("http")
     ? first
@@ -63,130 +60,208 @@ const Cart = () => {
     );
   }
 
+  const cartCount = getCartCount();
+
   return (
     <>
       <Navbar />
-      <div className="flex flex-col md:flex-row gap-10 px-6 md:px-16 lg:px-32 pt-14 mb-20">
-        {/* Cart Table */}
+      <div className="flex flex-col md:flex-row gap-10 px-4 md:px-16 lg:px-32 pt-14 mb-20">
+        {/* Cart Items */}
         <div className="flex-1">
           <div className="flex items-center justify-between mb-8 border-b border-gray-200 pb-6">
             <p className="text-2xl md:text-3xl text-gray-800">
               Your <span className="font-medium text-orange-600">Cart</span>
             </p>
-            <p className="text-lg md:text-xl text-gray-500/80">
-              {getCartCount()} Items
-            </p>
+            <p className="text-lg md:text-xl text-gray-500/80">{cartCount} Items</p>
           </div>
 
-          {getCartCount() === 0 ? (
+          {cartCount === 0 ? (
             <div className="w-full flex justify-center items-center py-20">
               <p className="text-gray-500 text-lg">Your cart is empty</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full border border-gray-200 rounded-lg">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th className="text-left px-4 py-3 text-gray-600 font-medium">
-                      Product
-                    </th>
-                    <th className="px-4 py-3 text-gray-600 font-medium">
-                      Price
-                    </th>
-                    <th className="px-4 py-3 text-gray-600 font-medium">
-                      Quantity
-                    </th>
-                    <th className="px-4 py-3 text-gray-600 font-medium">
-                      Subtotal
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {Object.keys(cartItems).map((itemId) => {
-                    const product = products.find((p) => p.$id === itemId);
-                    if (!product || cartItems[itemId] <= 0) return null;
+            <>
+              {/* Table for md+ */}
+              <div className="hidden md:block overflow-x-auto">
+                <table className="min-w-full border border-gray-200 rounded-lg">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="text-left px-4 py-3 text-gray-600 font-medium">
+                        Product
+                      </th>
+                      <th className="px-4 py-3 text-gray-600 font-medium">Price</th>
+                      <th className="px-4 py-3 text-gray-600 font-medium">Quantity</th>
+                      <th className="px-4 py-3 text-gray-600 font-medium">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {Object.keys(cartItems).map((itemId) => {
+                      const product = products.find((p) => p.$id === itemId);
+                      if (!product || cartItems[itemId] <= 0) return null;
 
-                    return (
-                      <tr key={itemId} className="hover:bg-gray-50 transition">
-                        {/* Product Info */}
-                        <td className="flex items-center gap-4 px-4 py-4">
-                          <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
-                            <Image
-                              className="w-16 h-16 object-cover rounded"
-                              src={getFirstImage(product)}
-                              alt={product.name || "Product"}
-                              width={64}
-                              height={64}
-                              unoptimized
-                            />
-                          </div>
-                          <div>
-                            <p className="text-gray-800 font-medium">
-                              {product.name}
-                            </p>
-                            <button
-                              className="text-xs text-orange-600 mt-1 hover:underline"
-                              onClick={() => updateCartQuantity(product.$id, 0)}
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </td>
+                      return (
+                        <tr key={itemId} className="hover:bg-gray-50 transition">
+                          <td className="flex items-center gap-4 px-4 py-4">
+                            <div className="rounded-lg overflow-hidden bg-gray-100 p-2">
+                              <Image
+                                className="w-16 h-16 object-cover rounded"
+                                src={getFirstImage(product)}
+                                alt={product.name || "Product"}
+                                width={64}
+                                height={64}
+                                unoptimized
+                              />
+                            </div>
+                            <div>
+                              <p className="text-gray-800 font-medium">
+                                {product.name}
+                              </p>
+                              <button
+                                className="text-xs text-orange-600 mt-1 hover:underline"
+                                onClick={() => updateCartQuantity(product.$id, 0)}
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 text-gray-600 font-medium">
+                            ${product.offerPrice}
+                          </td>
+                          <td className="px-4 py-4">
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() =>
+                                  updateCartQuantity(
+                                    product.$id,
+                                    cartItems[itemId] - 1
+                                  )
+                                }
+                                aria-label="Decrease quantity"
+                                className="p-1"
+                              >
+                                <Image
+                                  src={assets.decrease_arrow}
+                                  alt="decrease"
+                                  className="w-4 h-4"
+                                />
+                              </button>
+                              <input
+                                type="number"
+                                value={cartItems[itemId]}
+                                min={0}
+                                onChange={(e) =>
+                                  updateCartQuantity(
+                                    product.$id,
+                                    Math.max(0, Number(e.target.value))
+                                  )
+                                }
+                                className="w-12 border text-center rounded"
+                                aria-label="Quantity"
+                              />
+                              <button
+                                onClick={() => addToCart(product.$id)}
+                                aria-label="Increase quantity"
+                                className="p-1"
+                              >
+                                <Image
+                                  src={assets.increase_arrow}
+                                  alt="increase"
+                                  className="w-4 h-4"
+                                />
+                              </button>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 text-gray-600 font-medium">
+                            ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
 
-                        {/* Price */}
-                        <td className="px-4 py-4 text-gray-600 font-medium">
+              {/* Card layout for mobile */}
+              <div className="md:hidden flex flex-col gap-4">
+                {Object.keys(cartItems).map((itemId) => {
+                  const product = products.find((p) => p.$id === itemId);
+                  if (!product || cartItems[itemId] <= 0) return null;
+                  return (
+                    <div
+                      key={itemId}
+                      className="border border-gray-200 rounded-lg p-4 flex gap-4 items-center"
+                    >
+                      <div className="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 p-2">
+                        <Image
+                          src={getFirstImage(product)}
+                          alt={product.name || "Product"}
+                          width={80}
+                          height={80}
+                          className="object-cover rounded"
+                          unoptimized
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-gray-800 font-medium text-lg">
+                          {product.name}
+                        </p>
+                        <p className="text-orange-600 font-semibold mt-1">
                           ${product.offerPrice}
-                        </td>
-
-                        {/* Quantity Controls */}
-                        <td className="px-4 py-4">
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={() =>
-                                updateCartQuantity(
-                                  product.$id,
-                                  cartItems[itemId] - 1
-                                )
-                              }
-                            >
-                              <Image
-                                src={assets.decrease_arrow}
-                                alt="decrease"
-                                className="w-4 h-4"
-                              />
-                            </button>
-                            <input
-                              type="number"
-                              value={cartItems[itemId]}
-                              min={0}
-                              onChange={(e) =>
-                                updateCartQuantity(
-                                  product.$id,
-                                  Math.max(0, Number(e.target.value))
-                                )
-                              }
-                              className="w-12 border text-center rounded"
+                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <button
+                            onClick={() =>
+                              updateCartQuantity(product.$id, cartItems[itemId] - 1)
+                            }
+                            aria-label="Decrease quantity"
+                            className="p-1"
+                          >
+                            <Image
+                              src={assets.decrease_arrow}
+                              alt="decrease"
+                              className="w-5 h-5"
                             />
-                            <button onClick={() => addToCart(product.$id)}>
-                              <Image
-                                src={assets.increase_arrow}
-                                alt="increase"
-                                className="w-4 h-4"
-                              />
-                            </button>
-                          </div>
-                        </td>
-
-                        {/* Subtotal */}
-                        <td className="px-4 py-4 text-gray-600 font-medium">
-                          ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                          </button>
+                          <input
+                            type="number"
+                            value={cartItems[itemId]}
+                            min={0}
+                            onChange={(e) =>
+                              updateCartQuantity(
+                                product.$id,
+                                Math.max(0, Number(e.target.value))
+                              )
+                            }
+                            className="w-14 border text-center rounded"
+                            aria-label="Quantity"
+                          />
+                          <button
+                            onClick={() => addToCart(product.$id)}
+                            aria-label="Increase quantity"
+                            className="p-1"
+                          >
+                            <Image
+                              src={assets.increase_arrow}
+                              alt="increase"
+                              className="w-5 h-5"
+                            />
+                          </button>
+                        </div>
+                        <button
+                          className="text-xs text-orange-600 mt-2 hover:underline"
+                          onClick={() => updateCartQuantity(product.$id, 0)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                      <div className="text-gray-600 font-semibold text-right min-w-[70px]">
+                        ${(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
 
           {error && <p className="text-red-600 mt-4">{error}</p>}
@@ -207,10 +282,7 @@ const Cart = () => {
 
         {/* Order Summary */}
         <div className="w-full md:w-1/3">
-          <OrderSummary
-            totalAmount={getCartAmount()}
-            totalCount={getCartCount()}
-          />
+          <OrderSummary totalAmount={getCartAmount()} totalCount={getCartCount()} />
         </div>
       </div>
     </>
