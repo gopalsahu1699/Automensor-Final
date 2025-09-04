@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { account, databases } from "@/lib/appwrite";
 import { ID } from "appwrite";
+import Navbar from "@/components/Navbar";
 
 const MyAccountPage = () => {
   const { user, loading } = useAuth();
@@ -80,6 +81,8 @@ const MyAccountPage = () => {
   if (!user) return <p className="text-center mt-20">Please login to view your account.</p>;
 
   return (
+    <>
+    <Navbar />
     <main className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">My Account</h1>
 
@@ -176,7 +179,9 @@ const MyAccountPage = () => {
         )}
       </section>
     </main>
+    </>
   );
 };
+
 
 export default MyAccountPage;
