@@ -14,7 +14,7 @@ const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_COLLECTION_ID;
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
-
+// ✅ Helper: Get Appwrite file URL or placeholder
 function getImageUrl(idOrUrl) {
   if (!idOrUrl) return "/upload_area_placeholder.png";
   return idOrUrl.startsWith("http")
@@ -22,6 +22,80 @@ function getImageUrl(idOrUrl) {
     : `https://fra.cloud.appwrite.io/v1/storage/buckets/${BUCKET_ID}/files/${idOrUrl}/view?project=${PROJECT_ID}`;
 }
 
+// ✅ Component for single order row
+const OrderRow = ({ order, currency }) => {
+  return (
+    <div className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300">
+      {/* Product Image + Items */}
+      <div className="flex-1 flex gap-5 max-w-80">
+        <Image
+          className="w-16 h-16 object-cover rounded"
+          src={
+            order.imageIds.length > 0
+              ? getImageUrl(order.imageIds[0])
+              : "/upload_area_placeholder.png"
+          }
+          alt="Order product"
+          width={64}
+          height={64}
+          unoptimized
+        />
+
+        <div className="flex flex-col gap-3">
+          <span className="font-medium text-base">
+            {order.items.length > 0
+              ? order.items
+                  .map((item) =>
+                    item.name
+                      ? `${item.name} x ${item.quantity}`
+                      : "Unknown item"
+                  )
+                  .join(", ")
+              : "No items"}
+          </span>
+          <span>Items: {order.items.length}</span>
+        </div>
+      </div>
+
+      {/* Shipping Address */}
+      <div>
+        <p>
+          <span className="font-medium">
+            {order.address?.fullName || "Unknown"}
+          </span>
+          <br />
+          <span>{order.address?.area || ""}</span>
+          <br />
+          <span>
+            {order.address?.city || ""}, {order.address?.state || ""}
+          </span>
+          <br />
+          <span>{order.address?.phoneNumber || ""}</span>
+        </p>
+      </div>
+
+      {/* Total Amount */}
+      <p className="font-medium my-auto">
+        {currency}
+        {Number.isFinite(order.amount) ? order.amount.toFixed(2) : "-"}
+      </p>
+
+      {/* Payment Info */}
+      <div>
+        <p className="flex flex-col">
+          <span>Method: {order.paymentMethod || "COD"}</span>
+          <span>
+            Date:{" "}
+            {order.date
+              ? new Date(order.date).toLocaleDateString()
+              : "Unknown"}
+          </span>
+          <span>Payment: {order.paymentStatus || "Pending"}</span>
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const MyOrders = () => {
   const { currency = "$" } = useAppContext();
@@ -30,10 +104,6 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  //checking database 
-
-  
 
   // ✅ Fetch user orders
   const fetchOrders = async () => {
@@ -48,39 +118,39 @@ const MyOrders = () => {
 
     try {
       const res = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
- console.log("📦 Raw Appwrite response:", res); //
+      console.log("📦 Raw Appwrite response:", res);
+
       const userOrders = res.documents
-        .filter((order) => order.userId === user.$id)
-        .map((order) => {
-          console.log("📝 Raw order document:", order);
+        .filter((doc) => doc.userId === user.$id)
+        .map((doc) => {
           let items = [];
           let address = {};
           let imageIds = [];
 
           try {
-            items = order.items ? JSON.parse(order.items) : [];
+            items = doc.items ? JSON.parse(doc.items) : [];
           } catch {
             items = [];
           }
 
           try {
-            address = order.address ? JSON.parse(order.address) : {};
+            address = doc.address ? JSON.parse(doc.address) : {};
           } catch {
             address = {};
           }
 
           try {
-            imageIds = order.image_ids ? JSON.parse(order.image_ids) : [];
+            imageIds = doc.image_ids ? JSON.parse(doc.image_ids) : [];
           } catch {
             imageIds = [];
           }
 
           return {
-            ...order,
+            ...doc,
             items,
             address,
             imageIds,
-            amount: parseFloat(order.amount || "0"),
+            amount: parseFloat(doc.amount || "0"),
           };
         });
 
@@ -128,81 +198,8 @@ const MyOrders = () => {
             <p className="text-center text-gray-500">No orders available.</p>
           ) : (
             <div className="max-w-5xl border-t border-gray-300 text-sm">
-              {orders.map((order, index) => (
-                <div
-                  key={order.$id || index}
-                  className="flex flex-col md:flex-row gap-5 justify-between p-5 border-b border-gray-300"
-                >
-                  {/* ✅ Product Image + Items */}
-                  <div className="flex-1 flex gap-5 max-w-80">
-                    <Image
-                      className="w-16 h-16 object-cover rounded"
-                      src={
-                        order.imageIds.length > 0
-                          ? getImageUrl(order.imageIds[0])
-                          : "/upload_area_placeholder.png"
-                      }
-                      alt="Order product"
-                      width={64}
-                      height={64}
-                      unoptimized
-                    />
-
-                    <p className="flex flex-col gap-3">
-                      <span className="font-medium text-base">
-                        {order.items.length > 0
-                          ? order.items
-                              .map((item) =>
-                                item.name
-                                  ? `${item.name} x ${item.quantity}`
-                                  : "Unknown item"
-                              )
-                              .join(", ")
-                          : "No items"}
-                      </span>
-                      <span>Items: {order.items.length}</span>
-                    </p>
-                  </div>
-
-                  {/* ✅ Shipping Address */}
-                  <div>
-                    <p>
-                      <span className="font-medium">
-                        {order.address?.fullName || "Unknown"}
-                      </span>
-                      <br />
-                      <span>{order.address?.area || ""}</span>
-                      <br />
-                      <span>
-                        {order.address?.city || ""}, {order.address?.state || ""}
-                      </span>
-                      <br />
-                      <span>{order.address?.phoneNumber || ""}</span>
-                    </p>
-                  </div>
-
-                  {/* ✅ Total Amount */}
-                  <p className="font-medium my-auto">
-                    {currency}
-                    {Number.isFinite(order.amount)
-                      ? order.amount.toFixed(2)
-                      : "-"}
-                  </p>
-
-                  {/* ✅ Payment Info */}
-                  <div>
-                    <p className="flex flex-col">
-                      <span>Method: {order.paymentMethod || "COD"}</span>
-                      <span>
-                        Date:{" "}
-                        {order.date
-                          ? new Date(order.date).toLocaleDateString()
-                          : "Unknown"}
-                      </span>
-                      <span>Payment: {order.paymentStatus || "Pending"}</span>
-                    </p>
-                  </div>
-                </div>
+              {orders.map((order) => (
+                <OrderRow key={order.$id} order={order} currency={currency} />
               ))}
             </div>
           )}
