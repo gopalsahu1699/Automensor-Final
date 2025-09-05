@@ -159,9 +159,9 @@ const Home = () => {
         </section>
 
         <HeaderSlider />
-        <FeaturedProduct />
-        <Banner />
-        <NewsLetter />
+        <FeaturedProduct /> 
+        {/* <Banner />  */}
+        {/* <NewsLetter /> */}
       </div>
       <Footer />
     </>

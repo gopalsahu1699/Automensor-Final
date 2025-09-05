@@ -5,13 +5,24 @@ import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
 import { databases } from "@/lib/appwrite";
 import { useRouter } from "next/navigation";
-import { ID } from "appwrite";
 
 const USER_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_DATABASE_ID;
 const USER_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID;
 
 const ORDER_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_DATABASE_ID;
 const ORDER_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_ORDER_COLLECTION_ID;
+
+/**
+ * Generates a 15-digit numeric string to be used as order ID.
+ */
+const generate15DigitOrderId = () => {
+  let id = "";
+  while (id.length < 15) {
+    // Append random digits until length is 15
+    id += Math.floor(Math.random() * 10).toString();
+  }
+  return id;
+};
 
 const OrderSummary = () => {
   const router = useRouter();
@@ -33,14 +44,14 @@ const OrderSummary = () => {
   const [placingOrder, setPlacingOrder] = useState(false);
   const [error, setError] = useState("");
 
-  // ✅ Redirect if not logged in
+  // Redirect if not logged in
   useEffect(() => {
     if (!authLoading && !user) {
       router.push("/login");
     }
   }, [user, authLoading, router]);
 
-  // ✅ Fetch addresses from Appwrite
+  // Fetch addresses from Appwrite
   useEffect(() => {
     if (!user) return;
 
@@ -75,7 +86,7 @@ const OrderSummary = () => {
     setIsDropdownOpen(false);
   };
 
-  // ✅ Create new order
+  // Create new order with 15-digit order ID
   const createOrder = async () => {
     setError("");
 
@@ -114,8 +125,12 @@ const OrderSummary = () => {
         };
       });
 
+      // Generate a unique 15-digit order ID
+      const newOrderId = generate15DigitOrderId();
+
       // Prepare order document
       const orderDoc = {
+        orderId: newOrderId, // custom 15-digit order ID field
         userId: user.$id,
         items: JSON.stringify(items),
         amount: getCartAmount().toString(),
@@ -123,17 +138,21 @@ const OrderSummary = () => {
         date: new Date().toISOString(),
         paymentMethod: "COD",
         paymentStatus: "Pending",
+        orderStatus: "Pending",
         image_ids: JSON.stringify(items.flatMap((item) => item.images || [])),
       };
 
+      // Create document using the generated ID
       await databases.createDocument(
         ORDER_DATABASE_ID,
         ORDER_COLLECTION_ID,
-        ID.unique(),
+        newOrderId,
         orderDoc
       );
 
-      alert(`✅ Order placed successfully for ${selectedAddress.fullName}`);
+      alert(`✅ Order placed successfully! Your Order ID is ${newOrderId}`);
+
+      // Clear cart after successful order placement
       if (typeof clearCart === "function") {
         await clearCart();
       }
@@ -152,9 +171,7 @@ const OrderSummary = () => {
 
   return (
     <div className="w-full md:w-96 bg-gray-50 p-5 rounded-lg shadow-sm border">
-      <h2 className="text-xl md:text-2xl font-medium text-gray-700">
-        Order Summary
-      </h2>
+      <h2 className="text-xl md:text-2xl font-medium text-gray-700">Order Summary</h2>
       <hr className="border-gray-300 my-5" />
 
       <div className="space-y-6">
@@ -172,9 +189,7 @@ const OrderSummary = () => {
               {selectedAddress
                 ? `${selectedAddress.fullName ?? "Unknown"}, ${
                     selectedAddress.area ?? ""
-                  }, ${selectedAddress.city ?? ""}, ${
-                    selectedAddress.state ?? ""
-                  }`
+                  }, ${selectedAddress.city ?? ""}, ${selectedAddress.state ?? ""}`
                 : "Select Address"}
               <span className="float-right">▼</span>
             </button>
@@ -252,7 +267,6 @@ const OrderSummary = () => {
         </div>
       </div>
 
-      {/* Place Order Button */}
       <button
         onClick={createOrder}
         disabled={placingOrder}
