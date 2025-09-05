@@ -15,12 +15,11 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [auth0Client, setAuth0Client] = useState(null);
-  const [auth0Loading, setAuth0Loading] = useState(true); // Loading during Auth0 init
-  const [auth0LoginLoading, setAuth0LoginLoading] = useState(false); // Loading during Auth0 login
+  const [auth0Loading, setAuth0Loading] = useState(true);
+  const [auth0LoginLoading, setAuth0LoginLoading] = useState(false);
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
 
   useEffect(() => {
-    // Initialize Auth0 client
     const initAuth0 = async () => {
       try {
         const auth0 = await createAuth0Client({
@@ -30,7 +29,6 @@ const LoginPage = () => {
         });
         setAuth0Client(auth0);
 
-        // Handle redirect callback after Auth0 login
         if (window.location.search.includes("code=") && window.location.search.includes("state=")) {
           await auth0.handleRedirectCallback();
           const user = await auth0.getUser();
@@ -67,6 +65,7 @@ const LoginPage = () => {
       await loginWithGoogle();
     } catch (err) {
       setError(err.message || "Google login failed");
+      toast.error("❌ Google login failed");
     } finally {
       setGoogleLoginLoading(false);
     }
@@ -83,6 +82,7 @@ const LoginPage = () => {
       await auth0Client.loginWithRedirect();
     } catch (err) {
       setError(err.message || "Auth0 login failed");
+      toast.error("❌ Auth0 login failed");
     } finally {
       setAuth0LoginLoading(false);
     }
@@ -98,12 +98,18 @@ const LoginPage = () => {
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
-      <form onSubmit={handleLogin} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+        aria-label="Login Form"
+      >
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
 
-        {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+        {error && <p className="text-red-600 text-sm mb-4" role="alert">{error}</p>}
 
-        <label htmlFor="email" className="block mb-2 text-sm font-medium">Email</label>
+        <label htmlFor="email" className="block mb-2 text-sm font-medium">
+          Email
+        </label>
         <input
           id="email"
           type="email"
@@ -112,9 +118,12 @@ const LoginPage = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           disabled={loading || googleLoginLoading || auth0LoginLoading}
+          autoComplete="email"
         />
 
-        <label htmlFor="password" className="block mb-2 text-sm font-medium">Password</label>
+        <label htmlFor="password" className="block mb-2 text-sm font-medium">
+          Password
+        </label>
         <input
           id="password"
           type="password"
@@ -123,6 +132,7 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
           disabled={loading || googleLoginLoading || auth0LoginLoading}
+          autoComplete="current-password"
         />
 
         <button
@@ -131,14 +141,15 @@ const LoginPage = () => {
           className={`w-full py-2 rounded-lg text-white ${
             loading ? "bg-gray-400 cursor-not-allowed" : "bg-gray-800 hover:bg-gray-900"
           }`}
+          aria-disabled={loading || googleLoginLoading || auth0LoginLoading}
         >
           {loading ? "Logging in..." : "Login"}
         </button>
 
         <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex-grow border-t border-gray-300" />
           <span className="mx-2 text-gray-400 text-sm">or</span>
-          <div className="flex-grow border-t border-gray-300"></div>
+          <div className="flex-grow border-t border-gray-300" />
         </div>
 
         <button

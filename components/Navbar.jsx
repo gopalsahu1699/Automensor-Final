@@ -7,6 +7,7 @@ import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
 import { assets, HomeIcon, BagIcon, BoxIcon, CartIcon } from "@/assets/assets";
 import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
 
 const Navbar = () => {
   const { isSeller } = useAppContext();
@@ -17,7 +18,6 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentPath, setCurrentPath] = useState(pathname);
-
   const menuRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -31,103 +31,121 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Detect pathname changes to toggle loading spinner
+  // Toggle loading spinner on route change
   useEffect(() => {
-    // If pathname changes and is different from currentPath
     if (pathname !== currentPath) {
       setLoading(true);
-      // Simulate a loading delay (remove this if your page loading is handled by Next.js suspense)
       const timeout = setTimeout(() => {
         setLoading(false);
         setCurrentPath(pathname);
-      }, 500); // Adjust time as needed
-
+      }, 500);
       return () => clearTimeout(timeout);
     }
   }, [pathname, currentPath]);
 
   const avatarUrl = user?.prefs?.avatar || assets.user_icon;
 
-  // Helper to handle menu click and close dropdown
-  const handleMenuClick = (path) => {
-    router.push(path);
-    setMenuOpen(false);
-  };
+  // Menu item as Link for navigation and better semantics
+  const MenuItem = ({ href, icon, label }) => (
+    <Link
+      href={href}
+      onClick={() => setMenuOpen(false)}
+      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full rounded-md focus:outline-none focus:bg-gray-200 transition"
+      role="menuitem"
+      tabIndex={0}
+    >
+      {icon}
+      <span>{label}</span>
+    </Link>
+  );
 
   return (
     <>
       {loading && (
         <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50">
-          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16"></div>
+          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16" />
           <style jsx>{`
             .loader {
               border-top-color: #3b82f6; /* blue-500 */
               animation: spinner 1s linear infinite;
             }
             @keyframes spinner {
-              0% {
-                transform: rotate(0deg);
-              }
-              100% {
-                transform: rotate(360deg);
-              }
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
             }
           `}</style>
         </div>
       )}
 
-      <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 text-gray-700">
+      <nav
+        className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 bg-white text-gray-700 shadow-sm"
+        role="navigation"
+        aria-label="Main navigation"
+      >
         {/* Logo */}
-        <div className="cursor-pointer" onClick={() => router.push("/")}>
-          <Image src={assets.logo} alt="logo" width={128} height={32} />
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label="Go to homepage"
+          onClick={() => router.push("/")}
+          onKeyDown={(e) => e.key === "Enter" && router.push("/")}
+          className="cursor-pointer"
+        >
+          <Image src={assets.logo} alt="AUTOMENSOR logo" width={128} height={32} priority />
         </div>
 
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-8">
-          <button onClick={() => router.push("/")} className="hover:text-gray-900 transition">
-            Home
-          </button>
-          <button onClick={() => router.push("/all-products")} className="hover:text-gray-900 transition">
-            Shop
-          </button>
-          <button onClick={() => router.push("/about-us")} className="hover:text-gray-900 transition">
-            About Us
-          </button>
-          <button onClick={() => router.push("/contact-us")} className="hover:text-gray-900 transition">
-            Contact
-          </button>
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-8" role="menubar" aria-label="Primary Navigation">
+          <MenuItem href="/" icon={<HomeIcon className="w-5 h-5" />} label="Home" />
+          <MenuItem href="/all-products" icon={<BoxIcon className="w-5 h-5" />} label="Products" />
+          <MenuItem href="/about-us" label="About" />
+          <MenuItem href="/contact-us" label="Contact" />
           {isSeller && (
-            <button
-              onClick={() => router.push("/seller")}
-              className="text-xs border px-4 py-1.5 rounded-full hover:bg-gray-100"
+            <Link
+              href="/seller"
+              className="text-xs border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-100 transition"
+              aria-label="Seller Dashboard"
+              role="menuitem"
             >
               Seller Dashboard
-            </button>
+            </Link>
           )}
         </div>
 
-        {/* Right Side */}
+        {/* User Menu Desktop */}
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <div className="relative" ref={menuRef}>
-              <button onClick={() => setMenuOpen(!menuOpen)} className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300">
-                <Image src={avatarUrl} alt="avatar" width={40} height={40} />
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-haspopup="true"
+                aria-expanded={menuOpen}
+                aria-label="User menu"
+                className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <Image src={avatarUrl} alt="User avatar" width={40} height={40} />
               </button>
 
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg py-2 z-50">
-                  <MenuItem onClick={() => handleMenuClick("/")} icon={<HomeIcon />} label="Home" />
-                  <MenuItem onClick={() => handleMenuClick("/my-account")} icon={<User />} label="My Account" />
-                  <MenuItem onClick={() => handleMenuClick("/all-products")} icon={<BoxIcon />} label="Products" />
-                  <MenuItem onClick={() => handleMenuClick("/cart")} icon={<CartIcon />} label="Cart" />
-                  <MenuItem onClick={() => handleMenuClick("/my-orders")} icon={<BagIcon />} label="My Orders" />
-                  <hr className="my-2" />
+                <div
+                  className="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg py-2 z-50"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu"
+                >
+                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                  <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
+                  <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
+                  <MenuItem href="/cart" icon={<CartIcon className="w-4 h-4" />} label="Cart" />
+                  <MenuItem href="/my-orders" icon={<BagIcon className="w-4 h-4" />} label="My Orders" />
+                  <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
                       logout();
                     }}
-                    className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left"
+                    className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left focus:outline-none focus:bg-gray-200 rounded-md"
+                    role="menuitem"
                   >
                     Logout
                   </button>
@@ -135,44 +153,62 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            <button onClick={() => router.push("/login")} className="flex items-center gap-2 hover:text-gray-900 transition">
-              <Image src={assets.user_icon} alt="user icon" width={32} height={32} />
+            <Link
+              href="/login"
+              className="flex items-center gap-2 hover:text-gray-900 transition"
+              aria-label="Login"
+            >
+              <Image src={assets.user_icon} alt="User icon" width={32} height={32} />
               Account
-            </button>
+            </Link>
           )}
         </div>
 
         {/* Mobile Menu */}
         <div className="flex md:hidden items-center gap-3">
           {isSeller && (
-            <button
-              onClick={() => router.push("/seller")}
-              className="text-xs border px-4 py-1.5 rounded-full"
+            <Link
+              href="/seller"
+              className="text-xs border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-100 transition"
+              aria-label="Seller Dashboard"
+              role="menuitem"
             >
               Seller Dashboard
-            </button>
+            </Link>
           )}
 
           {user ? (
             <div className="relative" ref={menuRef}>
-              <button onClick={() => setMenuOpen(!menuOpen)} className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300">
-                <Image src={avatarUrl} alt="avatar" width={40} height={40} />
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-haspopup="true"
+                aria-expanded={menuOpen}
+                aria-label="User menu"
+                className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <Image src={avatarUrl} alt="User avatar" width={40} height={40} />
               </button>
 
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
-                  <MenuItem onClick={() => handleMenuClick("/")} icon={<HomeIcon />} label="Home" />
-                  <MenuItem onClick={() => handleMenuClick("/my-account")} icon={<User />} label="My Account" />
-                  <MenuItem onClick={() => handleMenuClick("/all-products")} icon={<BoxIcon />} label="Products" />
-                  <MenuItem onClick={() => handleMenuClick("/cart")} icon={<CartIcon />} label="Cart" />
-                  <MenuItem onClick={() => handleMenuClick("/my-orders")} icon={<BagIcon />} label="My Orders" />
-                  <hr className="my-2" />
+                <div
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu"
+                >
+                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                  <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
+                  <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
+                  <MenuItem href="/cart" icon={<CartIcon className="w-4 h-4" />} label="Cart" />
+                  <MenuItem href="/my-orders" icon={<BagIcon className="w-4 h-4" />} label="My Orders" />
+                  <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
                       logout();
                     }}
-                    className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left"
+                    className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left focus:outline-none focus:bg-gray-200 rounded-md"
+                    role="menuitem"
                   >
                     Logout
                   </button>
@@ -180,21 +216,19 @@ const Navbar = () => {
               )}
             </div>
           ) : (
-            <button onClick={() => router.push("/login")} className="flex items-center gap-2 hover:text-gray-900 transition">
-              <Image src={assets.user_icon} alt="user icon" width={32} height={32} />
+            <Link
+              href="/login"
+              className="flex items-center gap-2 hover:text-gray-900 transition"
+              aria-label="Login"
+            >
+              <Image src={assets.user_icon} alt="User icon" width={32} height={32} />
               Account
-            </button>
+            </Link>
           )}
         </div>
       </nav>
     </>
   );
 };
-
-const MenuItem = ({ onClick, icon, label }) => (
-  <button onClick={onClick} className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full">
-    {icon} {label}
-  </button>
-);
 
 export default Navbar;

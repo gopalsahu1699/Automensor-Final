@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
-import React, { useState, useEffect } from 'react';
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,14 +24,15 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setStatus('Sending...');
+    setStatus("Sending...");
     try {
-      // Simulated API call
+      // Replace this with your real API call
       await new Promise((res) => setTimeout(res, 1500));
-      setStatus('Message sent successfully!');
-      setFormData({ name: '', email: '', message: '' });
+
+      setStatus("Your message has been sent successfully! We'll get back to you shortly.");
+      setFormData({ name: "", email: "", message: "" });
     } catch {
-      setStatus('Failed to send message. Please try again.');
+      setStatus("Failed to send message. Please try again or contact us directly.");
     } finally {
       setLoading(false);
     }
@@ -39,16 +41,38 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-white text-gray-800">
-        <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
+      <motion.main
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-gradient-to-br from-blue-50 to-white text-gray-900"
+        aria-label="Contact Automensor"
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+          className="text-5xl font-extrabold mb-8 text-center text-blue-700 max-w-xl"
+        >
+          Get in Touch With Automensor
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          className="max-w-xl text-center mb-12 text-lg text-gray-700"
+        >
+          Have questions or want a personalized solution? Fill out the form below and our expert team will respond promptly to help you build your smart home future.
+        </motion.p>
 
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-lg bg-gray-50 p-8 rounded shadow"
+          className="w-full max-w-lg bg-white p-10 rounded-xl shadow-lg ring-1 ring-blue-200"
           noValidate
         >
-          <label htmlFor="name" className="block mb-4">
-            <span className="block text-gray-700 mb-2">Name</span>
+          <label htmlFor="name" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Name</span>
             <input
               id="name"
               type="text"
@@ -56,14 +80,15 @@ export default function Contact() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Your name"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
+              placeholder="Your full name"
               disabled={loading}
+              autoComplete="name"
             />
           </label>
 
-          <label htmlFor="email" className="block mb-4">
-            <span className="block text-gray-700 mb-2">Email</span>
+          <label htmlFor="email" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Email</span>
             <input
               id="email"
               type="email"
@@ -71,40 +96,56 @@ export default function Contact() {
               required
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Your email"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
+              placeholder="you@example.com"
               disabled={loading}
+              autoComplete="email"
             />
           </label>
 
-          <label htmlFor="message" className="block mb-6">
-            <span className="block text-gray-700 mb-2">Message</span>
+          <label htmlFor="message" className="block mb-8">
+            <span className="block text-gray-800 mb-2 font-semibold">Message</span>
             <textarea
               id="message"
               name="message"
-              required
               rows={5}
+              required
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Write your message"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm resize-none"
+              placeholder="Write your message here..."
               disabled={loading}
             />
           </label>
 
           <button
             type="submit"
-            className={`w-full bg-blue-600 text-white py-3 rounded transition ${
-              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
-            }`}
             disabled={loading}
+            className={`w-full bg-blue-700 text-white py-4 rounded-lg font-semibold text-lg transition-colors duration-300 ${
+              loading ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-800"
+            }`}
+            aria-label="Send Message"
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
 
-          {status && <p className="mt-4 text-center text-gray-700">{status}</p>}
+          {status && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className={`mt-6 text-center text-sm ${
+                status.includes("successfully")
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+              role="alert"
+            >
+              {status}
+            </motion.p>
+          )}
         </form>
-      </main>
+      </motion.main>
       <Footer />
     </>
   );
