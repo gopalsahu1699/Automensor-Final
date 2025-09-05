@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import HeaderSlider from "@/components/HeaderSlider";
-import Banner from "@/components/Banner";
-import NewsLetter from "@/components/NewsLetter";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
@@ -95,10 +94,7 @@ const Home = () => {
           <EstimateCostCalculator />
         </section>
 
-        {/* Uncomment and use when ready */}
-        {/* <Banner /> */}
-        {/* <NewsLetter /> */}
-      </div>
+          </div>
       <Footer />
     </>
   );

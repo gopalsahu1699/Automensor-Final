@@ -133,12 +133,12 @@ const Navbar = () => {
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
                 >
-                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
                   <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
-                  <MenuItem href="/cart" icon={<CartIcon className="w-4 h-4" />} label="Cart" />
-                  <MenuItem href="/my-orders" icon={<BagIcon className="w-4 h-4" />} label="My Orders" />
-                  <hr className="my-2 border-gray-200" />
+                  <MenuItem href="/about-us"  label="About Us" />
+                  <MenuItem href="/contact-us"  label="Contact Us" />
+                  <MenuItem href="/Gallery"  label="Gallery" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
@@ -196,11 +196,13 @@ const Navbar = () => {
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
                 >
-                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+             <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
                   <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
-                  <MenuItem href="/cart" icon={<CartIcon className="w-4 h-4" />} label="Cart" />
-                  <MenuItem href="/my-orders" icon={<BagIcon className="w-4 h-4" />} label="My Orders" />
+                  <MenuItem href="/about-us"  label="About Us" />
+                  <MenuItem href="/contact-us"  label="Contact Us" />
+                  <MenuItem href="/Gallery"  label="Gallery" />
+  
                   <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {

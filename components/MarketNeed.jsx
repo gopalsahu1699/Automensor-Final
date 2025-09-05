@@ -2,6 +2,14 @@ import React from "react";
 
 function MarketNeed() {
   const needs = [
+       {
+      title: "Feel Safer with Smart Security",
+      desc: "Get real-time alerts and keep your home protected with smart cameras, locks, and sensors working together.",
+    },
+    {
+      title: "Hands-Free Life with Voice & AI",
+      desc: "Control your home using your voice or intelligent assistants that learn your habits and make life easier.",
+    },
     {
       title: "Easy Connection of Different Devices",
       desc: "Smart homes bring all your gadgets together so they work smoothly without complicated setups.",
@@ -18,14 +26,7 @@ function MarketNeed() {
       title: "Save Money by Using Energy Wisely",
       desc: "Smart systems help cut your electricity bills by managing power use smartly and automatically.",
     },
-    {
-      title: "Feel Safer with Smart Security",
-      desc: "Get real-time alerts and keep your home protected with smart cameras, locks, and sensors working together.",
-    },
-    {
-      title: "Hands-Free Life with Voice & AI",
-      desc: "Control your home using your voice or intelligent assistants that learn your habits and make life easier.",
-    },
+ 
   ];
 
   return (

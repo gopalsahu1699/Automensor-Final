@@ -2,13 +2,9 @@ import React from "react";
 
 function WhyAutomensor() {
   const benefits = [
-    {
-      title: "Seamless Unified Connectivity",
-      desc: "Connect and control all your smart devices effortlessly with support for Zigbee, Wi-Fi, BLE, Thread, and more, ensuring full compatibility and flexibility.",
-    },
-    {
-      title: "Highly Modular and Scalable Architecture",
-      desc: "Easily expand or customize your system’s features anytime without extensive rewrites, enabling future-proof smart home solutions.",
+     {
+      title: "Personalized Automation with AI & Voice Control",
+      desc: "Enhance convenience by integrating voice assistants and AI-driven automation for truly hands-free, adaptive smart home control.",
     },
     {
       title: "Sleek & Intuitive User Interface",
@@ -26,10 +22,7 @@ function WhyAutomensor() {
       title: "Rapid Deployment & Integration",
       desc: "Accelerate your project timelines with reusable components and UI kits, offering consistent branding and streamlined development.",
     },
-    {
-      title: "Personalized Automation with AI & Voice Control",
-      desc: "Enhance convenience by integrating voice assistants and AI-driven automation for truly hands-free, adaptive smart home control.",
-    },
+   
     {
       title: "Reliable Customer Support & Continuous Improvement",
       desc: "Benefit from dedicated support teams and ongoing software enhancements ensuring your smart home stays cutting-edge and reliable.",
