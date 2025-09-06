@@ -5,52 +5,83 @@ import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
 
-const product = {
-  id: 1,
-  image: assets.girl_with_headphone_image,
-  title: "Customize Your Smart Home Automation",
-  description:
-    "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
-};
+const products = [
+  {
+    id: 1,
+    image: assets.girl_with_headphone_image,
+    title: "Customize Your Smart Home Automation",
+    description:
+      "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
+    route: "/estimate-cost",
+  },
+  {
+    id: 2,
+    image: assets.girl_with_headphone_image,
+    title: "Customize Your Smart Villa Automation",
+    description:
+      "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
+    route: "/estimated-cost-villa",
+  },
+  {
+    id: 3,
+    image: assets.girl_with_headphone_image,
+    title: "Customize Your Smart Hotel Room Automation",
+    description:
+      "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
+    route: "/estimated-cost-hotel-room",
+  },
+];
 
 const EstimateCostCalculator = () => {
   return (
-    <div className="mt-14 px-6 md:px-20 max-w-3xl mx-auto">
-      <div className="flex flex-col items-center">
-        <p className="text-3xl md:text-4xl font-semibold text-center leading-tight mb-3">
+    <section className="mt-14 px-6 sm:px-10 md:px-20 max-w-5xl mx-auto">
+      <header className="flex flex-col items-center mb-14">
+        <h2 className="text-3xl sm:text-4xl font-semibold text-center leading-tight">
           Estimate Your Home Automation Cost
-        </p>
-        <div className="w-28 h-1 bg-orange-600 rounded mb-10" />
-      </div>
+        </h2>
+        <div className="w-28 h-1 bg-orange-600 rounded mt-4" />
+      </header>
 
-      <div className="relative group rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-        <Image
-          src={product.image}
-          alt={product.title}
-          className="group-hover:brightness-75 transition duration-300 w-full h-auto object-cover rounded-2xl"
-          priority
-          sizes="(max-width: 640px) 100vw,
-                 (max-width: 1024px) 100vw"
-        />
-        <div className="group-hover:-translate-y-5 transition-transform duration-300 absolute bottom-8 left-8 right-8 text-white space-y-4 bg-black bg-opacity-60 p-6 rounded-2xl">
-          <p className="font-semibold text-2xl md:text-3xl">{product.title}</p>
-          <p className="text-base leading-relaxed">{product.description}</p>
-
-          <Link
-            href="/estimate-cost"
-            className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-4 px-6 py-3 whitespace-nowrap"
-            aria-label="Get your personalized estimate"
+      <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {products.map(({ id, image, title, description, route }) => (
+          <article
+            key={id}
+            className="group rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col"
           >
-            Get Estimate cost
-            <Image
-              className="h-4 w-4"
-              src={assets.redirect_icon}
-              alt="Redirect Icon"
-            />
-          </Link>
-        </div>
+            <div className="relative">
+              <Image
+                src={image}
+                alt={title}
+                className="group-hover:brightness-75 transition duration-300 w-full h-56 sm:h-64 md:h-48 lg:h-56 object-cover rounded-t-2xl"
+                priority
+                sizes="(max-width: 640px) 100vw,
+                       (max-width: 1024px) 50vw,
+                       33vw"
+              />
+            </div>
+            <div className="bg-black bg-opacity-70 text-white p-6 rounded-b-2xl space-y-4 flex-grow flex flex-col justify-between">
+              <div>
+                <h3 className="font-semibold text-xl sm:text-2xl">{title}</h3>
+                <p className="text-sm sm:text-base leading-relaxed mt-2">{description}</p>
+              </div>
+              <Link
+                href={route}
+                className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-start"
+                aria-label={`Get personalized estimate for: ${title}`}
+              >
+                Get Estimate cost
+                <Image
+                  className="h-4 w-4"
+                  src={assets.redirect_icon}
+                  alt="Redirect Icon"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
+          </article>
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 
