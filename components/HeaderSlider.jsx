@@ -13,7 +13,7 @@ const HeaderSlider = () => {
       buttonLink1: "/get-started",
       buttonText2: "Learn More",
       buttonLink2: "/learn-more",
-      imgSrc: assets.smart_home,
+      imgSrc: assets.Home5,
     },
     {
       id: 2,
@@ -90,7 +90,7 @@ const HeaderSlider = () => {
             </div>
             <div className="flex items-center flex-1 justify-center">
               <Image
-                className="md:w-72 w-48"
+                className="md:w-50 h-70"
                 src={slide.imgSrc}
                 alt={`Slide ${index + 1}`}
               />

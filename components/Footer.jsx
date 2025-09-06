@@ -55,7 +55,7 @@ const Footer = () => {
             </a>
           </p>
           <p className="mt-4 text-xs text-gray-500">
-            Registered Office: 123 Smart Street, Bengaluru, India
+            Registered Office: Seepat, Bilaspur, Chhattisgarh , India, Pin Code : 495555. 
           </p>
         </address>
       </div>

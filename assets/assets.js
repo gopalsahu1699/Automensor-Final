@@ -27,6 +27,10 @@ import smart_room from "./smart_room.webp"
 import smart_room2 from "./smart_room2.webp"
 import Hotel_room from "./hotel_room.webp"
 import logout from "./logout.svg"
+import Home3 from "./home3.webp"
+import Home4 from "./home4.webp"
+import Home5 from "./home5.webp"
+import Home6 from "./home6.webp"
 
 export const assets = {
   logo,
@@ -38,6 +42,10 @@ export const assets = {
  smart_room,
  smart_room2,
  Hotel_room,
+ Home3,
+ Home4,
+ Home5,
+ Home6,
  logout,
   search_icon,
   user_icon,
