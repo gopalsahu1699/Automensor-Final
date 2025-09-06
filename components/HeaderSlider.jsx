@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import Link from "next/link";
 
 const HeaderSlider = () => {
   const sliderData = [
     {
       id: 1,
       title: "Smart Home Automation Made Simple & Affordable",
-      offer: "Get 30% Off Your First Installation!",
+      offer: "Get flat 10% Off On Your First Installation!",
       buttonText1: "Get Started",
+      buttonLink1: "/get-started",
       buttonText2: "Learn More",
-      imgSrc: assets.smart_home, // Replace with home automation image asset
+      buttonLink2: "/learn-more",
+      imgSrc: assets.smart_home,
     },
     {
       id: 2,
       title: "Control Every Room with One Tap - Ultimate Comfort",
-      offer: "Limited Time Offer - Book Your Free Consultation",
+      offer: "Book Your Free Consultation",
       buttonText1: "Book Now",
-      buttonText2: "View Features",
-      imgSrc: assets.smart_room, // Replace with home automation image asset
+      buttonLink1: "/contact-us",
+      buttonText2: "View Products",
+      buttonLink2: "/all-Products",
+      imgSrc: assets.smart_room,
     },
     {
       id: 3,
-      title: "Secure and Energy-Efficient Smart Homes for Modern Living",
-      offer: "Exclusive Packages up to 40% Off",
+      title: "Secure and Energy-Efficient Smart Hotels for Modern Living",
+      offer: "Exclusive Hotel Room Packages up to 15% Off",
       buttonText1: "Request Quote",
+      buttonLink1: "/request-quote",
       buttonText2: "Explore Plans",
-      imgSrc: assets.smart_room2, // Replace with home automation image asset
+      buttonLink2: "/estimated-cost-hotel-room",
+      imgSrc: assets.smart_room2,
     },
   ];
 
@@ -62,17 +69,23 @@ const HeaderSlider = () => {
                 {slide.title}
               </h1>
               <div className="flex items-center mt-4 md:mt-6 ">
-                <button className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium">
+                <Link
+                  href={slide.buttonLink1}
+                  className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium inline-block text-center"
+                >
                   {slide.buttonText1}
-                </button>
-                <button className="group flex items-center gap-2 px-6 py-2.5 font-medium">
+                </Link>
+                <Link
+                  href={slide.buttonLink2}
+                  className="group flex items-center gap-2 px-6 py-2.5 font-medium ml-4"
+                >
                   {slide.buttonText2}
                   <Image
                     className="group-hover:translate-x-1 transition"
                     src={assets.arrow_icon}
                     alt="arrow_icon"
                   />
-                </button>
+                </Link>
               </div>
             </div>
             <div className="flex items-center flex-1 justify-center">

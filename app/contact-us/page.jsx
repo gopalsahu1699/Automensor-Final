@@ -11,7 +11,7 @@ const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_REQUEST_DATABASE_ID;
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_REQUEST_COLLECTION_ID;
 
 const client = new Client()
-  .setEndpoint("https://fra.cloud.appwrite.io/v1") // ✅ replace with your endpoint if different
+  .setEndpoint("https://fra.cloud.appwrite.io/v1") // replace with your endpoint if different
   .setProject(PROJECT_ID);
 
 const databases = new Databases(client);
@@ -23,12 +23,13 @@ export default function Contact() {
     email: "",
     phone: "",
     message: "",
+    type: "", // included type attribute
   });
   const [userId, setUserId] = useState(null);
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Fetch logged-in user
+  // Fetch logged-in user ID
   useEffect(() => {
     account.get().then(
       (user) => setUserId(user.$id),
@@ -38,12 +39,12 @@ export default function Contact() {
     );
   }, []);
 
-  // ✅ Handle form input changes
+  // Handle form input changes including select type
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // ✅ Auto-hide status message
+  // Auto-hide status message after 5 seconds
   useEffect(() => {
     if (status) {
       const timer = setTimeout(() => setStatus(null), 5000);
@@ -51,7 +52,7 @@ export default function Contact() {
     }
   }, [status]);
 
-  // ✅ Submit form
+  // Submit form data including type attribute
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -64,11 +65,12 @@ export default function Contact() {
         email: formData.email,
         phone: formData.phone,
         message: formData.message,
-        status: "new", // ✅ fixed comma
+        type: formData.type, // send the type field value
+        status: "new",
       });
 
       setStatus("✅ Your message has been sent successfully!");
-      setFormData({ name: "", email: "", phone: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "", type: "" });
     } catch (error) {
       console.error("Error sending message:", error);
       setStatus("❌ Failed to send message. Please try again.");
@@ -105,7 +107,6 @@ export default function Contact() {
           and our expert team will respond promptly to help you build your smart home future.
         </motion.p>
 
-        {/* ✅ Contact Form */}
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-lg bg-white p-10 rounded-xl shadow-lg ring-1 ring-blue-200"
@@ -159,6 +160,28 @@ export default function Contact() {
               disabled={loading}
               autoComplete="tel"
             />
+          </label>
+
+          {/* Type Dropdown */}
+          <label htmlFor="type" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Type</span>
+            <select
+              id="type"
+              name="type"
+              required
+              value={formData.type}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
+              disabled={loading}
+            >
+              <option value="">Select type</option>
+              <option value="1bhk">1 BHK</option>
+              <option value="2bhk">2 BHK</option>
+              <option value="3bhk">3 BHK</option>
+              <option value="villa">Villa</option>
+              <option value="hotel">Hotel</option>
+              <option value="other">Other</option>
+            </select>
           </label>
 
           {/* Message */}

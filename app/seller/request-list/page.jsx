@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Client, Databases } from "appwrite";
 
-// 🔑 Environment variables
+// Environment variables
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_REQUEST_DATABASE_ID;
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_REQUEST_COLLECTION_ID;
 
-// 🔗 Appwrite client setup
+// Appwrite Client Setup
 const client = new Client()
   .setEndpoint("https://fra.cloud.appwrite.io/v1")
   .setProject(PROJECT_ID);
@@ -26,78 +26,76 @@ export default function RequestList() {
   const [monthFilter, setMonthFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState(""); // Added filter for "type"
 
-  // ✅ Fetch all requests
+  // Fetch requests from database
   useEffect(() => {
-    (async () => {
+    async function fetchRequests() {
+      setLoading(true);
+      setError(null);
       try {
-        const res = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
-        setRequests(res.documents);
+        const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+        setRequests(response.documents);
       } catch (err) {
         console.error("Error fetching requests:", err);
         setError("Failed to load requests");
       } finally {
         setLoading(false);
       }
-    })();
+    }
+    fetchRequests();
   }, []);
 
-  // ✅ Update status
+  // Update request status
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const updated = await databases.updateDocument(
-        DATABASE_ID,
-        COLLECTION_ID,
-        id,
-        { status: newStatus }
-      );
-
-      // update UI immediately
-      setRequests((prev) =>
-        prev.map((req) => (req.$id === id ? updated : req))
-      );
+      const updated = await databases.updateDocument(DATABASE_ID, COLLECTION_ID, id, { status: newStatus });
+      setRequests((prev) => prev.map((req) => (req.$id === id ? updated : req)));
     } catch (err) {
       console.error("Error updating status:", err);
       alert("Failed to update status");
     }
   };
 
-  // ✅ Apply combined filters including status
-  const filteredRequests = requests.filter((req) => {
-    const created = new Date(req.$createdAt);
+  // Filter requests including filter by "type"
+  const filteredRequests = useMemo(() => {
+    return requests.filter((req) => {
+      const created = new Date(req.$createdAt);
 
-    if (dateFilter) {
-      const filterDate = new Date(dateFilter);
-      if (
-        created.getFullYear() !== filterDate.getFullYear() ||
-        created.getMonth() !== filterDate.getMonth() ||
-        created.getDate() !== filterDate.getDate()
-      )
-        return false;
-    }
+      if (dateFilter) {
+        const filterDate = new Date(dateFilter);
+        if (
+          created.getFullYear() !== filterDate.getFullYear() ||
+          created.getMonth() !== filterDate.getMonth() ||
+          created.getDate() !== filterDate.getDate()
+        )
+          return false;
+      }
 
-    if (monthFilter) {
-      const [year, month] = monthFilter.split("-");
-      if (
-        created.getFullYear() !== parseInt(year) ||
-        created.getMonth() !== parseInt(month) - 1
-      )
-        return false;
-    }
+      if (monthFilter) {
+        const [year, month] = monthFilter.split("-");
+        if (
+          created.getFullYear() !== parseInt(year, 10) ||
+          created.getMonth() !== parseInt(month, 10) - 1
+        )
+          return false;
+      }
 
-    if (yearFilter && created.getFullYear() !== parseInt(yearFilter)) {
-      return false;
-    }
-
-    if (statusFilter && statusFilter !== "") {
-      // Filter by status field in document data
-      if ((req.status || "").toLowerCase() !== statusFilter.toLowerCase()) {
+      if (yearFilter && created.getFullYear() !== parseInt(yearFilter, 10)) {
         return false;
       }
-    }
 
-    return true;
-  });
+      if (statusFilter && statusFilter !== "") {
+        if ((req.status || "").toLowerCase() !== statusFilter.toLowerCase()) return false;
+      }
+
+      if (typeFilter && typeFilter !== "") {
+        if ((req.type || "").toLowerCase() !== typeFilter.toLowerCase()) return false;
+      }
+
+      return true;
+    });
+  }, [requests, dateFilter, monthFilter, yearFilter, statusFilter, typeFilter]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-white p-8">
@@ -111,20 +109,8 @@ export default function RequestList() {
 
       {/* Filters */}
       <div className="max-w-4xl mx-auto mb-6 flex flex-wrap gap-4 justify-center">
-        <FilterInput
-          id="dateFilter"
-          label="Filter by Date"
-          type="date"
-          value={dateFilter}
-          onChange={setDateFilter}
-        />
-        <FilterInput
-          id="monthFilter"
-          label="Filter by Month"
-          type="month"
-          value={monthFilter}
-          onChange={setMonthFilter}
-        />
+        <FilterInput id="dateFilter" label="Filter by Date" type="date" value={dateFilter} onChange={setDateFilter} />
+        <FilterInput id="monthFilter" label="Filter by Month" type="month" value={monthFilter} onChange={setMonthFilter} />
         <FilterInput
           id="yearFilter"
           label="Filter by Year"
@@ -147,15 +133,31 @@ export default function RequestList() {
             { value: "follow-up", label: "Follow Up" },
           ]}
         />
+        <FilterSelect
+          id="typeFilter"
+          label="Filter by Type"
+          value={typeFilter}
+          onChange={setTypeFilter}
+          options={[
+            { value: "", label: "All Types" },
+            { value: "1bhk", label: "1 BHK" },
+            { value: "2bhk", label: "2 BHK" },
+            { value: "3bhk", label: "3 BHK" },
+            { value: "villa", label: "Villa" },
+            { value: "hotel", label: "Hotel" },
+            { value: "other", label: "Other" },
+          ]}
+        />
       </div>
 
+      {/* Status Messages */}
       {loading && <p className="text-center text-gray-600">Loading requests...</p>}
       {error && <p className="text-center text-red-600">{error}</p>}
       {!loading && !error && filteredRequests.length === 0 && (
         <p className="text-center text-gray-700">No requests found.</p>
       )}
 
-      {/* Requests List */}
+      {/* Request List */}
       <div className="max-w-4xl mx-auto grid gap-6">
         {filteredRequests.map((req) => (
           <motion.div
@@ -173,7 +175,6 @@ export default function RequestList() {
   );
 }
 
-/* ------------------- 🔹 Reusable Components ------------------- */
 function FilterInput({ id, label, type, value, onChange, ...props }) {
   return (
     <div>
@@ -230,11 +231,13 @@ function RequestCard({ data, onStatusChange }) {
         <span className="font-semibold text-blue-600">Message:</span>
       </p>
       <p className="whitespace-pre-wrap mt-1 text-gray-800">{data.message || "N/A"}</p>
-      <p className="mt-2 text-sm text-gray-500">
-        Created: {new Date(data.$createdAt).toLocaleString()}
+      <p className="mt-2 text-sm text-gray-500">Created: {new Date(data.$createdAt).toLocaleString()}</p>
+
+      <p className="mt-2">
+        <span className="font-semibold text-blue-600">Type:</span> {data.type || "N/A"}
       </p>
 
-      {/* 🔹 Status Dropdown */}
+      {/* Status Dropdown */}
       <div className="mt-4">
         <label className="font-semibold text-blue-600 mr-2">Status:</label>
         <select

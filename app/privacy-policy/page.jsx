@@ -31,7 +31,7 @@ function PrivacyPolicy() {
         <h2 className="text-2xl font-semibold mt-8">Contact Us</h2>
         <p>
           If you have questions about this Privacy Policy or how your data is handled, please reach out at{" "}
-          <a href="mailto:privacy@automensor.com" className="text-blue-600 hover:underline">
+          <a href="mailto:automensor@gmail.com" className="text-blue-600 hover:underline">
             privacy@automensor.com
           </a>.
         </p>

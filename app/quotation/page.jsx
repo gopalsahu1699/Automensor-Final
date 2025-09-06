@@ -1,72 +1,81 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Client, Databases, ID } from "appwrite";
-import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { Client, Databases, ID, Account } from "appwrite";
 
-// Initialize Appwrite client
-const client = new Client();
-client
-  .setEndpoint("https://fra.cloud.appwrite.io/v1") // Your Appwrite endpoint
-  .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID); // Your project ID
+const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_REQUEST_DATABASE_ID;
+const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_REQUEST_COLLECTION_ID;
+
+const client = new Client()
+  .setEndpoint("https://fra.cloud.appwrite.io/v1") // Replace with your endpoint if different
+  .setProject(PROJECT_ID);
 
 const databases = new Databases(client);
-const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_DATABASE_ID; // Your database ID
-const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USER_COLLECTION_ID; // Your collection ID for quotations
+const account = new Account(client);
 
-const QuotationPage = () => {
+export default function QuotationPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    homeSize: "",
-    roomCount: "",
+    phone: "",
     message: "",
+    type: "", // type attribute included
   });
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  // Fetch logged-in user ID
+  useEffect(() => {
+    account.get().then(
+      (user) => setUserId(user.$id),
+      (error) => {
+        console.warn("User not logged in:", error.message);
+      }
+    );
+  }, []);
+
+  // Handle input changes
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // Auto-hide status message after 5 seconds
+  useEffect(() => {
+    if (status) {
+      const timer = setTimeout(() => setStatus(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
+
+  // Submit form data including type attribute
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    setError("");
-    setSuccess(false);
-
-    if (!formData.name || !formData.email) {
-      setError("Please fill in your name and email.");
-      setSubmitting(false);
-      return;
-    }
+    setLoading(true);
+    setStatus("Sending...");
 
     try {
-      // Create a new document in Appwrite database collection
       await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+        userId: userId || "anonymous",
         name: formData.name,
         email: formData.email,
-        homeSize: formData.homeSize,
-        roomCount: formData.roomCount,
+        phone: formData.phone,
         message: formData.message,
-        createdAt: new Date().toISOString(),
+        type: formData.type,
+        status: "new",
       });
 
-      setSuccess(true);
-      setFormData({
-        name: "",
-        email: "",
-        homeSize: "",
-        roomCount: "",
-        message: "",
-      });
-    } catch (err) {
-      setError(err.message || "An error occurred. Please try again.");
+      setStatus("✅ Your quote request has been sent successfully!");
+      setFormData({ name: "", email: "", phone: "", message: "", type: "" });
+    } catch (error) {
+      console.error("Error sending request:", error);
+      setStatus("❌ Failed to send request. Please try again.");
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
   };
 
@@ -74,140 +83,146 @@ const QuotationPage = () => {
     <>
       <Navbar />
       <motion.main
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-12"
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-gradient-to-br from-blue-50 to-white text-gray-900"
       >
-        <h1 className="text-4xl font-extrabold text-center mb-4 text-gray-900">
-          Get Your Personalized Home Automation Quote
-        </h1>
-        <p className="text-center text-lg text-gray-700 mb-10">
-          Unlock the true potential of your smart home with a customized quote
-          based on your home size, number of rooms, and preferred smart devices.
-          Start transforming your living space today!
-        </p>
+        <motion.h1
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+          className="text-5xl font-extrabold mb-8 text-center text-blue-700 max-w-xl"
+        >
+          Request Your Personalized Smart Home Quote
+        </motion.h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-gray-800 font-semibold mb-1"
-            >
-              Full Name <span className="text-orange-600">*</span>
-            </label>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          className="max-w-xl text-center mb-12 text-lg text-gray-700"
+        >
+          Fill out the form below with your details and requirements. Our expert team will provide a customized quote tailored to your home.
+        </motion.p>
+
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-lg bg-white p-10 rounded-xl shadow-lg ring-1 ring-blue-200"
+        >
+          {/* Name */}
+          <label htmlFor="name" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Name</span>
             <input
-              type="text"
               id="name"
+              type="text"
               name="name"
+              required
               value={formData.name}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
               placeholder="Your full name"
-              required
+              disabled={loading}
+              autoComplete="name"
             />
-          </div>
+          </label>
 
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-gray-800 font-semibold mb-1"
-            >
-              Email Address <span className="text-orange-600">*</span>
-            </label>
+          {/* Email */}
+          <label htmlFor="email" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Email</span>
             <input
-              type="email"
               id="email"
+              type="email"
               name="email"
+              required
               value={formData.email}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
               placeholder="you@example.com"
-              required
+              disabled={loading}
+              autoComplete="email"
             />
-          </div>
-          <div>
-            <label
-              htmlFor="Phone Number"
-              className="block text-gray-800 font-semibold mb-1"
-            >Phone Number
-               <span className="text-orange-600">*</span>
-            </label>
+          </label>
+
+          {/* Phone */}
+          <label htmlFor="phone" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Phone Number</span>
             <input
-              type="text"
               id="phone"
+              type="tel"
               name="phone"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
-              placeholder="Phone Number"
               required
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
+              placeholder="Your phone number"
+              disabled={loading}
+              autoComplete="tel"
             />
-          </div>
+          </label>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label
-                htmlFor="homeSize"
-                className="block text-gray-800 font-semibold mb-1"
-              >
-                Which Best Describes Your Home
-              </label>
-              <select
-                id="homeSize"
-                name="homeSize"
-                value={formData.homeSize}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
-              >
-                <option value="">Select type</option>
-                <option value="1bhk">1 BHK</option>
-                <option value="2bhk">2 BHK</option>
-                <option value="3bhk">3 BHK</option>
-                <option value="villa">Villa</option>
-                <option value="villa">Hotel</option>
-                <option value="villa">other</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-gray-800 font-semibold mb-1"
+          {/* Type Dropdown */}
+          <label htmlFor="type" className="block mb-6">
+            <span className="block text-gray-800 mb-2 font-semibold">Type</span>
+            <select
+              id="type"
+              name="type"
+              required
+              value={formData.type}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm"
+              disabled={loading}
             >
-              Additional Details (optional)
-            </label>
+              <option value="">Select type</option>
+              <option value="1bhk">1 BHK</option>
+              <option value="2bhk">2 BHK</option>
+              <option value="3bhk">3 BHK</option>
+              <option value="villa">Villa</option>
+              <option value="hotel">Hotel</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          {/* Message */}
+          <label htmlFor="message" className="block mb-8">
+            <span className="block text-gray-800 mb-2 font-semibold">Message</span>
             <textarea
               id="message"
               name="message"
+              rows={5}
+              required
               value={formData.message}
               onChange={handleChange}
-              rows={4}
-              className="w-full border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
-              placeholder="Describe your requirements or questions"
+              className="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 transition shadow-sm resize-none"
+              placeholder="Write your message here..."
+              disabled={loading}
             />
-          </div>
+          </label>
 
-          {error && <p className="text-red-600 font-semibold">{error}</p>}
-          {success && (
-            <p className="text-green-600 font-semibold">
-              Your request has been saved successfully!
-            </p>
-          )}
-
+          {/* Submit */}
           <button
             type="submit"
-            disabled={submitting}
-            className={`w-full bg-orange-600 text-white py-3 rounded-md font-semibold text-lg transition-colors duration-300 hover:bg-orange-700 disabled:opacity-50`}
+            disabled={loading}
+            className={`w-full bg-blue-700 text-white py-4 rounded-lg font-semibold text-lg transition-colors duration-300 ${
+              loading ? "opacity-60 cursor-not-allowed" : "hover:bg-blue-800"
+            }`}
           >
-            {submitting ? "Saving..." : "Request Quote"}
+            {loading ? "Sending..." : "Request Quote"}
           </button>
+
+          {status && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className={`mt-6 text-center text-sm ${status.includes("success") ? "text-green-600" : "text-red-600"}`}
+            >
+              {status}
+            </motion.p>
+          )}
         </form>
       </motion.main>
       <Footer />
     </>
   );
-};
-
-export default QuotationPage;
+}
