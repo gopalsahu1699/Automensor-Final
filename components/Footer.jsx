@@ -50,8 +50,8 @@ const Footer = () => {
           <p>Phone: +91-98765-43210</p>
           <p>
             Email:{" "}
-            <a href="mailto:contact@automensor.com" className="hover:underline">
-              contact@automensor.com
+            <a href="mailto:automensor@gmail.com" className="hover:underline">
+             automensor@gmail.com
             </a>
           </p>
           <p className="mt-4 text-xs text-gray-500">

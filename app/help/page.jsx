@@ -56,8 +56,8 @@ const Help = () => {
           <p className="mb-2">+91-98765-43210</p>
           <p className="font-semibold">Email:</p>
           <p>
-            <a href="mailto:support@automensor.com" className="text-blue-600 hover:underline">
-              support@automensor.com
+            <a href="mailto:automensor@gmail.com" className="text-blue-600 hover:underline">
+              automensor@gmail.com
             </a>
           </p>
         </section>

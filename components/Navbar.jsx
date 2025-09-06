@@ -2,13 +2,19 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Award, BookImage, LogOut, User, UserRoundSearch } from "lucide-react";
+import {
+  Award,
+  BookImage,
+  LogOut,
+  User,
+  UserRoundSearch,
+  PackageSearch,
+} from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
-import { assets, HomeIcon, BagIcon, BoxIcon, CartIcon } from "@/assets/assets";
+import { assets, HomeIcon } from "@/assets/assets";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { PackageSearch } from 'lucide-react';
 
 const Navbar = () => {
   const { isSeller } = useAppContext();
@@ -46,14 +52,13 @@ const Navbar = () => {
 
   const avatarUrl = user?.prefs?.avatar || assets.user_icon;
 
-  // Menu item as Link for navigation and better semantics
+  // Menu item reusable
   const MenuItem = ({ href, icon, label }) => (
     <Link
       href={href}
       onClick={() => setMenuOpen(false)}
-      className="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full rounded-md focus:outline-none focus:bg-gray-200 transition"
+      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 w-full rounded-md transition"
       role="menuitem"
-      tabIndex={0}
     >
       {icon}
       <span>{label}</span>
@@ -62,27 +67,28 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Loading Spinner */}
       {loading && (
-        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white/70 flex items-center justify-center z-50">
           <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16" />
           <style jsx>{`
             .loader {
-              border-top-color: #3b82f6; /* blue-500 */
+              border-top-color: #2563eb; /* blue-600 */
               animation: spinner 1s linear infinite;
             }
             @keyframes spinner {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
             }
           `}</style>
         </div>
       )}
 
-      <nav
-        className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-3 border-b border-gray-300 bg-white text-gray-700 shadow-sm"
-        role="navigation"
-        aria-label="Main navigation"
-      >
+      <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-0 border-b border-gray-200 bg-white text-gray-700 shadow-sm sticky top-0 z-40">
         {/* Logo */}
         <div
           role="button"
@@ -92,21 +98,26 @@ const Navbar = () => {
           onKeyDown={(e) => e.key === "Enter" && router.push("/")}
           className="cursor-pointer"
         >
-          <Image src={assets.logo3} alt="AUTOMENSOR logo" width={128} height={32} priority />
+          <Image
+            src={assets.logo3}
+            alt="AUTOMENSOR logo"
+            width={140}
+            height={40}
+            priority
+          />
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8" role="menubar" aria-label="Primary Navigation">
+        <div className="hidden md:flex items-center gap-8 font-medium">
           <MenuItem href="/" icon={<HomeIcon className="w-5 h-5" />} label="Home" />
-          <MenuItem href="/all-products"  label="Products" />
+          <MenuItem href="/all-products" label="Products" />
           <MenuItem href="/about-us" label="About" />
           <MenuItem href="/contact-us" label="Contact" />
           {isSeller && (
             <Link
               href="/seller"
-              className="text-xs border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-100 transition"
+              className="text-sm border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-50 transition"
               aria-label="Seller Dashboard"
-              role="menuitem"
             >
               Seller Dashboard
             </Link>
@@ -122,33 +133,32 @@ const Navbar = () => {
                 aria-haspopup="true"
                 aria-expanded={menuOpen}
                 aria-label="User menu"
-                className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               >
                 <Image src={avatarUrl} alt="User avatar" width={40} height={40} />
               </button>
 
               {menuOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg py-2 z-50"
+                  className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-lg py-2 border border-gray-100 animate-fade-in"
                   role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu"
                 >
-                    <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
-                  <MenuItem href="/all-products"  icon={<PackageSearch className="w-4 h-4"/>} label="Products" />
-                  <MenuItem href="/about-us"  icon={   <Award className="w-4 h-4"/>} label="About Us" />
-                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4"/>} label="Contact Us" />
-                  <MenuItem href="/gallery" icon={ <BookImage className="w-4 h-4"/>} label="Gallery" />
+                  <MenuItem href="/all-products" icon={<PackageSearch className="w-4 h-4" />} label="Products" />
+                  <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />
+                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4" />} label="Contact Us" />
+                  <MenuItem href="/gallery" icon={<BookImage className="w-4 h-4" />} label="Gallery" />
+                  <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
                       logout();
                     }}
-                    className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left focus:outline-none focus:bg-gray-200 rounded-md"
+                    className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 w-full text-left rounded-md transition"
                     role="menuitem"
                   >
-                   <LogOut width={20} height={20} /> Logout
+                    <LogOut width={18} height={18} /> Logout
                   </button>
                 </div>
               )}
@@ -156,11 +166,11 @@ const Navbar = () => {
           ) : (
             <Link
               href="/login"
-              className="flex items-center gap-2 hover:text-gray-900 transition"
+              className="flex items-center gap-2 hover:text-blue-600 transition"
               aria-label="Login"
             >
-              <Image src={assets.user_icon} alt="User icon" width={32} height={32} />
-              Account
+              <Image src={assets.user_icon} alt="User icon" width={28} height={28} />
+              <span className="font-medium">Account</span>
             </Link>
           )}
         </div>
@@ -170,9 +180,7 @@ const Navbar = () => {
           {isSeller && (
             <Link
               href="/seller"
-              className="text-xs border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-100 transition"
-              aria-label="Seller Dashboard"
-              role="menuitem"
+              className="text-xs border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-50 transition"
             >
               Seller Dashboard
             </Link>
@@ -185,35 +193,32 @@ const Navbar = () => {
                 aria-haspopup="true"
                 aria-expanded={menuOpen}
                 aria-label="User menu"
-                className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-9 h-9 rounded-full overflow-hidden border border-gray-200 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               >
-                <Image src={avatarUrl} alt="User avatar" width={40} height={40} />
+                <Image src={avatarUrl} alt="User avatar" width={36} height={36} />
               </button>
 
               {menuOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50"
+                  className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 border border-gray-100 animate-fade-in"
                   role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu"
                 >
-             <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
-                  <MenuItem href="/all-products"  icon={<PackageSearch className="w-4 h-4"/>} label="Products" />
-                  <MenuItem href="/about-us"  icon={   <Award className="w-4 h-4"/>} label="About Us" />
-                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4"/>} label="Contact Us" />
-                  <MenuItem href="/gallery" icon={ <BookImage className="w-4 h-4"/>} label="Gallery" />
-  
+                  <MenuItem href="/all-products" icon={<PackageSearch className="w-4 h-4" />} label="Products" />
+                  <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />
+                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4" />} label="Contact Us" />
+                  <MenuItem href="/gallery" icon={<BookImage className="w-4 h-4" />} label="Gallery" />
                   <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
                       logout();
                     }}
-                    className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left focus:outline-none focus:bg-gray-200 rounded-md"
+                    className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 w-full text-left rounded-md transition"
                     role="menuitem"
                   >
-                   <LogOut width={20} height={20} /> Logout
+                    <LogOut width={18} height={18} /> Logout
                   </button>
                 </div>
               )}
@@ -221,11 +226,10 @@ const Navbar = () => {
           ) : (
             <Link
               href="/login"
-              className="flex items-center gap-2 hover:text-gray-900 transition"
-              aria-label="Login"
+              className="flex items-center gap-2 hover:text-blue-600 transition"
             >
-              <Image src={assets.user_icon} alt="User icon" width={32} height={32} />
-              Account
+              <Image src={assets.user_icon} alt="User icon" width={28} height={28} />
+              <span className="font-medium">Account</span>
             </Link>
           )}
         </div>
