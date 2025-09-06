@@ -91,7 +91,7 @@ const Navbar = () => {
           onKeyDown={(e) => e.key === "Enter" && router.push("/")}
           className="cursor-pointer"
         >
-          <Image src={assets.logo} alt="AUTOMENSOR logo" width={128} height={32} priority />
+          <Image src={assets.logo3} alt="AUTOMENSOR logo" width={128} height={32} priority />
         </div>
 
         {/* Desktop Navigation */}
@@ -138,7 +138,7 @@ const Navbar = () => {
                   <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
                   <MenuItem href="/about-us"  label="About Us" />
                   <MenuItem href="/contact-us"  label="Contact Us" />
-                  <MenuItem href="/Gallery"  label="Gallery" />
+                  <MenuItem href="/gallery"  label="Gallery" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
@@ -201,7 +201,7 @@ const Navbar = () => {
                   <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
                   <MenuItem href="/about-us"  label="About Us" />
                   <MenuItem href="/contact-us"  label="Contact Us" />
-                  <MenuItem href="/Gallery"  label="Gallery" />
+                  <MenuItem href="/gallery"  label="Gallery" />
   
                   <hr className="my-2 border-gray-200" />
                   <button
