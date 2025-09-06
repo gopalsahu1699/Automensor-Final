@@ -80,7 +80,7 @@ const LearnMore = () => {
         {/* Call to Action */}
         <div className="text-center">
           <a
-            href="/contact"
+            href="/contact-us"
             className="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-12 py-4 rounded-full shadow-lg transition-transform transform hover:scale-105"
             aria-label="Contact us to get started"
           >

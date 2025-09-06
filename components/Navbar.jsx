@@ -10,12 +10,14 @@ import {
   UserRoundSearch,
   PackageSearch,
   FileQuestionMark,
+  HouseWifi
 } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
-import { assets, HomeIcon } from "@/assets/assets";
+import { assets } from "@/assets/assets";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+
 
 const Navbar = () => {
   const { isSeller } = useAppContext();
@@ -144,7 +146,7 @@ const Navbar = () => {
                   className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-lg py-2 border border-gray-100 animate-fade-in"
                   role="menu"
                 >
-                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                  <MenuItem href="/" icon={<HouseWifi  className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
                   <MenuItem href="/all-products" icon={<PackageSearch className="w-4 h-4" />} label="Products" />
                   <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />
@@ -205,7 +207,7 @@ const Navbar = () => {
                   className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 border border-gray-100 animate-fade-in"
                   role="menu"
                 >
-                  <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                  <MenuItem href="/" icon={<HouseWifi  className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
                   <MenuItem href="/all-products" icon={<PackageSearch className="w-4 h-4" />} label="Products" />
                   <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />

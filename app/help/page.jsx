@@ -53,6 +53,7 @@ const Help = () => {
             If you can't find what you need here, please reach out to our support team:
           </p>
           <p className="font-semibold">Phone:</p>
+          <p className="mb-2">+91-8718847083</p>
           <p className="mb-2">+91-8085782471</p>
           <p className="font-semibold">Email:</p>
           <p>
