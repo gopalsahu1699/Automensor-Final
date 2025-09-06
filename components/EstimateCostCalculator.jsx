@@ -8,7 +8,7 @@ import Link from "next/link";
 const products = [
   {
     id: 1,
-    image: assets.girl_with_headphone_image,
+    image: assets.smart_home,
     title: "Customize Your Smart Home Automation",
     description:
       "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
@@ -16,7 +16,7 @@ const products = [
   },
   {
     id: 2,
-    image: assets.girl_with_headphone_image,
+    image: assets.villa,
     title: "Customize Your Smart Villa Automation",
     description:
       "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
@@ -24,7 +24,7 @@ const products = [
   },
   {
     id: 3,
-    image: assets.girl_with_headphone_image,
+    image: assets.Hotel_room,
     title: "Customize Your Smart Hotel Room Automation",
     description:
       "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",

@@ -10,7 +10,7 @@ const HeaderSlider = () => {
       offer: "Get 30% Off Your First Installation!",
       buttonText1: "Get Started",
       buttonText2: "Learn More",
-      imgSrc: assets.header_headphone_image, // Replace with home automation image asset
+      imgSrc: assets.smart_home, // Replace with home automation image asset
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ const HeaderSlider = () => {
       offer: "Limited Time Offer - Book Your Free Consultation",
       buttonText1: "Book Now",
       buttonText2: "View Features",
-      imgSrc: assets.header_playstation_image, // Replace with home automation image asset
+      imgSrc: assets.smart_room, // Replace with home automation image asset
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ const HeaderSlider = () => {
       offer: "Exclusive Packages up to 40% Off",
       buttonText1: "Request Quote",
       buttonText2: "Explore Plans",
-      imgSrc: assets.header_macbook_image, // Replace with home automation image asset
+      imgSrc: assets.smart_room2, // Replace with home automation image asset
     },
   ];
 

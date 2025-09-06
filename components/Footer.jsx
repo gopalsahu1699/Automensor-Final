@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="bg-white border-t border-gray-300">
       <div className="container mx-auto flex flex-col md:flex-row items-start justify-between px-6 md:px-16 lg:px-32 py-14 gap-10 text-gray-600">
         <div className="md:w-2/5">
-          <Image className="w-28 md:w-32" src={assets.logo} alt="AUTOMENSOR logo" />
+          <Image className="w-28 md:w-32" src={assets.logo3} alt="AUTOMENSOR logo" />
           <p className="mt-6 text-sm leading-relaxed">
             AUTOMENSOR specializes in innovative, wireless home automation solutions designed to enhance comfort, security, and energy efficiency. Our modular systems seamlessly integrate to create smart homes of the future.
           </p>

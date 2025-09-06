@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { User } from "lucide-react";
+import { Award, BookImage, LogOut, User, UserRoundSearch } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
 import { assets, HomeIcon, BagIcon, BoxIcon, CartIcon } from "@/assets/assets";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import { PackageSearch } from 'lucide-react';
 
 const Navbar = () => {
   const { isSeller } = useAppContext();
@@ -97,7 +98,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8" role="menubar" aria-label="Primary Navigation">
           <MenuItem href="/" icon={<HomeIcon className="w-5 h-5" />} label="Home" />
-          <MenuItem href="/all-products" icon={<BoxIcon className="w-5 h-5" />} label="Products" />
+          <MenuItem href="/all-products"  label="Products" />
           <MenuItem href="/about-us" label="About" />
           <MenuItem href="/contact-us" label="Contact" />
           {isSeller && (
@@ -133,12 +134,12 @@ const Navbar = () => {
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
                 >
-                <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
+                    <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
-                  <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
-                  <MenuItem href="/about-us"  label="About Us" />
-                  <MenuItem href="/contact-us"  label="Contact Us" />
-                  <MenuItem href="/gallery"  label="Gallery" />
+                  <MenuItem href="/all-products"  icon={<PackageSearch className="w-4 h-4"/>} label="Products" />
+                  <MenuItem href="/about-us"  icon={   <Award className="w-4 h-4"/>} label="About Us" />
+                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4"/>} label="Contact Us" />
+                  <MenuItem href="/gallery" icon={ <BookImage className="w-4 h-4"/>} label="Gallery" />
                   <button
                     onClick={() => {
                       setMenuOpen(false);
@@ -147,7 +148,7 @@ const Navbar = () => {
                     className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left focus:outline-none focus:bg-gray-200 rounded-md"
                     role="menuitem"
                   >
-                    Logout
+                   <LogOut width={20} height={20} /> Logout
                   </button>
                 </div>
               )}
@@ -198,10 +199,10 @@ const Navbar = () => {
                 >
              <MenuItem href="/" icon={<HomeIcon className="w-4 h-4" />} label="Home" />
                   <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
-                  <MenuItem href="/all-products" icon={<BoxIcon className="w-4 h-4" />} label="Products" />
-                  <MenuItem href="/about-us"  label="About Us" />
-                  <MenuItem href="/contact-us"  label="Contact Us" />
-                  <MenuItem href="/gallery"  label="Gallery" />
+                  <MenuItem href="/all-products"  icon={<PackageSearch className="w-4 h-4"/>} label="Products" />
+                  <MenuItem href="/about-us"  icon={   <Award className="w-4 h-4"/>} label="About Us" />
+                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4"/>} label="Contact Us" />
+                  <MenuItem href="/gallery" icon={ <BookImage className="w-4 h-4"/>} label="Gallery" />
   
                   <hr className="my-2 border-gray-200" />
                   <button
@@ -212,7 +213,7 @@ const Navbar = () => {
                     className="px-4 py-2 text-red-600 hover:bg-gray-100 w-full text-left focus:outline-none focus:bg-gray-200 rounded-md"
                     role="menuitem"
                   >
-                    Logout
+                   <LogOut width={20} height={20} /> Logout
                   </button>
                 </div>
               )}

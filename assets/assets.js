@@ -22,6 +22,11 @@ import star_icon from "./star_icon.svg";
 import redirect_icon from "./redirect_icon.svg";
 import star_dull_icon from "./star_dull_icon.svg";
 import smart_home from "./smart_home.webp"
+import villa from "./villa.webp"
+import smart_room from "./smart_room.webp"
+import smart_room2 from "./smart_room2.webp"
+import Hotel_room from "./hotel_room.webp"
+import logout from "./logout.svg"
 
 export const assets = {
   logo,
@@ -29,6 +34,11 @@ export const assets = {
   logo3,
  logo2,
  smart_home,
+ villa,
+ smart_room,
+ smart_room2,
+ Hotel_room,
+ logout,
   search_icon,
   user_icon,
   cart_icon,
