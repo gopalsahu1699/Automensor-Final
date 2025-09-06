@@ -31,13 +31,14 @@ export default function QuotationPage() {
 
   // Fetch logged-in user ID
   useEffect(() => {
-    account.get().then(
-      (user) => setUserId(user.$id),
-      (error) => {
-        console.warn("User not logged in:", error.message);
-      }
-    );
+    account.get()
+      .then((user) => setUserId(user.$id))
+      .catch(() => {
+        // User is not logged in, but form can be submitted anonymously
+        setUserId(null);
+      });
   }, []);
+
 
   // Handle input changes
   const handleChange = (e) => {
@@ -47,7 +48,7 @@ export default function QuotationPage() {
   // Auto-hide status message after 5 seconds
   useEffect(() => {
     if (status) {
-      const timer = setTimeout(() => setStatus(null), 5000);
+      const timer = setTimeout(() => setStatus(null), 10000);
       return () => clearTimeout(timer);
     }
   }, [status]);
@@ -69,7 +70,7 @@ export default function QuotationPage() {
         status: "new",
       });
 
-      setStatus("✅ Your quote request has been sent successfully!");
+      setStatus("✅ Your quote request received, Our team will get back soon");
       setFormData({ name: "", email: "", phone: "", message: "", type: "" });
     } catch (error) {
       console.error("Error sending request:", error);

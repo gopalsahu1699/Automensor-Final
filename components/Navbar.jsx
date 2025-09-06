@@ -9,6 +9,7 @@ import {
   User,
   UserRoundSearch,
   PackageSearch,
+  FileQuestionMark,
 } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
@@ -109,7 +110,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 font-medium">
-          <MenuItem href="/" icon={<HomeIcon className="w-5 h-5" />} label="Home" />
+          <MenuItem href="/"  label="Home" />
           <MenuItem href="/all-products" label="Products" />
           <MenuItem href="/about-us" label="About" />
           <MenuItem href="/contact-us" label="Contact" />
@@ -149,6 +150,7 @@ const Navbar = () => {
                   <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />
                   <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4" />} label="Contact Us" />
                   <MenuItem href="/gallery" icon={<BookImage className="w-4 h-4" />} label="Gallery" />
+                  <MenuItem href="/help" icon={<FileQuestionMark  className="w-4 h-4" />} label="Help" />
                   <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {
@@ -209,6 +211,7 @@ const Navbar = () => {
                   <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />
                   <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4" />} label="Contact Us" />
                   <MenuItem href="/gallery" icon={<BookImage className="w-4 h-4" />} label="Gallery" />
+                  <MenuItem href="/help" icon={<FileQuestionMark  className="w-4 h-4" />} label="Help" />
                   <hr className="my-2 border-gray-200" />
                   <button
                     onClick={() => {

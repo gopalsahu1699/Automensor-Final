@@ -2,6 +2,7 @@ import React from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
+import { FacebookIcon,  InstagramIcon,  LinkedinIcon,  TwitterIcon,  YoutubeIcon } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -58,6 +59,58 @@ const Footer = () => {
             Registered Office: Seepat, Bilaspur, Chhattisgarh , India, Pin Code : 495555. 
           </p>
         </address>
+  <section className="md:w-1/4 not-italic text-sm" aria-label="Social media links">
+  <h2 className="mb-5 text-gray-900 font-semibold text-lg">Follow Us on Social Media</h2>
+  <div className="flex gap-3">
+    <a
+      href="https://www.instagram.com/yourprofile"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Instagram"
+      className="text-pink-600 hover:text-pink-800 transition-colors"
+    >
+      <InstagramIcon />
+    </a>
+    <a
+      href="https://www.facebook.com/yourpage"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook"
+      className="text-blue-600 hover:text-blue-800 transition-colors"
+    >
+      <FacebookIcon />
+    </a>
+    <a
+      href="https://www.youtube.com/channel/yourchannel"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="YouTube"
+      className="text-red-600 hover:text-red-800 transition-colors"
+    >
+      <YoutubeIcon />
+    </a>
+    <a
+      href="https://twitter.com/yourhandle"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Twitter"
+      className="text-blue-400 hover:text-blue-600 transition-colors"
+    >
+      <TwitterIcon />
+    </a>
+    <a
+      href="https://www.linkedin.com/in/yourprofile"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+      className="text-blue-700 hover:text-blue-900 transition-colors"
+    >
+      <LinkedinIcon />
+    </a>
+  </div>
+</section>
+
+
       </div>
 
       <div className="border-t border-gray-300">

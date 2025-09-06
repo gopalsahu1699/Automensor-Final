@@ -31,12 +31,12 @@ export default function Contact() {
 
   // Fetch logged-in user ID
   useEffect(() => {
-    account.get().then(
-      (user) => setUserId(user.$id),
-      (error) => {
-        console.warn("User not logged in:", error.message);
-      }
-    );
+    account.get()
+      .then((user) => setUserId(user.$id))
+      .catch(() => {
+        // User is not logged in, but form can be submitted anonymously
+        setUserId(null);
+      });
   }, []);
 
   // Handle form input changes including select type
@@ -69,7 +69,7 @@ export default function Contact() {
         status: "new",
       });
 
-      setStatus("✅ Your message has been sent successfully!");
+      setStatus("✅ Request received,Our team will get back soon");
       setFormData({ name: "", email: "", phone: "", message: "", type: "" });
     } catch (error) {
       console.error("Error sending message:", error);

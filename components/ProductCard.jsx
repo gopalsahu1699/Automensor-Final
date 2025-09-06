@@ -53,18 +53,18 @@ const ProductCard = ({ product }) => {
           width={220}
           height={200}
         />
-        <button
+        {/* <button
           onClick={(e) => e.stopPropagation()}
           className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-orange-50 transition"
         >
           <Image src={assets.heart_icon} alt="wishlist" width={20} height={20} />
-        </button>
+        </button> */}
       </div>
 
       {/* Product Info */}
       <div className="flex flex-col gap-1 mt-2">
         <p className="font-semibold text-base text-gray-800 truncate">{product.name}</p>
-        <div className="flex items-center gap-1 text-sm">
+        {/* <div className="flex items-center gap-1 text-sm">
           <span className="text-gray-700 font-medium">4.5</span>
           <span className="flex gap-0.5 pt-0.5">
             {[...Array(5)].map((_, i) => (
@@ -80,11 +80,11 @@ const ProductCard = ({ product }) => {
               </svg>
             ))}
           </span>
-        </div>
-        <p className="font-bold text-lg text-gray-900 mt-1">
+        </div> */}
+        {/* <p className="font-bold text-lg text-gray-900 mt-1">
           {currency}{product.offerPrice}
-        </p>
-        <div className="flex gap-2 mt-2">
+        </p> */}
+        {/* <div className="flex gap-2 mt-2">
           <button
             onClick={handleAddToCart}
             className="flex-1 border border-gray-300 font-medium rounded-full py-[6px] text-sm hover:bg-gray-100 transition"
@@ -97,7 +97,7 @@ const ProductCard = ({ product }) => {
           >
             Buy Now
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

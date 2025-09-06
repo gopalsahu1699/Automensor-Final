@@ -133,17 +133,17 @@ const Product = () => {
           <div className="flex flex-col">
             <h1 className="text-3xl font-semibold text-gray-900 mb-4">{productData.name}</h1>
             <p className="text-gray-700 text-lg leading-relaxed">{productData.description}</p>
-            <p className="text-4xl font-extrabold mt-8 text-gray-900">
+            {/* <p className="text-4xl font-extrabold mt-8 text-gray-900">
               {currency}
               {productData.offerPrice}{" "}
               <span className="text-xl font-normal text-gray-600 line-through ml-4">
                 {currency}
                 {productData.price}
               </span>
-            </p>
+            </p> */}
 
             {/* Buttons */}
-            <div className="flex items-center mt-12 gap-6">
+            {/* <div className="flex items-center mt-12 gap-6">
               <button
                 onClick={() => addToCart(productData.$id)}
                 className="flex-1 py-4 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition focus:outline-none focus:ring-4 focus:ring-gray-300"
@@ -159,7 +159,7 @@ const Product = () => {
               >
                 Buy now
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

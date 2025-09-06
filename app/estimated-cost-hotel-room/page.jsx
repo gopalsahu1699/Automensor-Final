@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowBigRight } from "lucide-react";
 
 const automationPackages = {
   basic: {
@@ -432,9 +433,26 @@ const HotelRoomAutomation = () => {
                   Request a Quotation
                 </Link>
               </div>
+              
             </section>
+          
           </>
+          
         )}
+        <section className="bg-gray-50 rounded-lg max-w-md mx-auto p-6 font-sans">
+      <div className="mb-4">
+        <Link href="/estimate-cost" className="inline-flex items-center gap-2 font-semibold text-blue-600 px-4 py-2 rounded-md border-2 border-transparent hover:bg-blue-100 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+          <ArrowBigRight />
+          Get Estimated cost for  Smart Home
+        </Link>
+      </div>
+      <div>
+        <Link href="/estimated-cost-villa" className="inline-flex items-center gap-2 font-semibold text-blue-600 px-4 py-2 rounded-md border-2 border-transparent hover:bg-blue-100 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+          <ArrowBigRight />
+          Get Estimated cost for  Smart Villa
+        </Link>
+      </div>
+    </section>
       </main>
       <Footer />
     </>

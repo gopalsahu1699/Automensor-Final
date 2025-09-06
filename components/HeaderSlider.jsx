@@ -13,7 +13,7 @@ const HeaderSlider = () => {
       buttonLink1: "/get-started",
       buttonText2: "Learn More",
       buttonLink2: "/learn-more",
-      imgSrc: assets.Home5,
+      imgSrc: assets.Home3,
     },
     {
       id: 2,
