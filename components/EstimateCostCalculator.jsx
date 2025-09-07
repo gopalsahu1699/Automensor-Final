@@ -12,7 +12,7 @@ const products = [
     title: "Customize Your Smart Home Automation",
     description:
       "Get a personalized estimate for your home automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",
-    route: "/estimate-cost",
+    route: "/estimated-cost",
   },
   {
     id: 2,
