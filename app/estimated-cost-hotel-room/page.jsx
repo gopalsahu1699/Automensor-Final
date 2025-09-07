@@ -442,7 +442,7 @@ const HotelRoomAutomation = () => {
           
         <section className="bg-gray-50 rounded-lg max-w-md mx-2 mt-4 p-6 font-sans border-black border-t-4">
       <div className="mb-4">
-        <Link href="/estimate-cost" className="inline-flex items-center gap-2  text-blue-600 px-4 py-2 rounded-md border-2 border-transparent hover:bg-blue-100 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
+        <Link href="/estimated-cost" className="inline-flex items-center gap-2  text-blue-600 px-4 py-2 rounded-md border-2 border-transparent hover:bg-blue-100 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
           <ArrowBigRight />
           Get Estimated cost for  Smart Home
         </Link>
