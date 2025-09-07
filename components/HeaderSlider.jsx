@@ -13,7 +13,7 @@ const HeaderSlider = () => {
       buttonLink1: "/get-started",
       buttonText2: "Learn More",
       buttonLink2: "/learn-more",
-      imgSrc: assets.Home3,
+      imgSrc: assets.smart_room2,
     },
     {
       id: 2,
@@ -33,7 +33,7 @@ const HeaderSlider = () => {
       buttonLink1: "/request-quote",
       buttonText2: "Explore Plans",
       buttonLink2: "/estimated-cost-hotel-room",
-      imgSrc: assets.smart_room2,
+      imgSrc: assets.smart_room3,
     },
   ];
 

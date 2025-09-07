@@ -99,16 +99,17 @@ const Navbar = () => {
 
       <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-2 border-b border-gray-200 bg-white text-gray-700 shadow-sm sticky top-0 z-40">
         {/* Logo */}
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="Go to homepage"
-          onClick={() => router.push("/")}
-          onKeyDown={(e) => e.key === "Enter" && router.push("/")}
-          className="cursor-pointer"
-        >
-          <Image src={assets.logo} alt="AUTOMENSOR logo" width={140} height={40} priority />
-        </div>
+       <div
+  role="button"
+  tabIndex={0}
+  aria-label="Go to homepage"
+  onClick={() => router.push("/")}
+  onKeyDown={(e) => e.key === "Enter" && router.push("/")}
+  className="cursor-pointer bg-transparent"
+>
+  <Image src={assets.logo} alt="AUTOMENSOR logo" width={140} height={40} priority />
+</div>
+
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 font-medium">
@@ -116,19 +117,18 @@ const Navbar = () => {
           <MenuItem href="/all-products" label="Products" />
           <MenuItem href="/about-us" label="About" />
           <MenuItem href="/contact-us" label="Contact" />
-          {isSeller && (
-            <Link
-              href="/seller"
-              className="text-sm border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-50 transition"
-              aria-label="Seller Dashboard"
-            >
-              Seller Dashboard
-            </Link>
-          )}
+        
         </div>
 
         {/* User Menu Desktop */}
         <div className="hidden md:flex items-center gap-4">
+            <button
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open sidebar"
+            className="p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <MenuIcon size={28} />
+          </button>
           {user ? (
             <div className="relative" ref={menuRef}>
               <button
@@ -171,14 +171,6 @@ const Navbar = () => {
 
         {/* Mobile Menu & Sidebar Toggle */}
         <div className="flex md:hidden items-center gap-3">
-          {isSeller && (
-            <Link
-              href="/seller"
-              className="text-xs border border-gray-300 px-4 py-1.5 rounded-full hover:bg-gray-50 transition"
-            >
-              Seller Dashboard
-            </Link>
-          )}
 
           <button
             onClick={() => setSidebarOpen(true)}
@@ -222,9 +214,12 @@ const Navbar = () => {
 
             <nav className="flex flex-col gap-4 font-medium text-gray-700">
               <MenuItem href="/" icon={<HouseWifi className="w-5 h-5" />} label="Home" onClick={() => setSidebarOpen(false)} />
+              <MenuItem href="/my-account" icon={<User className="w-5 h-5" />} label="My Account" onClick={() => setSidebarOpen(false)} />
               <MenuItem href="/all-products" icon={<PackageSearch className="w-5 h-5" />} label="Products" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/about-us" icon={<Award className="w-5 h-5" />} label="About" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-5 h-5" />} label="Contact" onClick={() => setSidebarOpen(false)} />
+              <MenuItem href="/about-us" icon={<Award className="w-5 h-5" />} label="About Us" onClick={() => setSidebarOpen(false)} />
+              <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-5 h-5" />} label="Contact Us" onClick={() => setSidebarOpen(false)} />
+              <MenuItem href="/gallery" icon={<BookImage className="w-5 h-5" />} label="Gallery" onClick={() => setSidebarOpen(false)} />
+              <MenuItem href="/help" icon={<FileQuestionMark className="w-5 h-5" />} label="Help" onClick={() => setSidebarOpen(false)} />
               {isSeller && (
                 <MenuItem
                   href="/seller"
@@ -236,9 +231,7 @@ const Navbar = () => {
               {user && (
                 <>
                   <hr className="my-4 border-gray-200" />
-                  <MenuItem href="/my-account" icon={<User className="w-5 h-5" />} label="My Account" onClick={() => setSidebarOpen(false)} />
-                  <MenuItem href="/gallery" icon={<BookImage className="w-5 h-5" />} label="Gallery" onClick={() => setSidebarOpen(false)} />
-                  <MenuItem href="/help" icon={<FileQuestionMark className="w-5 h-5" />} label="Help" onClick={() => setSidebarOpen(false)} />
+                  
                   <button
                     onClick={() => {
                       logout();

@@ -69,7 +69,7 @@ export default function Contact() {
         status: "new",
       });
 
-      setStatus("✅ Request received,Our team will get back soon");
+      setStatus("✅ Request received, Our team will get back soon");
       setFormData({ name: "", email: "", phone: "", message: "", type: "" });
     } catch (error) {
       console.error("Error sending message:", error);

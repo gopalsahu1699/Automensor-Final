@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { account } from "@/lib/appwrite";
 import { Models, ID, OAuthProvider } from "appwrite";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type AuthContextType = {
   user: Models.User<Models.Preferences> | null;
@@ -13,52 +15,80 @@ type AuthContextType = {
   logout: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<Models.User<Models.Preferences> | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   // Check session on mount
   useEffect(() => {
-    const getUser = async () => {
+    const fetchUser = async () => {
       try {
-        const current = await account.get();
-        setUser(current);
+        const currentUser = await account.get();
+        setUser(currentUser);
       } catch {
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
-    getUser();
+    fetchUser();
   }, []);
 
   // Email/password login
   const login = async (email: string, password: string) => {
-    await account.createEmailPasswordSession(email, password);
-    const current = await account.get();
-    setUser(current);
+    try {
+      await account.createEmailPasswordSession(email, password);
+      const currentUser = await account.get();
+      setUser(currentUser);
+      toast.success("Login successful");
+    } catch (error) {
+      toast.error("Login failed");
+      throw error;
+    }
   };
 
-  // Email/password signup + auto login
+  // Email/password signup and auto-login
   const signup = async (email: string, password: string, name: string) => {
-    await account.create(ID.unique(), email, password, name);
-    await login(email, password);
+    try {
+      await account.create(ID.unique(), email, password, name);
+      await login(email, password);
+      toast.success("Signup successful");
+    } catch (error) {
+      toast.error("Signup failed");
+      throw error;
+    }
   };
 
   // Google OAuth login
-const loginWithGoogle = async () => {
-  await account.createOAuth2Session(
-    OAuthProvider.Google,
-    `${window.location.origin}/`,
-    `${window.location.origin}/auth-error`
-  );
-};
+  const loginWithGoogle = async () => {
+    try {
+      await account.createOAuth2Session(
+        OAuthProvider.Google,
+        `${window.location.origin}/`,
+        `${window.location.origin}/auth-error`
+      );
+      // No need to set user here: OAuth redirect reloads the app and triggers effect
+    } catch (error) {
+      toast.error("Google login failed");
+      throw error;
+    }
+  };
+
   // Logout current session
   const logout = async () => {
-    await account.deleteSession("current");
-    setUser(null);
+    try {
+      await account.deleteSession("current");
+      setUser(null);
+      toast.success("You are logged out");
+      router.push("/login");
+    } catch (error) {
+      toast.error("Logout failed");
+      console.error(error);
+      throw error;
+    }
   };
 
   return (
@@ -69,7 +99,9 @@ const loginWithGoogle = async () => {
 };
 
 export const useAuth = (): AuthContextType => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within an AuthProvider");
-  return ctx;
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

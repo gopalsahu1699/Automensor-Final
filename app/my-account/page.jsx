@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,12 @@ const MyAccountPage = () => {
     if (!user) return;
     setName(user.name || "");
   }, [user]);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading, router]);
 
   const handleProfileUpdate = async () => {
     setUpdatingProfile(true);
@@ -43,12 +49,7 @@ const MyAccountPage = () => {
       </p>
     );
 
-  if (!user)
-    return (
-      <p className="text-center mt-20 text-gray-700 font-semibold">
-        Please login to view your account.
-      </p>
-    );
+  if (!user) return null; // Render nothing while redirecting
 
   return (
     <>

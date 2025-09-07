@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { createAuth0Client } from "@auth0/auth0-spa-js";
 import { toast } from "react-toastify";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -71,23 +73,6 @@ const LoginPage = () => {
     }
   };
 
-  const handleAuth0Login = async () => {
-    setError("");
-    if (!auth0Client) {
-      setError("Auth0 not initialized yet");
-      return;
-    }
-    setAuth0LoginLoading(true);
-    try {
-      await auth0Client.loginWithRedirect();
-    } catch (err) {
-      setError(err.message || "Auth0 login failed");
-      toast.error("❌ Auth0 login failed");
-    } finally {
-      setAuth0LoginLoading(false);
-    }
-  };
-
   if (auth0Loading) {
     return (
       <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
@@ -97,6 +82,8 @@ const LoginPage = () => {
   }
 
   return (
+   <> 
+   <Navbar />
     <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
       <form
         onSubmit={handleLogin}
@@ -163,17 +150,6 @@ const LoginPage = () => {
           {googleLoginLoading ? "Processing..." : "Continue with Google"}
         </button>
 
-        <button
-          type="button"
-          onClick={handleAuth0Login}
-          disabled={loading || googleLoginLoading || auth0LoginLoading}
-          className={`w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 ${
-            auth0LoginLoading ? "opacity-70 cursor-not-allowed" : ""
-          }`}
-        >
-          {auth0LoginLoading ? "Redirecting..." : "Continue with Auth0"}
-        </button>
-
         <p className="text-sm mt-4 text-center">
           Don’t have an account?{" "}
           <span
@@ -185,6 +161,8 @@ const LoginPage = () => {
         </p>
       </form>
     </main>
+   <Footer />
+   </>
   );
 };
 

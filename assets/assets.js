@@ -26,6 +26,7 @@ import star_dull_icon from "./star_dull_icon.svg";
 import smart_home from "./smart_home.webp"
 import villa from "./villa.webp"
 import smart_room from "./smart_room.webp"
+import smart_room3 from "./smart_room3.webp"
 import smart_room2 from "./smart_room2.webp"
 import Hotel_room from "./hotel_room.webp"
 import logout from "./logout.svg"
@@ -45,6 +46,7 @@ export const assets = {
  villa,
  smart_room,
  smart_room2,
+ smart_room3,
  Hotel_room,
  Home3,
  Home4,

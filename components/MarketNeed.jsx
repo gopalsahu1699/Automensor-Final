@@ -2,51 +2,52 @@ import React from "react";
 
 function MarketNeed() {
   const needs = [
-       {
+    {
       title: "Feel Safer with Smart Security",
-      desc: "Get real-time alerts and keep your home protected with smart cameras, locks, and sensors working together.",
+      desc: "Stay connected and protected with real-time alerts from smart cameras, locks, and sensors working together seamlessly.",
     },
     {
-      title: "Hands-Free Life with Voice & AI",
-      desc: "Control your home using your voice or intelligent assistants that learn your habits and make life easier.",
+      title: "Hands-Free Living with Voice & AI",
+      desc: "Effortlessly control your home using voice commands or intelligent assistants that learn and adapt to your lifestyle.",
     },
     {
-      title: "Easy Connection of Different Devices",
-      desc: "Smart homes bring all your gadgets together so they work smoothly without complicated setups.",
+      title: "Effortless Device Integration",
+      desc: "Connect all your smart devices in one place for smooth, hassle-free control without complicated setup.",
     },
     {
-      title: "Simple Controls Everyone Can Use",
-      desc: "Think of it as having phone-like controls for your home, letting you manage lights, temperature, and security easily from anywhere.",
+      title: "Intuitive Controls for Everyone",
+      desc: "Manage lighting, climate, and security with simple, phone-like controls accessible from anywhere.",
     },
     {
-      title: "Grow and Change as You Need",
-      desc: "Start small and add more smart features over time without hassle or big expenses.",
+      title: "Scalable to Fit Your Needs",
+      desc: "Start small and easily expand your smart home with more features over time—no big expenses or hassle.",
     },
     {
-      title: "Save Money by Using Energy Wisely",
-      desc: "Smart systems help cut your electricity bills by managing power use smartly and automatically.",
+      title: "Cut Costs with Smart Energy Use",
+      desc: "Automatically optimize power usage to save money and reduce your environmental impact.",
     },
- 
   ];
 
   return (
-    <section id="needs" className="bg-gray-50 py-16">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-extrabold mb-6 text-center text-orange-600">
-          Why Smart Homes Are the Future We All Need
+    <section id="needs" className="bg-gradient-to-b from-blue-50 to-white py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="text-4xl font-extrabold mb-8 text-center text-blue-900 border-b-4 border-blue-400 pb-2 max-w-md mx-auto drop-shadow-sm">
+          Why Smart Homes Are the Future
         </h2>
-        <p className="max-w-3xl mx-auto text-center text-gray-700 mb-12 text-lg">
-          The world is changing and so is the way we live. Smart automation is no longer a luxury—it’s becoming essential for comfort, security, and saving money in every home. It’s time to embrace this change and upgrade your lifestyle.
+        <p className="max-w-4xl mx-auto text-center text-gray-700 mb-16 text-lg leading-relaxed">
+          Upgrade your lifestyle with smart technology.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
           {needs.map((item, i) => (
             <div
               key={i}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition"
+              className="bg-white p-7 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-3 transition duration-300 ease-in-out"
+              tabIndex={0}
+              aria-label={item.title}
             >
-              <h3 className="text-xl font-semibold mb-3 text-green-600">{item.title}</h3>
-              <p className="text-gray-600">{item.desc}</p>
+              <h3 className="text-xl font-semibold mb-4 text-blue-700">{item.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

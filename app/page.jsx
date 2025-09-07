@@ -11,6 +11,8 @@ import EstimateCostCalculator from "../components/EstimateCostCalculator";
 import WhyAutomensor from "@/components/WhyAutomensor";
 import MarketNeed from "@/components/MarketNeed";
 import CallToAction from "@/components/CallToAction";
+import { assets } from "@/assets/assets";
+import banner from "@/assets/home.webp"
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -32,44 +34,69 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div className="px-6 md:px-16 lg:px-32">
+      <div >
         {/* Hero Section */}
-        <section
-          id="hero"
-          className="h-screen flex flex-col items-center justify-center relative text-black"
-          style={{ background: "linear-gradient(to right, white, #d1d5db, white)" }}
-        >
-          {/* Overlay for subtle focus */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-100 to-white opacity-90 pointer-events-none" />
-          <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
-            <motion.h1
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight text-gray-900"
-            >
-              Automensor: Smart Homes & Buildings
-            </motion.h1>
+<section
+  id="hero"
+  className="w-full h-screen flex flex-col items-center justify-center relative text-black"
+  style={{
+    backgroundImage: `url(${banner.src})`,  // Use home.src if imported as next/image static resource
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  }}
+>
+  {/* Optional Overlay */}
+  <div className="absolute inset-0 bg-slate-900 opacity-50 pointer-events-none" />
+  
+  <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
+   <motion.h1
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight text-white"
+  style={{
+    textShadow: '0 0 8px #60a5fa, 0 0 20px #3b82f6, 0 0 30px #1e40af'
+  }}
+>
+  Automensor 
+</motion.h1>
+   <motion.h1
+  initial={{ opacity: 0, y: -20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="text-3xl md:text-4xl font-extrabold mb-10 leading-tight text-white"
+  style={{
+    textShadow: '0 0 8px #60a5fa, 0 0 20px #3b82f6, 0 0 30px #1e40af'
+  }}
+>
+  Smart Homes & Buildings
+</motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg md:text-xl text-gray-700 mb-6 max-w-xl mx-auto"
-            >
-              A Wi-Fi Based Home Automation System that does not require any special wiring.
-            </motion.p>
 
-            <Link
-              href="/quotation"
-              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transform hover:scale-105 transition"
-              aria-label="Get Your Quotation"
-            >
-              Get Your Quotation
-            </Link>
-          </div>
-        </section>
+    <motion.p
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="text-sm md:text-l text-white mb-6 max-w-xl mx-auto"
+    >
+      "A Wi-Fi Based Home Automation System that does not require any special wiring."
+    </motion.p>
 
+    <Link
+      href="/quotation"
+      className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transform hover:scale-105 transition"
+      aria-label="Get Your Quotation"
+    >
+      Get Your Quotation
+    </Link>
+  </div>
+</section>
+
+
+
+<div className="px-6 md:px-16 lg:px-32">
+  
         {/* Market Needs */}
         <section className="py-16">
           <MarketNeed />
@@ -94,8 +121,9 @@ const Home = () => {
           <EstimateCostCalculator />
         </section>
 
-          </div>
       <Footer />
+          </div>
+</div>
     </>
   );
 };

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const SignupPage = () => {
   const router = useRouter();
@@ -43,6 +45,8 @@ const SignupPage = () => {
   };
 
   return (
+   <>
+   <Navbar />
     <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
       <form
         onSubmit={handleSignup}
@@ -144,6 +148,8 @@ const SignupPage = () => {
         </p>
       </form>
     </main>
+   <Footer />
+   </>
   );
 };
 
