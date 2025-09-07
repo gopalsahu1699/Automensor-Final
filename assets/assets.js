@@ -1,6 +1,8 @@
-import logo from "./logo.png";
+import logo from "./logo_140_40.webp";
 import logo2 from "./logo6.webp";
 import logo3 from "./logo3.webp"
+import logo6 from "./logo6.webp"
+
 import search_icon from "./search_icon.svg";
 import user_icon from "./user_icon.svg";
 import cart_icon from "./cart_icon.svg";
@@ -32,11 +34,13 @@ import Home4 from "./home4.webp"
 import Home5 from "./home5.webp"
 import Home6 from "./home6.webp"
 
+
 export const assets = {
   logo,
 
   logo3,
  logo2,
+ logo6,
  smart_home,
  villa,
  smart_room,

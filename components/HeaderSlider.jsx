@@ -51,7 +51,7 @@ const HeaderSlider = () => {
   };
 
   return (
-    <div className="overflow-hidden relative w-full">
+    <div className="overflow-hidden relative w-auto  mx-2  sm:mx-4 md:my-10 md:mx-6  lg:mx-8">
       <div
         className="flex transition-transform duration-700 ease-in-out"
         style={{
@@ -88,13 +88,14 @@ const HeaderSlider = () => {
                 </Link>
               </div>
             </div>
-            <div className="flex items-center flex-1 justify-center">
-              <Image
-                className="md:w-50 h-70"
-                src={slide.imgSrc}
-                alt={`Slide ${index + 1}`}
-              />
-            </div>
+         <div className="flex items-center flex-1 justify-center">
+  <Image
+    className="w-96 h-auto   object-contain rounded-xl"
+    src={slide.imgSrc}
+    alt={`Slide ${index + 1}`}
+  />
+</div>
+
           </div>
         ))}
       </div>
