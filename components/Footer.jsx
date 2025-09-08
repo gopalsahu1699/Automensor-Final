@@ -35,7 +35,7 @@ const RouteLinks = [
 
 const socialLinks = [
   {
-    href: "https://www.instagram.com/yourprofile",
+    href: "https://www.instagram.com/automensor/?igsh=bXdyZW9rdnA0Z3Jn#",
     ariaLabel: "Instagram",
     className: "text-pink-600 hover:text-pink-800 transition-colors",
     Icon: InstagramIcon,
