@@ -109,7 +109,7 @@ const Footer = () => {
     target="_blank" 
     rel="noopener noreferrer"
   >
-    Go to WhatsApp support chat
+   WhatsApp : support chat
   </a>
 </p>
 
