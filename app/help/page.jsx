@@ -26,13 +26,18 @@ const Help = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         aria-label="Help and Support"
       >
-        <h1 className="text-4xl font-extrabold mb-8 text-center">Help & Support</h1>
+        <h1 className="text-4xl font-extrabold mb-8 text-center">
+          Help & Support
+        </h1>
         <p className="text-lg mb-10 text-center text-gray-700">
-          Welcome to the Automensor Help Center. Find answers to common questions,
-          troubleshooting guides, and contact details for further assistance.
+          Welcome to the Automensor Help Center. Find answers to common
+          questions, troubleshooting guides, and contact details for further
+          assistance.
         </p>
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-orange-600">Getting Started</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-orange-600">
+            Getting Started
+          </h2>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
             <li>How to set up your Automensor home automation system</li>
             <li>Connecting devices to Wi-Fi and configuring controls</li>
@@ -40,7 +45,9 @@ const Help = () => {
           </ul>
         </section>
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4 text-orange-600">Troubleshooting</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-orange-600">
+            Troubleshooting
+          </h2>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
             <li>Resolving connectivity issues</li>
             <li>Resetting devices securely</li>
@@ -48,28 +55,34 @@ const Help = () => {
           </ul>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold mb-4 text-orange-600">Contact Support</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-orange-600">
+            Contact Support
+          </h2>
           <p className="text-gray-700 mb-4">
-            If you can't find what you need here, please reach out to our support team:
+            If you can't find what you need here, please reach out to our
+            support team:
           </p>
           <p className="font-semibold">Phone:</p>
           <p className="mb-2">+91-8718847083</p>
           <p className="mb-2">+91-8085782471</p>
           <p className="font-semibold">WhatsApp Support</p>
-        <p>
-  <a 
-    href="https://wa.me/918985602913" 
-    className="text-blue-600 hover:underline"
-    target="_blank" 
-    rel="noopener noreferrer"
-  >
-  WhatsApp : support chat
-  </a>
-</p>
+          <p>
+            <a
+              href="https://wa.me/918985602913"
+              className="text-blue-600 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp: support chat
+            </a>
+          </p>
 
           <p className="font-semibold">Email:</p>
           <p>
-            <a href="mailto:automensor@gmail.com" className="text-blue-600 hover:underline">
+            <a
+              href="mailto:automensor@gmail.com"
+              className="text-blue-600 hover:underline"
+            >
               automensor@gmail.com
             </a>
           </p>
@@ -80,7 +93,8 @@ const Help = () => {
 
       <style jsx>{`
         @keyframes floatSlow {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0) translateX(0);
           }
           50% {

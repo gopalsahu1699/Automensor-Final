@@ -8,7 +8,114 @@ import { motion } from "framer-motion";
 import { ArrowBigRight } from "lucide-react";
 
 const automationPackages = {
-  /* ... your existing automationPackages data ... */
+  basic: {
+    label: "Basic",
+    description: "Basic automation package with essential devices.",
+    devices: [
+      {
+        label: "Smart Switch",
+        description: "Control your lights remotely.",
+        costPerUnit: 1200,
+        quantityMultiplier: { tvArea: 1, hall: 3, poojaRoom: 1, diningArea: 2, bedrooms: 2, washrooms: 1 },
+      },
+      {
+        label: "Motion Sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 800,
+        quantityMultiplier: { tvArea: 1, hall: 1, poojaRoom: 1, diningArea: 1, bedrooms: 1, washrooms: 1 },
+      },
+    ],
+    optionalDevices: [
+      {
+        label: "Smart Plug",
+        description: "Control power outlet devices.",
+        costPerUnit: 500,
+      },
+    ],
+  },
+  standard: {
+    label: "Standard",
+    description: "Standard package with extended devices.",
+    devices: [
+      {
+        label: "Smart Switch",
+        description: "Control your lights remotely.",
+        costPerUnit: 1200,
+        quantityMultiplier: { tvArea: 2, hall: 5, poojaRoom: 2, diningArea: 3, bedrooms: 3, washrooms: 2 },
+      },
+      {
+        label: "Motion Sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 800,
+        quantityMultiplier: { tvArea: 1, hall: 2, poojaRoom: 1, diningArea: 2, bedrooms: 2, washrooms: 1 },
+      },
+      {
+        label: "Temperature Sensor",
+        description: "Monitor indoor temperature.",
+        costPerUnit: 900,
+        quantityMultiplier: { tvArea: 0, hall: 1, poojaRoom: 0, diningArea: 1, bedrooms: 2, washrooms: 1 },
+      },
+    ],
+    optionalDevices: [
+      {
+        label: "Smart Plug",
+        description: "Control power outlet devices.",
+        costPerUnit: 500,
+      },
+      {
+        label: "Window Sensor",
+        description: "Detect window open/close.",
+        costPerUnit: 700,
+      },
+    ],
+  },
+  advance: {
+    label: "Advance",
+    description: "Full-featured advanced automation package.",
+    devices: [
+      {
+        label: "Smart Switch",
+        description: "Control lights remotely.",
+        costPerUnit: 1200,
+        quantityMultiplier: { tvArea: 3, hall: 7, poojaRoom: 3, diningArea: 4, bedrooms: 4, washrooms: 2 },
+      },
+      {
+        label: "Motion Sensor",
+        description: "Detect motion for security.",
+        costPerUnit: 800,
+        quantityMultiplier: { tvArea: 2, hall: 3, poojaRoom: 2, diningArea: 3, bedrooms: 3, washrooms: 2 },
+      },
+      {
+        label: "Temperature Sensor",
+        description: "Monitor indoor temperature.",
+        costPerUnit: 900,
+        quantityMultiplier: { tvArea: 1, hall: 2, poojaRoom: 1, diningArea: 2, bedrooms: 3, washrooms: 2 },
+      },
+      {
+        label: "Smart Thermostat",
+        description: "HVAC control.",
+        costPerUnit: 2500,
+        quantityMultiplier: { tvArea: 0, hall: 1, poojaRoom: 0, diningArea: 1, bedrooms: 1, washrooms: 0 },
+      },
+    ],
+    optionalDevices: [
+      {
+        label: "Smart Plug",
+        description: "Control power outlet devices.",
+        costPerUnit: 500,
+      },
+      {
+        label: "Window Sensor",
+        description: "Detect window open/close.",
+        costPerUnit: 700,
+      },
+      {
+        label: "Security Camera",
+        description: "Video surveillance.",
+        costPerUnit: 3500,
+      },
+    ],
+  },
 };
 
 const villaAreas = [
@@ -31,14 +138,12 @@ const EstimateVillaAutomation = () => {
   const [deviceQuantities, setDeviceQuantities] = useState({});
   const [optionalQuantities, setOptionalQuantities] = useState({});
 
-  // Handle area count changes
   const handleAreaChange = (key, value) => {
     const val = Math.max(0, parseInt(value) || 0);
     setAreas((prev) => ({ ...prev, [key]: val }));
     setOptionalQuantities({});
   };
 
-  // Calculate initial device quantities based on package and areas
   useEffect(() => {
     if (!automationPackage) {
       setDeviceQuantities({});
@@ -49,12 +154,7 @@ const EstimateVillaAutomation = () => {
     pkg.devices.forEach((device) => {
       let qty = 0;
       for (const [areaKey, count] of Object.entries(areas)) {
-        if (
-          (areaKey === "bedrooms" || areaKey === "washrooms") &&
-          device.quantityMultiplier[areaKey] !== undefined
-        ) {
-          qty += count * device.quantityMultiplier[areaKey];
-        } else if (device.quantityMultiplier[areaKey]) {
+        if (device.quantityMultiplier[areaKey] !== undefined) {
           qty += count * device.quantityMultiplier[areaKey];
         }
       }
@@ -64,7 +164,6 @@ const EstimateVillaAutomation = () => {
     setOptionalQuantities({});
   }, [automationPackage, areas]);
 
-  // Increment / decrement device quantities
   const incrementDevice = (label) => {
     setDeviceQuantities((prev) => ({
       ...prev,
@@ -90,7 +189,6 @@ const EstimateVillaAutomation = () => {
     }));
   };
 
-  // Calculate total estimate cost
   const calculateEstimate = () => {
     if (!automationPackage) return 0;
     const pkg = automationPackages[automationPackage];
@@ -100,7 +198,8 @@ const EstimateVillaAutomation = () => {
     });
     let optionalCost = 0;
     pkg.optionalDevices.forEach((device) => {
-      optionalCost += (optionalQuantities[device.label] || 0) * device.costPerUnit;
+      optionalCost +=
+        (optionalQuantities[device.label] || 0) * device.costPerUnit;
     });
     return deviceCost + optionalCost;
   };
@@ -163,7 +262,9 @@ const EstimateVillaAutomation = () => {
               ))}
             </select>
             {automationPackage && (
-              <p className="mt-2 text-gray-600">{automationPackages[automationPackage].description}</p>
+              <p className="mt-2 text-gray-600">
+                {automationPackages[automationPackage].description}
+              </p>
             )}
           </section>
 
@@ -259,24 +360,26 @@ const EstimateVillaAutomation = () => {
                 >
                   <h2 className="text-2xl font-semibold mb-4">Optional Devices</h2>
                   <div className="space-y-6">
-                    {automationPackages[automationPackage].optionalDevices.map((device) => (
-                      <motion.div
-                        key={device.label}
-                        variants={itemVariants}
-                        className="flex justify-between items-center border-b border-gray-200 pb-4"
-                      >
-                        <div>
-                          <p className="font-medium">{device.label}</p>
-                          <p className="text-sm text-gray-600">{device.description}</p>
-                        </div>
-                        <QuantityControl
-                          label={device.label}
-                          quantity={optionalQuantities[device.label] || 0}
-                          onIncrement={() => incrementOptional(device.label)}
-                          onDecrement={() => decrementOptional(device.label)}
-                        />
-                      </motion.div>
-                    ))}
+                    {automationPackages[automationPackage].optionalDevices.map(
+                      (device) => (
+                        <motion.div
+                          key={device.label}
+                          variants={itemVariants}
+                          className="flex justify-between items-center border-b border-gray-200 pb-4"
+                        >
+                          <div>
+                            <p className="font-medium">{device.label}</p>
+                            <p className="text-sm text-gray-600">{device.description}</p>
+                          </div>
+                          <QuantityControl
+                            label={device.label}
+                            quantity={optionalQuantities[device.label] || 0}
+                            onIncrement={() => incrementOptional(device.label)}
+                            onDecrement={() => decrementOptional(device.label)}
+                          />
+                        </motion.div>
+                      )
+                    )}
                   </div>
                 </motion.section>
               )}
@@ -325,6 +428,7 @@ const EstimateVillaAutomation = () => {
           </section>
         </main>
       </section>
+     
     </>
   );
 };
