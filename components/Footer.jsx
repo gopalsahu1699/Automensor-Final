@@ -105,7 +105,7 @@ const Footer = () => {
           <p>
   <a 
     href="https://wa.me/8985602913?text=Hello%20I%20am%20interested%20in%20your%20services" 
-    className="text-blue-600 hover:underline"
+    className=" hover:underline"
     target="_blank" 
     rel="noopener noreferrer"
   >
