@@ -103,6 +103,12 @@ const Footer = () => {
           <p>Phone: +91-8718847083</p>
           <p>Phone: +91-8085782471</p>
           <p>
+            <a href="https://wa.me/8985602913
+" className=" hover:underline">
+              Go to WhatsApp support chat
+            </a>
+          </p>
+          <p>
             Email:{" "}
             <a href="mailto:automensor@gmail.com" className="hover:underline">
               automensor@gmail.com

@@ -33,6 +33,7 @@ const StarterPackage = () => {
           >
             Smart Home Starter Package
           </motion.h2>
+         
 
           <motion.p
             initial={{ opacity: 0 }}
@@ -69,7 +70,7 @@ const StarterPackage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.7, duration: 0.7 }}
-              className="mb-6 italic text-sm text-blue-800 font-semibold max-w-xs mx-auto"
+              className="mb-6 italic text-sm text-red-600 font-semibold max-w-xs mx-auto"
             >
               Exclusive 10% off your first installation! Limited time offer.
             </motion.p>

@@ -55,6 +55,13 @@ const Help = () => {
           <p className="font-semibold">Phone:</p>
           <p className="mb-2">+91-8718847083</p>
           <p className="mb-2">+91-8085782471</p>
+          <p className="font-semibold">WhatsApp Support</p>
+          <p>
+            <a href="https://wa.me/8985602913
+" className="text-blue-600 hover:underline">
+              Go to WhatsApp support chat
+            </a>
+          </p>
           <p className="font-semibold">Email:</p>
           <p>
             <a href="mailto:automensor@gmail.com" className="text-blue-600 hover:underline">

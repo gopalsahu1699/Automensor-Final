@@ -30,7 +30,7 @@ const LearnMore = () => {
     <main className="bg-gray-50 min-h-screen py-12 px-6 md:px-12 lg:px-24">
       <section className="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl p-10">
         <h1 className="text-4xl font-extrabold text-indigo-900 mb-6 text-center">
-          Learn More About AUTOMENSOR Smart Home Solutions
+        AUTOMENSOR : Smart Home Solutions
         </h1>
 
         <p className="text-lg text-gray-700 text-center mb-10 max-w-3xl mx-auto leading-relaxed">

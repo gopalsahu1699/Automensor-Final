@@ -1,18 +1,10 @@
 "use client";
 
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 
 const images = [
-  {
-    src: "/images/gallery1.jpg",
-    alt: "Smart Home Controller",
-    caption: "Smart Home Controller",
-  },
-  {
-    src: "/images/gallery2.jpg",
-    alt: "Intelligent Lighting System",
-    caption: "Intelligent Lighting System",
-  },
   {
     src: "/images/gallery3.jpg",
     alt: "Smart Door Lock",
@@ -27,11 +19,6 @@ const images = [
     src: "/images/gallery5.jpg",
     alt: "Voice Assistant Device",
     caption: "Voice Assistant Device",
-  },
-  {
-    src: "/images/gallery6.jpg",
-    alt: "Integrated Security Cameras",
-    caption: "Integrated Security Cameras",
   },
 ];
 
@@ -55,6 +42,8 @@ const Gallery = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <main className="max-w-6xl mx-auto p-6 sm:p-10">
       <h1 className="text-4xl font-extrabold text-center mb-10">Gallery</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -120,6 +109,8 @@ const Gallery = () => {
         </div>
       )}
     </main>
+    <Footer />
+    </>
   );
 };
 
