@@ -131,15 +131,7 @@ const Navbar = () => {
           </button>
           {user ? (
             <div className="relative" ref={menuRef}>
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                aria-haspopup="true"
-                aria-expanded={menuOpen}
-                aria-label="User menu"
-                className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-200 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-              >
-                <Image src={avatarUrl} alt="User avatar" width={40} height={40} />
-              </button>
+             
               {menuOpen && (
                 <div
                   className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-lg py-2 border border-gray-100 animate-fade-in"

@@ -5,16 +5,10 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm"; // import the new form component
+import { account } from "@/lib/appwrite";
 
-import { Client, Account } from "appwrite";
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
-
-const client = new Client()
-  .setEndpoint("https://fra.cloud.appwrite.io/v1")
-  .setProject(PROJECT_ID);
-
-const account = new Account(client);
 
 export default function QuotationPage() {
   const [userId, setUserId] = useState(null);

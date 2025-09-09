@@ -13,7 +13,7 @@ const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 const Product = () => {
   const { id } = useParams();
-  const { products, addToCart, router, currency } = useAppContext();
+  const { products  } = useAppContext();
 
   const [productData, setProductData] = useState(null);
   const [mainImage, setMainImage] = useState(null);

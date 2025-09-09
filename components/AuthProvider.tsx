@@ -5,6 +5,7 @@ import { account } from "@/lib/appwrite";
 import { Models, ID, OAuthProvider } from "appwrite";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { log } from "node:console";
 
 type AuthContextType = {
   user: Models.User<Models.Preferences> | null;
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const currentUser = await account.get();
         setUser(currentUser);
+        
       } catch {
         setUser(null);
       } finally {
