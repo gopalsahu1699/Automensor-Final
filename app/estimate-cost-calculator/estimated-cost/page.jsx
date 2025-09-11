@@ -13,7 +13,7 @@ const automationPackages = {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
         costPerUnit: 795,
-        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 5 },
+        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
       },
       {
         label: "Outdoor Sensor",
@@ -66,7 +66,7 @@ const automationPackages = {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
         costPerUnit: 795,
-        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 5 },
+        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
       },
       {
         label: "Outdoor Sensor",
@@ -132,7 +132,7 @@ const automationPackages = {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
         costPerUnit: 3000,
-        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 5 },
+        quantityMultiplier: { "1bhk":1, "2bhk": 2, "3bhk": 3 },
       },
       {
         label: "Outdoor Sensor",
