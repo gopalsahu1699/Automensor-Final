@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowBigRight } from "lucide-react";
@@ -13,23 +11,76 @@ const automationPackages = {
     description: "Basic automation package with essential devices.",
     devices: [
       {
-        label: "Smart Switch",
-        description: "Control your lights remotely.",
-        costPerUnit: 1200,
-        quantityMultiplier: { tvArea: 1, hall: 3, poojaRoom: 1, diningArea: 2, bedrooms: 2, washrooms: 1 },
-      },
-      {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 800,
-        quantityMultiplier: { tvArea: 1, hall: 1, poojaRoom: 1, diningArea: 1, bedrooms: 1, washrooms: 1 },
+        costPerUnit: 1795,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 1,
+        },
+      },
+      {
+        label: "Inwall Module",
+        description: "Controls power outlet devices.",
+        costPerUnit: 6000,
+        quantityMultiplier: {
+          tvArea: 1,
+          hall: 1,
+          poojaRoom: 1,
+          diningArea: 1,
+          bedrooms: 1,
+          washrooms: 0,
+        },
+      },
+      {
+        label: "Smart Digital Door Lock",
+        description: "Door authentication device",
+        costPerUnit: 18500,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
+        defaultQuantity: 1,
+      },
+      {
+        label: "Ring Video Door Bell",
+        description: "Analog camera integrated door bell system",
+        costPerUnit: 6699,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
+        defaultQuantity: 1,
       },
     ],
     optionalDevices: [
       {
-        label: "Smart Plug",
-        description: "Control power outlet devices.",
-        costPerUnit: 500,
+        label: "Automatic Water Pump Controller",
+        description:
+          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off)",
+        costPerUnit: 2000,
+      },
+      {
+        label: "Wardrobe Sensor",
+        description: "Auto on/off wardrobe light when open/close",
+        costPerUnit: 1700,
+      },
+      {
+        label: "Outdoor Sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 640,
       },
     ],
   },
@@ -38,34 +89,94 @@ const automationPackages = {
     description: "Standard package with extended devices.",
     devices: [
       {
-        label: "Smart Switch",
-        description: "Control your lights remotely.",
-        costPerUnit: 1200,
-        quantityMultiplier: { tvArea: 2, hall: 5, poojaRoom: 2, diningArea: 3, bedrooms: 3, washrooms: 2 },
-      },
-      {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 800,
-        quantityMultiplier: { tvArea: 1, hall: 2, poojaRoom: 1, diningArea: 2, bedrooms: 2, washrooms: 1 },
+        costPerUnit: 1795,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 1,
+        },
       },
       {
-        label: "Temperature Sensor",
-        description: "Monitor indoor temperature.",
-        costPerUnit: 900,
-        quantityMultiplier: { tvArea: 0, hall: 1, poojaRoom: 0, diningArea: 1, bedrooms: 2, washrooms: 1 },
+        label: "Touch Panel - 4M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 8000,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 1,
+        },
+      },
+      {
+        label: "Touch Panel - 8M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 15000,
+        quantityMultiplier: {
+          tvArea: 1,
+          hall: 1,
+          poojaRoom: 1,
+          diningArea: 1,
+          bedrooms: 1,
+          washrooms: 0,
+        },
+      },
+      {
+        label: "Smart Digital Door Lock",
+        description: "Door authentication device",
+        costPerUnit: 24500,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
+        defaultQuantity: 1,
+      },
+      {
+        label: "Video Door phone",
+        description: "Analog camera integrated door bell system and display",
+        costPerUnit: 19999,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
+        defaultQuantity: 1,
       },
     ],
     optionalDevices: [
       {
-        label: "Smart Plug",
-        description: "Control power outlet devices.",
-        costPerUnit: 500,
+        label: "Automatic Water Pump Controller",
+        description:
+          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off)",
+        costPerUnit: 2000,
       },
       {
-        label: "Window Sensor",
-        description: "Detect window open/close.",
-        costPerUnit: 700,
+        label: "Wardrobe Sensor",
+        description: "Auto on/off wardrobe light when open/close",
+        costPerUnit: 1700,
+      },
+      {
+        label: "Voice Assistant",
+        description: "Control your smart home with voice command",
+        costPerUnit: 6000,
+      },
+      {
+        label: "Outdoor Sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 640,
       },
     ],
   },
@@ -74,45 +185,120 @@ const automationPackages = {
     description: "Full-featured advanced automation package.",
     devices: [
       {
-        label: "Smart Switch",
-        description: "Control lights remotely.",
-        costPerUnit: 1200,
-        quantityMultiplier: { tvArea: 3, hall: 7, poojaRoom: 3, diningArea: 4, bedrooms: 4, washrooms: 2 },
-      },
-      {
         label: "Motion Sensor",
-        description: "Detect motion for security.",
-        costPerUnit: 800,
-        quantityMultiplier: { tvArea: 2, hall: 3, poojaRoom: 2, diningArea: 3, bedrooms: 3, washrooms: 2 },
+        description: "Detect motion for security and automation.",
+        costPerUnit: 3000,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 1,
+        },
       },
       {
-        label: "Temperature Sensor",
-        description: "Monitor indoor temperature.",
-        costPerUnit: 900,
-        quantityMultiplier: { tvArea: 1, hall: 2, poojaRoom: 1, diningArea: 2, bedrooms: 3, washrooms: 2 },
+        label: "Outdoor Sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 640,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
       },
       {
-        label: "Smart Thermostat",
-        description: "HVAC control.",
-        costPerUnit: 2500,
-        quantityMultiplier: { tvArea: 0, hall: 1, poojaRoom: 0, diningArea: 1, bedrooms: 1, washrooms: 0 },
+        label: "Touch Panel - 4M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 8000,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 1,
+        },
+      },
+      {
+        label: "Touch Panel - 8M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 15000,
+        quantityMultiplier: {
+          tvArea: 1,
+          hall: 1,
+          poojaRoom: 1,
+          diningArea: 1,
+          bedrooms: 1,
+          washrooms: 0,
+        },
+      },
+      {
+        label: "Smart Digital Door Lock",
+        description: "Door authentication device",
+        costPerUnit: 41500,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
+        defaultQuantity: 1,
+      },
+      {
+        label: "Video Door phone",
+        description: "Analog camera integrated door bell system and display",
+        costPerUnit: 19999,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
+        defaultQuantity: 1,
+      },
+      {
+        label: "Voice Assistant",
+        description: "Control your smart home with voice command",
+        costPerUnit: 6000,
+        quantityMultiplier: {
+          tvArea: 0,
+          hall: 0,
+          poojaRoom: 0,
+          diningArea: 0,
+          bedrooms: 0,
+          washrooms: 0,
+        },
       },
     ],
     optionalDevices: [
       {
-        label: "Smart Plug",
-        description: "Control power outlet devices.",
-        costPerUnit: 500,
+        label: "Automatic Water Pump Controller",
+        description:
+          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off)",
+        costPerUnit: 2000,
       },
       {
-        label: "Window Sensor",
-        description: "Detect window open/close.",
-        costPerUnit: 700,
+        label: "Wardrobe Sensor",
+        description: "Auto on/off wardrobe light when open/close",
+        costPerUnit: 1700,
       },
       {
-        label: "Security Camera",
-        description: "Video surveillance.",
-        costPerUnit: 3500,
+        label: "Smart Lighting Control",
+        description: "Smart lighting control with scene creation",
+        costPerUnit: 0,
+      },
+      {
+        label: "Curtain Motor",
+        description: "Automatically open/close curtain blinds",
+        costPerUnit: 16225,
       },
     ],
   },
@@ -153,12 +339,14 @@ const EstimateVillaAutomation = () => {
     const quantities = {};
     pkg.devices.forEach((device) => {
       let qty = 0;
+      // Sum quantity based on area multipliers
       for (const [areaKey, count] of Object.entries(areas)) {
         if (device.quantityMultiplier[areaKey] !== undefined) {
           qty += count * device.quantityMultiplier[areaKey];
         }
       }
-      quantities[device.label] = qty;
+      // Set default quantity to 1 if specified and qty is zero
+      quantities[device.label] = device.defaultQuantity && qty === 0 ? 1 : qty;
     });
     setDeviceQuantities(quantities);
     setOptionalQuantities({});
@@ -198,8 +386,7 @@ const EstimateVillaAutomation = () => {
     });
     let optionalCost = 0;
     pkg.optionalDevices.forEach((device) => {
-      optionalCost +=
-        (optionalQuantities[device.label] || 0) * device.costPerUnit;
+      optionalCost += (optionalQuantities[device.label] || 0) * device.costPerUnit;
     });
     return deviceCost + optionalCost;
   };
@@ -274,7 +461,10 @@ const EstimateVillaAutomation = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {villaAreas.map(({ key, label }) => (
                   <div key={key}>
-                    <label htmlFor={key} className="block font-medium mb-1 text-gray-700">
+                    <label
+                      htmlFor={key}
+                      className="block font-medium mb-1 text-gray-700"
+                    >
                       {label} (count)
                     </label>
                     <input
@@ -289,7 +479,10 @@ const EstimateVillaAutomation = () => {
                   </div>
                 ))}
                 <div>
-                  <label htmlFor="bedrooms" className="block font-medium mb-1 text-gray-700">
+                  <label
+                    htmlFor="bedrooms"
+                    className="block font-medium mb-1 text-gray-700"
+                  >
                     Number of Bedrooms
                   </label>
                   <input
@@ -303,7 +496,10 @@ const EstimateVillaAutomation = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="washrooms" className="block font-medium mb-1 text-gray-700">
+                  <label
+                    htmlFor="washrooms"
+                    className="block font-medium mb-1 text-gray-700"
+                  >
                     Number of Washrooms
                   </label>
                   <input
@@ -428,7 +624,6 @@ const EstimateVillaAutomation = () => {
           </section>
         </main>
       </section>
-     
     </>
   );
 };

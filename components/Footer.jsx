@@ -121,7 +121,7 @@ const Footer = () => {
           </p>
           <p className="mt-4 text-xs text-gray-500">
             Registered Office: Seepat, Bilaspur, Chhattisgarh , India, Pin Code
-            : 495555.
+            : 495559.
           </p>
         </address>
         <section

@@ -11,23 +11,35 @@ const automationPackages = {
     description: "Basic automation package with essential devices.",
     devices: [
       {
-        label: "Smart Switch",
-        description: "Control your lights remotely.",
-        costPerUnit: 1200,
-        quantityLogic: (areas) => areas.rooms * 3 + areas.washrooms * 1,
-      },
-      {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 800,
-        quantityLogic: (areas) => areas.rooms * 1 + areas.washrooms * 1,
+        costPerUnit: 795,
+        quantityLogic: (areas) => areas.washrooms * 1,
+      },
+      {
+        label: "Inwall Module",
+        description: "Controls power outlet devices.",
+        costPerUnit: 6000,
+        quantityLogic: (areas) => areas.rooms * 1 + areas.washrooms ,
+      },
+      {
+        label: "Smart Digital Door Lock",
+        description: "Door authentication device.",
+        costPerUnit: 18500,
+        quantityLogic: (areas) => areas.rooms,
       },
     ],
     optionalDevices: [
       {
-        label: "Smart Plug",
-        description: "Control power outlet devices.",
-        costPerUnit: 500,
+        label: "Wardrobe Sensor",
+        description: "Auto on/off wardrobe light when open/close.",
+        costPerUnit: 1700,
+      },
+      {
+        label: "Automatic Water Pump Controller",
+        description:
+          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off).",
+        costPerUnit: 2000,
       },
     ],
   },
@@ -36,34 +48,46 @@ const automationPackages = {
     description: "Standard package with extended devices.",
     devices: [
       {
-        label: "Smart Switch",
-        description: "Control your lights remotely.",
-        costPerUnit: 1200,
-        quantityLogic: (areas) => areas.rooms * 5 + areas.washrooms * 2,
-      },
-      {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 800,
-        quantityLogic: (areas) => areas.rooms * 2 + areas.washrooms * 1,
+        costPerUnit: 795,
+        quantityLogic: (areas) => areas.washrooms,
       },
       {
-        label: "Temperature Sensor",
-        description: "Monitor indoor temperature.",
-        costPerUnit: 900,
-        quantityLogic: (areas) => Math.ceil(areas.rooms / 2),
+        label: "Touch Panel - 4M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 8000,
+        quantityLogic: (areas) => areas.rooms ,
+      },
+      {
+        label: "Touch Panel - 8M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 15000,
+        quantityLogic: (areas) => areas.rooms ,
+      },
+      {
+        label: "Smart Digital Door Lock",
+        description: "Door authentication device.",
+        costPerUnit: 18500,
+        quantityLogic: (areas) => areas.washrooms,
       },
     ],
     optionalDevices: [
       {
-        label: "Smart Plug",
-        description: "Control power outlet devices.",
-        costPerUnit: 500,
+        label: " Video Door Phone",
+        description: "Analog camera integrated door bell system and display.",
+        costPerUnit: 19999,
       },
       {
-        label: "Window Sensor",
-        description: "Detect window open/close.",
-        costPerUnit: 700,
+        label: "Wardrobe Sensor",
+        description: "Auto on/off wardrobe light when open/close.",
+        costPerUnit: 1700,
+      },
+      {
+        label: "Automatic Water Pump Controller",
+        description:
+          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off).",
+        costPerUnit: 2000,
       },
     ],
   },
@@ -72,45 +96,57 @@ const automationPackages = {
     description: "Full-featured advanced automation package.",
     devices: [
       {
-        label: "Smart Switch",
-        description: "Control lights remotely.",
-        costPerUnit: 1200,
-        quantityLogic: (areas) => areas.rooms * 7 + areas.washrooms * 3,
-      },
-      {
         label: "Motion Sensor",
-        description: "Detect motion for security.",
-        costPerUnit: 800,
-        quantityLogic: (areas) => areas.rooms * 3 + areas.washrooms * 2,
+        description: "Detect motion for security and automation.",
+        costPerUnit: 3000,
+        quantityLogic: (areas) => areas.washrooms,
       },
       {
-        label: "Temperature Sensor",
-        description: "Monitor indoor temperature.",
-        costPerUnit: 900,
+        label: "Touch Panel - 4M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 6000,
         quantityLogic: (areas) => areas.rooms,
       },
       {
-        label: "Smart Thermostat",
-        description: "HVAC control.",
-        costPerUnit: 2500,
-        quantityLogic: (areas) => Math.ceil(areas.rooms / 3),
+        label: "Touch Panel - 8M",
+        description: "Controls power outlet devices.",
+        costPerUnit: 15000,
+        quantityLogic: (areas) => areas.rooms * 2,
+      },
+      {
+        label: "Smart Digital Door Lock",
+        description: "Door authentication device.",
+        costPerUnit: 23899,
+        quantityLogic: (areas) => areas.rooms,
+      },
+      {
+        label: " Video Door Phone",
+        description: "Analog camera integrated door bell system and display.",
+        costPerUnit: 19999,
+        quantityLogic: (areas) => areas.rooms,
       },
     ],
     optionalDevices: [
       {
-        label: "Smart Plug",
-        description: "Control power outlet devices.",
-        costPerUnit: 500,
+        label: "RFID Card Holder",
+        description: "All devices accessible only by using card.",
+        costPerUnit: 11200,
       },
       {
-        label: "Window Sensor",
-        description: "Detect window open/close.",
-        costPerUnit: 700,
+        label: "Wardrobe Sensor",
+        description: "Auto on/off wardrobe light when open/close.",
+        costPerUnit: 1700,
       },
       {
-        label: "Security Camera",
-        description: "Video surveillance.",
-        costPerUnit: 3500,
+        label: "Automatic Water Pump Controller",
+        description:
+          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off).",
+        costPerUnit: 2000,
+      },
+      {
+        label: "Curtain Motor",
+        description: "Automatically open/close curtain blinds.",
+        costPerUnit: 16225,
       },
     ],
   },
@@ -139,13 +175,13 @@ const HotelRoomAutomation = () => {
       return;
     }
     const pkg = automationPackages[automationPackage];
-    const newQuantities = {};
+    const calculatedQuantities = {};
     pkg.devices.forEach((device) => {
-      newQuantities[device.label] = device.quantityLogic
+      calculatedQuantities[device.label] = device.quantityLogic
         ? device.quantityLogic(areas)
         : 0;
     });
-    setDeviceQuantities(newQuantities);
+    setDeviceQuantities(calculatedQuantities);
     setOptionalQuantities({});
   }, [automationPackage, areas]);
 
@@ -155,18 +191,21 @@ const HotelRoomAutomation = () => {
       [label]: (prev[label] || 0) + 1,
     }));
   };
+
   const decrementDevice = (label) => {
     setDeviceQuantities((prev) => ({
       ...prev,
       [label]: Math.max((prev[label] || 0) - 1, 0),
     }));
   };
+
   const incrementOptional = (label) => {
     setOptionalQuantities((prev) => ({
       ...prev,
       [label]: (prev[label] || 0) + 1,
     }));
   };
+
   const decrementOptional = (label) => {
     setOptionalQuantities((prev) => ({
       ...prev,
@@ -183,8 +222,7 @@ const HotelRoomAutomation = () => {
     });
     let optionalCost = 0;
     pkg.optionalDevices.forEach((device) => {
-      optionalCost +=
-        (optionalQuantities[device.label] || 0) * device.costPerUnit;
+      optionalCost += (optionalQuantities[device.label] || 0) * device.costPerUnit;
     });
     return deviceCost + optionalCost;
   };
