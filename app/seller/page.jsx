@@ -287,12 +287,15 @@ function SellerContent() {
               onChange={(e) => setCategory(e.target.value)}
               value={category}
             >
-              <option value="Earphone">Earphone</option>
-              <option value="Headphone">Headphone</option>
-              <option value="Watch">Watch</option>
-              <option value="Smartphone">Smartphone</option>
-              <option value="Laptop">Laptop</option>
-              <option value="Camera">Camera</option>
+              <option value="Touch Panel">Touch Panel</option>
+              <option value="Door Lock">Door-Lock</option>
+              <option value="Motion sensor">Motion sensor</option>
+              <option value="OutDoor sensor">OutDoor sensor</option>
+              <option value="Wardrobe sensor">Wardrobe sensor</option>
+              <option value="Video Door Phone">Video Door Phone</option>
+              <option value="Voice Assistance">Voice Assistance</option>
+              <option value="Moter">Moter</option>
+              <option value="remote controll">remote controll</option>
               <option value="Accessories">Accessories</option>
             </select>
           </div>
