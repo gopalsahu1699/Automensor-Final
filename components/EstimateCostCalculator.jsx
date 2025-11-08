@@ -43,7 +43,7 @@ const EstimateCostCalculator = () => {
           </div>
           <Link
             href={product.route}
-            className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-start"
+            className="inline-flex  items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-center"
             aria-label={`Get personalized estimate for: ${product.title}`}
           >
             Get Estimate cost

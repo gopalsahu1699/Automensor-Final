@@ -10,7 +10,7 @@ const products = [
     id: 1,
     image: assets.smart_home,
     title: "Customize Your Smart Home Automation",
-    route: "/estimate-cost-calculator/estimated-cost",
+    route: "/estimate-cost-calculator/estimated-cost-home",
   },
   {
     id: 2,
@@ -61,7 +61,7 @@ const EstimateCostCalculator = () => {
               </div>
               <Link
                 href={route}
-                className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-start"
+                className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-center"
                 aria-label={`Get personalized estimate for: ${title}`}
               >
                 Get Estimate cost

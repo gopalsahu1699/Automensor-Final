@@ -12,48 +12,59 @@ const automationPackages = {
       {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 795,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
+        costPerUnit: 2700,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 4 },
       },
       {
         label: "Outdoor Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 640,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
-      },
-    
-      {
-        label: "Inwall Module",
-        description: "controls power outlet devices.",
-        costPerUnit: 6000,
-        quantityMultiplier: { "1bhk": 4, "2bhk": 6, "3bhk": 8 },
+        costPerUnit: 850,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 2, "3bhk": 3 },
       },
         {
+        label: "wardrobe sensor",
+        description: "controls power outlet devices",
+        costPerUnit: 1900,
+        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
+      },
+      {
+        label: "4m Inwall Module",
+        description: "controls power outlet devices.",
+        costPerUnit: 9100,
+        quantityMultiplier: { "1bhk": 3, "2bhk": 5, "3bhk": 6 },
+      },
+      {
+        label: "8m Inwall Module",
+        description: "controls power outlet devices.",
+        costPerUnit: 12700,
+        quantityMultiplier: { "1bhk": 4, "2bhk": 6, "3bhk": 8 },
+      },
+      {
         label: "Smart Digital Door Lock",
         description: "Door authentication device ",
-        costPerUnit: 18500,
+        costPerUnit: 20500,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
       {
         label: "Ring Video Door Bell",
         description: "Analog camera integrated door bell system",
-        costPerUnit: 6699,
+        costPerUnit: 21000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
+    
     ],
     optionalDevices: [
       {
         label: "Automatic Water Pump Controller",
         description:
           "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off)",
-        costPerUnit: 2000,
+        costPerUnit: 3000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
       {
-        label: "wardrobe sensor ",
-        description:
-          "auto on/off wardrobe light when open/close",
-        costPerUnit: 1700,
+        label: " wifi : jio/airtel ",
+        description: "wireless network system",
+        costPerUnit: 0,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
     ],
@@ -61,42 +72,47 @@ const automationPackages = {
   standard: {
     label: "Standard",
     description: "Standard package with extended devices.",
-     devices: [
+    devices: [
       {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 795,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
+        costPerUnit: 2700,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 4 },
       },
       {
         label: "Outdoor Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 640,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
+        costPerUnit: 850,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 2, "3bhk": 3 },
       },
-    
+        {
+        label: "wardrobe sensor",
+        description: "controls power outlet devices",
+        costPerUnit: 1900,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 4 },
+      },
       {
         label: "touch panel - 4M",
         description: "controls power outlet devices.",
-        costPerUnit: 8000,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
+        costPerUnit: 9800,
+        quantityMultiplier: { "1bhk": 3, "2bhk": 5, "3bhk": 6 },
       },
       {
         label: "touch panel - 8M",
         description: "controls power outlet devices.",
-        costPerUnit: 15000,
-        quantityMultiplier: { "1bhk": 3, "2bhk": 4, "3bhk": 5 },
+        costPerUnit: 14400,
+        quantityMultiplier: { "1bhk": 4, "2bhk": 6, "3bhk": 8 },
       },
-        {
+      {
         label: "Smart Digital Door Lock",
         description: "Door authentication device ",
-        costPerUnit: 24500,
+        costPerUnit: 26500,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
       {
         label: " Video Door phone",
         description: "Analog camera integrated door bell system and display",
-        costPerUnit: 19999,
+        costPerUnit:21000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
     ],
@@ -105,20 +121,12 @@ const automationPackages = {
         label: "Automatic Water Pump Controller",
         description:
           "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off)",
-        costPerUnit: 2000,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
-      },
-      {
-        label: "wardrobe sensor ",
-        description:
-          "auto on/off wardrobe light when open/close",
-        costPerUnit: 1700,
+        costPerUnit: 3000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
       {
         label: "voice assistant ",
-        description:
-          "control your smart home with voice command",
+        description: "control your smart home with voice command",
         costPerUnit: 6000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
@@ -127,83 +135,84 @@ const automationPackages = {
   advance: {
     label: "Advance",
     description: "Full-featured advanced automation package.",
-  devices: [
+    devices: [
       {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 3000,
-        quantityMultiplier: { "1bhk":1, "2bhk": 2, "3bhk": 3 },
+        costPerUnit: 2700,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 4 },
       },
       {
         label: "Outdoor Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 640,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
+        costPerUnit: 850,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 3 },
       },
-    
+       {
+        label: "wardrobe sensor",
+        description: "controls power outlet devices",
+        costPerUnit: 1900,
+        quantityMultiplier: { "1bhk": 3, "2bhk": 5, "3bhk": 7 },
+      },
       {
         label: "touch panel - 4M",
         description: "controls power outlet devices.",
-        costPerUnit: 8000,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 2, "3bhk": 3 },
+        costPerUnit:12000,
+        quantityMultiplier: { "1bhk": 3, "2bhk": 5, "3bhk": 6 },
       },
       {
         label: "touch panel - 8M",
         description: "controls power outlet devices.",
-        costPerUnit: 15000,
-        quantityMultiplier: { "1bhk": 3, "2bhk": 4, "3bhk": 5 },
+        costPerUnit: 16300,
+        quantityMultiplier: { "1bhk": 4, "2bhk": 6, "3bhk": 8 },
       },
-        {
+      {
+        label: "curtain touch panel - 2M + remote ",
+        description: "controls power outlet devices.",
+        costPerUnit: 12000,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 4 },
+      },
+      {
+        label: "curtain track + moter  ",
+        description: "controls power outlet devices.",
+        costPerUnit: 22000,
+        quantityMultiplier: { "1bhk": 2, "2bhk": 3, "3bhk": 4 },
+      },
+      {
         label: "Smart Digital Door Lock",
         description: "Door authentication device ",
-        costPerUnit: 41500,
+        costPerUnit: 43500,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
       {
         label: " Video Door phone",
         description: "Analog camera integrated door bell system and display",
-        costPerUnit: 19999,
+        costPerUnit: 21000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
-        {
+      {
         label: "voice assistant ",
-        description:
-          "control your smart home with voice command",
+        description: "control your smart home with voice command",
         costPerUnit: 6000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
-      
     ],
     optionalDevices: [
       {
         label: "Automatic Water Pump Controller",
         description:
           "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off)",
-        costPerUnit: 2000,
+        costPerUnit: 3000,
         quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
       },
-      {
-        label: "wardrobe sensor ",
-        description:
-          "auto on/off wardrobe light when open/close",
-        costPerUnit: 1700,
-        quantityMultiplier: { "1bhk": 1, "2bhk": 1, "3bhk": 1 },
-      },
+   
       {
         label: "Smart lighting controll",
-        description:
-          "smart lighting controll with scene creation",
+        description: "smart lighting controll with scene creation",
         costPerUnit: 0,
         quantityMultiplier: { "1bhk": 0, "2bhk": 0, "3bhk": 0 },
       },
-      {
-       label: "curtain motor",
-        description:
-          "autometically open/close curtain blinds",
-        costPerUnit: 16225,
-        quantityMultiplier: { "1bhk": 0, "2bhk": 0, "3bhk": 0 },
-      },
-    
+   
     ],
   },
 };
@@ -237,34 +246,6 @@ const EstimateCostCalculator = () => {
     setOptionalQuantities({});
   }, [automationPackage, homeType]);
 
-  const incrementQuantity = (label, isOptional = false) => {
-    if (isOptional) {
-      setOptionalQuantities((prev) => ({
-        ...prev,
-        [label]: (prev[label] || 0) + 1,
-      }));
-    } else {
-      setDeviceQuantities((prev) => ({
-        ...prev,
-        [label]: (prev[label] || 0) + 1,
-      }));
-    }
-  };
-
-  const decrementQuantity = (label, isOptional = false) => {
-    if (isOptional) {
-      setOptionalQuantities((prev) => ({
-        ...prev,
-        [label]: Math.max((prev[label] || 0) - 1, 0),
-      }));
-    } else {
-      setDeviceQuantities((prev) => ({
-        ...prev,
-        [label]: Math.max((prev[label] || 0) - 1, 0),
-      }));
-    }
-  };
-
   const calculateEstimate = () => {
     if (!automationPackage) return 0;
     const pkg = automationPackages[automationPackage];
@@ -280,29 +261,6 @@ const EstimateCostCalculator = () => {
     );
     return deviceCost + optionalCost;
   };
-
-  const QuantityControl = ({ label, quantity, onIncrement, onDecrement }) => (
-    <div className="flex items-center gap-2">
-      <button
-        type="button"
-        onClick={onDecrement}
-        disabled={quantity <= 0}
-        className="w-8 h-8 bg-gray-200 rounded-md disabled:opacity-50"
-        aria-label={`Decrease quantity of ${label}`}
-      >
-        -
-      </button>
-      <span className="w-8 text-center">{quantity}</span>
-      <button
-        type="button"
-        onClick={onIncrement}
-        className="w-8 h-8 bg-orange-600 text-white rounded-md hover:bg-orange-700"
-        aria-label={`Increase quantity of ${label}`}
-      >
-        +
-      </button>
-    </div>
-  );
 
   return (
     <section className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-50">
@@ -381,12 +339,11 @@ const EstimateCostCalculator = () => {
                         <p className="font-medium">{label}</p>
                         <p className="text-sm text-gray-600">{description}</p>
                       </div>
-                      <QuantityControl
-                        label={label}
-                        quantity={deviceQuantities[label] || 0}
-                        onIncrement={() => incrementQuantity(label)}
-                        onDecrement={() => decrementQuantity(label)}
-                      />
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg font-semibold text-gray-900">
+                          Qty: {deviceQuantities[label] || 0}
+                        </span>
+                      </div>
                     </div>
                   )
                 )}
@@ -397,7 +354,7 @@ const EstimateCostCalculator = () => {
               0 && (
               <section className="mt-10">
                 <h4 className="text-xl font-semibold text-gray-900 mb-4">
-                  Optional Devices (Add or Remove)
+                  Optional Devices
                 </h4>
                 <div className="space-y-6">
                   {automationPackages[automationPackage].optionalDevices.map(
@@ -410,12 +367,11 @@ const EstimateCostCalculator = () => {
                           <p className="font-medium">{label}</p>
                           <p className="text-sm text-gray-600">{description}</p>
                         </div>
-                        <QuantityControl
-                          label={label}
-                          quantity={optionalQuantities[label] || 0}
-                          onIncrement={() => incrementQuantity(label, true)}
-                          onDecrement={() => decrementQuantity(label, true)}
-                        />
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-semibold text-gray-900">
+                            Qty: {optionalQuantities[label] || 0}
+                          </span>
+                        </div>
                       </div>
                     )
                   )}

@@ -10,6 +10,7 @@ import { useAppContext } from "@/context/AppContext";
 const AllProducts = () => {
   const { products, loadingProducts } = useAppContext();
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Extract unique categories, include "All" first
   const categories = useMemo(() => {
@@ -17,10 +18,16 @@ const AllProducts = () => {
     return ["All", ...new Set(allCategories)];
   }, [products]);
 
-  const filteredProducts =
+  // Filter products by category first
+  const filteredByCategory =
     selectedCategory === "All"
       ? products
       : products.filter((p) => p.category === selectedCategory);
+
+  // Then filter by search term in product name (case-insensitive)
+  const filteredProducts = filteredByCategory.filter((p) =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const categoryButtonVariants = {
     initial: { scale: 1 },
@@ -102,7 +109,7 @@ const AllProducts = () => {
         {/* Main content */}
         <main className="flex-1 pl-0 md:pl-10 bg-white rounded-lg shadow-sm flex flex-col">
           {/* Section header */}
-          <div className="flex flex-col items-start md:items-end mb-8 md:mb-12 px-6 pt-5">
+          <div className="flex flex-col items-start md:items-end mb-8 md:mb-12 px-6 pt-5 space-y-4">
             <motion.h1
               className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight select-none"
               initial={{ opacity: 0, y: 12 }}
@@ -118,6 +125,15 @@ const AllProducts = () => {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.45, delay: 0.25 }}
+            />
+            {/* Search input */}
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full max-w-sm border border-gray-300 rounded-lg py-2 px-4 shadow-sm text-gray-700 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+              aria-label="Search products by name"
             />
           </div>
 

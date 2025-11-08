@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowBigRight } from "lucide-react";
+import { ArrowBigRight, Plus, Minus } from "lucide-react";
 
 const automationPackages = {
   basic: {
@@ -13,33 +13,39 @@ const automationPackages = {
       {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 795,
+        costPerUnit: 2700,
         quantityLogic: (areas) => areas.washrooms * 1,
       },
       {
-        label: "Inwall Module",
+        label: "wardrobe sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 1900,
+        quantityLogic: (areas) => areas.rooms * 1,
+      },
+      {
+        label: "4m Inwall Module",
         description: "Controls power outlet devices.",
-        costPerUnit: 6000,
-        quantityLogic: (areas) => areas.rooms * 1 + areas.washrooms ,
+        costPerUnit: 9100,
+        quantityLogic: (areas) => areas.rooms * 1 + areas.washrooms,
+      },
+      {
+        label: "8m Inwall Module",
+        description: "Controls power outlet devices.",
+        costPerUnit: 12700,
+        quantityLogic: (areas) => areas.rooms * 1,
       },
       {
         label: "Smart Digital Door Lock",
         description: "Door authentication device.",
-        costPerUnit: 18500,
+        costPerUnit: 25900,
         quantityLogic: (areas) => areas.rooms,
       },
     ],
     optionalDevices: [
       {
-        label: "Wardrobe Sensor",
-        description: "Auto on/off wardrobe light when open/close.",
-        costPerUnit: 1700,
-      },
-      {
-        label: "Automatic Water Pump Controller",
-        description:
-          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off).",
-        costPerUnit: 2000,
+        label: " Video Door Phone",
+        description: "Analog camera integrated door bell system and display.",
+        costPerUnit: 21000,
       },
     ],
   },
@@ -50,44 +56,52 @@ const automationPackages = {
       {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 795,
-        quantityLogic: (areas) => areas.washrooms,
+        costPerUnit: 2700,
+        quantityLogic: (areas) => areas.washrooms * 1,
       },
       {
-        label: "Touch Panel - 4M",
-        description: "Controls power outlet devices.",
-        costPerUnit: 8000,
-        quantityLogic: (areas) => areas.rooms ,
+        label: "wardrobe sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 1900,
+        quantityLogic: (areas) => areas.rooms * 1,
       },
       {
-        label: "Touch Panel - 8M",
+        label: "4m touch panel",
         description: "Controls power outlet devices.",
-        costPerUnit: 15000,
-        quantityLogic: (areas) => areas.rooms ,
+        costPerUnit: 9800,
+        quantityLogic: (areas) => areas.rooms * 1 + areas.washrooms,
+      },
+      {
+        label: "8m touch panel",
+        description: "Controls power outlet devices.",
+        costPerUnit: 14400,
+        quantityLogic: (areas) => areas.rooms * 1,
       },
       {
         label: "Smart Digital Door Lock",
         description: "Door authentication device.",
-        costPerUnit: 18500,
-        quantityLogic: (areas) => areas.washrooms,
+        costPerUnit: 25900,
+        quantityLogic: (areas) => areas.rooms,
+      },
+      {
+        label: " Video Door Phone",
+        description: "Analog camera integrated door bell system and display.",
+        costPerUnit: 21000,
+        quantityLogic: (areas) => areas.rooms,
       },
     ],
     optionalDevices: [
       {
-        label: " Video Door Phone",
-        description: "Analog camera integrated door bell system and display.",
-        costPerUnit: 19999,
+        label: " RFID card holder",
+        description: "Room authentication device.",
+        costPerUnit: 12200,
+        quantityLogic: (areas) => areas.rooms,
       },
       {
-        label: "Wardrobe Sensor",
-        description: "Auto on/off wardrobe light when open/close.",
-        costPerUnit: 1700,
-      },
-      {
-        label: "Automatic Water Pump Controller",
-        description:
-          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off).",
-        costPerUnit: 2000,
+        label: " 2M Door bell + DND touch panel",
+        description: "Door bell + DND system",
+        costPerUnit: 6000,
+        quantityLogic: (areas) => areas.rooms,
       },
     ],
   },
@@ -98,55 +112,63 @@ const automationPackages = {
       {
         label: "Motion Sensor",
         description: "Detect motion for security and automation.",
-        costPerUnit: 3000,
-        quantityLogic: (areas) => areas.washrooms,
+        costPerUnit: 2700,
+        quantityLogic: (areas) => areas.washrooms * 1,
       },
       {
-        label: "Touch Panel - 4M",
+        label: "wardrobe sensor",
+        description: "Detect motion for security and automation.",
+        costPerUnit: 1900,
+        quantityLogic: (areas) => areas.rooms * 1,
+      },
+      {
+        label: "4m touch panel",
         description: "Controls power outlet devices.",
+        costPerUnit: 12000,
+        quantityLogic: (areas) => areas.rooms * 1 + areas.washrooms,
+      },
+      {
+        label: "8m touch panel",
+        description: "Controls power outlet devices.",
+        costPerUnit: 16300,
+        quantityLogic: (areas) => areas.rooms * 1,
+      },
+      {
+        label: "8m -  AC temperature + service + DND + ligts ",
+        description: "Controls power outlet devices.",
+        costPerUnit: 17000,
+        quantityLogic: (areas) => areas.rooms * 1,
+      },
+      {
+        label: " RFID card holder",
+        description: "Room authentication device.",
+        costPerUnit: 12200,
+        quantityLogic: (areas) => areas.rooms,
+      },
+      {
+        label: " 2M Door bell + DND",
+        description: "Door bell + DND system",
         costPerUnit: 6000,
         quantityLogic: (areas) => areas.rooms,
       },
       {
-        label: "Touch Panel - 8M",
-        description: "Controls power outlet devices.",
-        costPerUnit: 15000,
-        quantityLogic: (areas) => areas.rooms * 2,
-      },
-      {
         label: "Smart Digital Door Lock",
         description: "Door authentication device.",
-        costPerUnit: 23899,
+        costPerUnit: 25900,
         quantityLogic: (areas) => areas.rooms,
       },
       {
         label: " Video Door Phone",
         description: "Analog camera integrated door bell system and display.",
-        costPerUnit: 19999,
+        costPerUnit: 21000,
         quantityLogic: (areas) => areas.rooms,
       },
     ],
     optionalDevices: [
       {
-        label: "RFID Card Holder",
-        description: "All devices accessible only by using card.",
-        costPerUnit: 11200,
-      },
-      {
-        label: "Wardrobe Sensor",
-        description: "Auto on/off wardrobe light when open/close.",
-        costPerUnit: 1700,
-      },
-      {
-        label: "Automatic Water Pump Controller",
-        description:
-          "Wireless Smart Water Tank Monitoring System (app controlled with motor on/off).",
-        costPerUnit: 2000,
-      },
-      {
-        label: "Curtain Motor",
+        label: "Curtain control system",
         description: "Automatically open/close curtain blinds.",
-        costPerUnit: 16225,
+        costPerUnit: 32000,
       },
     ],
   },
@@ -163,9 +185,13 @@ const HotelRoomAutomation = () => {
   const [deviceQuantities, setDeviceQuantities] = useState({});
   const [optionalQuantities, setOptionalQuantities] = useState({});
 
-  const handleAreaChange = (key, value) => {
-    const val = Math.max(0, parseInt(value) || 0);
-    setAreas((prev) => ({ ...prev, [key]: val }));
+  const handleIncrement = (key) => {
+    setAreas((prev) => ({ ...prev, [key]: prev[key] + 1 }));
+    setOptionalQuantities({});
+  };
+
+  const handleDecrement = (key) => {
+    setAreas((prev) => ({ ...prev, [key]: Math.max(0, prev[key] - 1) }));
     setOptionalQuantities({});
   };
 
@@ -185,34 +211,6 @@ const HotelRoomAutomation = () => {
     setOptionalQuantities({});
   }, [automationPackage, areas]);
 
-  const incrementDevice = (label) => {
-    setDeviceQuantities((prev) => ({
-      ...prev,
-      [label]: (prev[label] || 0) + 1,
-    }));
-  };
-
-  const decrementDevice = (label) => {
-    setDeviceQuantities((prev) => ({
-      ...prev,
-      [label]: Math.max((prev[label] || 0) - 1, 0),
-    }));
-  };
-
-  const incrementOptional = (label) => {
-    setOptionalQuantities((prev) => ({
-      ...prev,
-      [label]: (prev[label] || 0) + 1,
-    }));
-  };
-
-  const decrementOptional = (label) => {
-    setOptionalQuantities((prev) => ({
-      ...prev,
-      [label]: Math.max((prev[label] || 0) - 1, 0),
-    }));
-  };
-
   const calculateEstimate = () => {
     if (!automationPackage) return 0;
     const pkg = automationPackages[automationPackage];
@@ -222,7 +220,8 @@ const HotelRoomAutomation = () => {
     });
     let optionalCost = 0;
     pkg.optionalDevices.forEach((device) => {
-      optionalCost += (optionalQuantities[device.label] || 0) * device.costPerUnit;
+      optionalCost +=
+        (optionalQuantities[device.label] || 0) * device.costPerUnit;
     });
     return deviceCost + optionalCost;
   };
@@ -231,29 +230,6 @@ const HotelRoomAutomation = () => {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 },
   };
-
-  const QuantityControl = ({ label, quantity, onIncrement, onDecrement }) => (
-    <div className="flex items-center gap-2">
-      <button
-        type="button"
-        onClick={onDecrement}
-        disabled={quantity <= 0}
-        className="w-8 h-8 bg-gray-200 rounded-md disabled:opacity-50"
-        aria-label={`Decrease quantity of ${label}`}
-      >
-        -
-      </button>
-      <span className="w-8 text-center">{quantity}</span>
-      <button
-        type="button"
-        onClick={onIncrement}
-        className="w-8 h-8 bg-orange-600 text-white rounded-md hover:bg-orange-700"
-        aria-label={`Increase quantity of ${label}`}
-      >
-        +
-      </button>
-    </div>
-  );
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50">
@@ -296,21 +272,28 @@ const HotelRoomAutomation = () => {
             <div className="grid grid-cols-1 gap-6">
               {hotelRoomAreas.map(({ key, label }) => (
                 <div key={key}>
-                  <label
-                    htmlFor={key}
-                    className="block font-medium mb-1 text-gray-700"
-                  >
+                  <label className="block font-medium mb-2 text-gray-700">
                     {label}
                   </label>
-                  <input
-                    type="number"
-                    id={key}
-                    min={0}
-                    value={areas[key]}
-                    onChange={(e) => handleAreaChange(key, e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-4 focus:ring-orange-400 transition"
-                    aria-label={`Enter ${label.toLowerCase()}`}
-                  />
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => handleDecrement(key)}
+                      className="w-10 h-10 flex items-center justify-center bg-red-500 text-white rounded-md hover:bg-red-600 transition focus:outline-none focus:ring-2 focus:ring-red-400"
+                      aria-label={`Decrease ${label}`}
+                    >
+                      <Minus size={20} />
+                    </button>
+                    <span className="w-16 text-center text-xl font-semibold text-gray-900">
+                      {areas[key]}
+                    </span>
+                    <button
+                      onClick={() => handleIncrement(key)}
+                      className="w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-md hover:bg-green-600 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+                      aria-label={`Increase ${label}`}
+                    >
+                      <Plus size={20} />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -335,27 +318,31 @@ const HotelRoomAutomation = () => {
                   >
                     <div>
                       <p className="font-medium">{device.label}</p>
-                      <p className="text-sm text-gray-600">{device.description}</p>
+                      <p className="text-sm text-gray-600">
+                        {device.description}
+                      </p>
                     </div>
-                    <QuantityControl
-                      label={device.label}
-                      quantity={deviceQuantities[device.label] || 0}
-                      onIncrement={() => incrementDevice(device.label)}
-                      onDecrement={() => decrementDevice(device.label)}
-                    />
+                    <div className="text-lg font-semibold text-gray-900">
+                      Qty: {deviceQuantities[device.label] || 0}
+                    </div>
                   </motion.div>
                 ))}
               </div>
             </motion.section>
 
-            {automationPackages[automationPackage].optionalDevices.length > 0 && (
+            {automationPackages[automationPackage].optionalDevices.length >
+              0 && (
               <motion.section
                 initial="hidden"
                 animate="visible"
-                variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+                variants={{
+                  visible: { transition: { staggerChildren: 0.1 } },
+                }}
                 className="mb-10"
               >
-                <h2 className="text-2xl font-semibold mb-4">Optional Devices</h2>
+                <h2 className="text-2xl font-semibold mb-4">
+                  Optional Devices
+                </h2>
                 <div className="space-y-6">
                   {automationPackages[automationPackage].optionalDevices.map(
                     (device) => (
@@ -366,14 +353,13 @@ const HotelRoomAutomation = () => {
                       >
                         <div>
                           <p className="font-medium">{device.label}</p>
-                          <p className="text-sm text-gray-600">{device.description}</p>
+                          <p className="text-sm text-gray-600">
+                            {device.description}
+                          </p>
                         </div>
-                        <QuantityControl
-                          label={device.label}
-                          quantity={optionalQuantities[device.label] || 0}
-                          onIncrement={() => incrementOptional(device.label)}
-                          onDecrement={() => decrementOptional(device.label)}
-                        />
+                        <div className="text-lg font-semibold text-gray-900">
+                          Qty: {optionalQuantities[device.label] || 0}
+                        </div>
                       </motion.div>
                     )
                   )}
@@ -406,7 +392,7 @@ const HotelRoomAutomation = () => {
         <section className="bg-gray-50 rounded-lg max-w-md mx-auto mt-10 p-6 font-sans border-black border-t-4">
           <div className="mb-4">
             <Link
-              href="/estimate-cost-calculator/estimated-cost"
+              href="/estimate-cost-calculator/estimated-cost-home"
               className="inline-flex items-center gap-2 text-blue-600 px-4 py-2 rounded-md border-2 border-transparent hover:bg-blue-100 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             >
               <ArrowBigRight />
