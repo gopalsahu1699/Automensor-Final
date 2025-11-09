@@ -27,7 +27,7 @@ function SellerContent() {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Earphone");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [offerPrice, setOfferPrice] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -158,7 +158,7 @@ function SellerContent() {
 
         await databases.updateDocument(DATABASE_ID, COLLECTION_ID, productToEdit.$id, {
           name,
-          description,
+          description, // Stores exactly as typed with line breaks
           category,
           price,
           offerPrice,
@@ -186,7 +186,7 @@ function SellerContent() {
         await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
           images: JSON.stringify(uploadedFiles),
           name,
-          description,
+          description, // Stores exactly as typed with line breaks
           category,
           price: price.toString(),
           offerPrice: offerPrice.toString(),
@@ -267,13 +267,16 @@ function SellerContent() {
           </label>
           <textarea
             id="product-description"
-            rows={4}
-            className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 resize-none"
-            placeholder="Type here"
+            rows={6}
+            className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40 resize-none whitespace-pre-wrap"
+            placeholder="Type here (supports line breaks and formatting)"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
             required
           />
+          <p className="text-xs text-gray-500 mt-1">
+            Press Enter for new lines. Formatting will be preserved exactly as typed.
+          </p>
         </div>
 
         <div className="flex items-center gap-5 flex-wrap">
@@ -287,6 +290,9 @@ function SellerContent() {
               onChange={(e) => setCategory(e.target.value)}
               value={category}
             >
+              <option value="" disabled>
+                Select Category
+              </option>
               <option value="Touch Panel">Touch Panel</option>
               <option value="Door Lock">Door-Lock</option>
               <option value="Motion sensor">Motion sensor</option>
@@ -295,7 +301,7 @@ function SellerContent() {
               <option value="Video Door Phone">Video Door Phone</option>
               <option value="Voice Assistance">Voice Assistance</option>
               <option value="Moter">Moter</option>
-              <option value="remote controll">remote controll</option>
+              <option value="remote controll">remote control</option>
               <option value="Accessories">Accessories</option>
             </select>
           </div>

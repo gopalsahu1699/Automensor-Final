@@ -8,19 +8,19 @@ import Link from "next/link";
 const products = [
   {
     id: 1,
-    image: assets.smart_home,
+    image: assets.estimate_cost_category_1,
     title: "Customize Your Smart Home Automation",
     route: "/estimate-cost-calculator/estimated-cost-home",
   },
   {
     id: 2,
-    image: assets.villa,
+    image: assets.estimate_cost_category_2,
     title: "Customize Your Smart Villa Automation",
     route: "/estimate-cost-calculator/estimated-cost-villa",
   },
   {
     id: 3,
-    image: assets.Hotel_room,
+    image: assets.estimate_cost_category_3,
     title: "Customize Your Smart Hotel Room Automation",
     route: "/estimate-cost-calculator/estimated-cost-hotel-room",
   },

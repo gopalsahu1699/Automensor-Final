@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const product = {
   id: 1,
-  image: assets.Home6,
+  image: assets.estimate_cost_home,
   title: "Customize Your Smart Automation",
   description:
     "Get a personalized estimate for your automation project based on your home size, room count, and smart device choices. Discover the best solutions to simplify your life and enhance comfort and security.",

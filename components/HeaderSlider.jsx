@@ -8,13 +8,13 @@ const HeaderSlider = () => {
     {
       id: 1,
       title: "Smart Home Automation Made Simple & Affordable",
-      offer: "Get flat 10% Off On Your First Installation!",
+      offer: "Get flat 5% Off On Your First Installation!",
     
        buttonText1: "Request Quote",
       buttonLink1: "/request-quote",
       buttonText2: "Learn More",
       buttonLink2: "/learn-more",
-      imgSrc: assets.smart_room2,
+      imgSrc: assets.slide_img_1,
     },
     {
       id: 2,
@@ -24,17 +24,17 @@ const HeaderSlider = () => {
       buttonLink1: "/contact-us",
       buttonText2: "View Products",
       buttonLink2: "all-products",
-      imgSrc: assets.smart_room,
+      imgSrc: assets.slide_img_2,
     },
     {
       id: 3,
-      title: "Experience The Future In Just ₹29,999",
+      title: "Experience The Future ",
       offer: "Get Free Installation!",
        buttonText1: "Get Started",
       buttonLink1: "/get-started",
       buttonText2: "Explore Plans",
       buttonLink2: "estimate-cost-calculator",
-      imgSrc: assets.smart_room3,
+      imgSrc: assets.slide_img_3,
     },
   ];
 

@@ -1,7 +1,3 @@
-import logo from "./logo_140_40.webp";
-import logo2 from "./logo6.webp";
-import logo3 from "./logo3.webp"
-import logo6 from "./logo6.webp"
 
 import search_icon from "./search_icon.svg";
 import user_icon from "./user_icon.svg";
@@ -23,35 +19,29 @@ import heart_icon from "./heart_icon.svg";
 import star_icon from "./star_icon.svg";
 import redirect_icon from "./redirect_icon.svg";
 import star_dull_icon from "./star_dull_icon.svg";
-import smart_home from "./smart_home.webp"
-import villa from "./villa.webp"
-import smart_room from "./smart_room.webp"
-import smart_room3 from "./smart_room3.webp"
-import smart_room2 from "./smart_room2.webp"
-import Hotel_room from "./hotel_room.webp"
 import logout from "./logout.svg"
-import Home3 from "./home3.webp"
-import Home4 from "./home4.webp"
-import Home5 from "./home5.webp"
-import Home6 from "./home6.webp"
+
+import logo from "./logo_140_40.webp";
+import estimate_cost_home from "./estimate_cost_home.webp"
+import estimate_cost_category_1 from "./estimate_cost_category_1.webp"
+import estimate_cost_category_2 from "./estimate_cost_category_2.webp"
+import estimate_cost_category_3 from "./estimate_cost_category_3.webp"
+import slide_img_1 from "./slide_img_1.webp"
+import slide_img_2 from "./slide_img_2.webp"
+import slide_img_3 from "./slide_img_3.webp"
+
 
 
 export const assets = {
   logo,
+  estimate_cost_home,
+  estimate_cost_category_1,
+  estimate_cost_category_2,
+  estimate_cost_category_3,
+  slide_img_1,
+  slide_img_2,
+  slide_img_3,
 
-  logo3,
- logo2,
- logo6,
- smart_home,
- villa,
- smart_room,
- smart_room2,
- smart_room3,
- Hotel_room,
- Home3,
- Home4,
- Home5,
- Home6,
  logout,
   search_icon,
   user_icon,

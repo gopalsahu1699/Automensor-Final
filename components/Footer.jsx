@@ -72,7 +72,7 @@ const Footer = () => {
         <div className="md:w-2/5">
           <Image
             className="w-28 md:w-32"
-            src={assets.logo3}
+            src={assets.logo}
             alt="AUTOMENSOR logo"
           />
           <p className="mt-6 text-sm leading-relaxed">

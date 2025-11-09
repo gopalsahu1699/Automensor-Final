@@ -13,11 +13,13 @@ const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 export default function ProductList() {
   const router = useRouter();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [databases, setDatabases] = useState(null);
   const [storage, setStorage] = useState(null);
   const [openProduct, setOpenProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const client = new Client()
@@ -33,7 +35,10 @@ export default function ProductList() {
       setError(null);
       databases
         .listDocuments(DATABASE_ID, COLLECTION_ID)
-        .then((res) => setProducts(res.documents))
+        .then((res) => {
+          setProducts(res.documents);
+          setFilteredProducts(res.documents);
+        })
         .catch((err) => {
           console.error("Error fetching products:", err);
           setError("Failed to load products");
@@ -41,6 +46,23 @@ export default function ProductList() {
         .finally(() => setLoading(false));
     }
   }, [databases]);
+
+  // Auto-filter as user types
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase();
+    const filtered = products.filter(
+      (product) =>
+        product.name?.toLowerCase().includes(query) ||
+        product.description?.toLowerCase().includes(query) ||
+        product.price?.toString().includes(query)
+    );
+    setFilteredProducts(filtered);
+  }, [searchQuery, products]);
 
   const handleDelete = async (id, imageIds) => {
     try {
@@ -59,6 +81,7 @@ export default function ProductList() {
       }
 
       setProducts((prev) => prev.filter((p) => p.$id !== id));
+      setFilteredProducts((prev) => prev.filter((p) => p.$id !== id));
       toast.success("🗑️ Product deleted!");
     } catch (err) {
       console.error("Delete failed:", err);
@@ -79,11 +102,30 @@ export default function ProductList() {
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold mb-4">Product List</h1>
-      {products.length === 0 ? (
-        <p className="text-center text-gray-500">No products found.</p>
+
+      {/* Search Bar - Auto-filters as you type */}
+      <div className="mb-6">
+        <input
+          type="text"
+          placeholder="Search products by name, description, or price..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        {searchQuery && (
+          <p className="text-sm text-gray-500 mt-2">
+            Found {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+          </p>
+        )}
+      </div>
+
+      {filteredProducts.length === 0 ? (
+        <p className="text-center text-gray-500">
+          {searchQuery ? "No products found matching your search." : "No products found."}
+        </p>
       ) : (
         <div className="grid md:grid-cols-3 gap-6">
-          {products.map((product) => {
+          {filteredProducts.map((product) => {
             let imageIds = [];
             try {
               imageIds = product.images ? JSON.parse(product.images) : [];
