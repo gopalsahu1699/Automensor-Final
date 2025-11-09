@@ -4,6 +4,7 @@ import React from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const products = [
   {
@@ -28,7 +29,6 @@ const products = [
 
 const EstimateCostCalculator = () => {
   return (
-   
     <section className="mt-14 px-6 sm:px-10 md:px-20 max-w-5xl mx-auto">
       <header className="flex flex-col items-center mb-14">
         <h2 className="text-3xl sm:text-4xl font-semibold text-center leading-tight">
@@ -47,17 +47,19 @@ const EstimateCostCalculator = () => {
               <Image
                 src={image}
                 alt={title}
+                width={800}
+                height={600}
                 className="group-hover:brightness-75 transition duration-300 w-full h-56 sm:h-64 md:h-48 lg:h-56 object-cover rounded-t-2xl"
-                priority
-                sizes="(max-width: 640px) 100vw,
-                       (max-width: 1024px) 50vw,
-                       33vw"
+                priority={id === 1}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </div>
             <div className="bg-black bg-opacity-70 text-white p-6 rounded-b-2xl space-y-4 flex-grow flex flex-col justify-between">
               <div>
                 <h3 className="font-semibold text-xl sm:text-2xl">{title}</h3>
-                <p className="text-sm sm:text-base leading-relaxed mt-2">{description}</p>
+                {description && (
+                  <p className="text-sm sm:text-base leading-relaxed mt-2">{description}</p>
+                )}
               </div>
               <Link
                 href={route}
@@ -65,19 +67,13 @@ const EstimateCostCalculator = () => {
                 aria-label={`Get personalized estimate for: ${title}`}
               >
                 Get Estimate cost
-                <Image
-                  className="h-4 w-4"
-                  src={assets.redirect_icon}
-                  alt="Redirect Icon"
-                  aria-hidden="true"
-                />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
           </article>
         ))}
       </div>
     </section>
-  
   );
 };
 

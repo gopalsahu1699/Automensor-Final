@@ -1,41 +1,85 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { databases } from "@/lib/appwrite";
+
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
+const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID;
 
 function WhyAutomensor() {
-  const benefits = [
-    {
-      title: "Personalized Automation with AI & Voice Control",
-      desc: "Experience hands-free, adaptive smart home control using voice assistants and AI-driven automation.",
-    },
-    {
-      title: "Sleek & Intuitive User Interface",
-      desc: "Simplify management of your smart devices with a modern, mobile-inspired UI offering seamless experiences across platforms.",
-    },
-    {
-      title: "Security-First Design Philosophy",
-      desc: "Protect your home through encrypted communications, secure containers, and easy over-the-air updates.",
-    },
-    {
-      title: "Advanced Energy Management",
-      desc: "Save money by monitoring and optimizing energy use in real time across all connected devices.",
-    },
-    {
-      title: "Rapid Deployment & Integration",
-      desc: "Accelerate development timelines with reusable components and UI kits that ensure consistent branding and streamlined builds.",
-    },
-    {
-      title: "Reliable Customer Support & Continuous Improvement",
-      desc: "Count on dedicated support teams paired with ongoing software updates to keep your smart home cutting-edge.",
-    },
-  ];
+  const [sectionData, setSectionData] = useState(null);
+  const [benefits, setBenefits] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        
+        // Fetch all documents
+        const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+        
+        // Find the why_automensor section
+        const doc = response.documents.find(d => d.section === "why_automensor");
+        
+        if (doc) {
+          setSectionData({
+            title: doc.head_title,
+            description: doc.head_description,
+          });
+          
+          // Parse row_data JSON string
+          if (doc.row_data) {
+            const parsedBenefits = JSON.parse(doc.row_data);
+            setBenefits(parsedBenefits);
+          }
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching benefits:", err);
+        setError("Failed to load content.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="benefits" className="bg-gradient-to-b from-blue-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <p className="text-xl text-gray-600 animate-pulse">Loading...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="benefits" className="bg-gradient-to-b from-blue-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <p className="text-red-500 text-lg">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="benefits" className="bg-gradient-to-b from-blue-50 to-white py-20">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-extrabold mb-8 text-center text-blue-700 border-b-4 border-blue-400 pb-2 max-w-md mx-auto drop-shadow-sm">
-          Why Choose Automensor?
+          {sectionData?.title || "Why Choose Automensor?"}
         </h2>
         <p className="max-w-4xl mx-auto text-center text-black mb-16 text-lg leading-relaxed">
-          Discover the smart home solutions designed for convenience, security, and energy efficiency.
+          {sectionData?.description || "Discover the smart home solutions designed for convenience, security, and energy efficiency."}
         </p>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">

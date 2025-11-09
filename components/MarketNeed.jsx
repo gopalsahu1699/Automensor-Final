@@ -1,47 +1,86 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { getMarketNeeds } from "@/lib/appwrite";
 
 function MarketNeed() {
-  const needs = [
-    {
-      title: "Feel Safer with Smart Security",
-      desc: "Stay connected and protected with real-time alerts from smart cameras, locks, and sensors working together seamlessly.",
-    },
-    {
-      title: "Hands-Free Living with Voice & AI",
-      desc: "Effortlessly control your home using voice commands or intelligent assistants that learn and adapt to your lifestyle.",
-    },
-    {
-      title: "Effortless Device Integration",
-      desc: "Connect all your smart devices in one place for smooth, hassle-free control without complicated setup.",
-    },
-    {
-      title: "Intuitive Controls for Everyone",
-      desc: "Manage lighting, climate, and security with simple, phone-like controls accessible from anywhere.",
-    },
-    {
-      title: "Scalable to Fit Your Needs",
-      desc: "Start small and easily expand your smart home with more features over time—no big expenses or hassle.",
-    },
-    {
-      title: "Cut Costs with Smart Energy Use",
-      desc: "Automatically optimize power usage to save money and reduce your environmental impact.",
-    },
-  ];
+  const [marketNeedData, setMarketNeedData] = useState(null);
+  const [needs, setNeeds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchNeeds() {
+      try {
+        setLoading(true);
+        const documents = await getMarketNeeds();
+        
+        // Find the market_need section
+        const marketNeedDoc = documents.find(doc => doc.section === "market_need");
+        
+        if (marketNeedDoc) {
+          setMarketNeedData({
+            title: marketNeedDoc.head_title,
+            description: marketNeedDoc.head_description
+          });
+          
+          // Parse the row_data JSON string
+          if (marketNeedDoc.row_data) {
+            const parsedNeeds = JSON.parse(marketNeedDoc.row_data);
+            setNeeds(parsedNeeds);
+          }
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error("Error fetching market needs:", err);
+        setError("Failed to load content. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNeeds();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="needs" className="bg-gradient-to-b from-blue-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <p className="text-xl text-gray-600 animate-pulse">Loading...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="needs" className="bg-gradient-to-b from-blue-50 to-white py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <p className="text-red-500 text-lg">{error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="needs" className="bg-gradient-to-b from-blue-50 to-white py-20">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-4xl font-extrabold mb-8 text-center text-blue-900 border-b-4 border-blue-400 pb-2 max-w-md mx-auto drop-shadow-sm">
-          Why Smart Homes Are the Future
+          {marketNeedData?.title || "Why Smart Homes Are the Future"}
         </h2>
         <p className="max-w-4xl mx-auto text-center text-gray-700 mb-16 text-lg leading-relaxed">
-          Upgrade your lifestyle with smart technology.
+          {marketNeedData?.description || "Upgrade your lifestyle with smart technology."}
         </p>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
-          {needs.map((item, i) => (
+          {needs.map((item, index) => (
             <div
-              key={i}
+              key={index}
               className="bg-white p-7 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-3 transition duration-300 ease-in-out"
               tabIndex={0}
               aria-label={item.title}

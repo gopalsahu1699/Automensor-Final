@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const HeaderSlider = () => {
   const sliderData = [
@@ -9,8 +10,7 @@ const HeaderSlider = () => {
       id: 1,
       title: "Smart Home Automation Made Simple & Affordable",
       offer: "Get flat 5% Off On Your First Installation!",
-    
-       buttonText1: "Request Quote",
+      buttonText1: "Request Quote",
       buttonLink1: "/request-quote",
       buttonText2: "Learn More",
       buttonLink2: "/learn-more",
@@ -23,17 +23,17 @@ const HeaderSlider = () => {
       buttonText1: "Book Now",
       buttonLink1: "/contact-us",
       buttonText2: "View Products",
-      buttonLink2: "all-products",
+      buttonLink2: "/all-products",
       imgSrc: assets.slide_img_2,
     },
     {
       id: 3,
-      title: "Experience The Future ",
+      title: "Experience The Future",
       offer: "Get Free Installation!",
-       buttonText1: "Get Started",
+      buttonText1: "Get Started",
       buttonLink1: "/get-started",
       buttonText2: "Explore Plans",
-      buttonLink2: "estimate-cost-calculator",
+      buttonLink2: "/estimate-cost-calculator",
       imgSrc: assets.slide_img_3,
     },
   ];
@@ -52,7 +52,7 @@ const HeaderSlider = () => {
   };
 
   return (
-    <div className="overflow-hidden relative w-auto  mx-2  sm:mx-4 md:my-10 md:mx-6  lg:mx-8">
+    <div className="overflow-hidden relative w-auto mx-2 sm:mx-4 md:my-10 md:mx-6 lg:mx-8">
       <div
         className="flex transition-transform duration-700 ease-in-out"
         style={{
@@ -69,7 +69,7 @@ const HeaderSlider = () => {
               <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold">
                 {slide.title}
               </h1>
-              <div className="flex items-center mt-4 md:mt-6 ">
+              <div className="flex items-center mt-4 md:mt-6">
                 <Link
                   href={slide.buttonLink1}
                   className="md:px-10 px-7 md:py-2.5 py-2 bg-orange-600 rounded-full text-white font-medium inline-block text-center"
@@ -81,22 +81,22 @@ const HeaderSlider = () => {
                   className="group flex items-center gap-2 px-6 py-2.5 font-medium ml-4"
                 >
                   {slide.buttonText2}
-                  <Image
-                    className="group-hover:translate-x-1 transition"
-                    src={assets.arrow_icon}
-                    alt="arrow_icon"
+                  <ArrowRight 
+                    className="group-hover:translate-x-1 transition" 
+                    size={20}
                   />
                 </Link>
               </div>
             </div>
-         <div className="flex items-center flex-1 justify-center">
-  <Image
-    className="w-96 h-auto   object-contain rounded-xl"
-    src={slide.imgSrc}
-    alt={`Slide ${index + 1}`}
-  />
-</div>
-
+            <div className="flex items-center flex-1 justify-center">
+              <Image
+                className="w-96 h-auto object-contain rounded-xl"
+                src={slide.imgSrc}
+                alt={`Slide ${index + 1}`}
+                width={384}
+                height={384}
+              />
+            </div>
           </div>
         ))}
       </div>

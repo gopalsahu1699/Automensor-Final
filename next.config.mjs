@@ -4,17 +4,24 @@ const nextConfig = {
     // Optional Turbopack config options can go here
   },
   images: {
-    domains: ['fra.cloud.appwrite.io'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
-        pathname: '**',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fra.cloud.appwrite.io',
+        port: '',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
-        pathname: '**',
+        port: '',
+        pathname: '/**',
       },
     ],
   },

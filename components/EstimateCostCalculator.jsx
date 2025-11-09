@@ -4,6 +4,7 @@ import React from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const product = {
   id: 1,
@@ -29,11 +30,11 @@ const EstimateCostCalculator = () => {
           <Image
             src={product.image}
             alt={product.title}
+            width={800}
+            height={600}
             className="hover:brightness-75 transition duration-300 w-full h-64 object-cover rounded-t-2xl"
             priority
-            sizes="(max-width: 640px) 100vw,
-                   (max-width: 1024px) 50vw,
-                   33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>
         <div className="bg-black bg-opacity-70 text-white p-6 rounded-b-2xl space-y-4 flex flex-col justify-between">
@@ -43,16 +44,11 @@ const EstimateCostCalculator = () => {
           </div>
           <Link
             href={product.route}
-            className="inline-flex  items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-center"
+            className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-center"
             aria-label={`Get personalized estimate for: ${product.title}`}
           >
             Get Estimate cost
-            <Image
-              className="h-4 w-4"
-              src={assets.redirect_icon}
-              alt="Redirect Icon"
-              aria-hidden="true"
-            />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
       </article>

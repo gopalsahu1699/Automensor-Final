@@ -12,7 +12,7 @@ import WhyAutomensor from "@/components/WhyAutomensor";
 import MarketNeed from "@/components/MarketNeed";
 import CallToAction from "@/components/CallToAction";
 import { assets } from "@/assets/assets";
-import banner from "@/assets/home.webp"
+
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ const Home = () => {
   id="hero"
   className="w-full h-screen flex flex-col items-center justify-center relative text-black"
   style={{
-    backgroundImage: `url(${banner.src})`,  // Use home.src if imported as next/image static resource
+    backgroundImage: `url(${assets.home_banner})`,  // Use home.src if imported as next/image static resource
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
