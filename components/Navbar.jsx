@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Award,
   BookImage,
@@ -11,8 +12,9 @@ import {
   PackageSearch,
   FileQuestionMark,
   HouseWifi,
-  Menu as MenuIcon,
   X as CloseIcon,
+  ChevronDown,
+  Settings,
 } from "lucide-react";
 import { useAppContext } from "@/context/AppContext";
 import { useAuth } from "@/components/AuthProvider";
@@ -27,7 +29,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentPath, setCurrentPath] = useState(pathname);
   const menuRef = useRef(null);
@@ -57,189 +59,176 @@ const Navbar = () => {
 
   const avatarUrl = user?.prefs?.avatar || assets.user_icon;
 
-  // Menu item reusable component
-  const MenuItem = ({ href, icon, label, onClick }) => (
-    <Link
-      href={href}
-      onClick={() => {
-        if (onClick) onClick();
-        setMenuOpen(false);
-        setSidebarOpen(false); // close sidebar on navigation
-      }}
-      className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 w-full rounded-md transition"
-      role="menuitem"
-    >
-      {icon}
-      <span>{label}</span>
-    </Link>
-  );
+  // Navigation items
+  const navItems = [
+    { href: "/", label: "Home", icon: HouseWifi },
+    { href: "/all-products", label: "Products", icon: PackageSearch },
+    { href: "/about-us", label: "About", icon: Award },
+    { href: "/contact-us", label: "Contact", icon: UserRoundSearch },
+  ];
+
+  const menuItems = [
+    { href: "/", icon: HouseWifi, label: "Home" },
+    { href: "/my-account", icon: User, label: "My Account" },
+    { href: "/all-products", icon: PackageSearch, label: "Products" },
+    { href: "/about-us", icon: Award, label: "About Us" },
+    { href: "/contact-us", icon: UserRoundSearch, label: "Contact Us" },
+    { href: "/gallery", icon: BookImage, label: "Gallery" },
+    { href: "/help", icon: FileQuestionMark, label: "Help" },
+  ];
+
+  // Menu item component
+  const MenuItem = ({ href, icon: Icon, label, onClick }) => {
+    const isActive = pathname === href;
+    return (
+      <Link
+        href={href}
+        onClick={() => {
+          if (onClick) onClick();
+          setMenuOpen(false);
+          setSidebarOpen(false);
+        }}
+        className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
+          isActive
+            ? "bg-blue-50 text-blue-600 font-semibold"
+            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+        }`}
+        role="menuitem"
+      >
+        {Icon && <Icon className="w-5 h-5" />}
+        <span>{label}</span>
+      </Link>
+    );
+  };
 
   return (
     <>
       {/* Loading Spinner */}
-      {loading && (
-        <div className="fixed inset-0 bg-white/70 flex items-center justify-center z-50">
-          <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-16 w-16" />
-          <style jsx>{`
-            .loader {
-              border-top-color: #2563eb; /* blue-600 */
-              animation: spinner 1s linear infinite;
-            }
-            @keyframes spinner {
-              0% {
-                transform: rotate(0deg);
-              }
-              100% {
-                transform: rotate(360deg);
-              }
-            }
-          `}</style>
-        </div>
-      )}
-
-      <nav className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-2 border-b border-gray-200 bg-white text-gray-700 shadow-sm sticky top-0 z-40">
-        {/* Logo */}
-       <div
-  role="button"
-  tabIndex={0}
-  aria-label="Go to homepage"
-  onClick={() => router.push("/")}
-  onKeyDown={(e) => e.key === "Enter" && router.push("/")}
-  className="cursor-pointer bg-transparent"
->
-  <Image src={assets.logo} alt="AUTOMENSOR logo" width={140} height={40} priority />
-</div>
-
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8 font-medium">
-          <MenuItem href="/" label="Home" />
-          <MenuItem href="/all-products" label="Products" />
-          <MenuItem href="/about-us" label="About" />
-          <MenuItem href="/contact-us" label="Contact" />
-        
-        </div>
-
-        {/* User Menu Desktop */}
-        <div className="hidden md:flex items-center gap-4">
-            <button
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Open sidebar"
-            className="p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            className="fixed inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <MenuIcon size={28} />
-          </button>
-          {user ? (
-            <div className="relative" ref={menuRef}>
-             
-              {menuOpen && (
-                <div
-                  className="absolute right-0 mt-3 w-56 bg-white rounded-xl shadow-lg py-2 border border-gray-100 animate-fade-in"
-                  role="menu"
-                >
-                  <MenuItem href="/" icon={<HouseWifi className="w-4 h-4" />} label="Home" />
-                  <MenuItem href="/my-account" icon={<User className="w-4 h-4" />} label="My Account" />
-                  <MenuItem href="/all-products" icon={<PackageSearch className="w-4 h-4" />} label="Products" />
-                  <MenuItem href="/about-us" icon={<Award className="w-4 h-4" />} label="About Us" />
-                  <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-4 h-4" />} label="Contact Us" />
-                  <MenuItem href="/gallery" icon={<BookImage className="w-4 h-4" />} label="Gallery" />
-                  <MenuItem href="/help" icon={<FileQuestionMark className="w-4 h-4" />} label="Help" />
-                  <hr className="my-2 border-gray-200" />
-                  <button
-                    onClick={() => {
-                      setMenuOpen(false);
-                      logout();
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 w-full text-left rounded-md transition"
-                    role="menuitem"
-                  >
-                    <LogOut width={18} height={18} /> Logout
-                  </button>
-                </div>
-              )}
+            <div className="relative">
+              <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <HouseWifi className="w-6 h-6 text-blue-600" />
+              </div>
             </div>
-          ) : null /* No login link here */}
-        </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        {/* Mobile Menu & Sidebar Toggle */}
-        <div className="flex md:hidden items-center gap-3">
-
-          <button
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Open sidebar"
-            className="p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <nav className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
+        <div className="flex items-center justify-between px-6 md:px-16 lg:px-32 py-4">
+          {/* Logo */}
+          <motion.div
+            role="button"
+            tabIndex={0}
+            aria-label="Go to homepage"
+            onClick={() => router.push("/")}
+            onKeyDown={(e) => e.key === "Enter" && router.push("/")}
+            className="cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <MenuIcon size={28} />
-          </button>
+            <Image src={assets.logo} alt="AUTOMENSOR logo" width={140} height={40} priority />
+          </motion.div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-2">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Desktop & Mobile User Avatar */}
+          {user && (
+            <div className="relative" ref={menuRef}>
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="flex items-center gap-2 px-3 md:px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-all border border-gray-300"
+                aria-label="User menu"
+              >
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <User className="w-5 h-5 text-blue-600" />
+                </div>
+                <span className="hidden md:inline font-medium text-gray-700">
+                  {user.name?.split(' ')[0] || 'User'}
+                </span>
+                <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {menuOpen && (
+                  <motion.div
+                    className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl py-2 border border-gray-100"
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    role="menu"
+                  >
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="font-semibold text-gray-900">{user.name}</p>
+                      <p className="text-sm text-gray-500">{user.email}</p>
+                    </div>
+
+                    <div className="py-2">
+                      {menuItems.map((item) => (
+                        <MenuItem key={item.href} {...item} />
+                      ))}
+                      {isSeller && (
+                        <MenuItem href="/seller" icon={Settings} label="Seller Dashboard" />
+                      )}
+                    </div>
+
+                    <div className="border-t border-gray-100 pt-2">
+                      <button
+                        onClick={() => {
+                          setMenuOpen(false);
+                          logout();
+                        }}
+                        className="flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 w-full rounded-lg transition-all mx-2"
+                        role="menuitem"
+                      >
+                        <LogOut className="w-5 h-5" />
+                        <span className="font-medium">Logout</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+          {/* Show Login Button if no user */}
+          {!user && (
+            <Link
+              href="/login"
+              className="px-6 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </nav>
-
-      {/* Sidebar overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-50 flex">
-          {/* Overlay background */}
-          <div
-            className="fixed inset-0 bg-black opacity-50"
-            onClick={() => setSidebarOpen(false)}
-            aria-hidden="true"
-          />
-
-          {/* Sidebar panel */}
-          <aside className="relative bg-white w-64 max-w-full h-full shadow-xl p-6 overflow-y-auto animate-fade-in">
-            <button
-              onClick={() => setSidebarOpen(false)}
-              aria-label="Close sidebar"
-              className="absolute top-4 right-4 p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <CloseIcon size={28} />
-            </button>
-
-            <div className="mb-8">
-              <Image
-                src={assets.logo}
-                alt="AUTOMENSOR logo"
-                width={140}
-                height={40}
-                priority
-              />
-            </div>
-
-            <nav className="flex flex-col gap-4 font-medium text-gray-700">
-              <MenuItem href="/" icon={<HouseWifi className="w-5 h-5" />} label="Home" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/my-account" icon={<User className="w-5 h-5" />} label="My Account" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/all-products" icon={<PackageSearch className="w-5 h-5" />} label="Products" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/about-us" icon={<Award className="w-5 h-5" />} label="About Us" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/contact-us" icon={<UserRoundSearch className="w-5 h-5" />} label="Contact Us" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/gallery" icon={<BookImage className="w-5 h-5" />} label="Gallery" onClick={() => setSidebarOpen(false)} />
-              <MenuItem href="/help" icon={<FileQuestionMark className="w-5 h-5" />} label="Help" onClick={() => setSidebarOpen(false)} />
-              {isSeller && (
-                <MenuItem
-                  href="/seller"
-                  label="Seller Dashboard"
-                  onClick={() => setSidebarOpen(false)}
-                  icon={null}
-                />
-              )}
-              {user && (
-                <>
-                  <hr className="my-4 border-gray-200" />
-                  
-                  <button
-                    onClick={() => {
-                      logout();
-                      setSidebarOpen(false);
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 mt-4 text-red-600 hover:bg-red-50 rounded-md transition"
-                  >
-                    <LogOut className="w-5 h-5" />
-                    Logout
-                  </button>
-                </>
-              )}
-            </nav>
-          </aside>
-        </div>
-      )}
     </>
   );
 };

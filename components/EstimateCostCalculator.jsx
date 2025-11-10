@@ -17,41 +17,73 @@ const product = {
 
 const EstimateCostCalculator = () => {
   return (
-    <section className="mt-14 px-6 sm:px-10 md:px-20 max-w-3xl mx-auto">
-      <header className="flex flex-col items-center mb-14">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-center leading-tight">
-          Estimate Your Automation Cost
-        </h2>
-        <div className="w-28 h-1 bg-orange-600 rounded mt-4" />
-      </header>
+    <section className="py-16 px-6 md:px-16 lg:px-32">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <header className="flex flex-col items-center mb-14">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center leading-tight text-gray-900">
+            Estimate Your Automation Cost
+          </h2>
+          <div className="w-28 h-1 bg-orange-600 rounded mt-4" />
+        </header>
 
-      <article className="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col max-w-xl mx-auto">
-        <div className="relative">
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={800}
-            height={600}
-            className="hover:brightness-75 transition duration-300 w-full h-64 object-cover rounded-t-2xl"
-            priority
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        </div>
-        <div className="bg-black bg-opacity-70 text-white p-6 rounded-b-2xl space-y-4 flex flex-col justify-between">
-          <div>
-            <h3 className="font-semibold text-2xl">{product.title}</h3>
-            <p className="text-base leading-relaxed mt-2">{product.description}</p>
+        {/* Card Container - Responsive Layout */}
+        <article className="rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 bg-white">
+          {/* Desktop: Side by Side | Mobile: Stacked */}
+          <div className="flex flex-col lg:flex-row">
+            {/* Image Section */}
+            <div className="relative lg:w-1/2">
+              <Image
+                src={product.image}
+                alt={product.title}
+                width={800}
+                height={600}
+                className="hover:scale-105 transition-transform duration-500 w-full h-64 lg:h-full object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+
+            {/* Content Section */}
+            <div className="lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-8 md:p-10 lg:p-12 flex flex-col justify-between">
+              <div className="space-y-4">
+                <h3 className="font-bold text-2xl md:text-3xl lg:text-4xl leading-tight">
+                  {product.title}
+                </h3>
+                <p className="text-base md:text-lg leading-relaxed text-gray-200">
+                  {product.description}
+                </p>
+              </div>
+
+              {/* CTA Button */}
+              <Link
+                href={product.route}
+                className="inline-flex items-center justify-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all duration-300 mt-8 px-8 py-4 text-lg shadow-lg hover:shadow-xl hover:scale-105 group"
+                aria-label={`Get personalized estimate for: ${product.title}`}
+              >
+                Get Estimate Cost
+                <ArrowRight 
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1" 
+                  aria-hidden="true" 
+                />
+              </Link>
+
+              {/* Optional: Feature Pills */}
+              <div className="flex flex-wrap gap-2 mt-6">
+                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm">
+                  Free Estimate
+                </span>
+                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm">
+                  Quick Results
+                </span>
+                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm">
+                  No Obligation
+                </span>
+              </div>
+            </div>
           </div>
-          <Link
-            href={product.route}
-            className="inline-flex items-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-colors duration-300 mt-6 px-5 py-2 whitespace-nowrap self-center"
-            aria-label={`Get personalized estimate for: ${product.title}`}
-          >
-            Get Estimate cost
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-      </article>
+        </article>
+      </div>
     </section>
   );
 };
