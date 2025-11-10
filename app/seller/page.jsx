@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Client, Storage, Databases, ID, Account } from "appwrite";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Upload } from "lucide-react";
 
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
 const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
@@ -28,8 +29,6 @@ function SellerContent() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [offerPrice, setOfferPrice] = useState("");
   const [uploading, setUploading] = useState(false);
 
   const [databases] = useState(new Databases(client));
@@ -78,9 +77,7 @@ function SellerContent() {
           setProductToEdit(doc);
           setName(doc.name || "");
           setDescription(doc.description || "");
-          setCategory(doc.category || "Earphone");
-          setPrice(doc.price || "");
-          setOfferPrice(doc.offerPrice || "");
+          setCategory(doc.category || "Touch Panel");
 
           let imgs = [];
           try {
@@ -160,8 +157,6 @@ function SellerContent() {
           name,
           description, // Stores exactly as typed with line breaks
           category,
-          price,
-          offerPrice,
           images: JSON.stringify(newImageIds),
         });
 
@@ -188,8 +183,6 @@ function SellerContent() {
           name,
           description, // Stores exactly as typed with line breaks
           category,
-          price: price.toString(),
-          offerPrice: offerPrice.toString(),
         });
 
         toast.success("✅ Product added!");
@@ -200,9 +193,7 @@ function SellerContent() {
       setFilePreviews([null, null, null, null]);
       setName("");
       setDescription("");
-      setCategory("Earphone");
-      setPrice("");
-      setOfferPrice("");
+      setCategory("Touch Panel");
 
       router.push("/seller");
     } catch (error) {
@@ -234,13 +225,18 @@ function SellerContent() {
                   id={`image${index}`}
                   hidden
                 />
-                <img
-                  className="max-w-24 max-h-24 cursor-pointer"
-                  src={filePreviews[index] || "/upload_area_placeholder.png"}
-                  alt={`Upload IMG ${index + 1}`}
-                  width={100}
-                  height={100}
-                />
+                {filePreviews[index] ? (
+                  <img
+                    className="w-24 h-24 object-cover rounded-lg border-2 border-gray-300 cursor-pointer hover:border-orange-500 transition"
+                    src={filePreviews[index]}
+                    alt={`Upload IMG ${index + 1}`}
+                  />
+                ) : (
+                  <div className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-orange-500 hover:bg-orange-50 transition">
+                    <Upload size={32} className="text-gray-400" />
+                    <span className="text-xs text-gray-500 mt-1">Upload</span>
+                  </div>
+                )}
               </label>
             ))}
           </div>
@@ -279,72 +275,36 @@ function SellerContent() {
           </p>
         </div>
 
-        <div className="flex items-center gap-5 flex-wrap">
-          <div className="flex flex-col gap-1 w-32">
-            <label htmlFor="category" className="text-base font-medium">
-              Category
-            </label>
-            <select
-              id="category"
-              className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40"
-              onChange={(e) => setCategory(e.target.value)}
-              value={category}
-            >
-              <option value="" disabled>
-                Select Category
-              </option>
-              <option value="Touch Panel">Touch Panel</option>
-              <option value="Door Lock">Door-Lock</option>
-              <option value="Motion sensor">Motion sensor</option>
-              <option value="OutDoor sensor">OutDoor sensor</option>
-              <option value="Wardrobe sensor">Wardrobe sensor</option>
-              <option value="Video Door Phone">Video Door Phone</option>
-              <option value="Voice Assistance">Voice Assistance</option>
-              <option value="Moter">Moter</option>
-              <option value="remote controll">remote control</option>
-              <option value="Accessories">Accessories</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-1 w-32">
-            <label htmlFor="product-price" className="text-base font-medium">
-              Product Price
-            </label>
-            <input
-              id="product-price"
-              type="number"
-              placeholder="0"
-              className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40"
-              onChange={(e) => setPrice(e.target.value)}
-              value={price}
-              required
-              min={0}
-              step="0.01"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1 w-32">
-            <label htmlFor="offer-price" className="text-base font-medium">
-              Offer Price
-            </label>
-            <input
-              id="offer-price"
-              type="number"
-              placeholder="0"
-              className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40"
-              onChange={(e) => setOfferPrice(e.target.value)}
-              value={offerPrice}
-              required
-              min={0}
-              step="0.01"
-            />
-          </div>
+        <div className="flex flex-col gap-1 w-full max-w-md">
+          <label htmlFor="category" className="text-base font-medium">
+            Category
+          </label>
+          <select
+            id="category"
+            className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40"
+            onChange={(e) => setCategory(e.target.value)}
+            value={category}
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            <option value="Touch Panel">Touch Panel</option>
+            <option value="Door Lock">Door-Lock</option>
+            <option value="Motion sensor">Motion sensor</option>
+            <option value="OutDoor sensor">OutDoor sensor</option>
+            <option value="Wardrobe sensor">Wardrobe sensor</option>
+            <option value="Video Door Phone">Video Door Phone</option>
+            <option value="Voice Assistance">Voice Assistance</option>
+            <option value="Moter">Moter</option>
+            <option value="remote controll">remote control</option>
+            <option value="Accessories">Accessories</option>
+          </select>
         </div>
 
         <button
           type="submit"
           disabled={uploading || !isSignedIn}
-          className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded disabled:opacity-50 transition"
+          className="px-8 py-2.5 bg-orange-600 text-white font-medium rounded disabled:opacity-50 transition hover:bg-orange-700"
         >
           {uploading ? "Uploading..." : isEdit ? "Update Product" : "Add Product"}
         </button>

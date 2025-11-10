@@ -13,7 +13,7 @@ const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
 
 const Product = () => {
   const { id } = useParams();
-  const { products  } = useAppContext();
+  const { products } = useAppContext();
 
   const [productData, setProductData] = useState(null);
   const [mainImage, setMainImage] = useState(null);
@@ -77,6 +77,59 @@ const Product = () => {
     setLightboxOpen(true);
   };
 
+  // Function to render description with proper formatting
+  const renderDescription = (text) => {
+    if (!text) return null;
+
+    // Split by double line breaks for paragraphs
+    const paragraphs = text.split(/\n\n+/);
+
+    return paragraphs.map((paragraph, pIndex) => {
+      // Check if it's a list (starts with -, *, •, or numbers)
+      const lines = paragraph.split('\n');
+      const isList = lines.every(line => 
+        /^[\s]*[-*•]\s/.test(line) || /^[\s]*\d+\.\s/.test(line) || line.trim() === ''
+      );
+
+      if (isList) {
+        // Render as list
+        const isOrdered = /^[\s]*\d+\.\s/.test(lines[0]);
+        const ListTag = isOrdered ? 'ol' : 'ul';
+        
+        return (
+          <ListTag 
+            key={pIndex} 
+            className={`mb-4 ml-6 ${isOrdered ? 'list-decimal' : 'list-disc'} text-gray-700 space-y-2`}
+          >
+            {lines
+              .filter(line => line.trim())
+              .map((line, lIndex) => {
+                // Remove list markers
+                const cleanLine = line.replace(/^[\s]*[-*•]\s/, '').replace(/^[\s]*\d+\.\s/, '');
+                return (
+                  <li key={lIndex} className="leading-relaxed">
+                    {cleanLine}
+                  </li>
+                );
+              })}
+          </ListTag>
+        );
+      } else {
+        // Render as paragraph with line breaks
+        return (
+          <p key={pIndex} className="text-gray-700 text-lg leading-relaxed mb-4">
+            {lines.map((line, lIndex) => (
+              <span key={lIndex}>
+                {line}
+                {lIndex < lines.length - 1 && <br />}
+              </span>
+            ))}
+          </p>
+        );
+      }
+    });
+  };
+
   return (
     <>
       <Navbar />
@@ -131,35 +184,35 @@ const Product = () => {
 
           {/* Product Details */}
           <div className="flex flex-col">
-            <h1 className="text-3xl font-semibold text-gray-900 mb-4">{productData.name}</h1>
-            <p className="text-gray-700 text-lg leading-relaxed">{productData.description}</p>
-            {/* <p className="text-4xl font-extrabold mt-8 text-gray-900">
-              {currency}
-              {productData.offerPrice}{" "}
-              <span className="text-xl font-normal text-gray-600 line-through ml-4">
-                {currency}
-                {productData.price}
-              </span>
-            </p> */}
+            <h1 className="text-3xl font-semibold text-gray-900 mb-6">
+              {productData.name}
+            </h1>
+            
+            {/* Render description with formatting */}
+            <div className="prose prose-lg max-w-none">
+              {renderDescription(productData.description)}
+            </div>
 
-            {/* Buttons */}
-            {/* <div className="flex items-center mt-12 gap-6">
-              <button
-                onClick={() => addToCart(productData.$id)}
-                className="flex-1 py-4 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition focus:outline-none focus:ring-4 focus:ring-gray-300"
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={() => {
-                  addToCart(productData.$id);
-                  router.push("/cart");
-                }}
-                className="flex-1 py-4 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition focus:outline-none focus:ring-4 focus:ring-orange-300"
-              >
-                Buy now
-              </button>
-            </div> */}
+            {/* Display all other product data fields */}
+            <div className="mt-8 space-y-4 border-t pt-6">
+              {Object.entries(productData).map(([key, value]) => {
+                // Skip these fields as they're already displayed
+                if (['$id', 'name', 'description', 'images', '$createdAt', '$updatedAt', '$permissions', '$collectionId', '$databaseId'].includes(key)) {
+                  return null;
+                }
+
+                return (
+                  <div key={key} className="flex flex-col">
+                    <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                      {key.replace(/([A-Z])/g, ' $1').trim()}:
+                    </span>
+                    <span className="text-gray-800 text-base mt-1">
+                      {typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value)}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

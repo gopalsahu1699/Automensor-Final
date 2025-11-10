@@ -1,19 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react"; // for toggle icons
-import { assets } from "../../assets/assets";
+import { Menu, X, Plus, Package, ClipboardList } from "lucide-react";
 
 const SideBar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(true); // sidebar toggle state
 
   const menuItems = [
-    { name: "Add Product", path: "/seller", icon: assets.add_icon },
-    { name: "Product List", path: "/seller/product-list", icon: assets.product_list_icon },
-    { name: "Request", path: "/seller/request-list", icon: assets.order_icon },
+    { name: "Add Product", path: "/seller", icon: Plus },
+    { name: "Product List", path: "/seller/product-list", icon: Package },
+    { name: "Request", path: "/seller/request-list", icon: ClipboardList },
   ];
 
   return (
@@ -34,6 +32,8 @@ const SideBar = () => {
       >
         {menuItems.map((item) => {
           const isActive = pathname === item.path;
+          const IconComponent = item.icon;
+          
           return (
             <Link href={item.path} key={item.name}>
               <div
@@ -43,10 +43,9 @@ const SideBar = () => {
                     : "hover:bg-gray-100/90 border-white"
                 }`}
               >
-                <Image
-                  src={item.icon}
-                  alt={`${item.name.toLowerCase()}_icon`}
-                  className="w-7 h-7"
+                <IconComponent 
+                  size={28} 
+                  className={`${isActive ? 'text-orange-500' : 'text-gray-600'}`}
                 />
                 {isOpen && <p className="whitespace-nowrap">{item.name}</p>}
               </div>
