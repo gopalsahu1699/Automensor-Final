@@ -156,7 +156,7 @@ export default function GalleryClient() {
 
   return (
     <>
-      <Navbar />
+      
 
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white py-20 px-6">
@@ -485,7 +485,7 @@ export default function GalleryClient() {
         )}
       </AnimatePresence>
 
-      <Footer />
+   
     </>
   );
 }

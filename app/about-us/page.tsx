@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import AboutClient from "@/components/Clients/AboutClient";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "About AUTOMENSOR - Smart Home Automation Solutions",
@@ -39,7 +41,9 @@ export default function AboutPage() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbs} />
+      <Navbar />
       <AboutClient />
+      <Footer />
     </>
   );
 }

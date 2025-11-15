@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import GalleryClient from "@/components/Clients/GalleryClient";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Gallery - Smart Home Automation Projects | AUTOMENSOR",
@@ -39,7 +41,9 @@ export default function GalleryPage() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbs} />
+      <Navbar />
       <GalleryClient />
+      <Footer />
     </>
   );
 }

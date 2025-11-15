@@ -1,7 +1,5 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -21,7 +19,18 @@ import {
   Globe,
 } from "lucide-react";
 
-const keyValues = [
+interface HelpCard {
+  icon: React.ComponentType<{
+    className?: string;
+    size?: number;
+    strokeWidth?: number;
+  }>;
+  title: string;
+  description?: string;
+  badge?: boolean;
+}
+
+const keyValues: HelpCard[] = [
   {
     icon: Users,
     title: "Customer Centric Approach",
@@ -44,7 +53,7 @@ const keyValues = [
   },
 ];
 
-const differentiators = [
+const differentiators: HelpCard[] = [
   {
     icon: Factory,
     title: "Manufacturing Unit",
@@ -68,7 +77,7 @@ const differentiators = [
   },
 ];
 
-const coreValues = [
+const coreValues: HelpCard[] = [
   {
     icon: Target,
     title: "Customer-First Experience",
@@ -91,7 +100,7 @@ const coreValues = [
   },
 ];
 
-const whyChooseUs = [
+const whyChooseUs: HelpCard[] = [
   {
     icon: Zap,
     title: "Easy Installation",
@@ -124,45 +133,43 @@ const whyChooseUs = [
   },
 ];
 
-export default function AboutClient() {
+export default function AboutClient(): React.ReactNode {
   return (
     <>
-      <Navbar />
-      {/* Enhanced Background design layers */}
-      <div className="fixed inset-0 -z-10 overflow-hidden bg-gradient-to-br from-white via-gray-100 to-gray-200">
-        <div className="absolute rounded-full bg-blue-300 mix-blend-screen filter blur-3xl opacity-25 w-[600px] h-[600px] -top-20 -left-24 animate-floatSlow" />
-        <div className="absolute rounded-full bg-orange-300 mix-blend-screen filter blur-3xl opacity-15 w-[500px] h-[500px] -bottom-28 -right-24 animate-floatSlow animation-delay-2000" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
+      {/* Enhanced Background with Modern Light Theme */}
+      <div className="fixed inset-0 -z-10 overflow-hidden bg-gradient-to-br from-white via-blue-50 to-slate-100">
+        <div className="absolute rounded-full bg-gradient-to-br from-blue-200 to-cyan-200 mix-blend-multiply filter blur-3xl opacity-20 w-[600px] h-[600px] -top-20 -left-24 animate-floatSlow" />
+        <div className="absolute rounded-full bg-gradient-to-br from-orange-100 to-rose-200 mix-blend-multiply filter blur-3xl opacity-15 w-[500px] h-[500px] -bottom-28 -right-24 animate-floatSlow animation-delay-2000" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-3 pointer-events-none" />
       </div>
 
       <div className="relative min-h-screen">
         {/* Hero Section */}
         <motion.section
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="px-6 py-16 max-w-6xl mx-auto text-center"
+          className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white py-20 px-6 border-b border-purple-400/30"
         >
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
-            className="text-5xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
-          >
-            About AUTOMENSOR
-          </motion.h1>
+          <div className="max-w-6xl mx-auto text-center relative z-10">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
+              className="text-5xl md:text-7xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-purple-100"
+            >
+              About AUTOMENSOR
+            </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
-            className="max-w-4xl mx-auto text-xl md:text-2xl mb-12 leading-relaxed text-gray-700"
-          >
-            Welcome to AUTOMENSOR, your trusted partner in smart home and building
-            automation. We deliver cutting-edge Wi-Fi-based solutions requiring no
-            special wiring, offering seamless integration for smarter, safer, and
-            more energy-efficient living.
-          </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
+              className="max-w-4xl mx-auto text-lg md:text-2xl mb-12 leading-relaxed text-indigo-100 font-light"
+            >
+              Welcome to <span className="font-semibold text-blue-100">AUTOMENSOR</span>, your trusted partner in smart home and building automation. We deliver cutting-edge Wi-Fi-based solutions requiring no special wiring, offering seamless integration for smarter, safer, and more energy-efficient living.
+            </motion.p>
+          </div>
         </motion.section>
 
         {/* Key Values Section */}
@@ -171,9 +178,9 @@ export default function AboutClient() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="bg-gray-50 py-16 px-6 md:px-16 lg:px-32"
+          className="bg-gradient-to-br from-white via-blue-50 to-cyan-50 py-20 px-6 md:px-16 lg:px-32"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-16 text-center">
             Key Values
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12">
@@ -188,14 +195,14 @@ export default function AboutClient() {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="flex flex-col items-center text-center group"
                 >
-                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
+                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl shadow-sm group-hover:shadow-lg group-hover:from-blue-200 group-hover:to-cyan-200">
                     <IconComponent
                       size={80}
-                      className="text-blue-600"
+                      className="text-blue-600 group-hover:text-cyan-700 transition-colors"
                       strokeWidth={1.5}
                     />
                   </div>
-                  <h3 className="text-base md:text-lg font-semibold text-gray-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-800">
                     {value.title}
                   </h3>
                 </motion.div>
@@ -210,9 +217,9 @@ export default function AboutClient() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="bg-white py-16 px-6 md:px-16 lg:px-32"
+          className="bg-white py-20 px-6 md:px-16 lg:px-32"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-16 text-center">
             What Makes Us Different
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12">
@@ -227,16 +234,16 @@ export default function AboutClient() {
                   transition={{ delay: index * 0.1, duration: 0.5 }}
                   className="flex flex-col items-center text-center group"
                 >
-                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center mb-4 transition-transform group-hover:scale-110 relative">
+                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 relative bg-gradient-to-br from-orange-100 to-rose-100 rounded-2xl shadow-sm group-hover:shadow-lg group-hover:from-orange-200 group-hover:to-rose-200">
                     {diff.badge ? (
-                      <div className="relative">
+                      <div className="relative w-full h-full flex items-center justify-center">
                         <ShieldCheck
                           size={80}
-                          className="text-blue-600"
+                          className="text-orange-600 group-hover:text-red-700 transition-colors"
                           strokeWidth={1.5}
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-blue-600 font-bold text-xs leading-tight text-center">
+                          <div className="text-orange-700 font-bold text-xs leading-tight text-center drop-shadow-sm">
                             10
                             <br />
                             YEAR
@@ -248,12 +255,12 @@ export default function AboutClient() {
                     ) : (
                       <IconComponent
                         size={80}
-                        className="text-blue-600"
+                        className="text-orange-600 group-hover:text-red-700 transition-colors"
                         strokeWidth={1.5}
                       />
                     )}
                   </div>
-                  <h3 className="text-base md:text-lg font-semibold text-gray-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-800">
                     {diff.title}
                   </h3>
                 </motion.div>
@@ -268,14 +275,14 @@ export default function AboutClient() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="bg-white bg-opacity-90 px-6 py-16 max-w-6xl mx-auto space-y-16"
+          className="bg-gradient-to-br from-white via-slate-50 to-blue-50 px-6 py-20 max-w-6xl mx-auto space-y-20"
         >
           {/* Mission */}
           <section className="text-center max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-orange-600">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">
               Our Mission
             </h2>
-            <p className="text-gray-700 text-xl md:text-2xl leading-relaxed">
+            <p className="text-slate-700 text-lg md:text-xl leading-relaxed font-light">
               Revolutionizing the way you live and work by creating innovative,
               secure, and intuitive automation technologies that bring true
               convenience and peace of mind to every home and business.
@@ -284,7 +291,7 @@ export default function AboutClient() {
 
           {/* Core Values Grid */}
           <section>
-            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-orange-600">
+            <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Our Core Values
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
@@ -297,21 +304,21 @@ export default function AboutClient() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow"
+                    className="bg-gradient-to-br from-slate-50 to-blue-50 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-blue-100 hover:border-blue-300"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
+                    <div className="flex items-start gap-5">
+                      <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-orange-100 to-rose-100 rounded-xl flex items-center justify-center">
                         <IconComponent
-                          size={48}
+                          size={32}
                           className="text-orange-600"
                           strokeWidth={1.5}
                         />
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                        <h3 className="text-xl font-semibold mb-3 text-slate-900">
                           {value.title}
                         </h3>
-                        <p className="text-gray-600 leading-relaxed">
+                        <p className="text-slate-600 leading-relaxed font-light">
                           {value.description}
                         </p>
                       </div>
@@ -323,11 +330,11 @@ export default function AboutClient() {
           </section>
 
           {/* Why Choose Us */}
-          <section className="bg-blue-50 p-12 rounded-2xl">
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center text-blue-600">
+          <section className="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 p-12 md:p-16 rounded-3xl border border-blue-200 shadow-lg">
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Why Choose AUTOMENSOR?
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {whyChooseUs.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
@@ -336,16 +343,20 @@ export default function AboutClient() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                    transition={{ delay: index * 0.08 }}
+                    className="bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 border border-blue-100 hover:border-blue-300 hover:scale-105"
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <IconComponent className="text-orange-600" size={32} />
-                      <h3 className="text-lg font-semibold text-gray-900">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-100 to-rose-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="text-orange-600" size={24} />
+                      </div>
+                      <h3 className="text-lg font-semibold text-slate-900">
                         {item.title}
                       </h3>
                     </div>
-                    <p className="text-gray-600">{item.description}</p>
+                    <p className="text-slate-600 font-light leading-relaxed">
+                      {item.description}
+                    </p>
                   </motion.div>
                 );
               })}
@@ -353,11 +364,11 @@ export default function AboutClient() {
           </section>
 
           {/* Team */}
-          <section className="text-center max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-orange-600">
+          <section className="text-center max-w-4xl mx-auto bg-gradient-to-br from-orange-50 via-rose-50 to-orange-100 p-12 rounded-3xl border border-orange-200">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
               Meet Our Team
             </h2>
-            <p className="text-gray-700 text-xl md:text-2xl leading-relaxed">
+            <p className="text-slate-700 text-lg md:text-xl leading-relaxed font-light">
               A passionate group of engineers, designers, and support specialists
               dedicated to crafting seamless and inspiring smart environments
               tailored for modern lifestyles. Our diverse expertise ensures that
@@ -368,7 +379,6 @@ export default function AboutClient() {
         </motion.div>
       </div>
 
-      <Footer />
       <style jsx>{`
         @keyframes floatSlow {
           0%,
@@ -386,8 +396,12 @@ export default function AboutClient() {
           animation-delay: 2s;
         }
         .bg-grid-pattern {
-          background-image: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-          background-size: 20px 20px;
+          background-image: radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.08) 1px,
+            transparent 1px
+          );
+          background-size: 30px 30px;
         }
       `}</style>
     </>

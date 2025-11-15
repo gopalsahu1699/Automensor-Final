@@ -32,7 +32,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Clients/AboutClient.tsx", "components/Clients/MyAccountClient.tsx", "components/Clients/ContactClient.tsx", "components/Clients/GalleryClient.tsx", "app/help/page.tsx", "components/Clients/HelpClient.tsx", "components/Clients/AllProductsClient.tsx"  ],
   "exclude": [
     "node_modules"
   ]
