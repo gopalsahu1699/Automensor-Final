@@ -370,7 +370,7 @@ export default function ContactClient(): React.ReactNode {
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="text-5xl font-extrabold text-green-600 mb-2">
-                  500+
+                  200+
                 </div>
                 <p className="text-slate-700 font-semibold">Happy Customers</p>
                 <p className="text-sm text-slate-600 mt-2 font-light">

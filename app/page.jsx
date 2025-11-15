@@ -103,14 +103,32 @@ const Home = () => {
           </motion.div>
 
           {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl lg:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed"
-          >
-            A Wi-Fi Based Home Automation System that does not require any special wiring
-          </motion.p>
+       <motion.p
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.4 }}
+  className="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed"
+>
+  <motion.span
+    animate={{
+      color: ["rgb(191, 219, 254)", "rgb(253, 224, 71)", "rgb(191, 219, 254)"],
+      textShadow: [
+        "0 0 10px rgba(59, 130, 246, 0)",
+        "0 0 20px rgba(253, 224, 71, 0.8)",
+        "0 0 10px rgba(59, 130, 246, 0)",
+      ],
+    }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      repeatType: "loop",
+    }}
+  >
+    "A Wi-Fi Based Home Automation System that does not require any special wiring."
+  </motion.span>
+</motion.p>
+
+
 
           {/* CTA Buttons */}
           <motion.div
@@ -143,7 +161,7 @@ const Home = () => {
           >
             {[
               { value: "10+", label: "Years Warranty" },
-              { value: "500+", label: "Happy Customers" },
+              { value: "200+", label: "Happy Customers" },
               { value: "100%", label: "Wi-Fi Based" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
