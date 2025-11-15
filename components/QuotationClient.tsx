@@ -2,56 +2,116 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FileText, Calculator, Home, Zap, CheckCircle, Clock, Award } from "lucide-react";
+import {
+  FileText,
+  Calculator,
+  Home,
+  Zap,
+  CheckCircle,
+  Clock,
+  Award,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { account } from "@/lib/appwrite";
 
-const PROJECT_ID = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
+interface Benefit {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+  color: string;
+  bgColor: string;
+}
 
-export default function QuotationPage() {
-  const [userId, setUserId] = useState(null);
+interface ProcessStep {
+  step: string;
+  title: string;
+  desc: string;
+}
 
+const benefits: Benefit[] = [
+  {
+    icon: Calculator,
+    title: "Accurate Pricing",
+    description: "Get detailed cost breakdown for your project",
+    color: "text-blue-600",
+    bgColor: "bg-blue-50",
+  },
+  {
+    icon: Clock,
+    title: "Quick Response",
+    description: "Receive quote within 24 hours",
+    color: "text-green-600",
+    bgColor: "bg-green-50",
+  },
+  {
+    icon: Award,
+    title: "Expert Consultation",
+    description: "Free consultation with our specialists",
+    color: "text-purple-600",
+    bgColor: "bg-purple-50",
+  },
+];
+
+const features: string[] = [
+  "Free site survey and assessment",
+  "Customized automation solutions",
+  "Transparent pricing with no hidden costs",
+  "10-year warranty on all products",
+  "Professional installation included",
+  "Lifetime technical support",
+];
+
+const processSteps: ProcessStep[] = [
+  { step: "1", title: "Submit Request", desc: "Fill out the quotation form" },
+  {
+    step: "2",
+    title: "Free Consultation",
+    desc: "Discuss your requirements with our expert",
+  },
+  {
+    step: "3",
+    title: "Receive Quote",
+    desc: "Get detailed pricing within 24 hours",
+  },
+  {
+    step: "4",
+    title: "Get Started",
+    desc: "Approve and begin installation",
+  },
+];
+
+export default function QuotationClient() {
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Check if user is logged in for personalization
   useEffect(() => {
-    account
-      .get()
-      .then((user) => setUserId(user.$id))
-      .catch(() => setUserId(null));
+    const checkAuth = async () => {
+      try {
+        const user = await account.get();
+        setIsAdmin(!!user);
+      } catch {
+        setIsAdmin(false);
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+    checkAuth();
   }, []);
 
-  const benefits = [
-    {
-      icon: Calculator,
-      title: "Accurate Pricing",
-      description: "Get detailed cost breakdown for your project",
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-    },
-    {
-      icon: Clock,
-      title: "Quick Response",
-      description: "Receive quote within 24 hours",
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-    },
-    {
-      icon: Award,
-      title: "Expert Consultation",
-      description: "Free consultation with our specialists",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-    },
-  ];
-
-  const features = [
-    "Free site survey and assessment",
-    "Customized automation solutions",
-    "Transparent pricing with no hidden costs",
-    "10-year warranty on all products",
-    "Professional installation included",
-    "Lifetime technical support",
-  ];
+  if (checkingAuth) {
+    return (
+      <>
+        <Navbar />
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
+          <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -60,8 +120,11 @@ export default function QuotationPage() {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 text-white py-20 px-6">
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-lime-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-800/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-lime-400/20 rounded-full blur-3xl animate-pulse" />
+          <div
+            className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-800/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "1s" }}
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
@@ -92,7 +155,8 @@ export default function QuotationPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto"
           >
-            Fill out the form below and our expert team will provide a customized quote tailored to your smart home needs
+            Fill out the form below and our expert team will provide a
+            customized quote tailored to your smart home needs
           </motion.p>
         </div>
       </div>
@@ -117,10 +181,14 @@ export default function QuotationPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
                 >
-                  <div className={`w-14 h-14 rounded-full ${benefit.bgColor} flex items-center justify-center mb-4`}>
+                  <div
+                    className={`w-14 h-14 rounded-full ${benefit.bgColor} flex items-center justify-center mb-4`}
+                  >
                     <IconComponent className={`w-7 h-7 ${benefit.color}`} />
                   </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">{benefit.title}</h3>
+                  <h3 className="font-bold text-lg text-gray-900 mb-2">
+                    {benefit.title}
+                  </h3>
                   <p className="text-gray-600">{benefit.description}</p>
                 </motion.div>
               );
@@ -141,11 +209,13 @@ export default function QuotationPage() {
                     <Calculator className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Get Your Quote</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      Get Your Quote
+                    </h2>
                     <p className="text-gray-600">Fill in your details below</p>
                   </div>
                 </div>
-                <ContactForm userId={userId} />
+                <ContactForm />
               </div>
             </motion.div>
 
@@ -156,11 +226,13 @@ export default function QuotationPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              {/* What's Included Card */}
+              {/* What&apos;s Included Card */}
               <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                 <div className="flex items-center gap-3 mb-6">
                   <Home className="w-6 h-6 text-green-600" />
-                  <h3 className="text-xl font-bold text-gray-900">What's Included</h3>
+                  <h3 className="text-xl font-bold text-gray-900">
+                    What&apos;s Included
+                  </h3>
                 </div>
                 <ul className="space-y-4">
                   {features.map((feature, index) => (
@@ -176,12 +248,7 @@ export default function QuotationPage() {
               <div className="bg-gradient-to-br from-green-600 to-emerald-700 rounded-2xl p-8 text-white shadow-xl">
                 <h3 className="text-2xl font-bold mb-6">How It Works</h3>
                 <div className="space-y-6">
-                  {[
-                    { step: "1", title: "Submit Request", desc: "Fill out the quotation form" },
-                    { step: "2", title: "Free Consultation", desc: "Discuss your requirements with our expert" },
-                    { step: "3", title: "Receive Quote", desc: "Get detailed pricing within 24 hours" },
-                    { step: "4", title: "Get Started", desc: "Approve and begin installation" },
-                  ].map((item, index) => (
+                  {processSteps.map((item, index) => (
                     <div key={index} className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 font-bold text-lg">
                         {item.step}
@@ -198,9 +265,15 @@ export default function QuotationPage() {
               {/* Trust Badge */}
               <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
                 <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <div className="text-3xl font-extrabold text-blue-600 mb-2">10+ Years</div>
-                <p className="text-gray-700 font-medium">Industry Experience</p>
-                <p className="text-sm text-gray-600 mt-2">Trusted by 500+ homeowners</p>
+                <div className="text-3xl font-extrabold text-blue-600 mb-2">
+                  10+ Years
+                </div>
+                <p className="text-gray-700 font-medium">
+                  Industry Experience
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Trusted by 500+ homeowners
+                </p>
               </div>
             </motion.div>
           </div>

@@ -17,108 +17,124 @@ import {
   MessageCircle,
   Mail,
   ArrowRight,
-  CheckCircle,
-  AlertCircle,
 } from "lucide-react";
 
-const Help = () => {
-  const gettingStarted = [
-    {
-      icon: Rocket,
-      title: "How to set up your Automensor home automation system",
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-    },
-    {
-      icon: Wifi,
-      title: "Connecting devices to Wi-Fi and configuring controls",
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-    },
-    {
-      icon: Smartphone,
-      title: "Using the mobile app for remote access",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50",
-    },
-  ];
+interface HelpCard {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  color: string;
+  bgColor: string;
+}
 
-  const troubleshooting = [
-    {
-      icon: Settings,
-      title: "Resolving connectivity issues",
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-    },
-    {
-      icon: RefreshCw,
-      title: "Resetting devices securely",
-      color: "text-red-600",
-      bgColor: "bg-red-50",
-    },
-    {
-      icon: Download,
-      title: "Firmware updates and installation tips",
-      color: "text-indigo-600",
-      bgColor: "bg-indigo-50",
-    },
-  ];
+interface ContactMethod {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  details: string[];
+  color: string;
+  bgColor: string;
+  link?: string;
+}
 
-  const contactMethods = [
-    {
-      icon: Phone,
-      title: "Phone Support",
-      details: ["+91-8718847083", "+91-8085782471"],
-      color: "text-blue-600",
-      bgColor: "bg-blue-50",
-    },
-    {
-      icon: MessageCircle,
-      title: "WhatsApp Support",
-      details: ["Chat with our team"],
-      link: "https://wa.me/918985602913",
-      color: "text-green-600",
-      bgColor: "bg-green-50",
-    },
-    {
-      icon: Mail,
-      title: "Email Support",
-      details: ["automensor@gmail.com"],
-      link: "mailto:automensor@gmail.com",
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-    },
-  ];
+const gettingStarted: HelpCard[] = [
+  {
+    icon: Rocket,
+    title: "How to set up your Automensor home automation system",
+    color: "text-blue-600",
+    bgColor: "bg-blue-50",
+  },
+  {
+    icon: Wifi,
+    title: "Connecting devices to Wi-Fi and configuring controls",
+    color: "text-green-600",
+    bgColor: "bg-green-50",
+  },
+  {
+    icon: Smartphone,
+    title: "Using the mobile app for remote access",
+    color: "text-purple-600",
+    bgColor: "bg-purple-50",
+  },
+];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+const troubleshooting: HelpCard[] = [
+  {
+    icon: Settings,
+    title: "Resolving connectivity issues",
+    color: "text-orange-600",
+    bgColor: "bg-orange-50",
+  },
+  {
+    icon: RefreshCw,
+    title: "Resetting devices securely",
+    color: "text-red-600",
+    bgColor: "bg-red-50",
+  },
+  {
+    icon: Download,
+    title: "Firmware updates and installation tips",
+    color: "text-indigo-600",
+    bgColor: "bg-indigo-50",
+  },
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
+const contactMethods: ContactMethod[] = [
+  {
+    icon: Phone,
+    title: "Phone Support",
+    details: ["+91-8718847083", "+91-8085782471"],
+    color: "text-blue-600",
+    bgColor: "bg-blue-50",
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp Support",
+    details: ["Chat with our team"],
+    link: "https://wa.me/918985602913",
+    color: "text-green-600",
+    bgColor: "bg-green-50",
+  },
+  {
+    icon: Mail,
+    title: "Email Support",
+    details: ["automensor@gmail.com"],
+    link: "mailto:automensor@gmail.com",
+    color: "text-orange-600",
+    bgColor: "bg-orange-50",
+  },
+];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut" as const,
+    },
+  },
+};
+
+export default function HelpClient() {
   return (
     <>
-      {/* Background design layers */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-gray-100 opacity-60" />
         <div className="absolute bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 w-72 h-72 -top-16 -left-16 animate-floatSlow" />
-        <div className="absolute bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 w-96 h-96 -bottom-24 -right-20 animate-floatSlow animation-delay-2000" />
+        <div
+          className="absolute bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 w-96 h-96 -bottom-24 -right-20 animate-floatSlow"
+          style={{ animationDelay: "2s" }}
+        />
       </div>
 
       <Navbar />
@@ -130,7 +146,6 @@ const Help = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          {/* Header */}
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: -20 }}
@@ -150,7 +165,6 @@ const Help = () => {
             </p>
           </motion.div>
 
-          {/* Getting Started Section */}
           <motion.section
             className="mb-16"
             variants={containerVariants}
@@ -171,7 +185,9 @@ const Help = () => {
                     variants={itemVariants}
                     className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
                   >
-                    <div className={`w-16 h-16 rounded-full ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`w-16 h-16 rounded-full ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                    >
                       <IconComponent className={`w-8 h-8 ${item.color}`} />
                     </div>
                     <p className="text-gray-800 font-medium leading-relaxed">
@@ -183,7 +199,6 @@ const Help = () => {
             </div>
           </motion.section>
 
-          {/* Troubleshooting Section */}
           <motion.section
             className="mb-16"
             variants={containerVariants}
@@ -204,7 +219,9 @@ const Help = () => {
                     variants={itemVariants}
                     className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
                   >
-                    <div className={`w-16 h-16 rounded-full ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`w-16 h-16 rounded-full ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                    >
                       <IconComponent className={`w-8 h-8 ${item.color}`} />
                     </div>
                     <p className="text-gray-800 font-medium leading-relaxed">
@@ -216,7 +233,6 @@ const Help = () => {
             </div>
           </motion.section>
 
-          {/* Contact Support Section */}
           <motion.section
             className="bg-white rounded-2xl p-8 md:p-12 shadow-xl"
             initial={{ opacity: 0, y: 40 }}
@@ -228,8 +244,8 @@ const Help = () => {
               Contact Support
             </h2>
             <p className="text-gray-700 text-lg mb-10 text-center max-w-2xl mx-auto">
-              If you can't find what you need here, please reach out to our
-              support team. We're here to help!
+              If you can&apos;t find what you need here, please reach out to our
+              support team. We&apos;re here to help!
             </p>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -245,7 +261,9 @@ const Help = () => {
                     transition={{ delay: index * 0.1 }}
                     className="group bg-gray-50 rounded-xl p-6 hover:bg-gradient-to-br hover:from-blue-50 hover:to-white transition-all duration-300 hover:shadow-xl"
                   >
-                    <div className={`w-16 h-16 rounded-full ${method.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`w-16 h-16 rounded-full ${method.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                    >
                       <IconComponent className={`w-8 h-8 ${method.color}`} />
                     </div>
                     <h3 className="text-xl font-bold mb-4 text-gray-900">
@@ -293,12 +311,7 @@ const Help = () => {
         .animate-floatSlow {
           animation: floatSlow 8s ease-in-out infinite;
         }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
       `}</style>
     </>
   );
-};
-
-export default Help;
+}

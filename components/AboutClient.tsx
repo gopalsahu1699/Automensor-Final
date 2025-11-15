@@ -21,77 +21,110 @@ import {
   Globe,
 } from "lucide-react";
 
-export default function About() {
-  const keyValues = [
-    {
-      icon: Users,
-      title: "Customer Centric Approach",
-    },
-    {
-      icon: Award,
-      title: "Quality",
-    },
-    {
-      icon: Lightbulb,
-      title: "Innovation",
-    },
-    {
-      icon: Leaf,
-      title: "Sustainability",
-    },
-    {
-      icon: Handshake,
-      title: "Trust",
-    },
-  ];
+const keyValues = [
+  {
+    icon: Users,
+    title: "Customer Centric Approach",
+  },
+  {
+    icon: Award,
+    title: "Quality",
+  },
+  {
+    icon: Lightbulb,
+    title: "Innovation",
+  },
+  {
+    icon: Leaf,
+    title: "Sustainability",
+  },
+  {
+    icon: Handshake,
+    title: "Trust",
+  },
+];
 
-  const differentiators = [
-    {
-      icon: Factory,
-      title: "Manufacturing Unit",
-    },
-    {
-      icon: ClipboardCheck,
-      title: "Reliable Support and Service",
-    },
-    {
-      icon: Puzzle,
-      title: "Customization Options",
-    },
-    {
-      icon: Store,
-      title: "Wide Range of Products",
-    },
-    {
-      icon: ShieldCheck,
-      title: "10 Year Warranty",
-      badge: true,
-    },
-  ];
+const differentiators = [
+  {
+    icon: Factory,
+    title: "Manufacturing Unit",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Reliable Support and Service",
+  },
+  {
+    icon: Puzzle,
+    title: "Customization Options",
+  },
+  {
+    icon: Store,
+    title: "Wide Range of Products",
+  },
+  {
+    icon: ShieldCheck,
+    title: "10 Year Warranty",
+    badge: true,
+  },
+];
 
-  const coreValues = [
-    {
-      icon: Target,
-      title: "Customer-First Experience",
-      description: "Every solution is designed with you in mind",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Unmatched Reliability & Security",
-      description: "Protect your home and data with enterprise-grade security",
-    },
-    {
-      icon: Zap,
-      title: "Highly Scalable & Modular",
-      description: "Systems that grow with your needs",
-    },
-    {
-      icon: Lightbulb,
-      title: "Relentless Innovation",
-      description: "Stay at the forefront of smart living technology",
-    },
-  ];
+const coreValues = [
+  {
+    icon: Target,
+    title: "Customer-First Experience",
+    description: "Every solution is designed with you in mind",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Unmatched Reliability & Security",
+    description: "Protect your home and data with enterprise-grade security",
+  },
+  {
+    icon: Zap,
+    title: "Highly Scalable & Modular",
+    description: "Systems that grow with your needs",
+  },
+  {
+    icon: Lightbulb,
+    title: "Relentless Innovation",
+    description: "Stay at the forefront of smart living technology",
+  },
+];
 
+const whyChooseUs = [
+  {
+    icon: Zap,
+    title: "Easy Installation",
+    description: "No special wiring needed - simple Wi-Fi based setup",
+  },
+  {
+    icon: Globe,
+    title: "Remote Access",
+    description: "Control your home from anywhere in the world",
+  },
+  {
+    icon: Leaf,
+    title: "Energy Efficient",
+    description: "Reduce energy consumption and lower utility bills",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Enhanced Security",
+    description: "Advanced encryption and security protocols",
+  },
+  {
+    icon: Heart,
+    title: "User-Friendly",
+    description: "Intuitive interface designed for everyone",
+  },
+  {
+    icon: Users,
+    title: "24/7 Support",
+    description: "Dedicated team ready to assist you anytime",
+  },
+];
+
+export default function AboutClient() {
   return (
     <>
       <Navbar />
@@ -116,7 +149,7 @@ export default function About() {
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
             className="text-5xl md:text-6xl font-extrabold mb-8 text-gray-900"
           >
-            About Automensor
+            About AUTOMENSOR
           </motion.h1>
 
           <motion.p
@@ -125,7 +158,7 @@ export default function About() {
             transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
             className="max-w-4xl mx-auto text-xl md:text-2xl mb-12 leading-relaxed text-gray-700"
           >
-            Welcome to Automensor, your trusted partner in smart home and building
+            Welcome to AUTOMENSOR, your trusted partner in smart home and building
             automation. We deliver cutting-edge Wi-Fi-based solutions requiring no
             special wiring, offering seamless integration for smarter, safer, and
             more energy-efficient living.
@@ -292,75 +325,30 @@ export default function About() {
           {/* Why Choose Us */}
           <section className="bg-blue-50 p-12 rounded-2xl">
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center text-blue-600">
-              Why Choose Automensor?
+              Why Choose AUTOMENSOR?
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <div className="bg-white p-6 rounded-xl shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <Zap className="text-orange-600" size={32} />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Easy Installation
-                  </h3>
-                </div>
-                <p className="text-gray-600">
-                  No special wiring needed - simple Wi-Fi based setup
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <Globe className="text-orange-600" size={32} />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Remote Access
-                  </h3>
-                </div>
-                <p className="text-gray-600">
-                  Control your home from anywhere in the world
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <Leaf className="text-orange-600" size={32} />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Energy Efficient
-                  </h3>
-                </div>
-                <p className="text-gray-600">
-                  Reduce energy consumption and lower utility bills
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <ShieldCheck className="text-orange-600" size={32} />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Enhanced Security
-                  </h3>
-                </div>
-                <p className="text-gray-600">
-                  Advanced encryption and security protocols
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <Heart className="text-orange-600" size={32} />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    User-Friendly
-                  </h3>
-                </div>
-                <p className="text-gray-600">
-                  Intuitive interface designed for everyone
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-xl shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
-                  <Users className="text-orange-600" size={32} />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    24/7 Support
-                  </h3>
-                </div>
-                <p className="text-gray-600">
-                  Dedicated team ready to assist you anytime
-                </p>
-              </div>
+              {whyChooseUs.map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex items-center gap-3 mb-3">
+                      <IconComponent className="text-orange-600" size={32} />
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-600">{item.description}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </section>
 

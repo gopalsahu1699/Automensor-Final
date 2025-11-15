@@ -4,78 +4,113 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Lock, Eye, Users, Mail, ChevronRight, CheckCircle2 } from "lucide-react";
+import {
+  Shield,
+  Lock,
+  Eye,
+  Users,
+  Mail,
+  ChevronRight,
+  CheckCircle2,
+} from "lucide-react";
 import Link from "next/link";
 
-function PrivacyPolicy() {
-  const sections = [
-    {
-      title: "Information We Collect",
-      icon: Eye,
-      description: "We collect information you provide directly to us, such as your name, email address, and usage data from your devices to deliver personalized smart home experiences.",
-      details: [
-        "Personal identification information (name, email, phone)",
-        "Device usage data and automation preferences",
-        "Payment and billing information",
-        "Communication preferences and feedback",
-      ],
-    },
-    {
-      title: "How We Use Your Information",
-      icon: Users,
-      description: "Your information helps us provide and improve our services, manage your account, communicate important updates, and ensure security.",
-      details: [
-        "Deliver and improve our automation services",
-        "Manage and support your account",
-        "Send important security and service updates",
-        "Personalize your smart home experience",
-        "Comply with legal requirements",
-      ],
-    },
-    {
-      title: "Data Protection",
-      icon: Lock,
-      description: "We implement strict security measures to safeguard your data from unauthorized access and ensure compliance with applicable privacy laws.",
-      details: [
-        "End-to-end encryption for all communications",
-        "Regular security audits and updates",
-        "Secure data storage with access controls",
-        "Compliance with GDPR and international standards",
-      ],
-    },
-    {
-      title: "Your Rights",
-      icon: Shield,
-      description: "You have the right to access, correct, or delete your personal information. For any privacy-related requests, please contact our support team.",
-      details: [
-        "Access your personal data anytime",
-        "Request corrections or updates",
-        "Delete your account and data",
-        "Opt-out of marketing communications",
-        "Data portability requests",
-      ],
-    },
-  ];
+interface Section {
+  title: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  details: string[];
+}
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
+interface Compliance {
+  label: string;
+  desc: string;
+}
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
+const sections: Section[] = [
+  {
+    title: "Information We Collect",
+    icon: Eye,
+    description:
+      "We collect information you provide directly to us, such as your name, email address, and usage data from your devices to deliver personalized smart home experiences.",
+    details: [
+      "Personal identification information (name, email, phone)",
+      "Device usage data and automation preferences",
+      "Payment and billing information",
+      "Communication preferences and feedback",
+    ],
+  },
+  {
+    title: "How We Use Your Information",
+    icon: Users,
+    description:
+      "Your information helps us provide and improve our services, manage your account, communicate important updates, and ensure security.",
+    details: [
+      "Deliver and improve our automation services",
+      "Manage and support your account",
+      "Send important security and service updates",
+      "Personalize your smart home experience",
+      "Comply with legal requirements",
+    ],
+  },
+  {
+    title: "Data Protection",
+    icon: Lock,
+    description:
+      "We implement strict security measures to safeguard your data from unauthorized access and ensure compliance with applicable privacy laws.",
+    details: [
+      "End-to-end encryption for all communications",
+      "Regular security audits and updates",
+      "Secure data storage with access controls",
+      "Compliance with GDPR and international standards",
+    ],
+  },
+  {
+    title: "Your Rights",
+    icon: Shield,
+    description:
+      "You have the right to access, correct, or delete your personal information. For any privacy-related requests, please contact our support team.",
+    details: [
+      "Access your personal data anytime",
+      "Request corrections or updates",
+      "Delete your account and data",
+      "Opt-out of marketing communications",
+      "Data portability requests",
+    ],
+  },
+];
+
+const complianceItems: Compliance[] = [
+  { label: "GDPR", desc: "European privacy standards" },
+  { label: "CCPA", desc: "California privacy rights" },
+  { label: "ISO 27001", desc: "Information security certified" },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
-  };
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
+export default function PrivacyPolicyClient() {
+  const lastUpdated = new Date(2024, 10).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+  });
 
   return (
     <>
@@ -112,7 +147,9 @@ function PrivacyPolicy() {
             </h1>
 
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-              At AUTOMENSOR, we're committed to protecting your personal information and ensuring transparency in how we handle your data. This Privacy Policy outlines our practices.
+              At AUTOMENSOR, we&apos;re committed to protecting your personal
+              information and ensuring transparency in how we handle your data.
+              This Privacy Policy outlines our practices.
             </p>
 
             <motion.div
@@ -133,9 +170,15 @@ function PrivacyPolicy() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-2xl p-8 border border-blue-200 mb-16"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Quick Overview</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Quick Overview
+            </h2>
             <p className="text-gray-700 leading-relaxed">
-              At AUTOMENSOR, your privacy is paramount. We collect minimal necessary information to deliver personalized smart home experiences, implement industry-leading security measures, and give you full control over your data. We never sell your information and comply with all international privacy regulations.
+              At AUTOMENSOR, your privacy is paramount. We collect minimal
+              necessary information to deliver personalized smart home
+              experiences, implement industry-leading security measures, and give
+              you full control over your data. We never sell your information and
+              comply with all international privacy regulations.
             </p>
           </motion.div>
 
@@ -210,7 +253,10 @@ function PrivacyPolicy() {
                 Third-Party Services
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                We may share limited information with trusted third-party services only when necessary to provide our services. All third parties are bound by strict confidentiality agreements and comply with privacy regulations.
+                We may share limited information with trusted third-party
+                services only when necessary to provide our services. All third
+                parties are bound by strict confidentiality agreements and comply
+                with privacy regulations.
               </p>
             </div>
 
@@ -221,7 +267,9 @@ function PrivacyPolicy() {
                 Cookies & Analytics
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                We use cookies to improve your experience and understand how you interact with our services. You can control cookie preferences in your browser settings anytime.
+                We use cookies to improve your experience and understand how you
+                interact with our services. You can control cookie preferences in
+                your browser settings anytime.
               </p>
             </div>
           </motion.div>
@@ -233,13 +281,20 @@ function PrivacyPolicy() {
             transition={{ duration: 0.7, delay: 0.6 }}
             className="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-gray-100 mb-16"
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Data Retention</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Data Retention
+            </h3>
             <p className="text-gray-700 leading-relaxed mb-4">
-              We retain your personal information only as long as necessary to provide our services and comply with legal obligations. You can request deletion of your data at any time, and we will comply within 30 days as per applicable regulations.
+              We retain your personal information only as long as necessary to
+              provide our services and comply with legal obligations. You can
+              request deletion of your data at any time, and we will comply
+              within 30 days as per applicable regulations.
             </p>
             <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
               <p className="text-sm text-gray-700">
-                <strong>Note:</strong> Some information may be retained for legal, tax, or accounting purposes for the period required by law.
+                <strong>Note:</strong> Some information may be retained for
+                legal, tax, or accounting purposes for the period required by
+                law.
               </p>
             </div>
           </motion.div>
@@ -251,15 +306,15 @@ function PrivacyPolicy() {
             transition={{ duration: 0.7, delay: 0.7 }}
             className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-8 md:p-10 border border-orange-200 mb-16"
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">International Compliance</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              International Compliance
+            </h3>
             <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { label: "GDPR", desc: "European privacy standards" },
-                { label: "CCPA", desc: "California privacy rights" },
-                { label: "ISO 27001", desc: "Information security certified" },
-              ].map((compliance, idx) => (
+              {complianceItems.map((compliance, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-2xl font-bold text-orange-600 mb-2">{compliance.label}</div>
+                  <div className="text-2xl font-bold text-orange-600 mb-2">
+                    {compliance.label}
+                  </div>
                   <p className="text-sm text-gray-600">{compliance.desc}</p>
                 </div>
               ))}
@@ -274,9 +329,13 @@ function PrivacyPolicy() {
             className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 md:p-12 text-white text-center shadow-xl"
           >
             <Mail className="w-12 h-12 mx-auto mb-6 opacity-90" />
-            <h3 className="text-3xl font-bold mb-4">Questions About Your Privacy?</h3>
+            <h3 className="text-3xl font-bold mb-4">
+              Questions About Your Privacy?
+            </h3>
             <p className="text-blue-100 max-w-xl mx-auto mb-8">
-              We're here to help! If you have any questions about this Privacy Policy or how we handle your data, please reach out to our privacy team.
+              We&apos;re here to help! If you have any questions about this
+              Privacy Policy or how we handle your data, please reach out to our
+              privacy team.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -304,13 +363,36 @@ function PrivacyPolicy() {
             transition={{ duration: 0.7, delay: 0.9 }}
             className="text-center text-gray-600 text-sm mt-12"
           >
-            Last Updated: November 2024 | This policy is subject to change. We'll notify you of major updates.
+            Last Updated: {lastUpdated} | This policy is subject to change.
+            We&apos;ll notify you of major updates.
           </motion.p>
+
+          {/* Related Links */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 1 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-600 pt-8 border-t border-gray-200 mt-12"
+          >
+            <Link
+              href="/terms-of-service"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <span className="hidden sm:inline">•</span>
+            <Link
+              href="/contact"
+              className="hover:text-blue-600 transition-colors"
+            >
+              Contact Us
+            </Link>
+            <span className="hidden sm:inline">•</span>
+            <span>© 2024 AUTOMENSOR. All rights reserved.</span>
+          </motion.div>
         </section>
       </main>
       <Footer />
     </>
   );
 }
-
-export default PrivacyPolicy;

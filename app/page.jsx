@@ -13,6 +13,7 @@ import HowYouCanControl from "@/components/HowYouCanControl";
 import MarketNeed from "@/components/MarketNeed";
 import CallToAction from "@/components/CallToAction";
 
+
 const Home = () => {
   const [loading, setLoading] = useState(true);
 

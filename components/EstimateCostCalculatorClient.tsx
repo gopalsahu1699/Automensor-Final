@@ -46,7 +46,139 @@ const products = [
   },
 ];
 
-const EstimateCostCalculator = () => {
+const ProductCard = ({ product }: { product: typeof products[0] }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = product.icon;
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: product.delay }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer bg-white"
+    >
+      {/* Animated Border */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-r ${product.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none rounded-2xl`}
+      />
+
+      {/* Image Container with Overlay */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-300 to-slate-400 h-56 sm:h-64">
+        <Image
+          src={product.image}
+          alt={product.title}
+          width={800}
+          height={600}
+          className={`w-full h-full object-cover transition-all duration-500 ${
+            isHovered ? "scale-110 brightness-50" : "scale-100 brightness-100"
+          }`}
+          priority={product.id === 1}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+
+        {/* Badge */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={isHovered ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`absolute top-4 right-4 bg-gradient-to-r ${product.color} text-white px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full shadow-lg`}
+        >
+          {product.badge}
+        </motion.div>
+
+        {/* Overlay Content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center gap-4"
+        >
+          <motion.div
+            animate={isHovered ? { scale: 1.2, rotate: 360 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <Icon className="w-12 h-12 text-white" />
+          </motion.div>
+          <span className="font-semibold text-base text-white text-center px-4">
+            Click to customize your solution
+          </span>
+        </motion.div>
+      </div>
+
+      {/* Content Section */}
+      <div className="bg-white p-6 flex-grow flex flex-col justify-between relative overflow-hidden">
+        {/* Accent Line */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${product.color} origin-left`}
+        />
+
+        {/* Badge and Icon */}
+        <div className="mb-4 flex items-center gap-3">
+          <div className={`p-2.5 bg-gradient-to-r ${product.color} rounded-lg`}>
+            <Icon className="w-5 h-5 text-white" />
+          </div>
+          <span className="inline-block bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full">
+            {product.badge}
+          </span>
+        </div>
+
+        {/* Title and Description */}
+        <div className="mb-6">
+          <h3 className="font-bold text-xl sm:text-2xl text-gray-900 leading-snug mb-3 group-hover:text-orange-600 transition-colors duration-300">
+            {product.title}
+          </h3>
+          <p className="text-sm text-gray-600 leading-relaxed mb-4">
+            {product.description}
+          </p>
+
+          {/* Features */}
+          <div className="space-y-2">
+            {product.features.map((feature, idx) => (
+              <div key={idx} className="flex items-center gap-2 text-sm text-gray-700">
+                <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <Link
+          href={product.route}
+          className={`inline-flex items-center justify-center gap-2 font-semibold text-white bg-gradient-to-r ${product.color} hover:shadow-lg hover:shadow-orange-600/40 active:scale-95 rounded-full transition-all duration-300 px-6 py-3 text-base whitespace-nowrap relative overflow-hidden group/btn shadow-md self-start w-full sm:w-auto ${
+            isHovered ? "-translate-y-1" : ""
+          }`}
+          aria-label={`Get personalized estimate for: ${product.title}`}
+        >
+          {/* Shimmer effect */}
+          <motion.span
+            initial={{ x: "-100%" }}
+            animate={isHovered ? { x: "100%" } : { x: "-100%" }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          />
+
+          <span className="relative flex items-center gap-2">
+            Get Estimate
+            <motion.span
+              animate={isHovered ? { x: 4 } : { x: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ArrowRight className="w-4 h-4" />
+            </motion.span>
+          </span>
+        </Link>
+      </div>
+    </motion.article>
+  );
+};
+
+export default function EstimateCostCalculatorClient() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -189,140 +321,4 @@ const EstimateCostCalculator = () => {
       </div>
     </section>
   );
-};
-
-const ProductCard = ({ product }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const Icon = product.icon;
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: product.delay }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer bg-white"
-    >
-      {/* Animated Border */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-r ${product.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none rounded-2xl`}
-      />
-
-      {/* Image Container with Overlay */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-300 to-slate-400 h-56 sm:h-64">
-        <Image
-          src={product.image}
-          alt={product.title}
-          width={800}
-          height={600}
-          className={`w-full h-full object-cover transition-all duration-500 ${
-            isHovered ? "scale-110 brightness-50" : "scale-100 brightness-100"
-          }`}
-          priority={product.id === 1}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-
-        {/* Badge */}
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={isHovered ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className={`absolute top-4 right-4 bg-gradient-to-r ${product.color} text-white px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full shadow-lg`}
-        >
-          {product.badge}
-        </motion.div>
-
-        {/* Overlay Content */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center gap-4"
-        >
-          <motion.div
-            animate={isHovered ? { scale: 1.2, rotate: 360 } : {}}
-            transition={{ duration: 0.6 }}
-          >
-            <Icon className="w-12 h-12 text-white" />
-          </motion.div>
-          <span className="font-semibold text-base text-white text-center px-4">
-            Click to customize your solution
-          </span>
-        </motion.div>
-      </div>
-
-      {/* Content Section */}
-      <div className="bg-white p-6 flex-grow flex flex-col justify-between relative overflow-hidden">
-        {/* Accent Line */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.3 }}
-          className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${product.color} origin-left`}
-        />
-
-        {/* Badge and Icon */}
-        <div className="mb-4 flex items-center gap-3">
-          <div
-            className={`p-2.5 bg-gradient-to-r ${product.color} rounded-lg`}
-          >
-            <Icon className="w-5 h-5 text-white" />
-          </div>
-          <span className="inline-block bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full">
-            {product.badge}
-          </span>
-        </div>
-
-        {/* Title and Description */}
-        <div className="mb-6">
-          <h3 className="font-bold text-xl sm:text-2xl text-gray-900 leading-snug mb-3 group-hover:text-orange-600 transition-colors duration-300">
-            {product.title}
-          </h3>
-          <p className="text-sm text-gray-600 leading-relaxed mb-4">
-            {product.description}
-          </p>
-
-          {/* Features */}
-          <div className="space-y-2">
-            {product.features.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
-                <span>{feature}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Button */}
-        <Link
-          href={product.route}
-          className={`inline-flex items-center justify-center gap-2 font-semibold text-white bg-gradient-to-r ${product.color} hover:shadow-lg hover:shadow-orange-600/40 active:scale-95 rounded-full transition-all duration-300 px-6 py-3 text-base whitespace-nowrap relative overflow-hidden group/btn shadow-md self-start w-full sm:w-auto ${
-            isHovered ? "-translate-y-1" : ""
-          }`}
-          aria-label={`Get personalized estimate for: ${product.title}`}
-        >
-          {/* Shimmer effect */}
-          <motion.span
-            initial={{ x: "-100%" }}
-            animate={isHovered ? { x: "100%" } : { x: "-100%" }}
-            transition={{ duration: 0.5 }}
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-          />
-
-          <span className="relative flex items-center gap-2">
-            Get Estimate
-            <motion.span
-              animate={isHovered ? { x: 4 } : { x: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ArrowRight className="w-4 h-4" />
-            </motion.span>
-          </span>
-        </Link>
-      </div>
-    </motion.article>
-  );
-};
-
-export default EstimateCostCalculator;
+}

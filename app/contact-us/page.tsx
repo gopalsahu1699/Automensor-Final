@@ -1,0 +1,45 @@
+import type { Metadata } from "next";
+import { BreadcrumbSchema } from "@/components/StructuredData";
+import ContactClient from "@/components/ContactClient";
+
+export const metadata: Metadata = {
+  title: "Contact Us | AUTOMENSOR - Smart Home Automation Support",
+  description: "Get in touch with AUTOMENSOR's expert team. We're here to help with your smart home automation questions, free consultation, and 24/7 support.",
+  keywords: [
+    "contact AUTOMENSOR",
+    "smart home support",
+    "customer service",
+    "automation consultation",
+    "contact us",
+    "customer support",
+    "get in touch",
+  ],
+  openGraph: {
+    title: "Contact AUTOMENSOR - Get Expert Help",
+    description: "Reach out to our team for smart home automation solutions and support",
+    url: "https://automensor.com/contact-us",
+    type: "website",
+    images: [
+      {
+        url: "https://automensor.com/og-image-contact.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact AUTOMENSOR",
+      },
+    ],
+  },
+};
+
+const breadcrumbs = [
+  { name: "Home", url: "https://automensor.com" },
+  { name: "Contact Us", url: "https://automensor.com/contact-us" },
+];
+
+export default function ContactPage() {
+  return (
+    <>
+      <BreadcrumbSchema items={breadcrumbs} />
+      <ContactClient />
+    </>
+  );
+}

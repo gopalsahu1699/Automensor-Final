@@ -4,127 +4,157 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React from "react";
 import { motion } from "framer-motion";
-import { FileText, AlertCircle, Lock, Users, Zap, Scale, X, CheckCircle2, ArrowRight } from "lucide-react";
+import {
+  FileText,
+  AlertCircle,
+  Lock,
+  Users,
+  Zap,
+  Scale,
+  X,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 import Link from "next/link";
 
-function TermsOfService() {
-  const sections = [
-    {
-      title: "Acceptance of Terms",
-      icon: FileText,
-      description: "By accessing and using AUTOMENSOR's products and services, you agree to be bound by these Terms of Service.",
-      details: [
-        "You must be at least 18 years old to use our services",
-        "You are responsible for maintaining account confidentiality",
-        "You agree to use our services only for lawful purposes",
-        "Violation of these terms may result in immediate termination",
-      ],
-    },
-    {
-      title: "Service Description",
-      icon: Zap,
-      description: "AUTOMENSOR provides smart home automation products and services designed to enhance your living experience.",
-      details: [
-        "We offer device configuration and control services",
-        "Services include mobile app access and cloud integration",
-        "Features may be updated or modified without notice",
-        "Some features may require additional subscription fees",
-        "Technical support is available during business hours",
-      ],
-    },
-    {
-      title: "User Responsibilities",
-      icon: Users,
-      description: "You agree to use our services responsibly and in compliance with all applicable laws and regulations.",
-      details: [
-        "Maintain the security of your login credentials",
-        "Report any unauthorized access immediately",
-        "Use services only for personal, non-commercial purposes",
-        "Not attempt to reverse-engineer or hack our systems",
-        "Not share your account with unauthorized users",
-      ],
-    },
-    {
-      title: "Intellectual Property",
-      icon: Lock,
-      description: "All content, software, and technologies used in our services are protected intellectual property.",
-      details: [
-        "AUTOMENSOR retains all rights to software and technology",
-        "You receive a limited license to use our services",
-        "You cannot copy, modify, or distribute our software",
-        "Your data remains your property, subject to our privacy policy",
-        "Do not reproduce or transmit any content without permission",
-      ],
-    },
-    {
-      title: "Limitation of Liability",
-      icon: AlertCircle,
-      description: "AUTOMENSOR is not liable for indirect, incidental, or consequential damages arising from service use.",
-      details: [
-        "Services provided 'as is' without warranties",
-        "We are not liable for data loss or system failures",
-        "Liability limited to fees paid in the last 12 months",
-        "Some jurisdictions don't allow liability limitations",
-        "Contact support for specific warranty information",
-      ],
-    },
-    {
-      title: "Termination",
-      icon: X,
-      description: "Either party may terminate the service agreement under specific circumstances.",
-      details: [
-        "You may terminate your account at any time",
-        "We may terminate for violation of these terms",
-        "Immediate termination for illegal activities",
-        "Upon termination, your data will be retained per policy",
-        "30-day notice may be required for policy changes",
-      ],
-    },
-    {
-      title: "Payment Terms",
-      icon: Scale,
-      description: "Payment terms apply to any paid services or subscription plans offered by AUTOMENSOR.",
-      details: [
-        "All prices are in the currency specified during checkout",
-        "Automatic renewal subscriptions can be cancelled anytime",
-        "Refunds are subject to our refund policy",
-        "Failed payments may result in service suspension",
-        "Invoices are available in your account dashboard",
-      ],
-    },
-    {
-      title: "Indemnification",
-      icon: FileText,
-      description: "You agree to defend and indemnify AUTOMENSOR against any claims arising from your use of our services.",
-      details: [
-        "You indemnify us for third-party claims",
-        "This applies to any unauthorized use of your account",
-        "Includes legal fees and damages",
-        "Does not apply to our gross negligence",
-        "We reserve the right to control defense of claims",
-      ],
-    },
-  ];
+interface Section {
+  title: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  details: string[];
+}
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.2,
-      },
-    },
-  };
+const sections: Section[] = [
+  {
+    title: "Acceptance of Terms",
+    icon: FileText,
+    description:
+      "By accessing and using AUTOMENSOR's products and services, you agree to be bound by these Terms of Service.",
+    details: [
+      "You must be at least 18 years old to use our services",
+      "You are responsible for maintaining account confidentiality",
+      "You agree to use our services only for lawful purposes",
+      "Violation of these terms may result in immediate termination",
+    ],
+  },
+  {
+    title: "Service Description",
+    icon: Zap,
+    description:
+      "AUTOMENSOR provides smart home automation products and services designed to enhance your living experience.",
+    details: [
+      "We offer device configuration and control services",
+      "Services include mobile app access and cloud integration",
+      "Features may be updated or modified without notice",
+      "Some features may require additional subscription fees",
+      "Technical support is available during business hours",
+    ],
+  },
+  {
+    title: "User Responsibilities",
+    icon: Users,
+    description:
+      "You agree to use our services responsibly and in compliance with all applicable laws and regulations.",
+    details: [
+      "Maintain the security of your login credentials",
+      "Report any unauthorized access immediately",
+      "Use services only for personal, non-commercial purposes",
+      "Not attempt to reverse-engineer or hack our systems",
+      "Not share your account with unauthorized users",
+    ],
+  },
+  {
+    title: "Intellectual Property",
+    icon: Lock,
+    description:
+      "All content, software, and technologies used in our services are protected intellectual property.",
+    details: [
+      "AUTOMENSOR retains all rights to software and technology",
+      "You receive a limited license to use our services",
+      "You cannot copy, modify, or distribute our software",
+      "Your data remains your property, subject to our privacy policy",
+      "Do not reproduce or transmit any content without permission",
+    ],
+  },
+  {
+    title: "Limitation of Liability",
+    icon: AlertCircle,
+    description:
+      "AUTOMENSOR is not liable for indirect, incidental, or consequential damages arising from service use.",
+    details: [
+      "Services provided &apos;as is&apos; without warranties",
+      "We are not liable for data loss or system failures",
+      "Liability limited to fees paid in the last 12 months",
+      "Some jurisdictions don&apos;t allow liability limitations",
+      "Contact support for specific warranty information",
+    ],
+  },
+  {
+    title: "Termination",
+    icon: X,
+    description:
+      "Either party may terminate the service agreement under specific circumstances.",
+    details: [
+      "You may terminate your account at any time",
+      "We may terminate for violation of these terms",
+      "Immediate termination for illegal activities",
+      "Upon termination, your data will be retained per policy",
+      "30-day notice may be required for policy changes",
+    ],
+  },
+  {
+    title: "Payment Terms",
+    icon: Scale,
+    description:
+      "Payment terms apply to any paid services or subscription plans offered by AUTOMENSOR.",
+    details: [
+      "All prices are in the currency specified during checkout",
+      "Automatic renewal subscriptions can be cancelled anytime",
+      "Refunds are subject to our refund policy",
+      "Failed payments may result in service suspension",
+      "Invoices are available in your account dashboard",
+    ],
+  },
+  {
+    title: "Indemnification",
+    icon: FileText,
+    description:
+      "You agree to defend and indemnify AUTOMENSOR against any claims arising from your use of our services.",
+    details: [
+      "You indemnify us for third-party claims",
+      "This applies to any unauthorized use of your account",
+      "Includes legal fees and damages",
+      "Does not apply to our gross negligence",
+      "We reserve the right to control defense of claims",
+    ],
+  },
+];
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.2,
     },
-  };
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
+export default function TermsOfServiceClient() {
+  const lastUpdated = new Date(2024, 10).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+  });
 
   return (
     <>
@@ -153,14 +183,15 @@ function TermsOfService() {
               <FileText className="w-8 h-8 text-white" />
             </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight text-gray-900 mb-6 whitespace-nowrap">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight text-gray-900 mb-6">
               <span className="text-transparent bg-gradient-to-r from-purple-600 via-orange-600 to-purple-600 bg-clip-text">
                 Terms of Service
               </span>
             </h1>
 
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-              Please read these terms carefully. By using AUTOMENSOR services, you agree to comply with all terms and conditions outlined below.
+              Please read these terms carefully. By using AUTOMENSOR services,
+              you agree to comply with all terms and conditions outlined below.
             </p>
 
             <motion.div
@@ -176,7 +207,7 @@ function TermsOfService() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="mt-8 inline-flex items-center gap-2 text-sm text-gray-600 bg-purple-50 px-4 py-2 rounded-full border border-purple-200"
             >
-              Last Updated: November 2024
+              Last Updated: {lastUpdated}
             </motion.div>
           </div>
         </motion.section>
@@ -190,8 +221,10 @@ function TermsOfService() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="bg-gradient-to-r from-purple-50 to-orange-50 rounded-2xl p-8 border border-purple-200 mb-16"
           >
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Table of Contents</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-6">
+              Table of Contents
+            </h2>
+            <nav className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {sections.map((section, idx) => (
                 <a
                   key={idx}
@@ -202,7 +235,7 @@ function TermsOfService() {
                   <span>{section.title}</span>
                 </a>
               ))}
-            </div>
+            </nav>
           </motion.div>
 
           {/* Important Notice */}
@@ -211,13 +244,16 @@ function TermsOfService() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
             className="bg-red-50 border-l-4 border-red-600 rounded-r-2xl p-6 mb-16"
+            role="alert"
           >
             <div className="flex gap-4">
               <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-bold text-red-900 mb-2">Important Notice</h3>
                 <p className="text-red-800">
-                  These terms constitute a binding legal agreement. If you do not agree to these terms, please do not use our services. Continued use of our services constitutes acceptance of these terms.
+                  These terms constitute a binding legal agreement. If you do not
+                  agree to these terms, please do not use our services. Continued
+                  use of our services constitutes acceptance of these terms.
                 </p>
               </div>
             </div>
@@ -295,7 +331,9 @@ function TermsOfService() {
                 Dispute Resolution
               </h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                Any disputes shall be resolved through binding arbitration in accordance with the rules of arbitration applicable in your jurisdiction.
+                Any disputes shall be resolved through binding arbitration in
+                accordance with the rules of arbitration applicable in your
+                jurisdiction.
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li>✓ Good faith negotiation required first</li>
@@ -311,7 +349,9 @@ function TermsOfService() {
                 Governing Law
               </h3>
               <p className="text-gray-700 leading-relaxed mb-4">
-                These terms are governed by the laws of the jurisdiction where AUTOMENSOR is registered, without regard to conflict of law principles.
+                These terms are governed by the laws of the jurisdiction where
+                AUTOMENSOR is registered, without regard to conflict of law
+                principles.
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li>✓ Applicable local laws</li>
@@ -328,12 +368,19 @@ function TermsOfService() {
             transition={{ duration: 0.7, delay: 0.6 }}
             className="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-8 md:p-10 border border-yellow-200 mb-16"
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Modifications to Terms</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Modifications to Terms
+            </h3>
             <p className="text-gray-700 leading-relaxed mb-4">
-              AUTOMENSOR reserves the right to modify these terms at any time. We will notify you of significant changes via email or through the service. Your continued use of our services following the posting of revised terms means that you accept and agree to the changes.
+              AUTOMENSOR reserves the right to modify these terms at any time. We
+              will notify you of significant changes via email or through the
+              service. Your continued use of our services following the posting of
+              revised terms means that you accept and agree to the changes.
             </p>
             <div className="bg-white rounded-lg p-4 border border-yellow-300">
-              <p className="text-sm font-semibold text-gray-900 mb-2">We'll notify you if:</p>
+              <p className="text-sm font-semibold text-gray-900 mb-2">
+                We&apos;ll notify you if:
+              </p>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• Terms affecting your rights or obligations change</li>
                 <li>• New fees or charges are introduced</li>
@@ -350,9 +397,12 @@ function TermsOfService() {
             className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-2xl p-8 md:p-12 text-white text-center shadow-xl mb-8"
           >
             <FileText className="w-12 h-12 mx-auto mb-6 opacity-90" />
-            <h3 className="text-3xl font-bold mb-4">Questions About Our Terms?</h3>
+            <h3 className="text-3xl font-bold mb-4">
+              Questions About Our Terms?
+            </h3>
             <p className="text-purple-100 max-w-xl mx-auto mb-8">
-              If you have any questions or concerns about these Terms of Service, please don't hesitate to contact our legal team.
+              If you have any questions or concerns about these Terms of Service,
+              please don&apos;t hesitate to contact our legal team.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -380,11 +430,17 @@ function TermsOfService() {
             transition={{ duration: 0.7, delay: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-600 pt-8 border-t border-gray-200"
           >
-            <Link href="/privacy-policy" className="hover:text-purple-600 transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-purple-600 transition-colors"
+            >
               Privacy Policy
             </Link>
             <span className="hidden sm:inline">•</span>
-            <Link href="/contact" className="hover:text-purple-600 transition-colors">
+            <Link
+              href="/contact"
+              className="hover:text-purple-600 transition-colors"
+            >
               Contact Us
             </Link>
             <span className="hidden sm:inline">•</span>
@@ -396,5 +452,3 @@ function TermsOfService() {
     </>
   );
 }
-
-export default TermsOfService;

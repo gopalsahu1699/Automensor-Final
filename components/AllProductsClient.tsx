@@ -8,50 +8,76 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useAppContext } from "@/context/AppContext";
 
-const AllProducts = () => {
-  const { products, loadingProducts } = useAppContext();
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
+interface Product {
+  $id: string;
+  name: string;
+  category?: string;
+  [key: string]: any;
+}
 
-  // Extract unique categories, include "All" first
+const AllProductsClient = () => {
+  const { products = [], loadingProducts } = useAppContext();
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  // Extract unique categories, include "All" first with proper typing
   const categories = useMemo(() => {
-    const allCategories = products.map((p) => p.category || "Uncategorized");
-    return ["All", ...new Set(allCategories)];
+    const typedProducts = (products || []) as Product[];
+    const allCategories = typedProducts.map((p) => p.category || "Uncategorized");
+    const uniqueCategories: string[] = ["All", ...new Set(allCategories)];
+    return uniqueCategories;
   }, [products]);
 
   // Filter products by category first
-  const filteredByCategory =
-    selectedCategory === "All"
-      ? products
-      : products.filter((p) => p.category === selectedCategory);
+  const filteredByCategory = useMemo(() => {
+    const typedProducts = (products || []) as Product[];
+    return selectedCategory === "All"
+      ? typedProducts
+      : typedProducts.filter((p) => p.category === selectedCategory);
+  }, [products, selectedCategory]);
 
   // Then filter by search term in product name (case-insensitive)
-  const filteredProducts = filteredByCategory.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = useMemo(() => {
+    return filteredByCategory.filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [filteredByCategory, searchTerm]);
 
+  // ✅ FIXED: Proper Framer Motion variants
   const categoryButtonVariants = {
     initial: { scale: 1 },
-    hover: { scale: 1.02, boxShadow: "0 4px 12px rgba(249, 115, 22, 0.3)" },
+    hover: { 
+      scale: 1.02, 
+      boxShadow: "0 4px 12px rgba(249, 115, 22, 0.3)" 
+    },
     tap: { scale: 0.98 },
   };
 
   const productListVariants = {
-    hidden: {},
+    hidden: { opacity: 0 },
     visible: {
+      opacity: 1,
       transition: {
         staggerChildren: 0.05,
       },
     },
   };
 
+  // ✅ FIXED: Use easeOut instead of "easeOut" string
   const productItemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 0.4, 
+        ease: "easeOut" as const
+      } 
+    },
   };
 
-  // Get category icon (you can expand this)
-  const getCategoryIcon = (category) => {
+  // Get category icon
+  const getCategoryIcon = (category: string) => {
     switch (category) {
       case "All":
         return <LayoutGrid className="w-5 h-5" />;
@@ -59,6 +85,8 @@ const AllProducts = () => {
         return <Package className="w-5 h-5" />;
     }
   };
+
+  const typedProducts = (products || []) as Product[];
 
   return (
     <>
@@ -119,7 +147,7 @@ const AllProducts = () => {
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
-                    {cat} {cat === "All" ? `(${products.length})` : `(${products.filter(p => p.category === cat).length})`}
+                    {cat} {cat === "All" ? `(${typedProducts.length})` : `(${typedProducts.filter(p => p.category === cat).length})`}
                   </option>
                 ))}
               </select>
@@ -140,7 +168,7 @@ const AllProducts = () => {
               </div>
               <ul className="space-y-2" role="list">
                 {categories.map((cat) => {
-                  const count = cat === "All" ? products.length : products.filter(p => p.category === cat).length;
+                  const count = cat === "All" ? typedProducts.length : typedProducts.filter(p => p.category === cat).length;
                   return (
                     <li key={cat}>
                       <motion.button
@@ -154,7 +182,7 @@ const AllProducts = () => {
                             ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg"
                             : "text-gray-700 hover:bg-gray-50 border border-gray-200"
                         }`}
-                        aria-current={selectedCategory === cat ? "true" : undefined}
+                        aria-current={selectedCategory === cat ? "page" : undefined}
                         aria-label={`Filter products by ${cat}`}
                       >
                         <div className="flex items-center gap-3">
@@ -248,7 +276,10 @@ const AllProducts = () => {
                   animate="visible"
                 >
                   {filteredProducts.map((product) => (
-                    <motion.div key={product.$id} variants={productItemVariants}>
+                    <motion.div 
+                      key={product.$id} 
+                      variants={productItemVariants}
+                    >
                       <ProductCard product={product} />
                     </motion.div>
                   ))}
@@ -264,4 +295,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default AllProductsClient;
