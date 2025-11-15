@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import StarterPackageClient from "@/components/StarterPackageClient";
+import StarterPackageClient from "@/components/Clients/StarterPackageClient";
 
 export const metadata: Metadata = {
   title: "Smart Home Starter Package | AUTOMENSOR - Affordable Home Automation",

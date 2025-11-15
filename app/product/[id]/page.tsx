@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema, ProductSchema } from "@/components/StructuredData";
-import ProductClient from "@/components/ProductClient";
+import ProductClient from "@/components/Clients/ProductClient";
 
 interface Props {
   params: Promise<{

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import TermsOfServiceClient from "@/components/TermsOfServiceClient";
+import TermsOfServiceClient from "@/components/Clients/TermsOfServiceClient";
 
 export const metadata: Metadata = {
   title: "Terms of Service | AUTOMENSOR",

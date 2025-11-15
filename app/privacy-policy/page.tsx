@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import PrivacyPolicyClient from "@/components/PrivacyPolicyClient";
+import PrivacyPolicyClient from "@/components/Clients/PrivacyPolicyClient";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | AUTOMENSOR - Your Data Protection",

@@ -128,11 +128,11 @@ export default function AboutClient() {
   return (
     <>
       <Navbar />
-      {/* Background design layers */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-white to-gray-100 opacity-60" />
-        <div className="absolute bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 w-72 h-72 -top-16 -left-16 animate-floatSlow" />
-        <div className="absolute bg-orange-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 w-96 h-96 -bottom-24 -right-20 animate-floatSlow animation-delay-2000" />
+      {/* Enhanced Background design layers */}
+      <div className="fixed inset-0 -z-10 overflow-hidden bg-gradient-to-br from-white via-gray-100 to-gray-200">
+        <div className="absolute rounded-full bg-blue-300 mix-blend-screen filter blur-3xl opacity-25 w-[600px] h-[600px] -top-20 -left-24 animate-floatSlow" />
+        <div className="absolute rounded-full bg-orange-300 mix-blend-screen filter blur-3xl opacity-15 w-[500px] h-[500px] -bottom-28 -right-24 animate-floatSlow animation-delay-2000" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" />
       </div>
 
       <div className="relative min-h-screen">
@@ -147,7 +147,7 @@ export default function AboutClient() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
-            className="text-5xl md:text-6xl font-extrabold mb-8 text-gray-900"
+            className="text-5xl md:text-6xl font-extrabold mb-8 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent"
           >
             About AUTOMENSOR
           </motion.h1>
@@ -384,6 +384,10 @@ export default function AboutClient() {
         }
         .animation-delay-2000 {
           animation-delay: 2s;
+        }
+        .bg-grid-pattern {
+          background-image: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+          background-size: 20px 20px;
         }
       `}</style>
     </>

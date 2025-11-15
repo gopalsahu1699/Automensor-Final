@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import QuotationClient from "@/components/QuotationClient";
+import QuotationClient from "@/components/Clients/QuotationClient";
 
 export const metadata: Metadata = {
   title: "Request Quote | Smart Home Automation | AUTOMENSOR",

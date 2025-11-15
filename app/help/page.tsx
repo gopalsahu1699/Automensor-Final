@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import HelpClient from "@/components/HelpClient";
+import HelpClient from "@/components/Clients/HelpClient";
 
 export const metadata: Metadata = {
   title: "Help & Support Center | AUTOMENSOR - Smart Home Automation Support",

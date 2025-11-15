@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import GalleryClient from "@/components/GalleryClient";
+import GalleryClient from "@/components/Clients/GalleryClient";
 
 export const metadata: Metadata = {
   title: "Gallery - Smart Home Automation Projects | AUTOMENSOR",

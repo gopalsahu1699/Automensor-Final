@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import MyAccountClient from "@/components/MyAccountClient";
+import MyAccountClient from "@/components/Clients/MyAccountClient";
 
 export const metadata: Metadata = {
   title: "My Account | AUTOMENSOR",

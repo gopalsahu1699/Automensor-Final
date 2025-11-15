@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import SignupClient from "@/components/SignupClient";
+import SignupClient from "@/components/Clients/SignupClient";
 
 export const metadata: Metadata = {
   title: "Sign Up | Create Your AUTOMENSOR Account",

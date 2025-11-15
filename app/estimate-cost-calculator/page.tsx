@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import EstimateCostCalculatorClient from "@/components/EstimateCostCalculatorClient";
+import EstimateCostCalculatorClient from "@/components/Clients/EstimateCostCalculatorClient";
 
 export const metadata: Metadata = {
   title: "Smart Home Automation Cost Calculator | AUTOMENSOR",
