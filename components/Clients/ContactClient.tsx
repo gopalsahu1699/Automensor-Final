@@ -123,7 +123,7 @@ export default function ContactClient(): React.ReactNode {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4"
           >
             Get in Touch With{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-200">

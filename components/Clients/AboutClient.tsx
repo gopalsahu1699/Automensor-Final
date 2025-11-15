@@ -17,6 +17,7 @@ import {
   Heart,
   Zap,
   Globe,
+  Info,
 } from "lucide-react";
 
 interface HelpCard {
@@ -152,6 +153,15 @@ export default function AboutClient(): React.ReactNode {
           className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white py-20 px-6 border-b border-purple-400/30"
         >
           <div className="max-w-6xl mx-auto text-center relative z-10">
+            <motion.div
+              className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/15 backdrop-blur-md border-2 border-white/30 mb-6"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, type: "spring" }}
+            >
+              <Info className="w-10 h-10" />
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
