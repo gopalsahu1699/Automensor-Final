@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Help & Support Center | AUTOMENSOR",
     description: "Get expert help with your smart home automation system. Setup guides, troubleshooting, and 24/7 support.",
-    url: "https://automensor.com/help",
+    url: "https://autommensor.in/help",
     type: "website",
     images: [
       {
-        url: "https://automensor.com/og-image-help.jpg",
+        url: "https://autommensor.in/og-image-help.jpg",
         width: 1200,
         height: 630,
         alt: "AUTOMENSOR Help & Support",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Help & Support", url: "https://automensor.com/help" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Help & Support", url: "https://autommensor.in/help" },
 ];
 
 export default function HelpPage() {

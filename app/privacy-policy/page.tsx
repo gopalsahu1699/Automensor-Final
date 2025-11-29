@@ -21,14 +21,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Privacy Policy | AUTOMENSOR",
     description: "How we protect and handle your personal data",
-    url: "https://automensor.com/privacy-policy",
+    url: "https://autommensor.in/privacy-policy",
     type: "website",
   },
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Privacy Policy", url: "https://automensor.com/privacy-policy" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Privacy Policy", url: "https://autommensor.in/privacy-policy" },
 ];
 
 export default function PrivacyPolicyPage() {

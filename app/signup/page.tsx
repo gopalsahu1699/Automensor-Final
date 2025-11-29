@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sign Up | AUTOMENSOR",
     description: "Create your account and start your smart home journey",
-    url: "https://automensor.com/signup",
+    url: "https://autommensor.in/signup",
     type: "website",
   },
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Sign Up", url: "https://automensor.com/signup" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Sign Up", url: "https://autommensor.in/signup" },
 ];
 
 export default function SignupPage() {

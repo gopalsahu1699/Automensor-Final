@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Terms of Service | AUTOMENSOR",
     description: "Legal terms and conditions for AUTOMENSOR services",
-    url: "https://automensor.com/terms-of-service",
+    url: "https://autommensor.in/terms-of-service",
     type: "website",
   },
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Terms of Service", url: "https://automensor.com/terms-of-service" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Terms of Service", url: "https://autommensor.in/terms-of-service" },
 ];
 
 export default function TermsOfServicePage() {

@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Request Your Personalized Quote | AUTOMENSOR",
     description: "Get custom smart home automation pricing tailored to your needs",
-    url: "https://automensor.com/quotation",
+    url: "https://autommensor.in/quotation",
     type: "website",
     images: [
       {
-        url: "https://automensor.com/og-image-quote.jpg",
+        url: "https://autommensor.in/og-image-quote.jpg",
         width: 1200,
         height: 630,
         alt: "AUTOMENSOR Quotation",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Quotation", url: "https://automensor.com/quotation" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Quotation", url: "https://autommensor.in/quotation" },
 ];
 
 export default function QuotationPage() {

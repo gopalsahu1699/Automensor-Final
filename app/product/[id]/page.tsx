@@ -18,16 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: "Product | AUTOMENSOR",
       description: "Explore smart home automation products",
-      url: `https://automensor.com/product/${id}`,
+      url: `https://autommensor.in/product/${id}`,
       type: "website",
     },
   };
 }
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Products", url: "https://automensor.com/products" },
-  { name: "Product Detail", url: "https://automensor.com/product/[id]" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Products", url: "https://autommensor.in/products" },
+  { name: "Product Detail", url: "https://autommensor.in/product/[id]" },
 ];
 
 export default async function ProductPage({ params }: Props) {

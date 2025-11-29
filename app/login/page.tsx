@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Login | AUTOMENSOR",
     description: "Sign in to your smart home control account",
-    url: "https://automensor.com/login",
+    url: "https://autommensor.in/login",
     type: "website",
   },
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Login", url: "https://automensor.com/login" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Login", url: "https://autommensor.in/login" },
 ];
 
 export default function LoginPage() {

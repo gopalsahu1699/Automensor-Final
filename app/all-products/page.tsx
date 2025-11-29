@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "All Smart Home Automation Products | AUTOMENSOR",
     description: "Complete range of smart home automation products and devices",
-    url: "https://automensor.com/all-products",
+    url: "https://autommensor.in/all-products",
     type: "website",
     images: [
       {
-        url: "https://automensor.com/og-image-products.jpg",
+        url: "https://autommensor.in/og-image-products.jpg",
         width: 1200,
         height: 630,
         alt: "AUTOMENSOR Products",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "All Products", url: "https://automensor.com/all-products" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "All Products", url: "https://autommensor.in/all-products" },
 ];
 
 export default function AllProductsPage() {

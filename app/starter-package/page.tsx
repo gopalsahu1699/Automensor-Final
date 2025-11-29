@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Smart Home Starter Package | AUTOMENSOR",
     description: "Transform your home with our affordable Smart Home Starter Package - Smart lighting, security, and energy savings",
-    url: "https://automensor.com/starter-package",
+    url: "https://autommensor.in/starter-package",
     type: "website",
     images: [
       {
-        url: "https://automensor.com/og-image-starter.jpg",
+        url: "https://autommensor.in/og-image-starter.jpg",
         width: 1200,
         height: 630,
         alt: "AUTOMENSOR Smart Home Starter Package",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Starter Package", url: "https://automensor.com/starter-package" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Starter Package", url: "https://autommensor.in/starter-package" },
 ];
 
 export default function StarterPackagePage() {

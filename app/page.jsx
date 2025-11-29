@@ -12,6 +12,7 @@ import WhyAutommensor from "@/components/WhyAutommensor";
 import HowYouCanControl from "@/components/HowYouCanControl";
 import MarketNeed from "@/components/MarketNeed";
 import CallToAction from "@/components/CallToAction";
+import Loading from "@/components/Loading";
 
 
 const Home = () => {
@@ -24,10 +25,7 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-white">
-        <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
-        <p className="text-xl font-semibold text-gray-700">Loading...</p>
-      </div>
+      <Loading />
     );
   }
 

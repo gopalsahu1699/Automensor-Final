@@ -9,7 +9,7 @@ const HeaderSlider = () => {
     {
       id: 1,
       title: "Smart Home Automation Made Simple & Affordable",
-      offer: "Get flat 5% Off On Your First Installation!",
+      offer: "Get flat 10% Off On Your First Installation!",
       buttonText1: "Request Quote",
       buttonLink1: "/request-quote",
       buttonText2: "Learn More",
@@ -66,7 +66,7 @@ const HeaderSlider = () => {
           >
             <div className="md:pl-8 mt-10 md:mt-0">
               <p className="md:text-base text-orange-600 pb-1">{slide.offer}</p>
-              <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold">
+              <h1 className="max-w-lg md:text-[40px] md:leading-[48px] text-2xl font-semibold text-black">
                 {slide.title}
               </h1>
               <div className="flex items-center mt-4 md:mt-6">
@@ -78,7 +78,7 @@ const HeaderSlider = () => {
                 </Link>
                 <Link
                   href={slide.buttonLink2}
-                  className="group flex items-center gap-2 px-6 py-2.5 font-medium ml-4"
+                  className="group flex items-center gap-2 px-6 py-2.5 font-medium ml-4 text-black"
                 >
                   {slide.buttonText2}
                   <ArrowRight 

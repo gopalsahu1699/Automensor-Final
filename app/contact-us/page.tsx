@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact AUTOMENSOR - Get Expert Help",
     description: "Reach out to our team for smart home automation solutions and support",
-    url: "https://automensor.com/contact-us",
+    url: "https://autommensor.in/contact-us",
     type: "website",
     images: [
       {
-        url: "https://automensor.com/og-image-contact.jpg",
+        url: "https://autommensor.in/og-image-contact.jpg",
         width: 1200,
         height: 630,
         alt: "Contact AUTOMENSOR",
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Contact Us", url: "https://automensor.com/contact-us" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Contact Us", url: "https://autommensor.in/contact-us" },
 ];
 
 export default function ContactPage() {

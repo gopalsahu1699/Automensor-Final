@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Learn More About Smart Home Automation | AUTOMENSOR",
     description: "Transform your home with AUTOMENSOR smart automation. Features, specs, and benefits explained.",
-    url: "https://automensor.com/learn-more",
+    url: "https://autommensor.in/learn-more",
     type: "website",
     images: [
       {
-        url: "https://automensor.com/og-image-learn.jpg",
+        url: "https://autommensor.in/og-image-learn.jpg",
         width: 1200,
         height: 630,
         alt: "AUTOMENSOR Smart Home Automation",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Learn More", url: "https://automensor.com/learn-more" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Learn More", url: "https://autommensor.in/learn-more" },
 ];
 
 export default function LearnMorePage() {

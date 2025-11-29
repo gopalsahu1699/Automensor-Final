@@ -15,14 +15,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Smart Home Automation Cost Calculator",
     description: "Calculate your smart home automation costs instantly",
-    url: "https://automensor.com/estimate-cost-calculator",
+    url: "https://autommensor.in/estimate-cost-calculator",
     type: "website",
   },
 };
 
 const breadcrumbs = [
-  { name: "Home", url: "https://automensor.com" },
-  { name: "Estimate Cost", url: "https://automensor.com/estimate-cost-calculator" },
+  { name: "Home", url: "https://autommensor.in" },
+  { name: "Estimate Cost", url: "https://autommensor.in/estimate-cost-calculator" },
 ];
 
 export default function EstimateCostCalculatorPage() {
