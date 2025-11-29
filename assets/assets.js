@@ -1,5 +1,5 @@
 export const assets = {
-  logo: "https://res.cloudinary.com/dn9rohd6h/image/upload/logo_140_40_l4ii0r.webp",
+  logo: "https://res.cloudinary.com/dn9rohd6h/image/upload/v1764388210/Logo_for_Automensor_140_40_webp_z5i2fn.webp",
   home_banner: "https://res.cloudinary.com/dn9rohd6h/image/upload/v1762664809/home_kjbuox.webp",
   estimate_cost_home: "https://res.cloudinary.com/dn9rohd6h/image/upload/estimate_cost_home_u364ow.webp",
   estimate_cost_category_1: "https://res.cloudinary.com/dn9rohd6h/image/upload/estimate_cost_category_1_elre4r.webp",
