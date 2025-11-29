@@ -187,7 +187,7 @@ export default function LoginClient() {
               </motion.div>
               <h1 className="text-3xl font-extrabold mb-2">Welcome Back!</h1>
               <p className="text-blue-100">
-                Sign in to your AUTOMENSOR account
+                Sign in to your autommensor account
               </p>
             </div>
 

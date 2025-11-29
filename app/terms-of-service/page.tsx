@@ -3,8 +3,8 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import TermsOfServiceClient from "@/components/Clients/TermsOfServiceClient";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | AUTOMENSOR",
-  description: "Read AUTOMENSOR's Terms of Service. Understand our policies, user responsibilities, intellectual property rights, and legal terms for using our smart home automation services.",
+  title: "Terms of Service | autommensor",
+  description: "Read autommensor's Terms of Service. Understand our policies, user responsibilities, intellectual property rights, and legal terms for using our smart home automation services.",
   keywords: [
     "terms of service",
     "legal agreement",
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Terms of Service | AUTOMENSOR",
-    description: "Legal terms and conditions for AUTOMENSOR services",
+    title: "Terms of Service | autommensor",
+    description: "Legal terms and conditions for autommensor services",
     url: "https://autommensor.in/terms-of-service",
     type: "website",
   },

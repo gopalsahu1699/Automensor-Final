@@ -3,26 +3,26 @@ import MyAccountClient from "@/components/Clients/MyAccountClient";
 
 export const metadata: Metadata = {
   title: {
-    default: "My Account | Automensor - Manage Profile & Settings",
-    template: "%s | Automensor" // For consistency across app
+    default: "My Account | autommensor - Manage Profile & Settings",
+    template: "%s | autommensor" // For consistency across app
   },
-  description: "Securely manage your Automensor account, update profile, view orders, and adjust home automation settings for smart living.",
-  keywords: "automensor account, my profile, order history, home automation settings",
+  description: "Securely manage your autommensor account, update profile, view orders, and adjust home automation settings for smart living.",
+  keywords: "autommensor account, my profile, order history, home automation settings",
   robots: {
     index: false,
     follow: false,
   },
   alternates: {
-    canonical: "https://automensor.in/my-account", // Prevent duplicates
+    canonical: "https://autommensor.in/my-account", // Prevent duplicates
   },
   openGraph: {
-    title: "My Account | Automensor",
-    description: "Manage your Automensor profile and home automation preferences securely.",
-    url: "https://automensor.in/my-account",
-    siteName: "Automensor",
+    title: "My Account | autommensor",
+    description: "Manage your autommensor profile and home automation preferences securely.",
+    url: "https://autommensor.in/my-account",
+    siteName: "autommensor",
     images: [
       {
-        url: "https://automensor.in/og-my-account.jpg", // Add branded OG image via Cloudinary
+        url: "https://autommensor.in/og-my-account.jpg", // Add branded OG image via Cloudinary
         width: 1200,
         height: 630,
       },
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "My Account | Automensor",
-    description: "Manage your Automensor account profile and settings.",
-    images: "https://automensor.in/og-my-account.jpg",
+    title: "My Account | autommensor",
+    description: "Manage your autommensor account profile and settings.",
+    images: "https://autommensor.in/og-my-account.jpg",
   },
 };
 

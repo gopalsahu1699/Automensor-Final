@@ -5,10 +5,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact Us | AUTOMENSOR - Smart Home Automation Support",
-  description: "Get in touch with AUTOMENSOR's expert team. We're here to help with your smart home automation questions, free consultation, and 24/7 support.",
+  title: "Contact Us | autommensor - Smart Home Automation Support",
+  description: "Get in touch with autommensor's expert team. We're here to help with your smart home automation questions, free consultation, and 24/7 support.",
   keywords: [
-    "contact AUTOMENSOR",
+    "contact autommensor",
     "smart home support",
     "customer service",
     "automation consultation",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "get in touch",
   ],
   openGraph: {
-    title: "Contact AUTOMENSOR - Get Expert Help",
+    title: "Contact autommensor - Get Expert Help",
     description: "Reach out to our team for smart home automation solutions and support",
     url: "https://autommensor.in/contact-us",
     type: "website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-contact.jpg",
         width: 1200,
         height: 630,
-        alt: "Contact AUTOMENSOR",
+        alt: "Contact autommensor",
       },
     ],
   },

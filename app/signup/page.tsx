@@ -3,13 +3,13 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import SignupClient from "@/components/Clients/SignupClient";
 
 export const metadata: Metadata = {
-  title: "Sign Up | Create Your AUTOMENSOR Account",
-  description: "Create your free AUTOMENSOR account to access smart home automation solutions. Sign up today and get started with personalized recommendations.",
+  title: "Sign Up | Create Your autommensor Account",
+  description: "Create your free autommensor account to access smart home automation solutions. Sign up today and get started with personalized recommendations.",
   keywords: [
     "signup",
     "create account",
     "register",
-    "join automensor",
+    "join autommensor",
     "free account",
     "smart home registration",
   ],
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     follow: false,
   },
   openGraph: {
-    title: "Sign Up | AUTOMENSOR",
+    title: "Sign Up | autommensor",
     description: "Create your account and start your smart home journey",
     url: "https://autommensor.in/signup",
     type: "website",

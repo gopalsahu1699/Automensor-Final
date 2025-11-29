@@ -147,7 +147,7 @@ export default function PrivacyPolicyClient() {
             </h1>
 
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-              At AUTOMENSOR, we&apos;re committed to protecting your personal
+              At autommensor, we&apos;re committed to protecting your personal
               information and ensuring transparency in how we handle your data.
               This Privacy Policy outlines our practices.
             </p>
@@ -174,7 +174,7 @@ export default function PrivacyPolicyClient() {
               Quick Overview
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              At AUTOMENSOR, your privacy is paramount. We collect minimal
+              At autommensor, your privacy is paramount. We collect minimal
               necessary information to deliver personalized smart home
               experiences, implement industry-leading security measures, and give
               you full control over your data. We never sell your information and
@@ -340,11 +340,11 @@ export default function PrivacyPolicyClient() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:privacy@automensor.com"
+                href="mailto:privacy@autommensor.com"
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-blue-600 font-bold rounded-full hover:bg-blue-50 transition-all duration-300 shadow-lg"
               >
                 <Mail className="w-4 h-4" />
-                privacy@automensor.com
+                privacy@autommensor.com
               </a>
               <Link
                 href="/contact"
@@ -388,7 +388,7 @@ export default function PrivacyPolicyClient() {
               Contact Us
             </Link>
             <span className="hidden sm:inline">•</span>
-            <span>© 2024 AUTOMENSOR. All rights reserved.</span>
+            <span>© 2024 autommensor. All rights reserved.</span>
           </motion.div>
         </section>
       </main>

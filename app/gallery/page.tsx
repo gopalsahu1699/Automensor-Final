@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Gallery - Smart Home Automation Projects | AUTOMENSOR",
+  title: "Gallery - Smart Home Automation Projects | autommensor",
   description: "Browse our portfolio of smart home automation projects. See real-world examples of smart door locks, automated blinds, voice assistants, and more.",
   keywords: [
     "smart home gallery",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "automation showcase",
   ],
   openGraph: {
-    title: "Smart Home Automation Gallery | AUTOMENSOR",
+    title: "Smart Home Automation Gallery | autommensor",
     description: "Explore our real-world smart home automation projects and installations",
     url: "https://autommensor.in/gallery",
     type: "website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/gallery/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "AUTOMENSOR Gallery",
+        alt: "autommensor Gallery",
       },
     ],
   },

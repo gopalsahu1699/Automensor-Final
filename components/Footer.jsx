@@ -29,7 +29,7 @@ const RouteLinks = [
 
 const socialLinks = [
   {
-    href: "https://www.instagram.com/automensor/?igsh=bXdyZW9rdnA0Z3Jn#",
+    href: "https://www.instagram.com/autommensor/?igsh=bXdyZW9rdnA0Z3Jn#",
     ariaLabel: "Instagram",
     className: "text-pink-600 hover:text-pink-700 hover:scale-110 transition-all",
     Icon: InstagramIcon,
@@ -71,8 +71,8 @@ const contactInfo = [
   },
   { 
     icon: Mail, 
-    text: "automensor@gmail.com", 
-    link: "mailto:automensor@gmail.com",
+    text: "autommensor@gmail.com", 
+    link: "mailto:autommensor@gmail.com",
     isLink: true 
   },
 ];
@@ -92,11 +92,11 @@ const Footer = () => {
                 src={assets.logo}
                 width={140}
                 height={40}
-                alt="AUTOMENSOR logo"
+                alt="autommensor logo"
               />
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
-              AUTOMENSOR specializes in innovative, wireless home automation solutions designed to enhance comfort, security, and energy efficiency.
+              autommensor specializes in innovative, wireless home automation solutions designed to enhance comfort, security, and energy efficiency.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <MapPin className="w-4 h-4 text-blue-400" />
@@ -206,7 +206,7 @@ const Footer = () => {
         <div className="container mx-auto px-6 md:px-16 lg:px-32 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs md:text-sm text-gray-500">
-              &copy; 2025 AUTOMENSOR. All rights reserved.
+              &copy; 2025 autommensor. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-xs text-gray-500">
               <Link href="/privacy-policy" className="hover:text-blue-400 transition-colors">

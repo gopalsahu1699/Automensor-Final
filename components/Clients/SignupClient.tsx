@@ -185,7 +185,7 @@ export default function SignupClient() {
                 <UserPlus className="w-8 h-8" />
               </motion.div>
               <h1 className="text-3xl font-extrabold mb-2">Create Account</h1>
-              <p className="text-green-100">Join AUTOMENSOR today</p>
+              <p className="text-green-100">Join autommensor today</p>
             </div>
 
             {/* Form Section */}

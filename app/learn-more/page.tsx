@@ -3,8 +3,8 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import LearnMoreClient from "@/components/Clients/LearnMoreClient";
 
 export const metadata: Metadata = {
-  title: "Learn More About Smart Home Automation | AUTOMENSOR",
-  description: "Discover how AUTOMENSOR smart home automation works. Explore features, technical specifications, and benefits including energy savings, security, and convenience.",
+  title: "Learn More About Smart Home Automation | autommensor",
+  description: "Discover how autommensor smart home automation works. Explore features, technical specifications, and benefits including energy savings, security, and convenience.",
   keywords: [
     "smart home features",
     "home automation benefits",
@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     "home automation guide",
     "energy savings",
     "home security",
-    "AUTOMENSOR features",
+    "autommensor features",
   ],
   openGraph: {
-    title: "Learn More About Smart Home Automation | AUTOMENSOR",
-    description: "Transform your home with AUTOMENSOR smart automation. Features, specs, and benefits explained.",
+    title: "Learn More About Smart Home Automation | autommensor",
+    description: "Transform your home with autommensor smart automation. Features, specs, and benefits explained.",
     url: "https://autommensor.in/learn-more",
     type: "website",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-learn.jpg",
         width: 1200,
         height: 630,
-        alt: "AUTOMENSOR Smart Home Automation",
+        alt: "autommensor Smart Home Automation",
       },
     ],
   },

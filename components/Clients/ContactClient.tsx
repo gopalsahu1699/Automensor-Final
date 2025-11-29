@@ -32,7 +32,7 @@ const contactInfo: ContactInfo[] = [
   {
     icon: Mail,
     title: "Email",
-    details: ["automensor@gmail.com"],
+    details: ["autommensor@gmail.com"],
     color: "text-green-600",
     bgColor: "bg-green-50",
   },
@@ -127,7 +127,7 @@ export default function ContactClient(): React.ReactNode {
           >
             Get in Touch With{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-200">
-              AUTOMENSOR
+              autommensor
             </span>
           </motion.h1>
 
@@ -327,7 +327,7 @@ export default function ContactClient(): React.ReactNode {
               {/* Why Choose Us Card */}
               <div className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 rounded-3xl p-8 text-white shadow-2xl border border-purple-400/30">
                 <h3 className="text-2xl font-bold mb-6">
-                  Why Choose AUTOMENSOR?
+                  Why Choose autommensor?
                 </h3>
                 <ul className="space-y-4">
                   {whyChooseItems.map((item, index) => (

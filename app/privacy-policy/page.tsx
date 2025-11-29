@@ -3,8 +3,8 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import PrivacyPolicyClient from "@/components/Clients/PrivacyPolicyClient";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | AUTOMENSOR - Your Data Protection",
-  description: "Learn how AUTOMENSOR protects your privacy and personal data. Our comprehensive privacy policy outlines data collection, protection measures, and your privacy rights.",
+  title: "Privacy Policy | autommensor - Your Data Protection",
+  description: "Learn how autommensor protects your privacy and personal data. Our comprehensive privacy policy outlines data collection, protection measures, and your privacy rights.",
   keywords: [
     "privacy policy",
     "data protection",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Privacy Policy | AUTOMENSOR",
+    title: "Privacy Policy | autommensor",
     description: "How we protect and handle your personal data",
     url: "https://autommensor.in/privacy-policy",
     type: "website",

@@ -5,10 +5,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About AUTOMENSOR - Smart Home Automation Solutions",
-  description: "Learn about AUTOMENSOR, your trusted partner in smart home and building automation. Discover our mission, values, and innovative Wi-Fi-based solutions.",
+  title: "About autommensor - Smart Home Automation Solutions",
+  description: "Learn about autommensor, your trusted partner in smart home and building automation. Discover our mission, values, and innovative Wi-Fi-based solutions.",
   keywords: [
-    "about AUTOMENSOR",
+    "about autommensor",
     "smart home company",
     "automation solutions",
     "company mission",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "customer-centric",
   ],
   openGraph: {
-    title: "About AUTOMENSOR - Smart Home Automation",
+    title: "About autommensor - Smart Home Automation",
     description: "Revolutionizing smart living with cutting-edge automation technology",
     url: "https://autommensor.in/about-us",
     type: "website",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-about.jpg",
         width: 1200,
         height: 630,
-        alt: "AUTOMENSOR - About Us",
+        alt: "autommensor - About Us",
       },
     ],
   },

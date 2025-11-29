@@ -92,7 +92,7 @@ const Home = () => {
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-blue-200">
-                Automensor
+                Autommensor
               </span>
             </h1>
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
@@ -188,20 +188,6 @@ const Home = () => {
 
       {/* Content Sections */}
       <div className="bg-gray-50">
-        {/* Market Needs */}
-        <section className="py-20">
-          <MarketNeed />
-        </section>
-
-        {/* Benefits */}
-        <section className="py-20 bg-white">
-          <WhyAutommensor />
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-20">
-          <CallToAction />
-        </section>
 
         {/* Additional Interactive Sections */}
         <section className="py-20 bg-white">
@@ -214,6 +200,21 @@ const Home = () => {
 
         <section className="py-20 bg-white">
           <HowYouCanControl />
+        </section>
+
+          {/* Call to Action */}
+        <section className="py-20">
+          <CallToAction />
+        </section>
+
+          {/* Market Needs */}
+         <section className="py-20">
+          <MarketNeed />
+        </section>
+
+        {/* Benefits */}
+        <section className="py-20 bg-white">
+          <WhyAutommensor />
         </section>
       </div>
 

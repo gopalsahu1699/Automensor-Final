@@ -140,7 +140,7 @@ export default function LearnMoreClient() {
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              AUTOMENSOR: Smart Home Solutions
+              autommensor: Smart Home Solutions
             </motion.h1>
 
             <motion.p
@@ -149,7 +149,7 @@ export default function LearnMoreClient() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              Unlock the full potential of your home with AUTOMENSOR&apos;s reliable,
+              Unlock the full potential of your home with autommensor&apos;s reliable,
               modern, and user-friendly home automation packages. Below is
               everything you need to know to get started and transform how you
               live.

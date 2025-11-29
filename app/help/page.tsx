@@ -5,8 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Help & Support Center | AUTOMENSOR - Smart Home Automation Support",
-  description: "Get help with AUTOMENSOR smart home automation. Find setup guides, troubleshooting tips, and contact support. 24/7 customer support available via phone, email, and WhatsApp.",
+  title: "Help & Support Center | autommensor - Smart Home Automation Support",
+  description: "Get help with autommensor smart home automation. Find setup guides, troubleshooting tips, and contact support. 24/7 customer support available via phone, email, and WhatsApp.",
   keywords: [
     "help center",
     "support",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "automation help",
   ],
   openGraph: {
-    title: "Help & Support Center | AUTOMENSOR",
+    title: "Help & Support Center | autommensor",
     description: "Get expert help with your smart home automation system. Setup guides, troubleshooting, and 24/7 support.",
     url: "https://autommensor.in/help",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-help.jpg",
         width: 1200,
         height: 630,
-        alt: "AUTOMENSOR Help & Support",
+        alt: "autommensor Help & Support",
       },
     ],
   },

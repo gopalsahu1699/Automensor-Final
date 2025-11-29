@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
 
   return {
-    title: "Product | AUTOMENSOR - Smart Home Automation",
+    title: "Product | autommensor - Smart Home Automation",
     description: "Browse our smart home automation products and solutions.",
     openGraph: {
-      title: "Product | AUTOMENSOR",
+      title: "Product | autommensor",
       description: "Explore smart home automation products",
       url: `https://autommensor.in/product/${id}`,
       type: "website",

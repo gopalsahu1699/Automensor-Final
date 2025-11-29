@@ -3,14 +3,14 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import LoginClient from "@/components/Clients/LoginClient";
 
 export const metadata: Metadata = {
-  title: "Login | AUTOMENSOR - Smart Home Control",
-  description: "Sign in to your AUTOMENSOR account to control your smart home automation system. Secure login with email and password.",
+  title: "Login | autommensor - Smart Home Control",
+  description: "Sign in to your autommensor account to control your smart home automation system. Secure login with email and password.",
   keywords: [
     "login",
     "sign in",
     "account",
     "smart home login",
-    "automensor login",
+    "autommensor login",
     "user login",
   ],
   robots: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     follow: false,
   },
   openGraph: {
-    title: "Login | AUTOMENSOR",
+    title: "Login | autommensor",
     description: "Sign in to your smart home control account",
     url: "https://autommensor.in/login",
     type: "website",

@@ -29,7 +29,7 @@ const sections: Section[] = [
     title: "Acceptance of Terms",
     icon: FileText,
     description:
-      "By accessing and using AUTOMENSOR's products and services, you agree to be bound by these Terms of Service.",
+      "By accessing and using autommensor's products and services, you agree to be bound by these Terms of Service.",
     details: [
       "You must be at least 18 years old to use our services",
       "You are responsible for maintaining account confidentiality",
@@ -41,7 +41,7 @@ const sections: Section[] = [
     title: "Service Description",
     icon: Zap,
     description:
-      "AUTOMENSOR provides smart home automation products and services designed to enhance your living experience.",
+      "autommensor provides smart home automation products and services designed to enhance your living experience.",
     details: [
       "We offer device configuration and control services",
       "Services include mobile app access and cloud integration",
@@ -69,7 +69,7 @@ const sections: Section[] = [
     description:
       "All content, software, and technologies used in our services are protected intellectual property.",
     details: [
-      "AUTOMENSOR retains all rights to software and technology",
+      "autommensor retains all rights to software and technology",
       "You receive a limited license to use our services",
       "You cannot copy, modify, or distribute our software",
       "Your data remains your property, subject to our privacy policy",
@@ -80,7 +80,7 @@ const sections: Section[] = [
     title: "Limitation of Liability",
     icon: AlertCircle,
     description:
-      "AUTOMENSOR is not liable for indirect, incidental, or consequential damages arising from service use.",
+      "autommensor is not liable for indirect, incidental, or consequential damages arising from service use.",
     details: [
       "Services provided &apos;as is&apos; without warranties",
       "We are not liable for data loss or system failures",
@@ -106,7 +106,7 @@ const sections: Section[] = [
     title: "Payment Terms",
     icon: Scale,
     description:
-      "Payment terms apply to any paid services or subscription plans offered by AUTOMENSOR.",
+      "Payment terms apply to any paid services or subscription plans offered by autommensor.",
     details: [
       "All prices are in the currency specified during checkout",
       "Automatic renewal subscriptions can be cancelled anytime",
@@ -119,7 +119,7 @@ const sections: Section[] = [
     title: "Indemnification",
     icon: FileText,
     description:
-      "You agree to defend and indemnify AUTOMENSOR against any claims arising from your use of our services.",
+      "You agree to defend and indemnify autommensor against any claims arising from your use of our services.",
     details: [
       "You indemnify us for third-party claims",
       "This applies to any unauthorized use of your account",
@@ -190,7 +190,7 @@ export default function TermsOfServiceClient() {
             </h1>
 
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-              Please read these terms carefully. By using AUTOMENSOR services,
+              Please read these terms carefully. By using autommensor services,
               you agree to comply with all terms and conditions outlined below.
             </p>
 
@@ -350,7 +350,7 @@ export default function TermsOfServiceClient() {
               </h3>
               <p className="text-gray-700 leading-relaxed mb-4">
                 These terms are governed by the laws of the jurisdiction where
-                AUTOMENSOR is registered, without regard to conflict of law
+                autommensor is registered, without regard to conflict of law
                 principles.
               </p>
               <ul className="space-y-2 text-sm text-gray-600">
@@ -372,7 +372,7 @@ export default function TermsOfServiceClient() {
               Modifications to Terms
             </h3>
             <p className="text-gray-700 leading-relaxed mb-4">
-              AUTOMENSOR reserves the right to modify these terms at any time. We
+              autommensor reserves the right to modify these terms at any time. We
               will notify you of significant changes via email or through the
               service. Your continued use of our services following the posting of
               revised terms means that you accept and agree to the changes.
@@ -407,10 +407,10 @@ export default function TermsOfServiceClient() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:legal@automensor.com"
+                href="mailto:legal@autommensor.com"
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-purple-600 font-bold rounded-full hover:bg-purple-50 transition-all duration-300 shadow-lg"
               >
-                legal@automensor.com
+                legal@autommensor.com
                 <ArrowRight className="w-4 h-4" />
               </a>
               <Link
@@ -444,7 +444,7 @@ export default function TermsOfServiceClient() {
               Contact Us
             </Link>
             <span className="hidden sm:inline">•</span>
-            <span>© 2024 AUTOMENSOR. All rights reserved.</span>
+            <span>© 2024 autommensor. All rights reserved.</span>
           </motion.div>
         </section>
       </main>

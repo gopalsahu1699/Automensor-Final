@@ -2,21 +2,21 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "AUTOMENSOR",
-    url: "https://automensor.com",
-    logo: "https://automensor.com/logo.png",
+    name: "autommensor",
+    url: "https://autommensor.in",
+    logo: "https://autommensor.in/logo.png",
     description: "Smart home automation solutions made in India",
     foundingDate: "2024",
     sameAs: [
-      "https://twitter.com/automensor",
-      "https://facebook.com/automensor",
-      "https://linkedin.com/company/automensor",
-      "https://youtube.com/@automensor",
+      "https://twitter.com/autommensor",
+      "https://facebook.com/autommensor",
+      "https://linkedin.com/company/autommensor",
+      "https://youtube.com/@autommensor",
     ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",
-      email: "support@automensor.com",
+      email: "support@autommensor.in",
       telephone: "+91-XXXXXXXXXX",
       areaServed: "IN",
       availableLanguage: ["en", "hi"],
@@ -43,12 +43,12 @@ export function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "AUTOMENSOR",
-    image: "https://automensor.com/logo.png",
+    name: "autommensor",
+    image: "https://autommensor.in/logo.png",
     description: "Smart home automation solutions made in India",
-    url: "https://automensor.com",
+    url: "https://autommensor.in",
     telephone: "+91-XXXXXXXXXX",
-    email: "support@automensor.com",
+    email: "support@autommensor.in",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Your Street Address",
@@ -83,9 +83,9 @@ export function ProductSchema() {
     description: "Complete smart home automation solution with IoT devices",
     brand: {
       "@type": "Brand",
-      name: "AUTOMENSOR",
+      name: "autommensor",
     },
-    image: "https://automensor.com/product-image.jpg",
+    image: "https://autommensor.in/product-image.jpg",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
@@ -99,7 +99,7 @@ export function ProductSchema() {
       lowPrice: "15000",
       highPrice: "100000",
       availability: "https://schema.org/InStock",
-      url: "https://automensor.com/estimate-cost-calculator",
+      url: "https://autommensor.in/estimate-cost-calculator",
     },
   };
 
@@ -129,15 +129,15 @@ export function FAQSchema() {
         name: "How much does smart home automation cost?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "AUTOMENSOR offers three packages - Basic starting from ₹15,000, Standard from ₹40,000, and Advanced from ₹70,000. Use our cost calculator for exact pricing.",
+          text: "autommensor offers three packages - Basic starting from ₹15,000, Standard from ₹40,000, and Advanced from ₹70,000. Use our cost calculator for exact pricing.",
         },
       },
       {
         "@type": "Question",
-        name: "Is AUTOMENSOR made in India?",
+        name: "Is autommensor made in India?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, AUTOMENSOR is 100% made in India with world-class technology and Indian innovation.",
+          text: "Yes, autommensor is 100% made in India with world-class technology and Indian innovation.",
         },
       },
     ],

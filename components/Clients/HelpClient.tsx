@@ -33,7 +33,7 @@ interface ContactMethod extends HelpItem {
 const gettingStarted: HelpItem[] = [
   {
     icon: Rocket,
-    title: "How to set up your Automensor home automation system",
+    title: "How to set up your autommensor home automation system",
     color: "text-blue-600",
     bgColor: "bg-blue-50",
   },
@@ -91,8 +91,8 @@ const contactMethods: ContactMethod[] = [
   {
     icon: Mail,
     title: "Email Support",
-    details: ["automensor@gmail.com"],
-    link: "mailto:automensor@gmail.com",
+    details: ["autommensor@gmail.com"],
+    link: "mailto:autommensor@gmail.com",
     color: "text-orange-600",
     bgColor: "bg-orange-50",
   },
@@ -162,7 +162,7 @@ export default function HelpClient(): React.ReactNode {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Welcome to the AUTOMENSOR Help Center. Find answers to common
+            Welcome to the autommensor Help Center. Find answers to common
             questions, troubleshooting guides, and contact details for further
             assistance.
           </motion.p>

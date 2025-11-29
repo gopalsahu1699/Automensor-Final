@@ -168,7 +168,7 @@ export default function AboutClient(): React.ReactNode {
               transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
               className="text-5xl md:text-7xl font-extrabold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-purple-100"
             >
-              About AUTOMENSOR
+              About autommensor
             </motion.h1>
 
             <motion.p
@@ -177,7 +177,7 @@ export default function AboutClient(): React.ReactNode {
               transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
               className="max-w-4xl mx-auto text-lg md:text-2xl mb-12 leading-relaxed text-indigo-100 font-light"
             >
-              Welcome to <span className="font-semibold text-blue-100">AUTOMENSOR</span>, your trusted partner in smart home and building automation. We deliver cutting-edge Wi-Fi-based solutions requiring no special wiring, offering seamless integration for smarter, safer, and more energy-efficient living.
+              Welcome to <span className="font-semibold text-blue-100">autommensor</span>, your trusted partner in smart home and building automation. We deliver cutting-edge Wi-Fi-based solutions requiring no special wiring, offering seamless integration for smarter, safer, and more energy-efficient living.
             </motion.p>
           </div>
         </motion.section>
@@ -342,7 +342,7 @@ export default function AboutClient(): React.ReactNode {
           {/* Why Choose Us */}
           <section className="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 p-12 md:p-16 rounded-3xl border border-blue-200 shadow-lg">
             <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              Why Choose AUTOMENSOR?
+              Why Choose autommensor?
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {whyChooseUs.map((item, index) => {

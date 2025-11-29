@@ -76,7 +76,7 @@ export default function LoadingPage() {
         >
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2 justify-center">
             <Zap className="w-6 h-6 text-blue-600" />
-            Automensor
+            autommensor
           </h2>
           <p className="text-gray-600 text-lg font-medium">Loading your smart home...</p>
         </motion.div>

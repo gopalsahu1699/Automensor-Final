@@ -12,7 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-const WhyAutomensor = () => {
+const Whyautommensor = () => {
   const keyValues = [
     {
       icon: Users,
@@ -71,10 +71,10 @@ const WhyAutomensor = () => {
 
   return (
     <div className="bg-gray-50 py-16 px-6 md:px-16 lg:px-32">
-      {/* Why Automensor Section */}
+      {/* Why autommensor Section */}
       <section className="bg-blue-50 p-8 md:p-12 rounded-2xl mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center text-blue-600">
-          Why Automensor?
+          Why autommensor?
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {keyValues.map((value, index) => {
@@ -137,4 +137,4 @@ const WhyAutomensor = () => {
   );
 };
 
-export default WhyAutomensor;
+export default Whyautommensor;
