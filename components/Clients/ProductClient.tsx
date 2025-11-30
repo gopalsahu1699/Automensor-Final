@@ -126,7 +126,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
     }
   }, [lightboxOpen]);
 
-  // Image navigation - FIXED
+  // Image navigation
   const handlePrevImage = useCallback(() => {
     setCurrentImageIndex((prev) =>
       prev === 0 ? parsedImages.all.length - 1 : prev - 1
@@ -139,7 +139,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
     );
   }, [parsedImages.all.length]);
 
-  // Auto-update main image when index changes - FIXED
+  // Auto-update main image when index changes
   useEffect(() => {
     if (parsedImages.all.length > 0 && currentImageIndex >= 0) {
       setParsedImages((prev) => ({
@@ -151,7 +151,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
 
   // Render description with formatting
   const renderDescription = useCallback((text: string | undefined) => {
-    if (!text) return <p className="text-gray-700">No description available</p>;
+    if (!text) return <p className="text-slate-600">No description available</p>;
 
     const paragraphs = text.split(/\n\n+/);
 
@@ -171,9 +171,9 @@ export default function ProductClient({ productId }: ProductClientProps) {
         return (
           <ListTag
             key={pIndex}
-            className={`mb-4 ml-6 ${
+            className={`mb-6 ml-6 ${
               isOrdered ? "list-decimal" : "list-disc"
-            } text-gray-700 space-y-2`}
+            } text-slate-600 space-y-3`}
           >
             {lines
               .filter((line) => line.trim())
@@ -182,7 +182,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
                   .replace(/^[\s]*[-*•]\s/, "")
                   .replace(/^[\s]*\d+\.\s/, "");
                 return (
-                  <li key={lIndex} className="leading-relaxed">
+                  <li key={lIndex} className="leading-relaxed text-base">
                     {cleanLine}
                   </li>
                 );
@@ -192,7 +192,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
       }
 
       return (
-        <p key={pIndex} className="text-gray-700 text-lg leading-relaxed mb-4">
+        <p key={pIndex} className="text-slate-600 text-base leading-relaxed mb-6">
           {lines.map((line, lIndex) => (
             <span key={lIndex}>
               {line}
@@ -209,14 +209,15 @@ export default function ProductClient({ productId }: ProductClientProps) {
       <>
         <Navbar />
         {loadError ? (
-          <div className="min-h-screen flex items-center justify-center px-6">
-            <div className="max-w-md w-full">
-              <div className="bg-red-50 border border-red-200 rounded-lg p-6 flex items-start gap-4">
-                <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-red-900">Error</h3>
-                  <p className="text-red-700 text-sm mt-1">{loadError}</p>
-                </div>
+          <div className="min-h-screen bg-slate-50 flex items-center justify-center px-6 py-20">
+            <div className="max-w-md w-full text-center">
+              <div className="bg-white border-2 border-slate-200 rounded-3xl p-12 shadow-xl">
+                <AlertCircle className="w-20 h-20 text-slate-400 mx-auto mb-8" />
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Product Not Found</h3>
+                <p className="text-slate-600 mb-8 leading-relaxed">{loadError}</p>
+                <a href="/products" className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-slate-800 transition-all shadow-lg">
+                  ← Back to Products
+                </a>
               </div>
             </div>
           </div>
@@ -236,32 +237,59 @@ export default function ProductClient({ productId }: ProductClientProps) {
   return (
     <>
       <Navbar />
-
-      <motion.div
-        className="px-6 md:px-12 lg:px-24 xl:px-32 py-16"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Images Section */}
+      
+      {/* Professional Hero Section */}
+      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-24 px-6 overflow-hidden relative">
+        <div className="absolute inset-0 bg-grid-slate-800/20" />
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
             <motion.div
+              className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/10 backdrop-blur-xl mb-6 shadow-2xl border border-white/20"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.6, type: "spring" }}
+            >
+              <Package className="w-10 h-10 text-slate-200" />
+            </motion.div>
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-6 leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              {productData.name}
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              Product ID: {productData.$id.slice(-8)}
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="px-6 md:px-12 lg:px-24 xl:px-32 py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            
+            {/* Images Section - Professional */}
+            <motion.section
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
             >
-              {/* Main Image with Navigation */}
-              <div className="relative group">
+              {/* Main Image */}
+              <div className="relative group mb-8">
                 <motion.div
-                  onClick={() => setLightboxImage(currentMainImage)}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      setLightboxImage(currentMainImage);
-                      setLightboxOpen(true);
-                    }
+                  onClick={() => {
+                    setLightboxImage(currentMainImage);
+                    setLightboxOpen(true);
                   }}
-                  className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 mb-6 aspect-square cursor-zoom-in shadow-xl hover:shadow-2xl transition-shadow"
+                  className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 aspect-[4/3] lg:aspect-square cursor-zoom-in shadow-2xl hover:shadow-3xl transition-all duration-500 border border-slate-200 hover:border-slate-300"
                   role="button"
                   tabIndex={0}
                   aria-label="View larger image"
@@ -272,147 +300,128 @@ export default function ProductClient({ productId }: ProductClientProps) {
                     alt={productData.name}
                     priority
                     fill
-                    className="object-contain p-4"
+                    className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-105"
                     draggable={false}
                   />
 
-                  {/* Zoom Icon Overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                  {/* Professional Zoom Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
                     <motion.div
-                      className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 rounded-full p-3"
+                      className="bg-white/95 backdrop-blur-xl rounded-3xl p-4 shadow-2xl border border-white/50"
                       whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring" }}
                     >
-                      <ZoomIn className="w-6 h-6 text-gray-800" />
+                      <ZoomIn className="w-8 h-8 text-slate-800 font-bold" />
                     </motion.div>
                   </div>
                 </motion.div>
 
-                {/* Image Navigation Arrows */}
+                {/* Navigation Arrows */}
                 {parsedImages.all.length > 1 && (
                   <>
                     <motion.button
                       onClick={handlePrevImage}
                       whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-orange-500 z-10"
+                      whileTap={{ scale: 0.95 }}
+                      className="absolute -left-4 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white rounded-3xl p-4 shadow-2xl border border-slate-200 hover:border-slate-300 transition-all backdrop-blur-xl z-20"
                       aria-label="Previous image"
                     >
-                      <ChevronLeft className="w-6 h-6 text-gray-800" />
+                      <ChevronLeft className="w-6 h-6 text-slate-800" />
                     </motion.button>
                     <motion.button
                       onClick={handleNextImage}
                       whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-orange-500 z-10"
+                      whileTap={{ scale: 0.95 }}
+                      className="absolute -right-4 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white rounded-3xl p-4 shadow-2xl border border-slate-200 hover:border-slate-300 transition-all backdrop-blur-xl z-20"
                       aria-label="Next image"
                     >
-                      <ChevronRight className="w-6 h-6 text-gray-800" />
+                      <ChevronRight className="w-6 h-6 text-slate-800" />
                     </motion.button>
                   </>
                 )}
               </div>
 
-              {/* Thumbnail Images */}
+              {/* Thumbnails */}
               {parsedImages.all.length > 1 && (
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 gap-4">
                   {parsedImages.all.map((img, idx) => (
                     <motion.button
                       key={idx}
-                      onClick={() => {
-                        setCurrentImageIndex(idx);
-                      }}
-                      onDoubleClick={() => {
-                        setLightboxImage(img);
-                        setLightboxOpen(true);
-                      }}
-                      className={`relative rounded-xl overflow-hidden aspect-square bg-gray-100 focus:outline-none transition-all ${
+                      onClick={() => setCurrentImageIndex(idx)}
+                      className={`relative rounded-2xl overflow-hidden aspect-square bg-slate-100 shadow-md transition-all border-2 ${
                         currentMainImage === img
-                          ? "ring-4 ring-orange-500 scale-105"
-                          : "ring-2 ring-gray-200 hover:ring-orange-300"
+                          ? "border-slate-900 ring-4 ring-slate-200 shadow-xl scale-105"
+                          : "border-slate-200 hover:border-slate-400 hover:shadow-lg"
                       }`}
                       whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      aria-label={`View image ${idx + 1}`}
-                      aria-pressed={currentMainImage === img}
-                      tabIndex={0}
+                      whileTap={{ scale: 0.98 }}
                     >
                       <Image
                         src={img}
                         alt={`${productData.name} view ${idx + 1}`}
                         fill
-                        className="object-contain p-2"
+                        className="object-cover"
                         draggable={false}
                       />
                     </motion.button>
                   ))}
                 </div>
               )}
-            </motion.div>
+            </motion.section>
 
-            {/* Product Details Section */}
-            <motion.div
-              className="flex flex-col"
+            {/* Product Details - Professional */}
+            <motion.section
+              className="lg:pt-12"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
             >
-              {/* Product Title */}
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <Package className="w-6 h-6 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                    {productData.name}
-                  </h1>
-                  <p className="text-gray-500 mt-2 text-sm">
-                    Product ID: {productData.$id.slice(-8)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Description */}
+              {/* Description Card */}
               <motion.div
-                className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-8 shadow-sm"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+                className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 mb-12 shadow-2xl border border-slate-200/50 hover:shadow-3xl transition-all duration-500"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <Info className="w-5 h-5 text-blue-600" />
-                  <h2 className="text-xl font-semibold text-gray-900">
+                <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
+                  <div className="w-12 h-12 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Info className="w-6 h-6 text-white" />
+                  </div>
+                  <h2 className="text-2xl lg:text-3xl font-black text-slate-900">
                     Product Description
                   </h2>
                 </div>
-                <div className="prose prose-lg max-w-none">
+                <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
                   {renderDescription(productData.description)}
                 </div>
               </motion.div>
 
-              {/* Additional Product Data */}
+              {/* Specifications Card */}
               {Object.entries(productData).some(
                 ([key]) => !excludedFields.includes(key)
               ) && (
                 <motion.div
-                  className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border-2 border-gray-100"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
+                  className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 shadow-2xl border border-slate-200/50 hover:shadow-3xl transition-all duration-500"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.5 }}
                 >
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                    Specifications
-                  </h2>
-                  <div className="space-y-4">
+                  <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
+                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      <Package className="w-6 h-6 text-white" />
+                    </div>
+                    <h2 className="text-2xl lg:text-3xl font-black text-slate-900">
+                      Technical Specifications
+                    </h2>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {Object.entries(productData).map(([key, value]) => {
-                      if (excludedFields.includes(key)) {
-                        return null;
-                      }
+                      if (excludedFields.includes(key)) return null;
 
                       const displayKey = key
                         .replace(/([A-Z])/g, " $1")
-                        .trim()
-                        .charAt(0)
-                        .toUpperCase() + key.replace(/([A-Z])/g, " $1").trim().slice(1);
+                        .replace(/^./, str => str.toUpperCase());
 
                       const displayValue =
                         typeof value === "object"
@@ -420,14 +429,11 @@ export default function ProductClient({ productId }: ProductClientProps) {
                           : String(value || "N/A");
 
                       return (
-                        <div
-                          key={key}
-                          className="flex flex-col pb-4 border-b border-gray-200 last:border-0"
-                        >
-                          <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                        <div key={key} className="group space-y-2 p-6 bg-slate-50/50 rounded-2xl border border-slate-200/50 hover:bg-slate-100 hover:border-slate-300 transition-all">
+                          <span className="text-sm font-semibold text-slate-500 uppercase tracking-wide group-hover:text-slate-700">
                             {displayKey}
                           </span>
-                          <span className="text-gray-900 text-lg font-medium break-words">
+                          <span className="text-slate-900 text-lg font-semibold break-words leading-tight bg-white/60 px-4 py-2 rounded-xl inline-block shadow-sm">
                             {displayValue}
                           </span>
                         </div>
@@ -436,58 +442,67 @@ export default function ProductClient({ productId }: ProductClientProps) {
                   </div>
                 </motion.div>
               )}
-            </motion.div>
+            </motion.section>
           </div>
         </div>
-      </motion.div>
+      </main>
 
       <Footer />
 
-      {/* Lightbox Modal */}
+      {/* Professional Lightbox */}
       <AnimatePresence>
         {lightboxOpen && lightboxImage && (
           <motion.div
             onClick={() => setLightboxOpen(false)}
-            className="fixed inset-0 bg-black/95 flex justify-center items-center z-50 cursor-zoom-out backdrop-blur-sm"
+            className="fixed inset-0 bg-slate-900/98 backdrop-blur-2xl flex items-center justify-center z-[9999] cursor-zoom-out p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            aria-modal="true"
-            role="dialog"
-            tabIndex={-1}
+            transition={{ duration: 0.3 }}
           >
             <motion.button
               onClick={(e) => {
                 e.stopPropagation();
                 setLightboxOpen(false);
               }}
-              className="absolute top-6 right-6 text-white bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-all focus:outline-none focus:ring-4 focus:ring-white/50 z-10"
+              className="absolute top-8 right-8 w-16 h-16 bg-black hover:bg-black backdrop-blur-2xl rounded-3xl flex items-center justify-center text-white text-2xl font-black shadow-2xl border-2 border-white/30 transition-all duration-300 z-10"
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.95 }}
               aria-label="Close image"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
             >
-              <X className="w-6 h-6" />
+              <X className="w-8 h-8" />
             </motion.button>
 
             <motion.div
-              className="relative w-full max-w-6xl max-h-[90vh] p-8"
+              className="relative w-full h-[90vh] max-w-6xl mx-auto"
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
               onClick={(e) => e.stopPropagation()}
+              transition={{ type: "spring", damping: 25 }}
             >
               <Image
                 src={lightboxImage}
                 alt="Product large view"
                 fill
-                className="object-contain"
+                className="object-contain rounded-3xl shadow-3xl"
                 draggable={false}
                 priority
+                quality={95}
               />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <style jsx>{`
+        .bg-grid-slate-800\\/20 {
+          background-image: 
+            linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px);
+          background-size: 40px 40px;
+        }
+      `}</style>
     </>
   );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import AllProductsClient from "@/components/Clients/AllProductsClient";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "All Smart Home Automation Products | autommensor",
@@ -40,7 +42,9 @@ export default function AllProductsPage() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbs} />
+      <Navbar />
       <AllProductsClient />
+      <Footer />
     </>
   );
 }

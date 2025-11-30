@@ -45,10 +45,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await account.createEmailPasswordSession(email, password);
       const currentUser = await account.get();
       setUser(currentUser);
-      toast.success("Login successful");
-    } catch (error) {
-      toast.error("Login failed");
-      throw error;
+    toast.success("✅ Login successful!");
+    } catch (errorMessage) {
+  toast.error("❌ Login failed: " + errorMessage);
+      throw errorMessage;
     }
   };
 
@@ -57,10 +57,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       await account.create(ID.unique(), email, password, name);
       await login(email, password);
-      toast.success("Signup successful");
-    } catch (error) {
-      toast.error("Signup failed");
-      throw error;
+     toast.success("✅ Account created successfully!");
+    } catch (errorMessage) {
+      toast.error("❌ Sign up failed: " + errorMessage);
+      throw errorMessage;
     }
   };
 
@@ -71,10 +71,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         OAuthProvider.Google,
         `${window.location.origin}/`,
         `${window.location.origin}/auth-error`
+        
       );
+        toast.success("✅ Google login successful!");
       // No need to set user here: OAuth redirect reloads the app and triggers effect
     } catch (error) {
-      toast.error("Google login failed");
+      toast.error("❌ Google login failed");
       throw error;
     }
   };
@@ -84,10 +86,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       await account.deleteSession("current");
       setUser(null);
-      toast.success("You are logged out");
+      toast.success("✅ You are logged out");
       router.push("/login");
     } catch (error) {
-      toast.error("Logout failed");
+      toast.error("❌ Logout failed");
       console.error(error);
       throw error;
     }

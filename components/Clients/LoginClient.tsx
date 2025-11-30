@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Lock, LogIn, Loader2, Chrome, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
-import { toast } from "react-toastify";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -46,8 +45,7 @@ export default function LoginClient() {
           window.location.search.includes("code=") &&
           window.location.search.includes("state=")
         ) {
-          // Handle Auth0 redirect callback
-          toast.info("Completing authentication...");
+        
         }
       } catch (err) {
         console.error("Auth0 initialization error:", err);
@@ -112,7 +110,7 @@ export default function LoginClient() {
     setLoading(true);
     try {
       await login(formData.email, formData.password);
-      toast.success("✅ Login successful!");
+      
       router.push("/");
     } catch (err) {
       const errorMessage =
@@ -121,7 +119,7 @@ export default function LoginClient() {
         message: errorMessage || "Invalid email or password. Please try again.",
         type: "general",
       });
-      toast.error("❌ Login failed: " + errorMessage);
+      
     } finally {
       setLoading(false);
     }
@@ -133,7 +131,7 @@ export default function LoginClient() {
     setGoogleLoginLoading(true);
     try {
       await loginWithGoogle();
-      toast.success("✅ Google login successful!");
+    
       router.push("/");
     } catch (err) {
       const errorMessage =
@@ -142,7 +140,7 @@ export default function LoginClient() {
         message: errorMessage,
         type: "general",
       });
-      toast.error("❌ Google login failed");
+     
     } finally {
       setGoogleLoginLoading(false);
     }
@@ -333,7 +331,7 @@ export default function LoginClient() {
               </div>
 
               {/* Google Login Button */}
-              <motion.button
+              {/* <motion.button
                 type="button"
                 onClick={handleGoogleLogin}
                 disabled={loading || googleLoginLoading}
@@ -358,7 +356,7 @@ export default function LoginClient() {
                     <span>Continue with Google</span>
                   </>
                 )}
-              </motion.button>
+              </motion.button> */}
 
               {/* Sign Up Link */}
               <p className="text-sm mt-6 text-center text-gray-600">

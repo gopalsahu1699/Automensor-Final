@@ -16,7 +16,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
-import { toast } from "react-toastify";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -122,7 +122,7 @@ export default function SignupClient() {
     setLoading(true);
     try {
       await signup(formData.email, formData.password, formData.name);
-      toast.success("✅ Account created successfully!");
+      
       router.push("/");
     } catch (err) {
       const errorMessage =
@@ -133,7 +133,7 @@ export default function SignupClient() {
           "Unable to create account. Please check your information and try again.",
         type: "auth",
       });
-      toast.error("❌ Sign up failed: " + errorMessage);
+    
       // Clear password on error for security
       setFormData((prev) => ({ ...prev, password: "" }));
     } finally {
@@ -147,7 +147,7 @@ export default function SignupClient() {
     setGoogleLoading(true);
     try {
       await loginWithGoogle();
-      toast.success("✅ Account created successfully!");
+    
       router.push("/");
     } catch (err) {
       const errorMessage =
@@ -156,7 +156,7 @@ export default function SignupClient() {
         message: errorMessage,
         type: "general",
       });
-      toast.error("❌ Google sign up failed");
+  
     } finally {
       setGoogleLoading(false);
     }
@@ -380,7 +380,7 @@ export default function SignupClient() {
               </div>
 
               {/* Google Sign Up Button */}
-              <motion.button
+              {/* <motion.button
                 type="button"
                 onClick={handleGoogleSignup}
                 disabled={loading || googleLoading}
@@ -405,7 +405,7 @@ export default function SignupClient() {
                     <span>Continue with Google</span>
                   </>
                 )}
-              </motion.button>
+              </motion.button> */}
 
               {/* Login Link */}
               <p className="text-sm mt-6 text-center text-gray-600">

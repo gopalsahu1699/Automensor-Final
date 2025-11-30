@@ -4,8 +4,6 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, Grid3x3, LayoutGrid, Package, Sparkles } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { useAppContext } from "@/context/AppContext";
 
 interface Product {
@@ -20,12 +18,11 @@ const AllProductsClient = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Extract unique categories, include "All" first with proper typing
+  // Extract unique categories
   const categories = useMemo(() => {
     const typedProducts = (products || []) as Product[];
     const allCategories = typedProducts.map((p) => p.category || "Uncategorized");
-    const uniqueCategories: string[] = ["All", ...new Set(allCategories)];
-    return uniqueCategories;
+    return ["All", ...new Set(allCategories)] as string[];
   }, [products]);
 
   // Filter products by category first
@@ -36,19 +33,18 @@ const AllProductsClient = () => {
       : typedProducts.filter((p) => p.category === selectedCategory);
   }, [products, selectedCategory]);
 
-  // Then filter by search term in product name (case-insensitive)
+  // Then filter by search term
   const filteredProducts = useMemo(() => {
     return filteredByCategory.filter((p) =>
       p.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [filteredByCategory, searchTerm]);
 
-  // ✅ FIXED: Proper Framer Motion variants
   const categoryButtonVariants = {
     initial: { scale: 1 },
     hover: { 
       scale: 1.02, 
-      boxShadow: "0 4px 12px rgba(249, 115, 22, 0.3)" 
+      boxShadow: "0 8px 25px rgba(15, 23, 42, 0.2)" 
     },
     tap: { scale: 0.98 },
   };
@@ -58,25 +54,23 @@ const AllProductsClient = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: 0.08,
       },
     },
   };
 
-  // ✅ FIXED: Use easeOut instead of "easeOut" string
   const productItemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
       y: 0, 
       transition: { 
-        duration: 0.4, 
+        duration: 0.5, 
         ease: "easeOut" as const
       } 
     },
   };
 
-  // Get category icon
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case "All":
@@ -90,207 +84,232 @@ const AllProductsClient = () => {
 
   return (
     <>
-      <Navbar />
-
-      {/* Hero Section */}
-      <motion.div
-        className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-16 px-6"
+      {/* Professional Hero Section */}
+      <motion.section
+        className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-24 px-6 relative overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.8 }}
       >
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="absolute inset-0 bg-grid-slate-800/10" />
+        <div className="relative max-w-7xl mx-auto text-center">
           <motion.div
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm mb-6"
+            className="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-white/10 backdrop-blur-xl mb-8 shadow-2xl border border-white/20 mx-auto"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           >
-            <Sparkles className="w-10 h-10" />
+            <Sparkles className="w-12 h-12 text-slate-200" />
           </motion.div>
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-slate-100 via-white to-slate-200 bg-clip-text text-transparent mb-6 leading-tight"
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
           >
             Our Products
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-xl md:text-2xl lg:text-3xl text-slate-300 max-w-3xl mx-auto leading-relaxed backdrop-blur-sm"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
           >
-            Discover our complete range of smart automation solutions
+            Premium smart home automation solutions for modern living
           </motion.p>
         </div>
-      </motion.div>
+      </motion.section>
 
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-20 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Mobile category dropdown */}
-          <div className="lg:hidden w-full">
-            <div className="bg-white rounded-xl shadow-md p-4 border border-gray-200">
-              <label
-                htmlFor="category-select"
-                className="flex items-center gap-2 mb-3 font-semibold text-gray-700 text-lg"
-              >
-                <Filter className="w-5 h-5 text-orange-600" />
-                Category
-              </label>
-              <select
-                id="category-select"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full border-2 border-gray-300 rounded-lg py-3 px-4 text-gray-700 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition bg-gray-50"
-              >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat} {cat === "All" ? `(${typedProducts.length})` : `(${typedProducts.filter(p => p.category === cat).length})`}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Desktop sidebar */}
-          <aside
-            className="hidden lg:block w-72 sticky top-24 self-start"
-            aria-label="Product Categories"
-          >
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <Filter className="w-5 h-5 text-blue-600" />
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900">Categories</h2>
-              </div>
-              <ul className="space-y-2" role="list">
-                {categories.map((cat) => {
-                  const count = cat === "All" ? typedProducts.length : typedProducts.filter(p => p.category === cat).length;
-                  return (
-                    <li key={cat}>
-                      <motion.button
-                        onClick={() => setSelectedCategory(cat)}
-                        initial="initial"
-                        whileHover="hover"
-                        whileTap="tap"
-                        variants={categoryButtonVariants}
-                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500 ${
-                          selectedCategory === cat
-                            ? "bg-gradient-to-r from-orange-600 to-orange-500 text-white shadow-lg"
-                            : "text-gray-700 hover:bg-gray-50 border border-gray-200"
-                        }`}
-                        aria-current={selectedCategory === cat ? "page" : undefined}
-                        aria-label={`Filter products by ${cat}`}
-                      >
-                        <div className="flex items-center gap-3">
-                          {getCategoryIcon(cat)}
-                          <span>{cat}</span>
-                        </div>
-                        <span className={`text-sm px-2.5 py-1 rounded-full ${
-                          selectedCategory === cat
-                            ? "bg-white/20"
-                            : "bg-gray-100"
-                        }`}>
-                          {count}
-                        </span>
-                      </motion.button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </aside>
-
-          {/* Main content */}
-          <main className="flex-1 min-w-0">
-            {/* Search and Header */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-8">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-                <div>
-                  <motion.h2
-                    className="text-2xl md:text-3xl font-bold text-gray-900"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {selectedCategory === "All"
-                      ? "All Products"
-                      : selectedCategory}
-                  </motion.h2>
-                  <p className="text-gray-600 mt-1">
-                    {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
-                  </p>
-                </div>
-              </div>
-
-              {/* Search input */}
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search products by name..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition bg-gray-50"
-                  aria-label="Search products by name"
-                />
-              </div>
-            </div>
-
-            {/* Product listing or messages */}
-            <AnimatePresence mode="wait">
-              {loadingProducts ? (
-                <motion.div
-                  key="loading"
-                  className="flex flex-col justify-center items-center py-32 bg-white rounded-2xl shadow-lg border border-gray-200"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+      {/* Main Content */}
+      <main className="px-6 md:px-12 lg:px-24 xl:px-32 py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 min-h-screen">
+        <div className="max-w-[1800px] mx-auto">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            
+            {/* Mobile Category Dropdown */}
+            <motion.div 
+              className="lg:hidden w-full"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-slate-200/50 hover:shadow-3xl transition-all duration-500">
+                <label className="flex items-center gap-3 mb-4 font-semibold text-slate-700 text-lg">
+                  <Filter className="w-6 h-6 text-slate-600" />
+                  Filter by Category
+                </label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="w-full border-2 border-slate-200 rounded-2xl py-4 px-6 text-slate-700 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-slate-900/20 focus:border-slate-900 transition-all bg-slate-50/50 backdrop-blur-sm shadow-inner"
                 >
-                  <div className="w-16 h-16 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin mb-4"></div>
-                  <p className="text-gray-600 text-lg font-medium">Loading products...</p>
-                </motion.div>
-              ) : filteredProducts.length === 0 ? (
-                <motion.div
-                  key="empty"
-                  className="flex flex-col justify-center items-center py-32 bg-white rounded-2xl shadow-lg border border-gray-200"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                >
-                  <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                    <Package className="w-10 h-10 text-gray-400" />
+                  {categories.map((cat) => {
+                    const count = cat === "All" ? typedProducts.length : typedProducts.filter(p => p.category === cat).length;
+                    return (
+                      <option key={cat} value={cat}>
+                        {cat} ({count})
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </motion.div>
+
+            {/* Desktop Sidebar */}
+            <motion.aside
+              className="hidden lg:block w-80 sticky top-32 self-start"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              aria-label="Product Categories"
+            >
+              <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200/50 p-8 hover:shadow-3xl transition-all duration-500">
+                <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
+                  <div className="w-12 h-12 bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl flex items-center justify-center shadow-lg">
+                    <Filter className="w-6 h-6 text-white" />
                   </div>
-                  <p className="text-gray-600 text-lg font-medium mb-2">No products found</p>
-                  <p className="text-gray-500 text-sm">Try adjusting your search or filter</p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="products"
-                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"
-                  variants={productListVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {filteredProducts.map((product) => (
-                    <motion.div 
-                      key={product.$id} 
-                      variants={productItemVariants}
-                    >
-                      <ProductCard product={product} />
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </main>
-        </div>
-      </div>
+                  <h2 className="text-2xl lg:text-3xl font-black text-slate-900">
+                    Categories
+                  </h2>
+                </div>
+                <ul className="space-y-3" role="list">
+                  {categories.map((cat) => {
+                    const count = cat === "All" ? typedProducts.length : typedProducts.filter(p => p.category === cat).length;
+                    return (
+                      <li key={cat}>
+                        <motion.button
+                          onClick={() => setSelectedCategory(cat)}
+                          variants={categoryButtonVariants}
+                          className={`group w-full flex items-center justify-between px-6 py-4 rounded-2xl font-semibold transition-all duration-400 focus:outline-none focus:ring-4 focus:ring-slate-900/20 ${
+                            selectedCategory === cat
+                              ? "bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-2xl border-2 border-slate-700/50"
+                              : "text-slate-700 hover:bg-slate-50/50 hover:shadow-xl hover:border-slate-300 border border-slate-200/50 bg-white/60"
+                          }`}
+                          aria-current={selectedCategory === cat ? "page" : undefined}
+                        >
+                          <div className="flex items-center gap-4">
+                            {getCategoryIcon(cat)}
+                            <span className="text-lg font-semibold group-hover:translate-x-1 transition-transform">
+                              {cat}
+                            </span>
+                          </div>
+                          <span className={`text-sm px-4 py-2 rounded-2xl font-bold min-w-[44px] text-center shadow-lg ${
+                            selectedCategory === cat
+                              ? "bg-white/30 backdrop-blur-sm text-white"
+                              : "bg-slate-100 text-slate-700"
+                          }`}>
+                            {count}
+                          </span>
+                        </motion.button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </motion.aside>
 
-      <Footer />
+            {/* Main Content */}
+            <motion.section className="flex-1 min-w-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+              
+              {/* Search Header */}
+              <motion.div
+                className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200/50 p-8 lg:p-12 mb-12 hover:shadow-3xl transition-all duration-500"
+                initial={{ y: 30 }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
+                  <div>
+                    <motion.h2
+                      className="text-3xl lg:text-4xl font-black text-slate-900 bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent"
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                    >
+                      {selectedCategory === "All" ? "All Products" : selectedCategory}
+                    </motion.h2>
+                    <motion.p 
+                      className="text-slate-600 text-xl mt-2"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} available
+                    </motion.p>
+                  </div>
+                </div>
+
+                {/* Professional Search */}
+                <div className="relative max-w-2xl mx-auto">
+                  <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Search products by name..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-16 pr-6 py-5 border-2 border-slate-200 rounded-3xl text-slate-700 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-slate-900/20 focus:border-slate-900 transition-all bg-slate-50/50 backdrop-blur-sm shadow-xl hover:shadow-2xl"
+                    aria-label="Search products by name"
+                  />
+                </div>
+              </motion.div>
+
+              {/* Products Grid */}
+              <AnimatePresence mode="wait">
+                {loadingProducts ? (
+                  <motion.div
+                    key="loading"
+                    className="flex flex-col justify-center items-center py-40 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200/50"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="w-20 h-20 border-4 border-slate-200 border-t-slate-900 rounded-3xl animate-spin mb-8 shadow-2xl" />
+                    <p className="text-slate-600 text-2xl font-semibold">Loading products...</p>
+                  </motion.div>
+                ) : filteredProducts.length === 0 ? (
+                  <motion.div
+                    key="empty"
+                    className="flex flex-col justify-center items-center py-40 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200/50 text-center"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                  >
+                    <div className="w-28 h-28 rounded-3xl bg-slate-100/50 backdrop-blur-xl flex items-center justify-center mb-8 shadow-2xl border border-slate-200/30">
+                      <Package className="w-16 h-16 text-slate-400" />
+                    </div>
+                    <h3 className="text-3xl font-black text-slate-900 mb-4">No products found</h3>
+                    <p className="text-xl text-slate-600 max-w-md leading-relaxed">Try adjusting your search terms or category filter</p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="products"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8"
+                    variants={productListVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {filteredProducts.map((product) => (
+                      <motion.div 
+                        key={product.$id} 
+                        variants={productItemVariants}
+                      >
+                        <ProductCard product={product} />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.section>
+          </div>
+        </div>
+      </main>
+
+      <style jsx>{`
+        .bg-grid-slate-800\\/10 {
+          background-image: 
+            linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+          background-size: 60px 60px;
+        }
+      `}</style>
     </>
   );
 };
