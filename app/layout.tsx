@@ -26,8 +26,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://automensor.com"),
-  title: "AUTOMENSOR - Smart Home Automation Made in India",
+  metadataBase: new URL("https://autommensor.in"),
+  title: "autommensor - Smart Home Automation Made in India",
   description:
     "Intelligent home automation solutions for modern living with smart devices and IoT technology. Choose from Basic, Standard, and Advanced packages for homes, villas, and hotels.",
   keywords: [
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     "smart living",
     "home automation solutions",
   ],
-  authors: [{ name: "AUTOMENSOR", url: "https://automensor.com" }],
-  creator: "AUTOMENSOR",
-  publisher: "AUTOMENSOR",
+  authors: [{ name: "autommensor", url: "https://autommensor.in" }],
+  creator: "autommensor",
+  publisher: "autommensor",
   category: "Technology",
   classification: "Smart Home Technology",
   formatDetection: {
@@ -67,51 +67,55 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://automensor.com",
+    canonical: "https://autommensor.in",
     languages: {
-      "en-IN": "https://automensor.com",
+      "en-IN": "https://autommensor.in",
     },
+  },
+  verification: {
+    google: 'google-site-verification: google5722deaa13644eaa.html',  // Paste just the code value
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://automensor.com",
-    siteName: "AUTOMENSOR",
-    title: "AUTOMENSOR - Smart Home Automation Made in India",
+    url: "https://autommensor.in",
+    siteName: "autommensor",
+    title: "autommensor - Smart Home Automation",
     description:
       "Intelligent home automation solutions for modern living with smart IoT devices",
     images: [
       {
-        url: "https://automensor.com/og-image.jpg",
+        url: "https://autommensor.in/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "AUTOMENSOR Smart Home Automation",
+        alt: "autommensor Smart Home Automation",
         type: "image/jpeg",
       },
       {
-        url: "https://automensor.com/og-image-square.jpg",
+        url: "https://autommensor.in/og-image-square.jpg",
         width: 800,
         height: 800,
-        alt: "AUTOMENSOR",
+        alt: "autommensor",
         type: "image/jpeg",
       },
     ],
+    
   },
   twitter: {
     card: "summary_large_image",
-    site: "@automensor",
-    creator: "@automensor",
-    title: "AUTOMENSOR - Smart Home Automation",
+    site: "@autommensor",
+    creator: "@autommensor",
+    title: "autommensor - Smart Home Automation",
     description: "Intelligent home automation solutions made in India",
     images: {
-      url: "https://automensor.com/og-image.jpg",
-      alt: "AUTOMENSOR",
+      url: "https://autommensor.in/og-image.jpg",
+      alt: "autommensor",
     },
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "AUTOMENSOR",
+    title: "autommensor",
   },
   icons: {
     icon: [
@@ -195,22 +199,22 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "AUTOMENSOR",
-              url: "https://automensor.com",
-              logo: "https://automensor.com/logo.png",
+              name: "autommensor",
+              url: "https://autommensor.in",
+              logo: "https://autommensor.in/logo.png",
               description:
                 "Intelligent home automation solutions for modern living",
-              email: "automensor@gmail.com",
+              email: "autommensor@gmail.com",
               telephone: "+91-8718847083",
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "IN",
               },
               sameAs: [
-                "https://www.facebook.com/automensor",
-                "https://www.twitter.com/automensor",
-                "https://www.instagram.com/automensor",
-                "https://www.linkedin.com/company/automensor",
+                "https://www.facebook.com/autommensor",
+                "https://www.twitter.com/autommensor",
+                "https://www.instagram.com/autommensor",
+                "https://www.linkedin.com/company/autommensor",
               ],
             }),
           }}
@@ -218,10 +222,10 @@ export default function RootLayout({
 
         {/* SEO Meta Tags */}
         <meta name="subject" content="Smart Home Automation" />
-        <meta name="copyright" content="AUTOMENSOR" />
+        <meta name="copyright" content="autommensor" />
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
-        <meta name="author" content="AUTOMENSOR" />
+        <meta name="author" content="autommensor" />
       </head>
       <body className={outfit.className}>
         {/* Structured Data Component */}
