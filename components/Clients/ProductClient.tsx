@@ -24,6 +24,7 @@ interface ProductData {
   $id: string;
   name: string;
   description: string;
+  productID?: string; // Added Product ID support
   images: string;
   $createdAt: string;
   $updatedAt: string;
@@ -265,7 +266,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              Product ID: {productData.$id.slice(-8)}
+              Product ID: <span className="font-mono bg-slate-800/50 px-3 py-1 rounded-lg backdrop-blur-sm">{productData.productID || productData.$id.slice(-8)}</span>
             </motion.p>
           </div>
         </div>
@@ -396,9 +397,33 @@ export default function ProductClient({ productId }: ProductClientProps) {
                 </div>
               </motion.div>
 
+              {/* Product ID Card */}
+              {productData.productID && (
+                <motion.div
+                  className="bg-gradient-to-r from-blue-50 to-indigo-50 backdrop-blur-xl rounded-3xl p-8 mb-12 shadow-2xl border border-blue-200/50 hover:shadow-3xl transition-all duration-500"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      <Package className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-black text-slate-900">
+                      Product ID
+                    </h3>
+                  </div>
+                  <div className="bg-white/80 px-8 py-6 rounded-2xl shadow-xl border border-blue-100 backdrop-blur-sm">
+                    <code className="text-2xl font-mono font-bold text-blue-900 bg-blue-100/50 px-6 py-4 rounded-xl block tracking-wide">
+                      {productData.productID}
+                    </code>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Specifications Card */}
               {Object.entries(productData).some(
-                ([key]) => !excludedFields.includes(key)
+                ([key]) => !excludedFields.includes(key) && key !== "productID"
               ) && (
                 <motion.div
                   className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 shadow-2xl border border-slate-200/50 hover:shadow-3xl transition-all duration-500"
@@ -417,7 +442,7 @@ export default function ProductClient({ productId }: ProductClientProps) {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {Object.entries(productData).map(([key, value]) => {
-                      if (excludedFields.includes(key)) return null;
+                      if (excludedFields.includes(key) || key === "productID") return null;
 
                       const displayKey = key
                         .replace(/([A-Z])/g, " $1")

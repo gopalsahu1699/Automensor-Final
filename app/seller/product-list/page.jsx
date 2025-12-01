@@ -47,7 +47,7 @@ export default function ProductList() {
     }
   }, [databases]);
 
-  // Auto-filter as user types
+  // Auto-filter as user types (now includes productID)
   useEffect(() => {
     if (!searchQuery.trim()) {
       setFilteredProducts(products);
@@ -58,6 +58,7 @@ export default function ProductList() {
     const filtered = products.filter(
       (product) =>
         product.name?.toLowerCase().includes(query) ||
+        product.productID?.toLowerCase().includes(query) || // Added productID search
         product.description?.toLowerCase().includes(query) ||
         product.price?.toString().includes(query)
     );
@@ -107,7 +108,7 @@ export default function ProductList() {
       <div className="mb-6">
         <input
           type="text"
-          placeholder="Search products by name, description, or price..."
+          placeholder="Search products by name, ID, description, or price..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -151,6 +152,9 @@ export default function ProductList() {
                 )}
 
                 <h2 className="font-semibold text-lg">{product.name}</h2>
+                <p className="text-sm text-gray-600 mb-1">
+                  ID: <span className="font-mono text-blue-600">{product.productID}</span>
+                </p>
                 <p className="text-gray-600">{product.description}</p>
                 <p className="mt-2">
                   ₹{product.price}{" "}

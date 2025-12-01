@@ -27,6 +27,7 @@ function SellerContent() {
   const [filePreviews, setFilePreviews] = useState([null, null, null, null]);
 
   const [name, setName] = useState("");
+  const [productID, setProductID] = useState(""); // Fixed: consistent casing
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -76,6 +77,7 @@ function SellerContent() {
         .then((doc) => {
           setProductToEdit(doc);
           setName(doc.name || "");
+          setProductID(doc.productID || ""); // Fixed: consistent field name
           setDescription(doc.description || "");
           setCategory(doc.category || "Touch Panel");
 
@@ -155,6 +157,7 @@ function SellerContent() {
 
         await databases.updateDocument(DATABASE_ID, COLLECTION_ID, productToEdit.$id, {
           name,
+          productID, // Fixed: consistent field name
           description, // Stores exactly as typed with line breaks
           category,
           images: JSON.stringify(newImageIds),
@@ -181,6 +184,7 @@ function SellerContent() {
         await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
           images: JSON.stringify(uploadedFiles),
           name,
+          productID, // Fixed: consistent field name
           description, // Stores exactly as typed with line breaks
           category,
         });
@@ -192,6 +196,7 @@ function SellerContent() {
       setFiles([null, null, null, null]);
       setFilePreviews([null, null, null, null]);
       setName("");
+      setProductID(""); // Fixed: reset correct state
       setDescription("");
       setCategory("Touch Panel");
 
@@ -253,6 +258,20 @@ function SellerContent() {
             className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40"
             onChange={(e) => setName(e.target.value)}
             value={name}
+            required
+          />
+        </div>
+        <div className="flex flex-col gap-1 max-w-md">
+          <label htmlFor="product-id" className="text-base font-medium">
+            Product ID
+          </label>
+          <input
+            id="product-id"
+            type="text"
+            placeholder="Type here"
+            className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500/40"
+            onChange={(e) => setProductID(e.target.value)} // Fixed: correct onChange handler
+            value={productID} // Fixed: correct value binding
             required
           />
         </div>

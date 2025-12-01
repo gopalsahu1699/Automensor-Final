@@ -85,7 +85,7 @@ function CallToAction() {
               <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              href="/products"
+              href="/all-products"
               className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/40 px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <Sparkles className="w-5 h-5" />

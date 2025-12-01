@@ -10,6 +10,7 @@ interface Product {
   $id: string;
   name: string;
   category?: string;
+  productID?: string; // Added for Product ID support
   [key: string]: any;
 }
 
@@ -33,10 +34,12 @@ const AllProductsClient = () => {
       : typedProducts.filter((p) => p.category === selectedCategory);
   }, [products, selectedCategory]);
 
-  // Then filter by search term
+  // Then filter by search term (now includes productID)
   const filteredProducts = useMemo(() => {
     return filteredByCategory.filter((p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.productID?.toLowerCase().includes(searchTerm.toLowerCase()) || // Added Product ID search
+      p.description?.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [filteredByCategory, searchTerm]);
 
@@ -237,16 +240,16 @@ const AllProductsClient = () => {
                   </div>
                 </div>
 
-                {/* Professional Search */}
+                {/* Professional Search - Updated placeholder */}
                 <div className="relative max-w-2xl mx-auto">
                   <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
                   <input
                     type="text"
-                    placeholder="Search products by name..."
+                    placeholder="Search products by name, ID, or description..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-16 pr-6 py-5 border-2 border-slate-200 rounded-3xl text-slate-700 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-slate-900/20 focus:border-slate-900 transition-all bg-slate-50/50 backdrop-blur-sm shadow-xl hover:shadow-2xl"
-                    aria-label="Search products by name"
+                    aria-label="Search products by name, ID, or description"
                   />
                 </div>
               </motion.div>
