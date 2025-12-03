@@ -19,6 +19,7 @@ interface ContactInfo {
   details: string[];
   color: string;
   bgColor: string;
+  link?: string;
 }
 
 const contactInfo: ContactInfo[] = [
@@ -35,11 +36,13 @@ const contactInfo: ContactInfo[] = [
     details: ["autommensor@gmail.com"],
     color: "text-green-600",
     bgColor: "bg-green-50",
+    link: "mailto:autommensor@gmail.com",
+   
   },
   {
     icon: MapPin,
     title: "Location",
-    details: ["India"],
+    details: ["Chhattisgarh-India"],
     color: "text-orange-600",
     bgColor: "bg-orange-50",
   },
@@ -53,11 +56,11 @@ const contactInfo: ContactInfo[] = [
 ];
 
 const whyChooseItems: string[] = [
-  "10 Year Warranty on All Products",
+  "10 Year Warranty on  Products",
   "24/7 Customer Support",
   "Free Installation Consultation",
-  "Wi-Fi Based - No Special Wiring",
-  "Custom Solutions for Your Home",
+  "Wi-Fi Based - No Special Wiring required",
+  "Custom automation Solutions for Your Home",
 ];
 
 interface ContactFormState {
@@ -127,7 +130,7 @@ export default function ContactClient(): React.ReactNode {
           >
             Get in Touch With{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-purple-200">
-              autommensor
+              Autommensor
             </span>
           </motion.h1>
 
@@ -153,38 +156,54 @@ export default function ContactClient(): React.ReactNode {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            {contactInfo.map((info, index) => {
-              const IconComponent = info.icon;
-              return (
-                <motion.div
-                  key={index}
-                  className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-blue-100"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div
-                    className={`w-14 h-14 rounded-2xl ${info.bgColor} flex items-center justify-center mb-4`}
-                  >
-                    <IconComponent
-                      className={`w-7 h-7 ${info.color}`}
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                  <h3 className="font-bold text-lg text-slate-900 mb-3">
-                    {info.title}
-                  </h3>
-                  <div className="space-y-1">
-                    {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-slate-600 font-medium text-sm">
-                        {detail}
-                      </p>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
+           {contactInfo.map((info, index) => {
+  const IconComponent = info.icon;
+  return (
+    <motion.div
+      key={index}
+      className="bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-blue-100"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4 + index * 0.1 }}
+      whileHover={{ scale: 1.02 }}
+    >
+      <div
+        className={`w-14 h-14 rounded-2xl ${info.bgColor} flex items-center justify-center mb-4`}
+      >
+        <IconComponent
+          className={`w-7 h-7 ${info.color}`}
+          strokeWidth={1.5}
+        />
+      </div>
+      <h3 className="font-bold text-lg text-slate-900 mb-3">
+        {info.title}
+      </h3>
+      <div className="space-y-1">
+        {info.details.map((detail, idx) => {
+          // Check if this item has a link defined
+          const isClickable = info.link && idx === 0;
+          const linkUrl = isClickable ? info.link : undefined;
+          
+          return isClickable ? (
+            <a
+              key={idx}
+              href={linkUrl}
+              className="block text-slate-600 font-bold text-sm hover:text-blue-600 hover:underline transition-colors cursor-pointer group"
+            >
+              {detail}
+             
+            </a>
+          ) : (
+            <p key={idx} className="text-slate-600 font-medium text-sm">
+              {detail}
+            </p>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+})}
+
           </motion.div>
 
           {/* Contact Form Section */}
@@ -341,28 +360,7 @@ export default function ContactClient(): React.ReactNode {
                 </ul>
               </div>
 
-              {/* Quick Response Card */}
-              <motion.div
-                className="bg-white rounded-3xl p-8 shadow-lg border border-blue-100"
-                whileHover={{ y: -4 }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <Clock className="w-6 h-6 text-orange-600" strokeWidth={1.5} />
-                  <h3 className="text-xl font-bold text-slate-900">
-                    Quick Response
-                  </h3>
-                </div>
-                <p className="text-slate-600 leading-relaxed mb-4 font-light">
-                  We typically respond to all inquiries within 2-4 hours during
-                  business hours. For urgent matters, please call us directly.
-                </p>
-                <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100">
-                  <p className="text-sm font-semibold text-orange-800 mb-1">
-                    Emergency Support
-                  </p>
-                  <p className="text-orange-600 font-bold">+91-8985602913</p>
-                </div>
-              </motion.div>
+           
 
               {/* Social Proof */}
               <motion.div

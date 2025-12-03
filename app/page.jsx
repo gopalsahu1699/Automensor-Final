@@ -95,36 +95,18 @@ const Home = () => {
                 Autommensor
               </span>
             </h1>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h3 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Smart Homes & Buildings
-            </h2>
+            </h3>
           </motion.div>
 
           {/* Subtitle */}
-       <motion.p
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, delay: 0.4 }}
+    <motion.p
   className="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed"
 >
-  <motion.span
-    animate={{
-      color: ["rgb(191, 219, 254)", "rgb(253, 224, 71)", "rgb(191, 219, 254)"],
-      textShadow: [
-        "0 0 10px rgba(59, 130, 246, 0)",
-        "0 0 20px rgba(253, 224, 71, 0.8)",
-        "0 0 10px rgba(59, 130, 246, 0)",
-      ],
-    }}
-    transition={{
-      duration: 2,
-      repeat: Infinity,
-      repeatType: "loop",
-    }}
-  >
-    "A Wi-Fi Based Home Automation System that does not require any special wiring."
-  </motion.span>
+  "A Wi-Fi Based Home Automation System that does not require any special wiring."
 </motion.p>
+
 
 
 

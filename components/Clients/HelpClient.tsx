@@ -16,6 +16,7 @@ import {
   MessageCircle,
   Mail,
   ArrowRight,
+  Clock,
 } from "lucide-react";
 
 interface HelpItem {
@@ -176,7 +177,96 @@ export default function HelpClient(): React.ReactNode {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          {/* Getting Started Section */}
+  
+
+          {/* Contact Support Section */}
+          <motion.section
+            className="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 rounded-3xl p-8 md:p-12 shadow-xl border border-blue-200"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent text-center">
+              Contact Support
+            </h2>
+            <p className="text-slate-700 text-lg mb-12 text-center max-w-2xl mx-auto font-light">
+              If you can&apos;t find what you need here, please reach out to our
+              support team. We&rsquo;re here to help!
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {contactMethods.map((method, index) => {
+                const IconComponent = method.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="group bg-white rounded-2xl p-6 hover:shadow-lg transition-all duration-300 border border-blue-100 hover:border-blue-300"
+                  >
+                    <div
+                      className={`w-16 h-16 rounded-2xl ${method.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                    >
+                      <IconComponent
+                        className={`w-8 h-8 ${method.color}`}
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold mb-4 text-slate-900">
+                      {method.title}
+                    </h3>
+                    <div className="space-y-2">
+                      {method.details.map((detail, idx) => (
+                        <p key={idx} className="text-slate-700 font-medium">
+                          {method.link ? (
+                            <a
+                              href={method.link}
+                              className={`${method.color} hover:underline inline-flex items-center gap-2 group/link`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {detail}
+                              <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                            </a>
+                          ) : (
+                            detail
+                          )}
+                        </p>
+                      ))}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.section>
+
+             {/* Quick Response Card */}
+                        <motion.div
+                          className="bg-white rounded-3xl p-8 shadow-lg border border-blue-100"
+                          whileHover={{ y: -4 }}
+                        >
+                          <div className="flex items-center gap-3 mb-4">
+                            <Clock className="w-6 h-6 text-orange-600" strokeWidth={1.5} />
+                            <h3 className="text-xl font-bold text-slate-900">
+                              Quick Response
+                            </h3>
+                          </div>
+                          <p className="text-slate-600 leading-relaxed mb-4 font-light">
+                            We typically respond to all inquiries within  hours during
+                            business hours. For urgent matters, please call us directly.
+                          </p>
+                          <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100">
+                            <p className="text-sm font-semibold text-orange-800 mb-1">
+                              Emergency Support
+                            </p>
+                            <p className="text-orange-600 font-bold">+91-7987814261</p>
+                          </div>
+                        </motion.div>
+                                {/* Getting Started Section */}
           <motion.section
             variants={containerVariants}
             initial="hidden"
@@ -244,71 +334,6 @@ export default function HelpClient(): React.ReactNode {
                     <p className="text-slate-800 font-medium leading-relaxed">
                       {item.title}
                     </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.section>
-
-          {/* Contact Support Section */}
-          <motion.section
-            className="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 rounded-3xl p-8 md:p-12 shadow-xl border border-blue-200"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent text-center">
-              Contact Support
-            </h2>
-            <p className="text-slate-700 text-lg mb-12 text-center max-w-2xl mx-auto font-light">
-              If you can&apos;t find what you need here, please reach out to our
-              support team. We&rsquo;re here to help!
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {contactMethods.map((method, index) => {
-                const IconComponent = method.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group bg-white rounded-2xl p-6 hover:shadow-lg transition-all duration-300 border border-blue-100 hover:border-blue-300"
-                  >
-                    <div
-                      className={`w-16 h-16 rounded-2xl ${method.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                    >
-                      <IconComponent
-                        className={`w-8 h-8 ${method.color}`}
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                    <h3 className="text-xl font-bold mb-4 text-slate-900">
-                      {method.title}
-                    </h3>
-                    <div className="space-y-2">
-                      {method.details.map((detail, idx) => (
-                        <p key={idx} className="text-slate-700 font-medium">
-                          {method.link ? (
-                            <a
-                              href={method.link}
-                              className={`${method.color} hover:underline inline-flex items-center gap-2 group/link`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              {detail}
-                              <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
-                            </a>
-                          ) : (
-                            detail
-                          )}
-                        </p>
-                      ))}
-                    </div>
                   </motion.div>
                 );
               })}

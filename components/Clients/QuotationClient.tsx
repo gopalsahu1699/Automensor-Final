@@ -55,12 +55,12 @@ const benefits: Benefit[] = [
 ];
 
 const features: string[] = [
-  "Free site survey and assessment",
-  "Customized automation solutions",
-  "Transparent pricing with no hidden costs",
-  "10-year warranty on all products",
-  "Professional installation included",
-  "Lifetime technical support",
+   "🏠 FREE home assessment - we come to you",
+  "👨‍👩‍👧‍👦Customized automation solutions according to your home layout, room count, and family needs", 
+  "💰 No surprises - fully transparent pricing",
+  "🛡️ 10-year warranty on  product",
+  "🔧 Installation by certified experts",
+  "♾️ Lifetime support - we're always here",
 ];
 
 const processSteps: ProcessStep[] = [
@@ -266,13 +266,13 @@ export default function QuotationClient() {
               <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
                 <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                 <div className="text-3xl font-extrabold text-blue-600 mb-2">
-                  10+ Years
+                  2+ Years
                 </div>
                 <p className="text-gray-700 font-medium">
                   Industry Experience
                 </p>
                 <p className="text-sm text-gray-600 mt-2">
-                  Trusted by 500+ homeowners
+                  Trusted by 200+ homeowners
                 </p>
               </div>
             </motion.div>

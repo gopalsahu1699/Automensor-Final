@@ -249,32 +249,7 @@ export default function EstimateCostCalculatorClient() {
           />
         </motion.header>
 
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={mounted ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16"
-        >
-          {[
-            { label: "Active Users", value: "10K+", icon: Home },
-            { label: "Total Devices", value: "50+", icon: Zap },
-            { label: "Success Rate", value: "98%", icon: TrendingUp },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg sm:rounded-xl p-6 text-center border border-gray-200 shadow-sm hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <stat.icon className="w-8 h-8 text-orange-600 mx-auto mb-3" />
-              <p className="text-3xl font-bold text-gray-900">
-                {stat.value}
-              </p>
-              <p className="text-sm text-gray-600 mt-2">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </motion.div>
+      
 
         {/* Products Grid */}
         <motion.div
@@ -303,19 +278,13 @@ export default function EstimateCostCalculatorClient() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/contact-us"
               className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold rounded-full hover:from-orange-700 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             >
               Contact Experts
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-white text-orange-600 font-bold rounded-full border-2 border-orange-600 hover:bg-orange-50 transition-all duration-300 shadow-sm"
-            >
-              View Pricing
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+           
           </div>
         </motion.div>
       </div>

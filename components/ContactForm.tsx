@@ -121,11 +121,11 @@ export default function ContactForm() {
           required
           value={formData.name}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm"
+          className="w-full border bg-white text-black  border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm"
           placeholder="Your full name"
           disabled={loading}
           autoComplete="name"
-        />
+        /> 
       </div>
 
       {/* Email */}
@@ -140,7 +140,7 @@ export default function ContactForm() {
           required
           value={formData.email}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm"
+          className="w-full border bg-white text-black border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm"
           placeholder="you@example.com"
           disabled={loading}
           autoComplete="email"
@@ -159,7 +159,7 @@ export default function ContactForm() {
           required
           value={formData.phone}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm"
+          className="w-full border bg-white text-black border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm"
           placeholder="+91-XXXXXXXXXX"
           disabled={loading}
           autoComplete="tel"
@@ -177,7 +177,7 @@ export default function ContactForm() {
           required
           value={formData.type}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm bg-white"
+          className="w-full border bg-white text-black border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm bg-white"
           disabled={loading}
         >
           <option value="">Select property type</option>
@@ -202,7 +202,7 @@ export default function ContactForm() {
           required
           value={formData.message}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm resize-none"
+          className="w-full border bg-white text-black border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-sm resize-none"
           placeholder="Tell us about your requirement..."
           disabled={loading}
         />

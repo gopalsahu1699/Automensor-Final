@@ -17,12 +17,14 @@ import {
   HelpCircle,
   Shield,
   Send,
+    ImageIcon,
 } from "lucide-react";
 
 const RouteLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/about-us", label: "About Us", icon: Info },
   { href: "/contact-us", label: "Contact Us", icon: Send },
+  { href: "/gallery", label: "Gallery", icon: ImageIcon },
   { href: "/help", label: "Help", icon: HelpCircle },
   { href: "/privacy-policy", label: "Privacy Policy", icon: Shield },
 ];
@@ -86,9 +88,9 @@ const Footer = () => {
           {/* About Section */}
           <div className="lg:col-span-1">
             {/* FIXED: Removed brightness-0 invert classes */}
-            <div className="bg-white/10 p-3 rounded-lg inline-block mb-6">
+            <div className="bg-white/10 p-1 rounded-lg inline-block mb-6">
               <Image
-                className="w-32"
+                className="w-32 bg-white rounded-lg"
                 src={assets.logo}
                 width={140}
                 height={40}
@@ -96,7 +98,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">
-              autommensor specializes in innovative, wireless home automation solutions designed to enhance comfort, security, and energy efficiency.
+              Autommensor specializes in innovative, wireless home automation solutions designed to enhance comfort, security, and energy efficiency.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <MapPin className="w-4 h-4 text-blue-400" />

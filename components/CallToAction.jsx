@@ -101,14 +101,26 @@ function CallToAction() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 shadow-xl hover:bg-white/20 transition-all min-w-[250px]">
-              <Phone className="w-5 h-5 text-lime-300" />
-              <span className="font-semibold">+91-8718847083</span>
-            </div>
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 shadow-xl hover:bg-white/20 transition-all min-w-[250px]">
-              <Mail className="w-5 h-5 text-lime-300" />
-              <span className="font-semibold">autommensor@gmail.com</span>
-            </div>
+            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 shadow-xl hover:bg-white/20 transition-all min-w-[250px] group">
+  <Phone className="w-5 h-5 text-lime-300 group-hover:scale-110 transition-transform" />
+  <a 
+    href="tel:+918718847083"
+    className="font-semibold hover:text-white/90 transition-colors cursor-pointer block w-full"
+  >
+    +91-8718847083
+  </a>
+</div>
+
+           <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 shadow-xl hover:bg-white/20 transition-all min-w-[250px] group">
+  <Mail className="w-5 h-5 text-lime-300 group-hover:scale-110 transition-transform" />
+  <a 
+    href="mailto:autommensor@gmail.com"
+    className="font-semibold hover:text-white/90 transition-colors cursor-pointer block w-full"
+  >
+    autommensor@gmail.com
+  </a>
+</div>
+
           </motion.div>
         </div>
 
