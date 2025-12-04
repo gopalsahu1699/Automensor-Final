@@ -9,7 +9,7 @@ const HeaderSlider = () => {
     {
       id: 1,
       title: "Smart Home Automation Made Simple & Affordable",
-      offer: "Get flat 10% Off On Your First Installation!",
+      offer: "Get flat 5% Off On Your First Installation!",
       buttonText1: "Request Quote",
       buttonLink1: "/quotation",
       buttonText2: "Learn More",
@@ -29,7 +29,7 @@ const HeaderSlider = () => {
     {
       id: 3,
       title: "Experience The Future",
-      offer: "Get Free Installation!",
+      offer: "Get 10% off on first Installation!",
       buttonText1: "Get Started",
       buttonLink1: "/get-started",
       buttonText2: "Explore Plans",

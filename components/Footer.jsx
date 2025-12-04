@@ -95,6 +95,7 @@ const Footer = () => {
                 width={140}
                 height={40}
                 alt="autommensor logo"
+                priority
               />
             </div>
             <p className="text-sm leading-relaxed text-gray-400 mb-6">

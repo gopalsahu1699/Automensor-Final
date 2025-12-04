@@ -422,51 +422,51 @@ export default function ProductClient({ productId }: ProductClientProps) {
               )}
 
               {/* Specifications Card */}
-              {Object.entries(productData).some(
+              {/* {Object.entries(productData).some(
                 ([key]) => !excludedFields.includes(key) && key !== "productID"
               ) && (
-                <motion.div
-                  className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 shadow-2xl border border-slate-200/50 hover:shadow-3xl transition-all duration-500"
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
-                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-                      <Package className="w-6 h-6 text-white" />
-                    </div>
-                    <h2 className="text-2xl lg:text-3xl font-black text-slate-900">
-                      Technical Specifications
-                    </h2>
-                  </div>
+                // <motion.div
+                //   className="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 shadow-2xl border border-slate-200/50 hover:shadow-3xl transition-all duration-500"
+                //   initial={{ y: 30, opacity: 0 }}
+                //   animate={{ y: 0, opacity: 1 }}
+                //   transition={{ delay: 0.5 }}
+                // >
+                //   <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
+                //     <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
+                //       <Package className="w-6 h-6 text-white" />
+                //     </div>
+                //     <h2 className="text-2xl lg:text-3xl font-black text-slate-900">
+                //       Technical Specifications
+                //     </h2>
+                //   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {Object.entries(productData).map(([key, value]) => {
-                      if (excludedFields.includes(key) || key === "productID") return null;
+                //   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                //     {Object.entries(productData).map(([key, value]) => {
+                //       if (excludedFields.includes(key) || key === "productID") return null;
 
-                      const displayKey = key
-                        .replace(/([A-Z])/g, " $1")
-                        .replace(/^./, str => str.toUpperCase());
+                //       const displayKey = key
+                //         .replace(/([A-Z])/g, " $1")
+                //         .replace(/^./, str => str.toUpperCase());
 
-                      const displayValue =
-                        typeof value === "object"
-                          ? JSON.stringify(value, null, 2)
-                          : String(value || "N/A");
+                //       const displayValue =
+                //         typeof value === "object"
+                //           ? JSON.stringify(value, null, 2)
+                //           : String(value || "N/A");
 
-                      return (
-                        <div key={key} className="group space-y-2 p-6 bg-slate-50/50 rounded-2xl border border-slate-200/50 hover:bg-slate-100 hover:border-slate-300 transition-all">
-                          <span className="text-sm font-semibold text-slate-500 uppercase tracking-wide group-hover:text-slate-700">
-                            {displayKey}
-                          </span>
-                          <span className="text-slate-900 text-lg font-semibold break-words leading-tight bg-white/60 px-4 py-2 rounded-xl inline-block shadow-sm">
-                            {displayValue}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-              )}
+                //       return (
+                //         <div key={key} className="group space-y-2 p-6 bg-slate-50/50 rounded-2xl border border-slate-200/50 hover:bg-slate-100 hover:border-slate-300 transition-all">
+                //           <span className="text-sm font-semibold text-slate-500 uppercase tracking-wide group-hover:text-slate-700">
+                //             {displayKey}
+                //           </span>
+                //           <span className="text-slate-900 text-lg font-semibold break-words leading-tight bg-white/60 px-4 py-2 rounded-xl inline-block shadow-sm">
+                //             {displayValue}
+                //           </span>
+                //         </div>
+                //       );
+                //     })}
+                //   </div>
+                // </motion.div>
+              )} */}
             </motion.section>
           </div>
         </div>

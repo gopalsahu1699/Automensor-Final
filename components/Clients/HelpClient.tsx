@@ -1,7 +1,6 @@
-// HelpClient.tsx
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import {
   HelpCircle,
@@ -17,36 +16,85 @@ import {
   Mail,
   ArrowRight,
   Clock,
+  X,
 } from "lucide-react";
 
 interface HelpItem {
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   title: string;
+  description: string;
+  solution: string;
   color: string;
   bgColor: string;
 }
 
-interface ContactMethod extends HelpItem {
+interface ContactMethod {
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  title: string;
   details: string[];
   link?: string;
+  color: string;
+  bgColor: string;
 }
 
 const gettingStarted: HelpItem[] = [
   {
     icon: Rocket,
     title: "How to set up your autommensor home automation system",
+    description: "Complete setup guide from unboxing to full control",
+    solution: `**Step-by-Step Setup Guide:**
+
+1. **Unbox & Power On**: Connect hub to power outlet near router
+2. **Wi-Fi Setup**: Download autommensor app → Scan QR code on hub
+3. **Add Devices**: Press 'Add Device' → Follow device-specific pairing
+4. **Room Mapping**: Assign devices to rooms via app
+5. **Test Controls**: Verify all lights/switches respond
+
+**Pro Tip**: Keep hub within 10m of router for best signal. Takes ~15 mins total.`,
     color: "text-blue-600",
     bgColor: "bg-blue-50",
   },
   {
     icon: Wifi,
     title: "Connecting devices to Wi-Fi and configuring controls",
+    description: "Pair any smart device with your autommensor network",
+    solution: `**Wi-Fi Connection Steps:**
+
+1. **Open App** → Devices → Add Device
+2. **Device Mode**: Put device in pairing mode (usually hold reset 5s)
+3. **Select Network**: Choose your 2.4GHz Wi-Fi (not 5GHz)
+4. **Enter Password**: App auto-configures device
+5. **Signal Test**: App shows signal strength (aim for 80%+)
+
+**Troubleshooting**:
+- Use 2.4GHz network only
+- Router should be WPA2 security
+- Restart router if connection fails
+- Max 15 devices per hub`,
     color: "text-green-600",
     bgColor: "bg-green-50",
   },
   {
     icon: Smartphone,
     title: "Using the mobile app for remote access",
+    description: "Control your home from anywhere with our app",
+    solution: `**Mobile App Setup:**
+
+**iOS/Android Download**:
+• App Store / Play Store → "autommensor"
+• Requires iOS 14+ / Android 9+
+
+**Remote Access**:
+1. Enable "Remote Control" in Settings
+2. Login with same account on all devices
+3. Add family members via "Share Access"
+
+**Key Features**:
+• Live camera feeds • Voice control (Alexa/Google)
+• Schedule automation • Energy usage tracking
+• Guest access codes • Motion sensor alerts
+
+**Security**: End-to-end encryption + biometric login`,
     color: "text-purple-600",
     bgColor: "bg-purple-50",
   },
@@ -56,18 +104,69 @@ const troubleshooting: HelpItem[] = [
   {
     icon: Settings,
     title: "Resolving connectivity issues",
+    description: "Fix Wi-Fi drops, offline devices, and network problems",
+    solution: `**Connectivity Troubleshooting:**
+
+**Quick Fixes**:
+1. **Restart Everything**: Hub → Router → Devices (30s power cycle each)
+2. **Check Signal**: App → Network Status (Red = <50% signal)
+3. **Reboot Hub**: Settings → Advanced → Restart Hub
+4. **Wi-Fi Channel**: Router admin → Set Channel 1, 6, or 11
+
+**Common Issues**:
+• **Device Offline**: Move closer to hub (<15m range)
+• **Hub Offline**: Check internet + restart router
+• **Slow Response**: Reduce 5GHz interference
+
+**When to Call**: 3+ devices offline > 30 mins`,
     color: "text-orange-600",
     bgColor: "bg-orange-50",
   },
   {
     icon: RefreshCw,
     title: "Resetting devices securely",
+    description: "Safe reset procedures for hub and smart devices",
+    solution: `**Safe Reset Procedures:**
+
+**Hub Reset** (keeps your settings):
+1. App → Settings → Hub → Restart
+2. Wait 2 mins for full reboot
+
+**Factory Reset Hub** (wipes everything):
+1. Hold hub reset button 10s (LED flashes red)
+2. Re-setup from scratch
+
+**Device Reset**:
+• **Lights/Switches**: Hold power button 5s
+• **Sensors**: Remove battery 30s, reinsert
+• **Cameras**: Settings → Device → Reset
+
+**⚠️ Backup First**: Export settings before factory reset`,
     color: "text-red-600",
     bgColor: "bg-red-50",
   },
   {
     icon: Download,
     title: "Firmware updates and installation tips",
+    description: "Keep your system updated and running smoothly",
+    solution: `**Firmware Update Guide:**
+
+**Auto Updates** (Recommended):
+• App → Settings → Auto Update → ON
+• Updates during 2-4 AM (low usage)
+
+**Manual Updates**:
+1. App → Hub → Firmware → Check for Updates
+2. Download → Install (5-10 mins, devices offline)
+3. Hub LED pulses blue during update
+
+**Update Tips**:
+• ✅ Stable Wi-Fi required (80%+ signal)
+• ✅ Keep hub powered (use UPS)
+• ✅ Update 1 device type at a time
+• ❌ Don't interrupt (wait 15 mins post-update)
+
+**Latest Version**: v2.3.1 (Dec 2025) - Security + performance`,
     color: "text-indigo-600",
     bgColor: "bg-indigo-50",
   },
@@ -121,7 +220,51 @@ const itemVariants: Variants = {
   },
 };
 
-export default function HelpClient(): React.ReactNode {
+const HelpClient = () => {
+  const [selectedItem, setSelectedItem] = useState<HelpItem | null>(null);
+
+  const closePopup = () => {
+    setSelectedItem(null);
+  };
+
+  const PopupModal = ({ item }: { item: HelpItem }) => (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/70 backdrop-blur-md animate-in fade-in zoom-in duration-300">
+      <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Close Button */}
+        <button
+          onClick={closePopup}
+          className="absolute -top-4 -right-4 w-14 h-14 bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl flex items-center justify-center hover:bg-red-50 hover:scale-110 transition-all duration-300 border-4 border-white/80 hover:border-red-200 z-20"
+        >
+          <X className="w-7 h-7 text-red-500" />
+        </button>
+
+        {/* Modal Content */}
+        <div className="bg-gradient-to-br from-white via-blue-50 to-indigo-50 rounded-3xl shadow-2xl border border-blue-100 p-10 relative overflow-hidden">
+          {/* Gradient Header Bar */}
+          <div className={`absolute top-0 left-0 right-0 h-3 bg-gradient-to-r ${item.color.replace('text-', 'from-')} via-blue-500 to-blue-600 rounded-t-3xl`}></div>
+          
+          {/* Icon Header */}
+          <div className="flex items-center justify-center mb-8">
+          <div className={`w-24 h-24 ${item.bgColor} rounded-3xl flex items-center justify-center shadow-2xl border-4 border-white/50`}>
+  <item.icon className={`${item.color.replace('text-', '')} drop-shadow-2xl w-10 h-10`} strokeWidth={1.5} />
+</div>
+
+          </div>
+
+          <h3 className="text-3xl font-black text-center bg-gradient-to-r from-gray-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent mb-6 px-4 leading-tight">
+            {item.title}
+          </h3>
+
+          <div className="text-xl text-gray-700 leading-relaxed mb-10 text-center max-w-2xl mx-auto px-4">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-blue-100 prose prose-sm max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: item.solution.replace(/\n/g, '<br/>') }} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-slate-100">
       {/* Enhanced Background */}
@@ -177,7 +320,6 @@ export default function HelpClient(): React.ReactNode {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-  
 
           {/* Contact Support Section */}
           <motion.section
@@ -192,7 +334,7 @@ export default function HelpClient(): React.ReactNode {
             </h2>
             <p className="text-slate-700 text-lg mb-12 text-center max-w-2xl mx-auto font-light">
               If you can&apos;t find what you need here, please reach out to our
-              support team. We&rsquo;re here to help!
+              support team. We&apos;re here to help!
             </p>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -244,29 +386,30 @@ export default function HelpClient(): React.ReactNode {
             </div>
           </motion.section>
 
-             {/* Quick Response Card */}
-                        <motion.div
-                          className="bg-white rounded-3xl p-8 shadow-lg border border-blue-100"
-                          whileHover={{ y: -4 }}
-                        >
-                          <div className="flex items-center gap-3 mb-4">
-                            <Clock className="w-6 h-6 text-orange-600" strokeWidth={1.5} />
-                            <h3 className="text-xl font-bold text-slate-900">
-                              Quick Response
-                            </h3>
-                          </div>
-                          <p className="text-slate-600 leading-relaxed mb-4 font-light">
-                            We typically respond to all inquiries within  hours during
-                            business hours. For urgent matters, please call us directly.
-                          </p>
-                          <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100">
-                            <p className="text-sm font-semibold text-orange-800 mb-1">
-                              Emergency Support
-                            </p>
-                            <p className="text-orange-600 font-bold">+91-7987814261</p>
-                          </div>
-                        </motion.div>
-                                {/* Getting Started Section */}
+          {/* Quick Response Card */}
+          <motion.div
+            className="bg-white rounded-3xl p-8 shadow-lg border border-blue-100"
+            whileHover={{ y: -4 }}
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <Clock className="w-6 h-6 text-orange-600" strokeWidth={1.5} />
+              <h3 className="text-xl font-bold text-slate-900">
+                Quick Response
+              </h3>
+            </div>
+            <p className="text-slate-600 leading-relaxed mb-4 font-light">
+              We typically respond to all inquiries within 2 hours during
+              business hours. For urgent matters, please call us directly.
+            </p>
+            <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100">
+              <p className="text-sm font-semibold text-orange-800 mb-1">
+                Emergency Support
+              </p>
+              <p className="text-orange-600 font-bold">+91-7987814261</p>
+            </div>
+          </motion.div>
+
+          {/* Getting Started Section - Clickable */}
           <motion.section
             variants={containerVariants}
             initial="hidden"
@@ -284,26 +427,35 @@ export default function HelpClient(): React.ReactNode {
                   <motion.div
                     key={index}
                     variants={itemVariants}
-                    className="group bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-blue-100 hover:border-blue-300"
+                    className="group bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-blue-100 hover:border-blue-300 cursor-pointer relative overflow-hidden"
+                    onClick={() => setSelectedItem(item)}
+                    whileHover={{ scale: 1.02 }}
                   >
-                    <div
-                      className={`w-16 h-16 rounded-2xl ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                    >
-                      <IconComponent
-                        className={`w-8 h-8 ${item.color}`}
-                        strokeWidth={1.5}
-                      />
+                    <div className="relative z-10">
+                      <div
+                        className={`w-16 h-16 rounded-2xl ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                      >
+                        <IconComponent
+                          className={`w-8 h-8 ${item.color}`}
+                          strokeWidth={1.5}
+                        />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
                     </div>
-                    <p className="text-slate-800 font-medium leading-relaxed">
-                      {item.title}
-                    </p>
+                    {/* Click Indicator */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </motion.div>
                 );
               })}
             </div>
           </motion.section>
 
-          {/* Troubleshooting Section */}
+          {/* Troubleshooting Section - Clickable */}
           <motion.section
             variants={containerVariants}
             initial="hidden"
@@ -321,19 +473,28 @@ export default function HelpClient(): React.ReactNode {
                   <motion.div
                     key={index}
                     variants={itemVariants}
-                    className="group bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-blue-100 hover:border-blue-300"
+                    className="group bg-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-blue-100 hover:border-blue-300 cursor-pointer relative overflow-hidden"
+                    onClick={() => setSelectedItem(item)}
+                    whileHover={{ scale: 1.02 }}
                   >
-                    <div
-                      className={`w-16 h-16 rounded-2xl ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                    >
-                      <IconComponent
-                        className={`w-8 h-8 ${item.color}`}
-                        strokeWidth={1.5}
-                      />
+                    <div className="relative z-10">
+                      <div
+                        className={`w-16 h-16 rounded-2xl ${item.bgColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                      >
+                        <IconComponent
+                          className={`w-8 h-8 ${item.color}`}
+                          strokeWidth={1.5}
+                        />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-orange-600 transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
                     </div>
-                    <p className="text-slate-800 font-medium leading-relaxed">
-                      {item.title}
-                    </p>
+                    {/* Click Indicator */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </motion.div>
                 );
               })}
@@ -342,31 +503,36 @@ export default function HelpClient(): React.ReactNode {
         </motion.main>
       </div>
 
+      {/* Popup Modal */}
+      {selectedItem && <PopupModal item={selectedItem} />}
+
       <style jsx>{`
         @keyframes floatSlow {
-          0%,
-          100% {
-            transform: translateY(0) translateX(0);
-          }
-          50% {
-            transform: translateY(-20px) translateX(15px);
-          }
+         0%,
+         100% {
+           transform: translateY(0) translateX(0);
+         }
+         50% {
+           transform: translateY(-20px) translateX(15px);
+         }
         }
         .animate-floatSlow {
-          animation: floatSlow 8s ease-in-out infinite;
+         animation: floatSlow 8s ease-in-out infinite;
         }
         .animation-delay-2000 {
-          animation-delay: 2s;
+         animation-delay: 2s;
         }
         .bg-grid-pattern {
-          background-image: radial-gradient(
-            circle,
-            rgba(59, 130, 246, 0.08) 1px,
-            transparent 1px
-          );
-          background-size: 30px 30px;
+         background-image: radial-gradient(
+           circle,
+           rgba(59, 130, 246, 0.08) 1px,
+           transparent 1px
+         );
+         background-size: 30px 30px;
         }
       `}</style>
     </div>
   );
-}
+};
+
+export default HelpClient;

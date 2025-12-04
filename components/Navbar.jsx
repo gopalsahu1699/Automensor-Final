@@ -286,7 +286,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Image src={assets.logo} alt="autommensor logo" width={140} height={40} priority />
+            <Image src={assets.logo} alt="autommensor logo" width={140} height={40} priority  />
           </motion.div>
 
           {/* Desktop Navigation - NO LOGIN REQUIRED (UPDATED ICONS) */}

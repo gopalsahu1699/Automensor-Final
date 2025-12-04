@@ -81,11 +81,11 @@ const Whyautommensor = () => {
         {/* Modal Content */}
         <div className="bg-gradient-to-br from-white via-blue-50 to-indigo-50 rounded-3xl shadow-2xl border border-blue-100 p-10 relative overflow-hidden">
           {/* Gradient Header Bar */}
-          <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-orange-500 via-blue-500 to-indigo-600 rounded-t-3xl"></div>
+          <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 rounded-t-3xl"></div>
           
           {/* Icon Header */}
           <div className="flex items-center justify-center mb-8">
-            <div className="w-24 h-24 bg-gradient-to-r from-orange-500 to-blue-500 rounded-3xl flex items-center justify-center shadow-2xl border-4 border-white/50">
+            <div className="w-24 h-24 bg-gradient-to-r from-blue-400 to-blue-500 rounded-3xl flex items-center justify-center shadow-2xl border-4 border-white/50">
               <item.icon size={40} className="text-white drop-shadow-2xl" />
             </div>
           </div>
@@ -97,8 +97,6 @@ const Whyautommensor = () => {
           <p className="text-xl text-gray-700 leading-relaxed mb-10 text-center max-w-lg mx-auto px-4">
             {item.description}
           </p>
-
-       
         </div>
       </div>
     </div>
@@ -108,16 +106,16 @@ const Whyautommensor = () => {
     <div className="relative bg-gradient-to-br from-gray-50 via-white to-blue-50 py-24  overflow-hidden min-h-screen">
       {/* Animated Background */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-32 left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+        <div className="absolute top-32 left-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
         <div className="absolute top-64 right-24 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-2000"></div>
-        <div className="absolute bottom-32 left-1/2 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-4000"></div>
+        <div className="absolute bottom-32 left-1/2 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl animate-pulse animation-delay-4000"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Why autommensor Section */}
         <section className="bg-white/70 backdrop-blur-xl p-10 md:p-16 rounded-3xl mb-20 shadow-2xl border border-white/50">
-          <h2 className="text-5xl md:text-7xl font-black mb-12 text-center bg-gradient-to-r from-orange-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent leading-tight">
-            Why <span className="text-orange-600">autommensor</span>?
+          <h2 className="text-5xl md:text-7xl font-black mb-12 text-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 bg-clip-text text-transparent leading-tight">
+            Why <span className="text-blue-500">autommensor</span>?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {keyValues.map((value, index) => {
@@ -128,7 +126,7 @@ const Whyautommensor = () => {
                   className="group relative cursor-pointer h-full"
                   onClick={() => setSelectedValue(value)}
                 >
-                  <div className="relative p-10 rounded-3xl bg-gradient-to-br from-white to-orange-50 shadow-xl hover:shadow-2xl border border-orange-100/50 hover:border-orange-200 hover:-translate-y-4 transition-all duration-700 h-full flex flex-col items-center text-center">
+                  <div className="relative p-10 rounded-3xl bg-gradient-to-br from-white to-blue-50 shadow-xl hover:shadow-2xl border border-blue-100/50 hover:border-blue-200 hover:-translate-y-4 transition-all duration-700 h-full flex flex-col items-center text-center">
                     {/* Shine Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl"></div>
                     
@@ -136,17 +134,17 @@ const Whyautommensor = () => {
                     <div className="relative z-10 w-20 h-20 mb-6 flex items-center justify-center">
                       <IconComponent 
                         size={48} 
-                        className="text-orange-600 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 stroke-[1.8]"
+                        className="text-blue-500 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 stroke-[1.8]"
                       />
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-orange-600 transition-colors px-2 leading-tight">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-500 transition-colors px-2 leading-tight">
                       {value.title}
                     </h3>
                     
                     {/* Hover Spark */}
-                    <div className="absolute top-6 right-6 w-12 h-12 bg-orange-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center scale-0 group-hover:scale-100">
-                      <TrendingUp className="w-6 h-6 text-orange-500" />
+                    <div className="absolute top-6 right-6 w-12 h-12 bg-blue-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center scale-0 group-hover:scale-100">
+                      <TrendingUp className="w-6 h-6 text-blue-500" />
                     </div>
                   </div>
                 </div>
@@ -157,8 +155,8 @@ const Whyautommensor = () => {
 
         {/* What Makes Us Different Section */}
         <section className="bg-white/80 backdrop-blur-xl p-10 md:p-16 rounded-3xl shadow-2xl border border-white/50">
-          <h2 className="text-5xl md:text-7xl font-black mb-12 text-center bg-gradient-to-r from-orange-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent leading-tight">
-            What Makes Us <span className="text-orange-600">Different</span>
+          <h2 className="text-5xl md:text-7xl font-black mb-12 text-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 bg-clip-text text-transparent leading-tight">
+            What Makes Us <span className="text-blue-500">Different</span>
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {differentiators.map((diff, index) => {
@@ -169,7 +167,7 @@ const Whyautommensor = () => {
                   className="group relative cursor-pointer h-full"
                   onClick={() => setSelectedDiff(diff)}
                 >
-                  <div className="relative p-10 rounded-3xl bg-gradient-to-br from-gray-50 to-blue-50 shadow-xl hover:shadow-2xl border border-blue-100/50 hover:border-orange-200 hover:-translate-y-4 transition-all duration-700 h-full flex flex-col items-center text-center">
+                  <div className="relative p-10 rounded-3xl bg-gradient-to-br from-gray-50 to-blue-50 shadow-xl hover:shadow-2xl border border-blue-100/50 hover:border-blue-200 hover:-translate-y-4 transition-all duration-700 h-full flex flex-col items-center text-center">
                     {/* Shine Effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl"></div>
                     
@@ -177,28 +175,23 @@ const Whyautommensor = () => {
                     <div className="relative z-10 w-20 h-20 mb-6 flex items-center justify-center">
                       {diff.title === "10 Year Warranty" ? (
                         <div className="relative">
-                          <ShieldCheck size={48} className="text-orange-600 group-hover:scale-110 transition-all duration-500 stroke-[1.8]" />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-white font-black text-lg bg-orange-600 px-2 py-1 rounded-lg shadow-lg border-2 border-white">
-                              10Y
-                            </span>
-                          </div>
+                          <ShieldCheck size={48} className="text-blue-500 group-hover:scale-110 transition-all duration-500 stroke-[1.8]" />
                         </div>
                       ) : (
                         <IconComponent 
                           size={48} 
-                          className="text-orange-600 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 stroke-[1.8]"
+                          className="text-blue-500 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 stroke-[1.8]"
                         />
                       )}
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-orange-600 transition-colors px-2 leading-tight">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-500 transition-colors px-2 leading-tight">
                       {diff.title}
                     </h3>
                     
                     {/* Hover Spark */}
-                    <div className="absolute top-6 right-6 w-12 h-12 bg-orange-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center scale-0 group-hover:scale-100">
-                      <TrendingUp className="w-6 h-6 text-orange-500" />
+                    <div className="absolute top-6 right-6 w-12 h-12 bg-blue-400/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 flex items-center justify-center scale-0 group-hover:scale-100">
+                      <TrendingUp className="w-6 h-6 text-blue-500" />
                     </div>
                   </div>
                 </div>
@@ -218,10 +211,10 @@ const Whyautommensor = () => {
 
       <style jsx>{`
         @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
+         0% { transform: translate(0px, 0px) scale(1); }
+         33% { transform: translate(30px, -50px) scale(1.1); }
+         66% { transform: translate(-20px, 20px) scale(0.9); }
+         100% { transform: translate(0px, 0px) scale(1); }
         }
         .animation-delay-2000 { animation-delay: 2s; }
         .animation-delay-4000 { animation-delay: 4s; }
