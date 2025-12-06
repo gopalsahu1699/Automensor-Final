@@ -149,7 +149,7 @@ const Home = () => {
             className="grid grid-cols-3 gap-8 mt-16 max-w-2xl mx-auto"
           >
             {[
-              { value: "10+", label: "Years Warranty" },
+              { value: "10", label: "Years Warranty" },
               { value: "200+", label: "Happy Customers" },
               { value: "100%", label: "Wi-Fi Based" },
             ].map((stat, index) => (
