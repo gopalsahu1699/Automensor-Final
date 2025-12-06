@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-      "baseUrl": ".",
-       "paths": {
-      "@/*": ["./*"]
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
     },
     "target": "ES2017",
     "lib": [
@@ -20,7 +22,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "plugins": [
       {
         "name": "next"
@@ -31,8 +33,16 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "components/Clients/AboutClient.tsx", "components/Clients/MyAccountClient.tsx", "components/Clients/ContactClient.tsx", "components/Clients/GalleryClient.tsx", "app/help/page.tsx", "components/Clients/HelpClient.tsx", "components/Clients/AllProductsClient.tsx"  ],
+    "**/*.tsx",
+    "components/Clients/AboutClient.tsx",
+    "components/Clients/MyAccountClient.tsx",
+    "components/Clients/ContactClient.tsx",
+    "components/Clients/GalleryClient.tsx",
+    "app/help/page.tsx",
+    "components/Clients/HelpClient.tsx",
+    "components/Clients/AllProductsClient.tsx",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
