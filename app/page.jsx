@@ -14,7 +14,6 @@ import MarketNeed from "@/components/MarketNeed";
 import CallToAction from "@/components/CallToAction";
 import Loading from "@/components/Loading";
 
-
 const Home = () => {
   const [loading, setLoading] = useState(true);
 
@@ -24,27 +23,31 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return (
     <>
       <Navbar />
-      
+
       {/* Hero Section - Modern Gradient Background */}
       <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
         {/* Animated Background Gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900">
           {/* Animated Circles */}
           <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div
+            className="absolute bottom-1/4 -right-20 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
         </div>
 
         {/* Grid Pattern Overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -70,14 +73,24 @@ const Home = () => {
             <motion.div
               className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center"
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.2,
+              }}
             >
               <Zap className="w-10 h-10 text-orange-400" />
             </motion.div>
             <motion.div
               className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center"
               animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.4,
+              }}
             >
               <Wifi className="w-8 h-8 text-blue-400" />
             </motion.div>
@@ -101,14 +114,10 @@ const Home = () => {
           </motion.div>
 
           {/* Subtitle */}
-    <motion.p
-  className="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed"
->
-  "A Wi-Fi Based Home Automation System that does not require any special wiring."
-</motion.p>
-
-
-
+          <motion.p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto leading-relaxed text-white">
+            "A Wi-Fi Based Home Automation System that does not require any
+            special wiring."
+          </motion.p>
 
           {/* CTA Buttons */}
           <motion.div
@@ -170,7 +179,6 @@ const Home = () => {
 
       {/* Content Sections */}
       <div className="bg-gray-50">
-
         {/* Additional Interactive Sections */}
         <section className="py-20 bg-white">
           <HeaderSlider />
@@ -184,13 +192,13 @@ const Home = () => {
           <HowYouCanControl />
         </section>
 
-          {/* Call to Action */}
+        {/* Call to Action */}
         <section className="py-20">
           <CallToAction />
         </section>
 
-          {/* Market Needs */}
-         <section className="py-20">
+        {/* Market Needs */}
+        <section className="py-20">
           <MarketNeed />
         </section>
 

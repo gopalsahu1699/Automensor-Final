@@ -10,11 +10,38 @@ import {
   CheckCircle,
   Clock,
   Award,
+  Phone,
+  Mail,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { account } from "@/lib/appwrite";
+
+interface ContactInfo {
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  title: string;
+  details: string[];
+  color: string;
+  bgColor: string;
+  link?: string;
+}
+
+const contactInfo: ContactInfo[] = [
+  {
+    icon: Phone,
+    title: "Phone",
+    details: ["+91-8718847083", "+91-8085782471"],
+    color: "text-emerald-600",
+    bgColor: "bg-emerald-50",
+  },
+  {
+    icon: Mail,
+    title: "Email",
+    details: ["autommensor@gmail.com"],
+    color: "text-green-600",
+    bgColor: "bg-green-50",
+    link: "mailto:autommensor@gmail.com",
+  },
+];
 
 interface Benefit {
   icon: React.ComponentType<{ className?: string }>;
@@ -55,10 +82,10 @@ const benefits: Benefit[] = [
 ];
 
 const features: string[] = [
-   "🏠 FREE home assessment - we come to you",
-  "👨‍👩‍👧‍👦Customized automation solutions according to your home layout, room count, and family needs", 
+  "🏠 FREE home assessment - we come to you",
+  "👨‍👩‍👧‍👦Customized automation solutions according to your home layout, room count, and family needs",
   "💰 No surprises - fully transparent pricing",
-  "🛡️ 10-year warranty on  product",
+  "🛡️ 10-year warranty on product",
   "🔧 Installation by certified experts",
   "♾️ Lifetime support - we're always here",
 ];
@@ -75,15 +102,11 @@ const processSteps: ProcessStep[] = [
     title: "Receive Quote",
     desc: "Get detailed pricing within 24 hours",
   },
-  {
-    step: "4",
-    title: "Get Started",
-    desc: "Approve and begin installation",
-  },
+  { step: "4", title: "Get Started", desc: "Approve and begin installation" },
 ];
 
 export default function QuotationClient() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   // Check if user is logged in for personalization
@@ -91,9 +114,9 @@ export default function QuotationClient() {
     const checkAuth = async () => {
       try {
         const user = await account.get();
-        setIsAdmin(!!user);
+        setIsLoggedIn(!!user);
       } catch {
-        setIsAdmin(false);
+        setIsLoggedIn(false);
       } finally {
         setCheckingAuth(false);
       }
@@ -103,20 +126,14 @@ export default function QuotationClient() {
 
   if (checkingAuth) {
     return (
-      <>
-        <Navbar />
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
-          <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
-        </div>
-        <Footer />
-      </>
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
+        <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+      </div>
     );
   }
 
   return (
     <>
-      <Navbar />
-
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 text-white py-20 px-6">
         <div className="absolute inset-0 overflow-hidden">
@@ -155,8 +172,9 @@ export default function QuotationClient() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl md:text-2xl text-green-100 max-w-3xl mx-auto"
           >
-            Fill out the form below and our expert team will provide a
-            customized quote tailored to your smart home needs
+            {isLoggedIn
+              ? "Welcome back! Get your customized quote instantly."
+              : "Fill out the form below and our expert team will provide a customized quote tailored to your smart home needs"}
           </motion.p>
         </div>
       </div>
@@ -195,6 +213,62 @@ export default function QuotationClient() {
             })}
           </motion.div>
 
+          {/* Add this NEW section after Hero, before Benefits */}
+          {/* Contact Info Cards */}
+          <motion.div
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {contactInfo.map((info, index) => {
+              const IconComponent = info.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-green-100"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <div
+                    className={`w-14 h-14 rounded-2xl ${info.bgColor} flex items-center justify-center mb-4 shadow-lg`}
+                  >
+                    <IconComponent
+                      className={`w-7 h-7 ${info.color}`}
+                      strokeWidth={1.5}
+                    />
+                  </div>
+                  <h3 className="font-bold text-lg text-gray-900 mb-3">
+                    {info.title}
+                  </h3>
+                  <div className="space-y-1">
+                    {info.details.map((detail, idx) => {
+                      const isClickable = info.link && idx === 0;
+                      return isClickable ? (
+                        <a
+                          key={idx}
+                          href={info.link!}
+                          className="block text-gray-700 font-bold text-sm hover:text-green-600 hover:underline transition-colors"
+                        >
+                          {detail}
+                        </a>
+                      ) : (
+                        <p
+                          key={idx}
+                          className="text-gray-600 font-medium text-sm"
+                        >
+                          {detail}
+                        </p>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
           {/* Two Column Layout */}
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: Form */}
@@ -212,7 +286,11 @@ export default function QuotationClient() {
                     <h2 className="text-2xl font-bold text-gray-900">
                       Get Your Quote
                     </h2>
-                    <p className="text-gray-600">Fill in your details below</p>
+                    <p className="text-gray-600">
+                      {isLoggedIn
+                        ? "Pre-filled details detected"
+                        : "Fill in your details below"}
+                    </p>
                   </div>
                 </div>
                 <ContactForm />
@@ -226,11 +304,12 @@ export default function QuotationClient() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              {/* What&apos;s Included Card */}
+              {/* What's Included Card */}
               <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
                 <div className="flex items-center gap-3 mb-6">
                   <Home className="w-6 h-6 text-green-600" />
                   <h3 className="text-xl font-bold text-gray-900">
+                    {" "}
                     What&apos;s Included
                   </h3>
                 </div>
@@ -266,11 +345,9 @@ export default function QuotationClient() {
               <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 text-center">
                 <Zap className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                 <div className="text-3xl font-extrabold text-blue-600 mb-2">
-                  2+ Years
+                  3+ Years
                 </div>
-                <p className="text-gray-700 font-medium">
-                  Industry Experience
-                </p>
+                <p className="text-gray-700 font-medium">Industry Experience</p>
                 <p className="text-sm text-gray-600 mt-2">
                   Trusted by 200+ homeowners
                 </p>
@@ -279,8 +356,6 @@ export default function QuotationClient() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }

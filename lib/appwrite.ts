@@ -1,22 +1,22 @@
 // lib/appwrite.js
 "use client";
 
-import { Client, Account, Databases, Storage } from "appwrite";
+import { Client, Account, Databases, Storage, ID } from "appwrite"; // ← ADD ID HERE
 
 const client = new Client()
-  .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT) // e.g., 'https://fra.cloud.appwrite.io/v1'
-  .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
+  .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
+  .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
 
 export const account = new Account(client);
 export const databases = new Databases(client);
 export const storage = new Storage(client);
+export { ID }; // ← EXPORT ID
 
-// Database IDs
+// ... rest of your existing exports unchanged
 export const PRODUCT_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_DATABASE_ID;
 export const PRODUCT_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCT_COLLECTION_ID;
 export const MARKET_NEED_DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID;
 export const MARKET_NEED_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID;
-
 // Fetch products
 export async function getProducts() {
   try {
