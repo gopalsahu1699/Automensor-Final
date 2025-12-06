@@ -5,20 +5,23 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Gallery - Smart Home Automation Projects | autommensor",
-  description: "Browse our portfolio of smart home automation projects. See real-world examples of smart door locks, automated blinds, voice assistants, and more.",
+  title: "Smart Home Gallery Bilaspur Raipur | Home Automation Projects",
+  description: "View Autommensor smart home gallery in Bilaspur Raipur. Real 2BHK/3BHK projects, Alexa Google installations, smart lighting, security systems Chhattisgarh.",
   keywords: [
-    "smart home gallery",
-    "automation projects",
-    "smart home examples",
-    "portfolio",
-    "smart devices showcase",
-    "installation examples",
-    "automation showcase",
+    "smart home gallery Bilaspur",
+    "home automation projects Raipur",
+    "smart home installation gallery Chhattisgarh",
+    "Alexa Google smart home Raipur Bilaspur",
+    "2BHK smart home projects Bilaspur",
+    "3BHK home automation gallery Raipur",
+    "smart lighting installation photos",
+    "Autommensor gallery Bilaspur Raipur",
+    "home automation case studies Chhattisgarh",
+    "smart home project showcase",
   ],
   openGraph: {
-    title: "Smart Home Automation Gallery | autommensor",
-    description: "Explore our real-world smart home automation projects and installations",
+    title: "Smart Home Gallery - Bilaspur Raipur Projects",
+    description: "Real-world home automation projects in Bilaspur Raipur. See 2BHK/3BHK smart homes, Alexa installations, lighting automation.",
     url: "https://autommensor.in/gallery",
     type: "website",
     images: [
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/gallery/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "autommensor Gallery",
+        alt: "Autommensor Smart Home Gallery Bilaspur Raipur",
       },
     ],
   },

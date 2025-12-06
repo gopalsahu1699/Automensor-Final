@@ -5,20 +5,23 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact Us | autommensor - Smart Home Automation Support",
-  description: "Get in touch with autommensor's expert team. We're here to help with your smart home automation questions, free consultation, and 24/7 support.",
+  title: "Contact Autommensor - Home Automation Bilaspur Raipur",
+  description: "Contact Autommensor Automation for home automation services in Bilaspur, Raipur & Chhattisgarh. Free consultation, Alexa Google smart home installation, system support.",
   keywords: [
-    "contact autommensor",
-    "smart home support",
-    "customer service",
-    "automation consultation",
-    "contact us",
-    "customer support",
-    "get in touch",
+    "home automation Bilaspur",
+    "home automation Raipur",
+    "contact home automation Raipur",
+    "home automation services Bilaspur",
+    "Alexa Google installation Raipur Bilaspur",
+    "smart home support Chhattisgarh",
+    "Autommensor Automation contact",
+    "home automation consultation Raipur",
+    "smart home installation Bilaspur",
+    "Autommensor Bilaspur Raipur",
   ],
   openGraph: {
-    title: "Contact autommensor - Get Expert Help",
-    description: "Reach out to our team for smart home automation solutions and support",
+    title: "Contact Autommensor - Home Automation Bilaspur Raipur",
+    description: "Get free smart home consultation in Bilaspur Raipur. Home automation system installation, Alexa Google setup, 24/7 support.",
     url: "https://autommensor.in/contact-us",
     type: "website",
     images: [
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-contact.jpg",
         width: 1200,
         height: 630,
-        alt: "Contact autommensor",
+        alt: "Contact Autommensor Home Automation Bilaspur Raipur",
       },
     ],
   },

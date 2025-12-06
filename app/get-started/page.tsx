@@ -1,4 +1,3 @@
-// app/get-started/page.tsx
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
@@ -6,20 +5,23 @@ import Footer from "@/components/Footer";
 import GetStartedClient from "@/components/Clients/GetStartedClient";
 
 export const metadata: Metadata = {
-  title: "Get Started | autommensor - Smart Home Automation Guide",
-  description: "Start your smart home journey with autommensor. Learn how to automate lights, fans, ACs, gates & more in 5 simple steps. Free consultation available.",
+  title: "Home Automation Guide Bilaspur Raipur | Get Started Autommensor",
+  description: "Get started with home automation in Bilaspur Raipur. 5-step guide for smart home setup, Alexa Google installation, lighting automation Chhattisgarh.",
   keywords: [
-    "get started autommensor",
-    "smart home automation guide",
-    "home automation setup",
-    "smart home installation",
-    "automate my home",
-    "smart home beginner guide",
-    "home automation india",
+    "home automation guide Bilaspur",
+    "get started home automation Raipur",
+    "smart home setup Chhattisgarh",
+    "Alexa Google installation guide Raipur",
+    "home automation installation steps Bilaspur",
+    "smart home beginner guide Chhattisgarh",
+    "how to automate home Raipur Bilaspur",
+    "Autommensor get started guide",
+    "2BHK smart home installation process",
+    "smart lighting setup tutorial Raipur",
   ],
   openGraph: {
-    title: "Get Started with autommensor - Smart Home Automation",
-    description: "Step-by-step guide to automate your home with autommensor. Control lights, fans, ACs & gates from your phone.",
+    title: "Get Started Home Automation - Bilaspur Raipur Guide",
+    description: "Step-by-step home automation guide for Bilaspur Raipur. Alexa setup, smart lighting, security installation process.",
     url: "https://autommensor.in/get-started",
     type: "website",
     images: [
@@ -27,7 +29,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-get-started.jpg",
         width: 1200,
         height: 630,
-        alt: "Get Started with autommensor Smart Home Automation",
+        alt: "Home Automation Guide Bilaspur Raipur - Autommensor",
       },
     ],
   },

@@ -5,20 +5,23 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "About autommensor - Smart Home Automation Solutions",
-  description: "Learn about autommensor, your trusted partner in smart home and building automation. Discover our mission, values, and innovative Wi-Fi-based solutions.",
+  title: "About Autommensor Automation - Home Automation Bilaspur Raipur",
+  description: "Discover Autommensor Automation, Chhattisgarh's leading home automation company in Bilaspur and Raipur. Smart home solutions, Alexa Google installation, and complete automation services for modern homes.",
   keywords: [
-    "about autommensor",
-    "smart home company",
-    "automation solutions",
-    "company mission",
-    "smart living technology",
-    "innovation",
-    "customer-centric",
+    "home automation Bilaspur",
+    "home automation Raipur",
+    "smart home automation Chhattisgarh",
+    "home automation services Raipur Bilaspur",
+    "Alexa Google smart home installation Raipur Bilaspur",
+    "Autommensor Automation Bilaspur",
+    "Autommensor Automation Raipur",
+    "smart home company Chhattisgarh",
+    "home automation system installation Raipur",
+    "about autommensor automation",
   ],
   openGraph: {
-    title: "About autommensor - Smart Home Automation",
-    description: "Revolutionizing smart living with cutting-edge automation technology",
+    title: "About Autommensor - Smart Home Automation Bilaspur Raipur",
+    description: "Leading home automation company serving Bilaspur, Raipur and Chhattisgarh with smart home solutions, Alexa & Google Home integration.",
     url: "https://autommensor.in/about-us",
     type: "website",
     images: [
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-about.jpg",
         width: 1200,
         height: 630,
-        alt: "autommensor - About Us",
+        alt: "Autommensor Automation - Home Automation Bilaspur Raipur",
       },
     ],
   },
