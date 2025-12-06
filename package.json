@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.3.0",
-    "@clerk/nextjs": "^6.31.6",
     "appwrite": "^19.0.0",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.542.0",
