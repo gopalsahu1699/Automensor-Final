@@ -6,7 +6,8 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "All Smart Home Automation Products | autommensor",
-  description: "Browse our complete range of smart home automation products. Motion sensors, touch panels, door locks, smart switches, and more. Find the perfect solution for your home.",
+  description:
+    "Browse our complete range of smart home automation products. Motion sensors, touch panels, door locks, smart switches, and more. Find the perfect solution for your home.",
   keywords: [
     "smart home products",
     "automation devices",

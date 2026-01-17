@@ -5,23 +5,24 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact Autommensor - Home Automation Bilaspur Raipur",
-  description: "Contact Autommensor Automation for home automation services in Bilaspur, Raipur & Chhattisgarh. Free consultation, Alexa Google smart home installation, system support.",
+  title: "Contact Autommensor Automation | Home Automation Bilaspur Raipur",
+  description:
+    "Contact Autommensor Automation for smart home automation solutions in Bilaspur, Raipur & Chhattisgarh. Free site survey, Alexa & Google Home integration, expert installation and support.",
   keywords: [
-    "home automation Bilaspur",
-    "home automation Raipur",
-    "contact home automation Raipur",
-    "home automation services Bilaspur",
-    "Alexa Google installation Raipur Bilaspur",
-    "smart home support Chhattisgarh",
-    "Autommensor Automation contact",
-    "home automation consultation Raipur",
-    "smart home installation Bilaspur",
-    "Autommensor Bilaspur Raipur",
+    "contact autommensor automation",
+    "home automation contact Bilaspur",
+    "home automation contact Raipur",
+    "smart home automation Chhattisgarh",
+    "Alexa Google home installation Bilaspur",
+    "home automation services Raipur Bilaspur",
+    "Autommensor Automation contact number",
+    "smart home company Chhattisgarh",
+    "home automation consultation Bilaspur",
   ],
   openGraph: {
-    title: "Contact Autommensor - Home Automation Bilaspur Raipur",
-    description: "Get free smart home consultation in Bilaspur Raipur. Home automation system installation, Alexa Google setup, 24/7 support.",
+    title: "Contact Autommensor Automation - Smart Home Experts",
+    description:
+      "Get in touch with Autommensor Automation for smart home solutions in Bilaspur, Raipur & Chhattisgarh. Free consultation and site survey available.",
     url: "https://autommensor.in/contact-us",
     type: "website",
     images: [
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
         url: "https://autommensor.in/og-image-contact.jpg",
         width: 1200,
         height: 630,
-        alt: "Contact Autommensor Home Automation Bilaspur Raipur",
+        alt: "Contact Autommensor Automation - Home Automation Bilaspur Raipur",
       },
     ],
   },

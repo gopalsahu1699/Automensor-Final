@@ -1,32 +1,39 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Phone, Mail, Leaf } from "lucide-react";
 
+// Reusable Contact Card
+const ContactCard = ({ Icon, href, label }) => (
+  <div className="flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-6 py-4 shadow-lg hover:bg-white/20 transition-all min-w-[250px] group">
+    <Icon className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+    <a
+      href={href}
+      className="font-semibold hover:text-white transition-colors cursor-pointer block w-full"
+    >
+      {label}
+    </a>
+  </div>
+);
+
 function CallToAction() {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-green-50/30 py-16 px-6">
-      <section className="relative overflow-hidden bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700 text-white rounded-3xl shadow-2xl max-w-7xl mx-auto">
-        {/* Animated Background Elements */}
+    <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-16 px-6">
+      <section className="relative overflow-hidden bg-gradient-to-br from-cyan-700 via-blue-700 to-indigo-800 text-white rounded-3xl shadow-2xl max-w-7xl mx-auto">
+        {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-lime-400/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-teal-800/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 -left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-3xl"></div>
         </div>
 
-        {/* Organic Pattern Overlay */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-
-        {/* Top Decorative Border */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-lime-400 via-green-400 to-emerald-500"></div>
+        {/* Top Gradient Border */}
+        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400"></div>
 
         <div className="relative z-10 py-20 px-6 md:px-12 lg:px-16">
-          {/* Icon Badge with Pulse Animation */}
+          {/* Icon Badge */}
           <motion.div
             className="flex justify-center mb-8"
             initial={{ opacity: 0, scale: 0 }}
@@ -35,14 +42,14 @@ function CallToAction() {
             transition={{ duration: 0.5 }}
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-lime-300/30 rounded-full blur-xl animate-pulse"></div>
-              <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white/40 shadow-2xl">
-                <Leaf className="w-12 h-12 text-lime-300" />
+              <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-xl animate-pulse"></div>
+              <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/30 shadow-2xl">
+                <Leaf className="w-12 h-12 text-cyan-400" />
               </div>
             </div>
           </motion.div>
 
-          {/* Main Heading */}
+          {/* Heading */}
           <motion.h2
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 leading-tight"
             initial={{ opacity: 0, y: 20 }}
@@ -50,23 +57,24 @@ function CallToAction() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Let's Build the{" "}
+            Build a{" "}
             <span className="relative inline-block">
-              <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-lime-300 via-green-200 to-emerald-200">
-                Future Together
+              <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-300 to-indigo-300">
+                Smarter Home
               </span>
-            </span>
+            </span>{" "}
+            with Us
           </motion.h2>
 
           {/* Subheading */}
           <motion.p
-            className="text-lg md:text-xl lg:text-2xl text-green-50 text-center mb-12 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl lg:text-2xl text-cyan-100 text-center mb-12 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Join hundreds of innovators who trust autommensor to power smart homes and buildings
+            Join hundreds of homeowners who trust Autommensor to make their homes intelligent, secure, and beautiful.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -79,21 +87,21 @@ function CallToAction() {
           >
             <Link
               href="/contact-us"
-              className="group inline-flex items-center gap-3 bg-white text-green-700 px-10 py-5 rounded-full font-bold text-lg shadow-2xl hover:shadow-green-300/50 transform hover:scale-105 transition-all duration-300"
+              className="group inline-flex items-center gap-3 bg-cyan-400 text-gray-900 px-10 py-5 rounded-full font-bold text-lg shadow-lg hover:shadow-cyan-400/50 transform hover:scale-105 transition-all duration-300"
             >
               Contact Us Now
               <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               href="/all-products"
-              className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/40 px-10 py-5 rounded-full font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/30 px-10 py-5 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             >
               <Sparkles className="w-5 h-5" />
               Explore Products
             </Link>
           </motion.div>
 
-          {/* Contact Info Cards */}
+          {/* Contact Cards */}
           <motion.div
             className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
@@ -101,30 +109,12 @@ function CallToAction() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 shadow-xl hover:bg-white/20 transition-all min-w-[250px] group">
-  <Phone className="w-5 h-5 text-lime-300 group-hover:scale-110 transition-transform" />
-  <a 
-    href="tel:+918085782471"
-    className="font-semibold hover:text-white/90 transition-colors cursor-pointer block w-full"
-  >
-    +91-8085782471
-  </a>
-</div>
-
-           <div className="flex items-center gap-3 bg-white/15 backdrop-blur-md border border-white/30 rounded-2xl px-6 py-4 shadow-xl hover:bg-white/20 transition-all min-w-[250px] group">
-  <Mail className="w-5 h-5 text-lime-300 group-hover:scale-110 transition-transform" />
-  <a 
-    href="mailto:autommensor@gmail.com"
-    className="font-semibold hover:text-white/90 transition-colors cursor-pointer block w-full"
-  >
-    autommensor@gmail.com
-  </a>
-</div>
-
+            <ContactCard Icon={Phone} href="tel:+918085782471" label="+91-8085782471" />
+            <ContactCard Icon={Mail} href="mailto:autommensor@gmail.com" label="autommensor@gmail.com" />
           </motion.div>
         </div>
 
-        {/* Bottom Decorative Wave */}
+        {/* Bottom Wave */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg viewBox="0 0 1440 120" className="w-full h-auto">
             <path

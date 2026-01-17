@@ -2,12 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { AuthProvider } from "@/components/AuthProvider";
-import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { OrganizationSchema } from "@/components/StructuredData";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -73,7 +72,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google-site-verification: google5722deaa13644eaa.html',  // Paste just the code value
+    google: 'google-site-verification: google5722deaa13644eaa.html',
   },
   openGraph: {
     type: "website",
@@ -99,7 +98,6 @@ export const metadata: Metadata = {
         type: "image/jpeg",
       },
     ],
-    
   },
   twitter: {
     card: "summary_large_image",
@@ -231,48 +229,46 @@ export default function RootLayout({
         {/* Structured Data Component */}
         <OrganizationSchema />
 
-        {/* Context and Auth Providers */}
-        <AuthProvider>
-          <AppContextProvider>
-            {/* Main Content */}
-            {children}
-
-            {/* Toast Notifications */}
-            <Toaster
-              position="top-right"
-              reverseOrder={false}
-              gutter={8}
-              toastOptions={{
+        {/* Context Provider (No Auth) */}
+ 
+          {/* Main Content */}
+          {children}
+<WhatsAppFloat />
+          {/* Toast Notifications */}
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            gutter={8}
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: "#363636",
+                color: "#fff",
+              },
+              success: {
+                duration: 3000,
+              },
+              error: {
                 duration: 4000,
-                style: {
-                  background: "#363636",
-                  color: "#fff",
-                },
-                success: {
-                  duration: 3000,
-                },
-                error: {
-                  duration: 4000,
-                },
-              }}
-            />
+              },
+            }}
+          />
 
-            {/* React Toastify Container */}
-            <ToastContainer
-              position="top-center"
-              autoClose={3000}
-              hideProgressBar={false}
-              newestOnTop={true}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="colored"
-              limit={3}
-            />
-          </AppContextProvider>
-        </AuthProvider>
+          {/* React Toastify Container */}
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={true}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            limit={3}
+          />
+      
       </body>
     </html>
   );
