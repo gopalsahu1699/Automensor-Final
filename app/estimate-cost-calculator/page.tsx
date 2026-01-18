@@ -44,9 +44,9 @@ export default function EstimateCostCalculatorPage() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbs} />
-      <Navbar />
+      
       <EstimateCostCalculatorClient />
-      <Footer />
+     
     </>
   );
 }

@@ -414,7 +414,7 @@ const HotelRoomAutomation = () => {
                     For {areas.rooms} room{areas.rooms !== 1 ? "s" : ""} and {areas.washrooms} washroom{areas.washrooms !== 1 ? "s" : ""} with {automationPackages[automationPackage].label} package. This is an estimated cost. Contact us for a personalized quotation.
                   </p>
                   <Link
-                    href="/quotation"
+                    href="/contact-us"
                     className="inline-block w-full sm:w-auto bg-white text-blue-600 font-bold py-3 px-8 rounded-xl text-center hover:bg-blue-50 transition shadow-lg"
                   >
                     Get Detailed Quotation

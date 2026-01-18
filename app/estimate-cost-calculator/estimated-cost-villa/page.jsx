@@ -543,7 +543,7 @@ const EstimateVillaAutomation = () => {
                   For your villa with {automationPackages[automationPackage].label} package including all selected areas. This is an estimated cost. Contact us for a personalized quotation and installation details.
                 </p>
                 <Link
-                  href="/quotation"
+                  href="/contact-us"
                   className="inline-block w-full sm:w-auto bg-white text-green-600 font-bold py-3 px-8 rounded-xl text-center hover:bg-green-50 transition shadow-lg"
                 >
                   Get Detailed Quotation
@@ -561,13 +561,7 @@ const EstimateVillaAutomation = () => {
               </motion.div>
             )}
 
-            {/* CTA Button */}
-            <Link
-              href="/quotation"
-              className="block w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold py-4 px-6 rounded-xl text-center hover:from-green-700 hover:to-emerald-700 shadow-lg hover:shadow-xl transition"
-            >
-              Get Quotation
-            </Link>
+      
           </motion.div>
         )}
 

@@ -4,6 +4,7 @@ import {
   Hand,
   Wifi,
   Headphones,
+  Plug,
 } from "lucide-react";
 
 const features = [
@@ -15,17 +16,31 @@ const features = [
     color: "bg-violet-500",
   },
   {
-    title: "Fast Installation",
+    title: "Free consultation ",
     description:
       "Free installation consultation with quick execution.",
     icon: Timer,
     color: "bg-blue-500",
   },
+   {
+    title: "Local Support",
+    description:
+      "Reliable local service and on-site technical support.",
+    icon: Headphones,
+    color: "bg-gray-700",
+  },
   {
-    title: "Easy Control",
+    title: "Easy Controll",
+    description:
+      "Easy controll with voice and simple mobile app UI",
+    icon: Hand,
+    color: "bg-emerald-500",
+  },
+  {
+    title: "Easy Installation",
     description:
       "Wi-Fi based automation with no special wiring required.",
-    icon: Hand,
+    icon: Plug,
     color: "bg-emerald-500",
   },
   {
@@ -35,13 +50,7 @@ const features = [
     icon: Wifi,
     color: "bg-indigo-500",
   },
-  {
-    title: "Local Support",
-    description:
-      "Reliable local service and on-site technical support.",
-    icon: Headphones,
-    color: "bg-gray-700",
-  },
+ 
 ];
 
 export default function FeaturesSection() {
@@ -52,7 +61,7 @@ export default function FeaturesSection() {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-medium text-gray-900">
-            Why Choose Our Smart Solutions
+            Why Choose Autommmensor
           </h2>
           <p className="mt-4 text-gray-600">
             Designed for comfort, reliability, and modern living

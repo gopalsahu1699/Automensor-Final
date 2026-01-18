@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Link from "next/link";
+
 
 export default function FAQs() {
   const faqItems = [
@@ -29,7 +31,7 @@ export default function FAQs() {
     {
       question: "Do you provide warranty?",
       answer:
-        "Absolutely! We offer a 10+ year warranty on all our products and systems, giving you peace of mind.",
+        "Absolutely! We offer a 10 year warranty on all our products and systems and on site service, giving you peace of mind.",
     },
   ];
 
@@ -94,13 +96,17 @@ export default function FAQs() {
           ))}
         </div>
 
-        {/* Right-aligned CTA */}
-        <div className="mt-10 flex justify-end">
-          <button className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition">
-            More
-            <span className="text-lg">→</span>
-          </button>
-        </div>
+     {/* Right-aligned CTA */}
+<div className="mt-10 flex justify-end">
+  <Link
+    href="/faq"
+    className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition"
+  >
+    More
+    <span className="text-lg">→</span>
+  </Link>
+</div>
+
 
       </div>
     </section>

@@ -74,11 +74,9 @@ const EstimateCostCalculator = () => {
                   Free Estimate
                 </span>
                 <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm">
-                  Quick Results
+                  Free consultation
                 </span>
-                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm">
-                  No Obligation
-                </span>
+                
               </div>
             </div>
           </div>

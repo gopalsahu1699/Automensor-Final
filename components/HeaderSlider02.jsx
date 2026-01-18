@@ -13,9 +13,9 @@ const HeaderSlider = () => {
       title: "Smart Home Automation Made Simple & Affordable",
       offer: "Get flat 5% Off On Your First Installation!",
       buttonText1: "Request Quote",
-      buttonLink1: "/quotation",
+      buttonLink1: "/contact-us",
       buttonText2: "Learn More",
-      buttonLink2: "/learn-more",
+      buttonLink2: "/get-started",
       imgSrc: assets.slide_img_1,
     },
     {
