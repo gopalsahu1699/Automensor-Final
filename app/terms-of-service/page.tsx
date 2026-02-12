@@ -24,6 +24,7 @@ interface Section {
   details: string[];
 }
 
+
 const sections: Section[] = [
   {
     title: "Acceptance of Terms",
