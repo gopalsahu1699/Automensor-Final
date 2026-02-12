@@ -1,24 +1,23 @@
 "use client";
-
-import { MessageCircle } from "lucide-react";
+import Script from 'next/script';
 
 export default function WhatsAppFloat() {
   return (
-    <a
-      href="https://wa.me/918985602913"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group fixed bottom-6 right-6 z-50
-                 flex items-center gap-2
-                 px-2 py-2 rounded-full
-                 bg-green-500 text-white
-                 shadow-lg hover:bg-green-600 transition-all"
-    >
-      <MessageCircle size={24} />
-      <span className="max-w-0 overflow-hidden group-hover:max-w-xs
-                       transition-all duration-300 text-sm font-medium">
-        Chat with us
-      </span>
-    </a>
+    <Script
+      id="aisensy-wa-widget"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
+          (function(d, t) {
+            var g = d.createElement(t);
+            var s = d.getElementsByTagName(t)[0];
+            g.src = 'https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js';
+            g.id = 'aisensy-wa-widget';
+            g.setAttribute('widget-id', 'aaayes');  // Your new widget ID
+            s.parentNode.insertBefore(g, s);
+          }(document, 'script'));
+        `
+      }}
+    />
   );
 }
