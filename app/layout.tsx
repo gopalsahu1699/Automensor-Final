@@ -224,6 +224,17 @@ export default function RootLayout({
         <meta name="language" content="English" />
         <meta name="revisit-after" content="7 days" />
         <meta name="author" content="autommensor" />
+
+         {/* Google tag (gtag.js) */}
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SV8F3VF6NX"></script>
+  <script dangerouslySetInnerHTML={{
+    __html: `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SV8F3VF6NX');
+    `,
+  }} />
       </head>
       <body className={outfit.className}>
         {/* Structured Data Component */}
