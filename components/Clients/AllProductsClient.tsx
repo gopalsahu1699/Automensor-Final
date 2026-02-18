@@ -90,25 +90,59 @@ export default function AllProductsClient() {
       </section>
 
       {/* OTHER SECTIONS */}
-      {[
-        { Component: SapphireSeriesPage, id: "sapphire" },
-        { Component: DigitalDoorLock, id: "doorlock" },
-        { Component: SensorsSection, id: "sensors" },
-        { Component: VideoDoorPhone, id: "videophone" },
-        { Component: SmartCurtain, id: "curtain" },
-        { Component: SceneCreation, id: "scenes" }
-      ].map(({ Component, id }, index) => (
-        <motion.section
-          key={id}
-          className="py-20 bg-white"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          <Component />
-        </motion.section>
-      ))}
+      {/* Smart Security Solution */}
+      <div className="bg-slate-50 py-16">
+        <div className="container mx-auto px-6 mb-8 text-center">
+          <div className="inline-block bg-blue-100 text-blue-800 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+            Smart Security
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Never Worry About Your Home's Safety Again</h2>
+          <p className="text-slate-600 mt-4 max-w-2xl mx-auto">From keyless entry to 24/7 monitoring, we ensure your family is safe.</p>
+        </div>
+        {[
+          { Component: DigitalDoorLock, id: "doorlock" },
+          { Component: VideoDoorPhone, id: "videophone" },
+          { Component: SensorsSection, id: "sensors" },
+        ].map(({ Component, id }) => (
+          <motion.section
+            key={id}
+            className="py-12"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <Component />
+          </motion.section>
+        ))}
+      </div>
+
+      {/* Premium Comfort Solution */}
+      <div className="bg-white py-16">
+        <div className="container mx-auto px-6 mb-8 text-center">
+          <div className="inline-block bg-purple-100 text-purple-800 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+            Premium Comfort
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Luxury Living at Your Fingertips</h2>
+          <p className="text-slate-600 mt-4 max-w-2xl mx-auto">Control lights, curtains, and ambiance without lifting a finger.</p>
+        </div>
+        {[
+          { Component: SapphireSeriesPage, id: "sapphire" },
+          { Component: SmartCurtain, id: "curtain" },
+          { Component: SceneCreation, id: "scenes" }
+        ].map(({ Component, id }) => (
+          <motion.section
+            key={id}
+            className="py-12"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            <Component />
+          </motion.section>
+        ))}
+      </div>
     </main>
   );
 }

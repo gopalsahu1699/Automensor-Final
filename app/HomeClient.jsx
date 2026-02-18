@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
-
+import React from "react";
 import dynamic from 'next/dynamic';
 
 const HeaderSlider1 = dynamic(() => import("@/components/HeaderSlider01"), { ssr: false });
@@ -12,7 +11,6 @@ const EstimateCostCalculator = dynamic(() => import("@/components/EstimateCostCa
 
 import HowYouCanControl from "@/components/HowYouCanControl";
 
-import Loading from "@/components/Loading";
 import ComparisonSection from "@/components/ComparisonSection";
 
 import HeroSection from "@/components/HeroSection";
@@ -25,16 +23,7 @@ const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
 const CallToAction = dynamic(() => import("@/components/CallToAction"));
 
 const HomeClient = () => {
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 1000);
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (loading) {
-        return <Loading />;
-    }
+    // Loading state removed for immediate LCP
 
     return (
         <>

@@ -30,15 +30,21 @@ export const metadata: Metadata = {
     default: "Autommensor - Smart Home Automation Bilaspur Raipur | Best Automation Company",
     template: "%s | Autommensor - Smart Home Automation Bilaspur Raipur",
   },
-  description:
-    "Leading smart home automation company in Bilaspur and Raipur, Chhattisgarh. Transformation of your home with Alexa/Google control, smart lighting, security, and IoT solutions. Best automation services in CG.",
+  description: "Leading smart home automation company in Bilaspur and Raipur, Chhattisgarh. Transform your home with Alexa/Google control, smart lighting, security, and IoT solutions. Trusted by 200+ families with a 10-Year Warranty. Best automation services in CG.",
   keywords: [
     "smart home automation Bilaspur",
     "home automation Raipur",
     "smart home Chhattisgarh",
     "automation company Bilaspur",
     "smart home installers Raipur",
-    "IoT solutions Chhattisgarh",
+    "Home Automation Company in Chhattisgarh",
+    "Smart Home Installation Services",
+    "Best Home Automation System Raipur",
+    "Security System Dealers Bilaspur",
+    "Automatic Lighting Control Chhattisgarh",
+    "Smart Door Lock Dealers Raipur",
+    "Home Theatre Installation Bilaspur",
+    "Wireless Home Automation Chhattisgarh",
     "smart home devices Bilaspur",
     "video door phone dealers Raipur",
     "digital door lock Bilaspur",
@@ -248,10 +254,12 @@ export default function RootLayout({
                   }
                 ],
                 areaServed: [
-                  {
-                    "@type": "City",
-                    name: "Bilaspur"
-                  }
+                  { "@type": "City", name: "Bilaspur" },
+                  { "@type": "Place", name: "Vyapar Vihar" },
+                  { "@type": "Place", name: "Talapara" },
+                  { "@type": "Place", name: "Civil Lines" },
+                  { "@type": "Place", name: "Sarkanda" },
+                  { "@type": "Place", name: "Nehru Nagar" }
                 ],
                 priceRange: "₹₹"
               },
@@ -296,10 +304,13 @@ export default function RootLayout({
                   }
                 ],
                 areaServed: [
-                  {
-                    "@type": "City",
-                    name: "Raipur"
-                  }
+                  { "@type": "City", name: "Raipur" },
+                  { "@type": "Place", name: "Shankar Nagar" },
+                  { "@type": "Place", name: "Devendra Nagar" },
+                  { "@type": "Place", name: "Civil Lines" },
+                  { "@type": "Place", name: "Pandri" },
+                  { "@type": "Place", name: "Telibandha" },
+                  { "@type": "Place", name: "Naya Raipur" }
                 ],
                 priceRange: "₹₹"
               }

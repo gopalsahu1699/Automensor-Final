@@ -2,20 +2,22 @@ import type { Metadata } from "next";
 import HomeClient from "./HomeClient";
 
 export const metadata: Metadata = {
-    title: "Autommensor - Smart Home Automation Bilaspur Raipur | #1 Automation Company",
+    title: "Autommensor - Home Automation Bilaspur Raipur | 10-Year Warranty",
     description:
-        "Transform your home with Autommensor's smart home solutions in Bilaspur and Raipur. Control lights, curtains, and security with Alexa/Google. Visit us for a free demo in Chhattisgarh.",
+        "Upgrade to a Smart Home in Raipur & Bilaspur with Autommensor. Trusted by 200+ families. Control lights, security & AC with Alexa. #1 Automation Company in Chhattisgarh.",
     keywords: [
-        "home automation Bilaspur",
-        "smart home Raipur",
-        "best home automation company Chhattisgarh",
-        "Alexa home automation Bilaspur",
-        "smart switches price Raipur",
-        "home theater installation Bilaspur",
-        "automatic gate opener Raipur",
-        "smart door lock dealers Bilaspur",
-        "Autommensor home automation",
-        "IoT home solutions Bilaspur",
+        "Home Automation Bilaspur",
+        "Smart Home Automation Raipur",
+        "Home Automation Company in Chhattisgarh",
+        "Smart Home Installation Services",
+        "Best Home Automation System Raipur",
+        "Security System Dealers Bilaspur",
+        "Automatic Lighting Control Chhattisgarh",
+        "Smart Door Lock Dealers Raipur",
+        "Home Theatre Installation Bilaspur",
+        "Wireless Home Automation Chhattisgarh",
+        "10-Year Warranty Home Automation",
+        "Autommensor Bilaspur",
     ],
     alternates: {
         canonical: "https://autommensor.in",

@@ -323,17 +323,17 @@ export default function ContactClient() {
       <section className="container mx-auto px-6 pb-20">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center">
           <h3 className="text-xl font-bold text-slate-900 mb-2">We Serve All of Chhattisgarh</h3>
-          <p className="text-slate-600 mb-6">Our team is based in Bilaspur & Raipur, ready to visit your site.</p>
+          <p className="text-slate-600 mb-6">Our team is  ready to visit your site.</p>
 
           {/* Map Placeholder or IFrame could go here */}
-          <div className="w-full h-64 bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center relative group cursor-pointer">
+          {/* <div className="w-full h-64 bg-slate-100 rounded-xl overflow-hidden flex items-center justify-center relative group cursor-pointer">
             <div className="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=22.0797,82.1409&zoom=7&size=1200x400&maptype=roadmap&key=YOUR_API_KEY_HERE')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
 
             <div className="relative z-10 bg-white/90 backdrop-blur-sm px-8 py-4 rounded-full shadow-lg flex items-center gap-3">
               <MapPin className="w-6 h-6 text-red-500 animate-bounce" />
-              <span className="font-semibold text-slate-800">Bilaspur & Raipur Headquarters</span>
+              <span className="font-semibold text-slate-800">Bilaspur  Headquarters</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 

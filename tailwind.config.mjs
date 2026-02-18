@@ -11,6 +11,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        brand: {
+          blue: "#2563eb", // blue-600 (Primary Action)
+          dark: "#0f172a", // slate-900 (Headings)
+          accent: "#f59e0b", // amber-500 (Highlights)
+          surface: "#f8fafc", // slate-50 (Backgrounds)
+        },
       },
       gridTemplateColumns: {
         'auto': 'repeat(auto-fit, minmax(200px, 1fr))'

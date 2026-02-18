@@ -7,21 +7,20 @@ import { Home, Zap, Shield, Wifi } from "lucide-react";
 const ProblemSolution = () => {
   const items = [
     {
-      problem: "Managing multiple devices is confusing and time-consuming.",
-      solution: "Autommensor centralizes all your smart home devices in one intuitive app.",
+      problem: "Forgot to turn off the AC or Geyser?",
+      solution: "Control your appliances from anywhere in the world with our app.",
       icon: Zap,
     },
     {
-      problem: "Worry about security and safety at home.",
-      solution: "Get intelligent security systems with instant alerts and monitoring.",
+      problem: "Worried about home security while away?",
+      solution: "Get instant alerts on your phone if a door opens or motion is detected.",
       icon: Shield,
     },
     {
-      problem: "Manual control of lighting and appliances is inefficient.",
-      solution: "Automated lighting, climate, and appliance control saves energy and effort.",
+      problem: "Tired of walking to switches at night?",
+      solution: "Turn off every light in your home with a single voice command from bed.",
       icon: Home,
     },
-    
   ];
 
   return (

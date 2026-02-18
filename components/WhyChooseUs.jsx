@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import {
-  Diamond,
+  Shield,
   Timer,
   Hand,
   Wifi,
@@ -11,46 +11,46 @@ import {
 
 const features = [
   {
-    title: "Premium Quality",
+    title: "10-Year Warranty",
     description:
-      "10-year warranty on products ensuring durability and reliability.",
-    icon: Diamond,
+      "Market-leading warranty coverage. We stand by our quality for a decade.",
+    icon: Shield,
     color: "bg-violet-500",
   },
   {
-    title: "Free consultation ",
+    title: "Free Site Visit",
     description:
-      "Free installation consultation with quick execution.",
+      "Expert consultation at your doorstep in Bilaspur & Raipur. No obligation.",
     icon: Timer,
     color: "bg-blue-500",
   },
   {
-    title: "Local Support",
+    title: "24/7 Local Support",
     description:
-      "Reliable local service and on-site technical support.",
+      "We are based in Chhattisgarh. Support is just a phone call away.",
     icon: Headphones,
     color: "bg-gray-700",
   },
   {
-    title: "Easy Controll",
+    title: "Zero Rewiring Needed",
     description:
-      "Easy controll with voice and simple mobile app UI",
-    icon: Hand,
-    color: "bg-emerald-500",
-  },
-  {
-    title: "Easy Installation",
-    description:
-      "Wi-Fi based automation with no special wiring required.",
+      "Upgrade your existing home without breaking a single wall.",
     icon: Plug,
     color: "bg-emerald-500",
   },
   {
-    title: "Smart Connectivity",
+    title: "Voice & App Control",
     description:
-      "Control your home using mobile and smart devices.",
-    icon: Wifi,
+      "Control your entire home with Alexa, Google Home, or our mobile app.",
+    icon: Hand,
     color: "bg-indigo-500",
+  },
+  {
+    title: "Wi-Fi Based System",
+    description:
+      "Seamless wireless connectivity for a clutter-free smart home.",
+    icon: Wifi,
+    color: "bg-orange-500",
   },
 
 ];

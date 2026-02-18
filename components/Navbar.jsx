@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, ShoppingBag, Info, Mail, Menu, X as CloseIcon, Zap, Shield, Wifi,ArrowRight  } from "lucide-react";
+import { Home, ShoppingBag, Info, Mail, Menu, X as CloseIcon, Zap, Shield, Wifi, ArrowRight } from "lucide-react";
 import { assets } from "@/assets/assets";
 
 const NavbarHero = () => {
@@ -55,11 +55,10 @@ const NavbarHero = () => {
       <Link
         href={href}
         onClick={() => setSidebarOpen(false)}
-        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 group ${
-          isActive
+        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 group ${isActive
             ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold shadow-md"
             : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-        }`}
+          }`}
       >
         <Icon className={`w-5 h-5 transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110"}`} />
         <span>{label}</span>
@@ -75,8 +74,8 @@ const NavbarHero = () => {
 
   return (
     <>
-     
-    
+
+
 
       {/* Sidebar Overlay */}
       <AnimatePresence>
@@ -166,22 +165,28 @@ const NavbarHero = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all group ${
-                    isActive
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all group ${isActive
                       ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg"
                       : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                  }`}
+                    }`}
                 >
                   <Icon className={`w-4 h-4 transition-transform ${isActive ? "scale-110" : "group-hover:scale-110"}`} />
                   {item.label}
                 </Link>
               );
             })}
+            <Link
+              href="/contact-us"
+              className="ml-4 hidden lg:inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-blue-200 transition-all hover:bg-blue-700 hover:shadow-xl hover:scale-105"
+            >
+              Book Site Visit
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </nav>
 
-     
+
     </>
   );
 };

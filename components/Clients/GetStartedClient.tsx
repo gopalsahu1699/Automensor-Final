@@ -1,208 +1,123 @@
-// components/Clients/GetStartedClient.tsx
-'use client';
+"use client";
 
-import { ArrowRight, Check, Zap, Shield, Leaf, Smartphone } from "lucide-react";
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight, CheckCircle2, Smartphone, Calendar, Wrench, ShieldCheck } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+const steps = [
+  {
+    icon: Smartphone,
+    title: "1. Book Your Free Demo",
+    description: "Schedule a visit online or call us. We'll bring the smart home experience to your doorstep in Bilaspur or Raipur.",
+  },
+  {
+    icon: Calendar,
+    title: "2. Custom Plan & Quote",
+    description: "Our experts analyze your home and create a tailored automation plan that fits your budget perfectly.",
+  },
+  {
+    icon: Wrench,
+    title: "3. 2-Hour Installation",
+    description: "No breaking walls! Our certified technicians retrofit smart modules behind your existing switchboards.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "4. Lifetime Support",
+    description: "Enjoy your smart home with peace of mind. We provide a 10-Year Warranty and 24/7 local support.",
+  },
+];
 
 export default function GetStartedClient() {
-  const scrollToSteps = () => {
-    document.getElementById("steps")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const goToContact = () => {
-    window.location.href = "/contact-us";
-  };
-
-  const goToProducts = () => {
-    window.location.href = "/all-products";
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-            Start Your Smart Home Journey with autommensor
-          </h1>
-          <p className="text-lg sm:text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-            Automate lights, fans, ACs, gates & more in minutes. Control everything from your phone or voice.
-          </p>
-          <button
-            onClick={scrollToSteps}
-            className="bg-white text-blue-700 hover:bg-gray-100 font-semibold px-8 py-3 text-lg rounded-md shadow-lg hover:shadow-xl transition-all duration-200 inline-flex items-center"
-          >
-            Get Started Now 
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </button>
-        </div>
-      </section>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-white">
 
-      {/* Why Automate? */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-12">
-            Why Automate Your Home?
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <FeatureCard
-              icon={<Zap className="h-10 w-10 text-blue-600 mx-auto mb-4" />}
-              title="Save Energy"
-              description="Automatically turn off lights and fans when not needed. Reduce power bills with smart schedules and sensors."
-            />
-            <FeatureCard
-              icon={<Shield className="h-10 w-10 text-blue-600 mx-auto mb-4" />}
-              title="Enhanced Safety"
-              description="Control gates, lights, and appliances remotely. Get alerts and monitor your home from anywhere."
-            />
-            <FeatureCard
-              icon={<Leaf className="h-10 w-10 text-blue-600 mx-auto mb-4" />}
-              title="Eco-Friendly"
-              description="Optimize usage of ACs, geysers, and lights. Contribute to a greener planet with efficient automation."
-            />
-            <FeatureCard
-              icon={<Smartphone className="h-10 w-10 text-blue-600 mx-auto mb-4" />}
-              title="Total Control"
-              description="Control everything from your phone&apos;s, tablet&apos;s, or voice assistants like Alexa and Google Assistant."
-            />
+        {/* HERO SECTION */}
+        <section className="relative py-20 bg-blue-600 text-white overflow-hidden">
+          <div className="absolute inset-0 bg-blue-900/20"></div>
+          <div className="container mx-auto px-6 relative z-10 text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-bold mb-6"
+            >
+              Your Smart Home Journey
+              <br />
+              <span className="text-blue-200">Starts Here</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto"
+            >
+              Transform your home in 4 simple steps. No rewiring, no dust, just pure comfort.
+            </motion.p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Step-by-Step Guide */}
-      <section id="steps" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-12">
-            How to Get Started in 5 Simple Steps
-          </h2>
-          <div className="space-y-10 max-w-4xl mx-auto">
-            <StepCard
-              number={1}
-              title="Plan Your Smart Upgrade"
-              description="Decide which areas to automate first — lighting, fans, ACs, gates, or curtains. Start small (e.g., 1–2 rooms) and expand later."
-            />
-            <StepCard
-              number={2}
-              title="Choose Your autommensor Devices"
-              description="Pick from our range of smart switches, controllers, and sensors that work with your existing wiring. No major rewiring needed."
-            />
-            <StepCard
-              number={3}
-              title="Set Up the Hub & App"
-              description="Connect the autommensor hub to your Wi-Fi and install the autommensor app. Pair your devices in minutes."
-            />
-            <StepCard
-              number={4}
-              title="Install & Pair Devices"
-              description="A local electrician can install the devices in your switchboard. Then pair each device with the app and name them (e.g., &apos;Bedroom Lights&apos;)."
-            />
-            <StepCard
-              number={5}
-              title="Create Scenes & Schedules"
-              description="Set up scenes like &apos;Good Morning&apos; (open curtains, turn on lights) and schedules (turn off all lights at 11 PM)."
-            />
-          </div>
-        </div>
-      </section>
+        {/* STEPS SECTION */}
+        <section className="py-24 bg-slate-50">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="space-y-12 relative">
 
-      {/* How It Works */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-12">
-            How autommensor Works
-          </h2>
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                Simple & Reliable Technology
-              </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                  <span>Hybrid Wi-Fi + RF for fast, reliable control even if internet is down.</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                  <span>Retrofit-friendly: works with existing switches and wiring.</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                  <span>Control from anywhere via the autommensor app.</span>
-                </li>
-                <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mt-0.5 mr-2 flex-shrink-0" />
-                  <span>Works with Alexa, Google Assistant, and more.</span>
-                </li>
-              </ul>
-            </div>
-            <div className="bg-blue-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">Typical Setup</h3>
-              <p className="text-gray-700 mb-4 space-y-1">
-                <span>1. Smart controller module in your switchboard.</span>
-                <span>2. autommensor hub connected to Wi-Fi.</span>
-                <span>3. autommensor app on your phone.</span>
-                <span>4. Optional: smart touch panels or wireless switches.</span>
-              </p>
-              <p className="text-sm text-gray-600">
-                For new constructions, we also support centralized wiring for a clean, scalable setup.
-              </p>
+              {/* Vertical Line for Desktop */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-blue-100 -transform-x-1/2"></div>
+
+              {steps.map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 }}
+                  className={`flex flex-col md:flex-row items-center gap-8 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+                >
+                  {/* Icon Bubble */}
+                  <div className="relative z-10 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-200 shrink-0">
+                    <step.icon size={32} />
+                  </div>
+
+                  {/* Content Card */}
+                  <div className={`flex-1 bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow duration-300 text-center md:text-left ${index % 2 !== 0 ? 'md:text-right' : ''}`}>
+                    <h3 className="text-2xl font-bold text-slate-800 mb-3">{step.title}</h3>
+                    <p className="text-lg text-slate-600">{step.description}</p>
+                  </div>
+
+                  {/* Spacer for other side */}
+                  <div className="flex-1 hidden md:block"></div>
+                </motion.div>
+              ))}
+
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Ready to Automate Your Home?
-          </h2>
-          <p className="text-lg opacity-90 mb-8">
-            Whether you&apos;re a homeowner, builder, or dealer, we&apos;ll guide you every step of the way.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={goToContact}
-              className="bg-white text-blue-700 hover:bg-gray-100 font-semibold px-8 py-3 rounded-md shadow-lg hover:shadow-xl transition-all duration-200"
+        {/* CTA SECTION */}
+        <section className="py-20 bg-white text-center">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+              Ready to Take the First Step?
+            </h2>
+            <p className="text-xl text-slate-600 mb-10">
+              Book your free site visit today and get a custom quote instantly.
+            </p>
+            <Link
+              href="/contact-us"
+              className="inline-flex items-center bg-blue-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl hover:scale-105 transform duration-200"
             >
-              Talk to an Expert
-            </button>
-            <button
-              onClick={goToProducts}
-              className="border-2 border-white text-white hover:bg-white/10 font-semibold px-8 py-3 rounded-md transition-all duration-200"
-            >
-              Browse Products
-            </button>
+              Book Free Site Visit
+              <ArrowRight className="ml-2 w-6 h-6" />
+            </Link>
           </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+        </section>
 
-// Pure CSS Feature Card - NO UI LIBRARY
-function FeatureCard({ icon, title, description }) {
-  return (
-    <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 text-center">
-      <div className="mb-4">
-        {icon}
       </div>
-      <h3 className="text-lg font-semibold text-gray-800 mb-3">{title}</h3>
-      <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
-    </div>
-  );
-}
-
-// Pure CSS Step Card - NO UI LIBRARY
-function StepCard({ number, title, description }) {
-  return (
-    <div className="flex gap-6 items-start bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200">
-      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-lg">
-        {number}
-      </div>
-      <div className="flex-1">
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
-        <p className="text-gray-600 leading-relaxed">{description}</p>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }

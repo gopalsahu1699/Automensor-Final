@@ -2,9 +2,7 @@
 const nextConfig = {
   compress: true,
   poweredByHeader: false,
-  turbo: {
-    // Optional Turbopack config options can go here
-  },
+
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
