@@ -21,33 +21,40 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: "#2563eb",
-  colorScheme: "light dark",
+  colorScheme: "light",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://autommensor.in"),
-  title: "autommensor - Smart Home Automation Made in India",
+  title: {
+    default: "Autommensor - Smart Home Automation Bilaspur Raipur | Best Automation Company",
+    template: "%s | Autommensor - Smart Home Automation Bilaspur Raipur",
+  },
   description:
-    "Intelligent home automation solutions for modern living with smart devices and IoT technology. Choose from Basic, Standard, and Advanced packages for homes, villas, and hotels.",
+    "Leading smart home automation company in Bilaspur and Raipur, Chhattisgarh. Transformation of your home with Alexa/Google control, smart lighting, security, and IoT solutions. Best automation services in CG.",
   keywords: [
-    "smart home",
-    "home automation",
-    "IoT",
-    "smart devices",
-    "home control",
-    "made in India",
-    "automation packages",
-    "smart villa",
-    "smart hotel room",
-    "home automation India",
-    "smart living",
-    "home automation solutions",
+    "smart home automation Bilaspur",
+    "home automation Raipur",
+    "smart home Chhattisgarh",
+    "automation company Bilaspur",
+    "smart home installers Raipur",
+    "IoT solutions Chhattisgarh",
+    "smart home devices Bilaspur",
+    "video door phone dealers Raipur",
+    "digital door lock Bilaspur",
+    "curtain automation Raipur",
+    "smart lighting control Chhattisgarh",
+    "Alexa home automation Bilaspur",
+    "Google Home automation Raipur",
+    "best home automation company Bilaspur",
+    "smart villa automation Raipur",
+    "hotel automation system Chhattisgarh"
   ],
-  authors: [{ name: "autommensor", url: "https://autommensor.in" }],
-  creator: "autommensor",
-  publisher: "autommensor",
+  authors: [{ name: "Autommensor Automation", url: "https://autommensor.in" }],
+  creator: "Autommensor Automation",
+  publisher: "Autommensor Automation",
   category: "Technology",
-  classification: "Smart Home Technology",
+  classification: "Smart Home Technology Service",
   formatDetection: {
     email: false,
     telephone: false,
@@ -72,29 +79,29 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'google-site-verification: google5722deaa13644eaa.html',
+    google: 'google5722deaa13644eaa',
   },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://autommensor.in",
-    siteName: "autommensor",
-    title: "autommensor - Smart Home Automation",
+    siteName: "Autommensor Automation",
+    title: "Autommensor - Best Home Automation Company in Bilaspur & Raipur",
     description:
-      "Intelligent home automation solutions for modern living with smart IoT devices",
+      "Transform your home with intelligent automation. We provide smart lighting, security, and control solutions in Bilaspur, Raipur, and across Chhattisgarh.",
     images: [
       {
         url: "https://autommensor.in/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "autommensor Smart Home Automation",
+        alt: "Autommensor Smart Home Automation Bilaspur Raipur",
         type: "image/jpeg",
       },
       {
         url: "https://autommensor.in/og-image-square.jpg",
         width: 800,
         height: 800,
-        alt: "autommensor",
+        alt: "Autommensor Automation Logo",
         type: "image/jpeg",
       },
     ],
@@ -103,17 +110,17 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@autommensor",
     creator: "@autommensor",
-    title: "autommensor - Smart Home Automation",
-    description: "Intelligent home automation solutions made in India",
+    title: "Autommensor - Smart Home Automation Bilaspur Raipur",
+    description: "Leading home automation solutions in Bilaspur, Raipur & Chhattisgarh.",
     images: {
       url: "https://autommensor.in/og-image.jpg",
-      alt: "autommensor",
+      alt: "Autommensor Automation",
     },
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "autommensor",
+    title: "Autommensor",
   },
   icons: {
     icon: [
@@ -124,6 +131,12 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180" },
     ],
   },
+  other: {
+    "geo.region": "IN-CT",
+    "geo.placename": "Bilaspur",
+    "geo.position": "22.0797;82.1409",
+    "ICBM": "22.0797, 82.1409"
+  }
 };
 
 export default function RootLayout({
@@ -189,32 +202,108 @@ export default function RootLayout({
           </>
         )}
 
-        {/* JSON-LD Structured Data for Rich Snippets */}
         <Script
           id="json-ld-organization"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "autommensor",
-              url: "https://autommensor.in",
-              logo: "https://autommensor.in/logo.png",
-              description:
-                "Intelligent home automation solutions for modern living",
-              email: "autommensor@gmail.com",
-              telephone: "+91-8718847083",
-              address: {
-                "@type": "PostalAddress",
-                addressCountry: "IN",
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "HomeAndConstructionBusiness",
+                name: "Autommensor Automation - Bilaspur",
+                image: [
+                  "https://autommensor.in/logo.png",
+                  "https://autommensor.in/og-image.jpg"
+                ],
+                "@id": "https://autommensor.in/#bilaspur",
+                url: "https://autommensor.in",
+                telephone: "+91-8718847083",
+                email: "contact@autommensor.in",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Vyapar Vihar Rd, Talapara",
+                  addressLocality: "Bilaspur",
+                  addressRegion: "Chhattisgarh",
+                  postalCode: "495001",
+                  addressCountry: "IN"
+                },
+                geo: {
+                  "@type": "GeoCoordinates",
+                  latitude: 22.0797,
+                  longitude: 82.1409
+                },
+                openingHoursSpecification: [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: [
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday"
+                    ],
+                    opens: "09:00",
+                    closes: "20:00"
+                  }
+                ],
+                areaServed: [
+                  {
+                    "@type": "City",
+                    name: "Bilaspur"
+                  }
+                ],
+                priceRange: "₹₹"
               },
-              sameAs: [
-                "https://www.facebook.com/autommensor",
-                "https://www.twitter.com/autommensor",
-                "https://www.instagram.com/autommensor",
-                "https://www.linkedin.com/company/autommensor",
-              ],
-            }),
+              {
+                "@context": "https://schema.org",
+                "@type": "HomeAndConstructionBusiness",
+                name: "Autommensor Automation - Raipur",
+                image: [
+                  "https://autommensor.in/logo.png",
+                  "https://autommensor.in/og-image.jpg"
+                ],
+                "@id": "https://autommensor.in/#raipur",
+                url: "https://autommensor.in",
+                telephone: "+91-8085782471",
+                email: "contact@autommensor.in",
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "Centre Mall, Orange Eye Resort, Mandi Rd, Piche, Devendra Nagar",
+                  addressLocality: "Raipur",
+                  addressRegion: "Chhattisgarh",
+                  postalCode: "492004",
+                  addressCountry: "IN"
+                },
+                geo: {
+                  "@type": "GeoCoordinates",
+                  latitude: 21.2514,
+                  longitude: 81.6296
+                },
+                openingHoursSpecification: [
+                  {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: [
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday"
+                    ],
+                    opens: "09:00",
+                    closes: "20:00"
+                  }
+                ],
+                areaServed: [
+                  {
+                    "@type": "City",
+                    name: "Raipur"
+                  }
+                ],
+                priceRange: "₹₹"
+              }
+            ]),
           }}
         />
 
@@ -225,61 +314,61 @@ export default function RootLayout({
         <meta name="revisit-after" content="7 days" />
         <meta name="author" content="autommensor" />
 
-         {/* Google tag (gtag.js) */}
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SV8F3VF6NX"></script>
-  <script dangerouslySetInnerHTML={{
-    __html: `
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SV8F3VF6NX"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-SV8F3VF6NX');
     `,
-  }} />
+        }} />
       </head>
       <body className={outfit.className}>
         {/* Structured Data Component */}
         <OrganizationSchema />
 
         {/* Context Provider (No Auth) */}
- 
-          {/* Main Content */}
-          {children}
-<WhatsAppFloat />
-          {/* Toast Notifications */}
-          <Toaster
-            position="top-right"
-            reverseOrder={false}
-            gutter={8}
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: "#363636",
-                color: "#fff",
-              },
-              success: {
-                duration: 3000,
-              },
-              error: {
-                duration: 4000,
-              },
-            }}
-          />
 
-          {/* React Toastify Container */}
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={true}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-            limit={3}
-          />
-      
+        {/* Main Content */}
+        {children}
+        <WhatsAppFloat />
+        {/* Toast Notifications */}
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          gutter={8}
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: "#363636",
+              color: "#fff",
+            },
+            success: {
+              duration: 3000,
+            },
+            error: {
+              duration: 4000,
+            },
+          }}
+        />
+
+        {/* React Toastify Container */}
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          limit={3}
+        />
+
       </body>
     </html>
   );

@@ -5,18 +5,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "All Smart Home Automation Products | autommensor",
+  title: "Smart Home Products Directory | Autommensor Bilaspur Raipur",
   description:
-    "Browse our complete range of smart home automation products. Motion sensors, touch panels, door locks, smart switches, and more. Find the perfect solution for your home.",
+    "Explore our range of smart home products in Bilaspur and Raipur. From digital door locks and video door phones to smart switches and sensors. Best prices in Chhattisgarh.",
   keywords: [
-    "smart home products",
-    "automation devices",
-    "IoT products",
-    "smart devices",
-    "motion sensors",
-    "smart switches",
-    "automation solutions",
-    "home control products",
+    "smart home products Bilaspur",
+    "buy smart switches Raipur",
+    "digital door lock price Chhattisgarh",
+    "video door phone dealers Bilaspur",
+    "smart curtains cost Raipur",
+    "motion sensors for home Bilaspur",
+    "wifi touch switches Raipur",
+    "smart home devices shop Bilaspur",
+    "automation sensors Chhattisgarh",
+    "smart gate opener price Raipur"
   ],
   openGraph: {
     title: "All Smart Home Automation Products | autommensor",

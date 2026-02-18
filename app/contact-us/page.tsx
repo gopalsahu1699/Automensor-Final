@@ -5,19 +5,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Contact Autommensor Automation | Home Automation Bilaspur Raipur",
+  title: "Contact Autommensor Automation | Smart Home Inquiry Bilaspur Raipur",
   description:
-    "Contact Autommensor Automation for smart home automation solutions in Bilaspur, Raipur & Chhattisgarh. Free site survey, Alexa & Google Home integration, expert installation and support.",
+    "Get in touch with Autommensor Automation for a free home automation demo in Bilaspur and Raipur. Contact us for smart home quotes, installation, and support in Chhattisgarh.",
   keywords: [
-    "contact autommensor automation",
-    "home automation contact Bilaspur",
-    "home automation contact Raipur",
-    "smart home automation Chhattisgarh",
-    "Alexa Google home installation Bilaspur",
-    "home automation services Raipur Bilaspur",
-    "Autommensor Automation contact number",
-    "smart home company Chhattisgarh",
-    "home automation consultation Bilaspur",
+    "contact home automation Bilaspur",
+    "smart home dealer Raipur",
+    "automation enquiry Chhattisgarh",
+    "Autommensor contact number",
+    "home automation shop Bilaspur",
+    "smart home showroom Raipur",
+    "free automation demo Chhattisgarh",
+    "smart lock price Bilaspur",
+    "home automation quote Raipur",
+    "schedule site visit Bilaspur"
   ],
   openGraph: {
     title: "Contact Autommensor Automation - Smart Home Experts",
