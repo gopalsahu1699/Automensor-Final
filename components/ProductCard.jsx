@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Eye, ArrowRight } from "lucide-react";
+import { FaEye as Eye, FaArrowRight as ArrowRight } from "react-icons/fa6";
 import { useAppContext } from "@/context/AppContext";
 
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_ID;
@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
           className="object-contain p-4 transition-transform duration-500 group-hover:scale-110"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
-        
+
         {/* Overlay on Hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
           <motion.div

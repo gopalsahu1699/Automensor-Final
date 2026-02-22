@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Phone,
-  Mail,
-  MapPin,
-  Clock,
-  MessageCircle,
-  Send,
-  User,
-  Smartphone,
-  CheckCircle2
-} from "lucide-react";
+  FaPhone as Phone,
+  FaEnvelope as Mail,
+  FaLocationDot as MapPin,
+  FaClock as Clock,
+  FaCommentDots as MessageCircle,
+  FaPaperPlane as Send,
+  FaUser as User,
+  FaMobileScreen as Smartphone,
+  FaCircleCheck as CheckCircle2
+} from "react-icons/fa6";
 
 /* ------------------ Types ------------------ */
 interface ContactInfo {
@@ -76,19 +76,16 @@ export default function ContactClient() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/autommensor@gmail.com", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
         },
         body: JSON.stringify({
           name: formState.name,
           phone: formState.phone,
           email: formState.email,
           message: formState.message,
-          _subject: "New Lead from Autommensor Website!",
-          _template: "table"
         }),
       });
 
@@ -96,7 +93,8 @@ export default function ContactClient() {
         setIsSubmitted(true);
         setFormState({ name: "", email: "", phone: "", message: "" });
       } else {
-        alert("Something went wrong. Please try again or call us directly.");
+        const data = await response.json();
+        alert(data.error || "Something went wrong. Please try again or call us directly.");
       }
     } catch (error) {
       console.error("Form submission error:", error);
@@ -138,9 +136,9 @@ export default function ContactClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 mb-6 leading-tight"
           >
-            Let's Build Your <br />
+            Let&apos;s Build Your <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
               Smart Home Dream
             </span>
@@ -150,7 +148,7 @@ export default function ContactClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed"
           >
             Get a free consultation and quote for your home automation needs in Bilaspur and Raipur.
           </motion.p>
@@ -166,8 +164,8 @@ export default function ContactClient() {
             <div className="lg:col-span-2 bg-slate-900 text-white p-10 md:p-14 relative overflow-hidden">
               <div className="absolute inset-0 bg-blue-600 opacity-10 pattern-grid-lg"></div>
 
-              <h3 className="text-2xl font-bold mb-8 relative z-10">Contact Information</h3>
-              <p className="text-slate-300 mb-10 relative z-10">Fill up the form and our team will get back to you within 24 hours.</p>
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 relative z-10">Contact Information</h3>
+              <p className="text-sm sm:text-base text-slate-300 mb-8 sm:mb-10 relative z-10">Fill up the form and our team will get back to you within 24 hours.</p>
 
               <div className="space-y-8 relative z-10">
                 {contactInfo.map((item, index) => {
@@ -211,7 +209,7 @@ export default function ContactClient() {
 
             {/* Contact Form */}
             <div className="lg:col-span-3 p-10 md:p-14 bg-white">
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Send us a Message</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6">Send us a Message</h3>
 
               {isSubmitted ? (
                 <motion.div
@@ -300,7 +298,7 @@ export default function ContactClient() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-200 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>Processing...</>

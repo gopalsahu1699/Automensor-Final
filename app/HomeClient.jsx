@@ -9,20 +9,20 @@ const Footer = dynamic(() => import("@/components/Footer"));
 // EstimateCostCalculator is used below fold
 const EstimateCostCalculator = dynamic(() => import("@/components/EstimateCostCalculator"));
 
-import HowYouCanControl from "@/components/HowYouCanControl";
+import HowYouCanControl from "@/components/home/HowYouCanControl";
 
-import ComparisonSection from "@/components/ComparisonSection";
+import ComparisonSection from "@/components/home/ComparisonSection";
 
-import HeroSection from "@/components/HeroSection";
-import ProblemSolution from "@/components/ProblemToSolution";
+import HeroSection from "@/components/home/HeroSection";
+import ProblemSolution from "@/components/home/ProblemToSolution";
 
 // Below fold components
-const FAQs = dynamic(() => import("@/components/FAQs"));
-const AllProductsClient = dynamic(() => import("@/components/Clients/AllProductsClient"));
-const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"));
-const CallToAction = dynamic(() => import("@/components/CallToAction"));
+const FAQs = dynamic(() => import("@/components/home/FAQs"));
+const FeaturedProducts = dynamic(() => import("@/components/home/FeaturedProducts"));
+const WhyChooseUs = dynamic(() => import("@/components/home/WhyChooseUs"));
+const CallToAction = dynamic(() => import("@/components/home/CallToAction"));
 
-const HomeClient = () => {
+const HomeClient = ({ initialProducts }) => {
     // Loading state removed for immediate LCP
 
     return (
@@ -64,7 +64,7 @@ const HomeClient = () => {
         </section> */}
 
                 <section className="py-20 bg-white">
-                    <AllProductsClient />
+                    <FeaturedProducts initialProducts={initialProducts} />
                 </section>
 
                 <section className="py-20 bg-white">

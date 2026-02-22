@@ -21,7 +21,7 @@ const EstimateCostCalculator = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <header className="flex flex-col items-center mb-14">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center leading-tight text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-center leading-tight text-gray-900">
             Estimate Your Automation Cost
           </h2>
           <div className="w-28 h-1 bg-orange-600 rounded mt-4" />
@@ -47,10 +47,10 @@ const EstimateCostCalculator = () => {
             {/* Content Section */}
             <div className="lg:w-1/2 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-8 md:p-10 lg:p-12 flex flex-col justify-between">
               <div className="space-y-4">
-                <h3 className="font-bold text-2xl md:text-3xl lg:text-4xl leading-tight">
+                <h3 className="font-bold text-xl sm:text-2xl md:text-4xl leading-tight">
                   {product.title}
                 </h3>
-                <p className="text-base md:text-lg leading-relaxed text-gray-200">
+                <p className="text-sm sm:text-base md:text-lg leading-relaxed text-gray-200">
                   {product.description}
                 </p>
               </div>
@@ -58,13 +58,13 @@ const EstimateCostCalculator = () => {
               {/* CTA Button */}
               <Link
                 href={product.route}
-                className="inline-flex items-center justify-center gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all duration-300 mt-8 px-8 py-4 text-lg shadow-lg hover:shadow-xl hover:scale-105 group"
+                className="inline-flex items-center justify-center gap-2 sm:gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all duration-300 mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-lg hover:shadow-xl hover:scale-105 group"
                 aria-label={`Get personalized estimate for: ${product.title}`}
               >
                 Get Estimate Cost
-                <ArrowRight 
-                  className="h-5 w-5 transition-transform group-hover:translate-x-1" 
-                  aria-hidden="true" 
+                <ArrowRight
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
                 />
               </Link>
 
@@ -76,7 +76,7 @@ const EstimateCostCalculator = () => {
                 <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm">
                   Free consultation
                 </span>
-                
+
               </div>
             </div>
           </div>

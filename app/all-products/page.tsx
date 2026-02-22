@@ -1,52 +1,45 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import AllProductsClient from "@/components/Clients/AllProductsClient";
+import AllProductsClient from "@/components/products/AllProductsClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { getActiveProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Smart Home Products Directory | Autommensor Bilaspur Raipur",
   description:
-    "Explore our range of smart home products in Bilaspur and Raipur. From digital door locks and video door phones to smart switches and sensors. Best prices in Chhattisgarh.",
-  keywords: [
-    "smart home products Bilaspur",
-    "buy smart switches Raipur",
-    "digital door lock price Chhattisgarh",
-    "video door phone dealers Bilaspur",
-    "smart curtains cost Raipur",
-    "motion sensors for home Bilaspur",
-    "wifi touch switches Raipur",
-    "smart home devices shop Bilaspur",
-    "automation sensors Chhattisgarh",
-    "smart gate opener price Raipur"
-  ],
+    "Explore our complete range of smart home automation products including digital door locks, smart panels, active sensors, and motorized curtains available in Bilaspur and Raipur.",
+  alternates: {
+    canonical: "https://autommensor.in/all-products",
+  },
   openGraph: {
-    title: "All Smart Home Automation Products | autommensor",
-    description: "Complete range of smart home automation products and devices",
+    title: "Complete Smart Home Product Range | Autommensor",
+    description:
+      "Browse our catalog of premium home automation devices. Smart living solutions tailored for Indian homes.",
     url: "https://autommensor.in/all-products",
-    type: "website",
-    images: [
-      {
-        url: "https://autommensor.in/og-image-products.jpg",
-        width: 1200,
-        height: 630,
-        alt: "autommensor Products",
-      },
-    ],
+    images: ["/assets/og-products.jpg"],
   },
 };
 
-const breadcrumbs = [
-  { name: "Home", url: "https://autommensor.in" },
-  { name: "All Products", url: "https://autommensor.in/all-products" },
-];
+export const dynamic = 'force-dynamic';
 
-export default function AllProductsPage() {
+export default async function AllProductsPage() {
+  const products = await getActiveProducts();
+
   return (
     <>
-      <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
-      <AllProductsClient />
+      <div className="pt-20"> {/* Add padding for fixed navbar */}
+        <BreadcrumbSchema
+          items={[
+            { name: "Home", url: "/" },
+            { name: "All Products", url: "/all-products" },
+          ]}
+        />
+        <AllProductsClient initialProducts={products} />
+      </div>
+      <WhatsAppFloat />
       <Footer />
     </>
   );

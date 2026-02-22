@@ -16,10 +16,10 @@ export default function ComparisonSection() {
         viewport={{ once: true }}
         className="absolute top-10 md:top-20 w-full text-center z-20 px-4"
       >
-        <h2 className="text-3xl md:text-5xl font-semibold text-black mb-2">
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-black mb-2">
           TURN TO THE NEW WAY
         </h2>
-        <p className="text-sm md:text-lg text-black font-medium">
+        <p className="text-xs sm:text-sm md:text-lg text-black font-medium px-2">
           "WiFi Based Home Automation - No Special Wiring Required"
         </p>
       </motion.div>
@@ -43,10 +43,11 @@ export default function ComparisonSection() {
               alt="Old Switch"
               width={120}
               height={120}
+              style={{ width: "auto", height: "auto" }}
               className="drop-shadow-xl opacity-80 grayscale hover:grayscale-0 transition-all duration-500"
             />
           </motion.div>
-          <p className="mt-8 text-base md:text-xl font-medium text-slate-700 leading-relaxed">
+          <p className="mt-4 md:mt-8 text-sm sm:text-base md:text-xl font-medium text-slate-700 leading-relaxed">
             Outdated<br />
             Difficult to Maintain<br />
             Old Fashioned
@@ -70,10 +71,11 @@ export default function ComparisonSection() {
               alt="Smart Switch"
               width={140}
               height={140}
+              style={{ width: "auto", height: "auto" }}
               className="drop-shadow-2xl"
             />
           </motion.div>
-          <p className="mt-8 text-base md:text-xl font-bold text-blue-900 leading-relaxed">
+          <p className="mt-4 md:mt-8 text-sm sm:text-base md:text-xl font-bold text-blue-900 leading-relaxed">
             Cutting-Edge Technology<br />
             Easy To Maintain<br />
             Intelligent Touch Controls

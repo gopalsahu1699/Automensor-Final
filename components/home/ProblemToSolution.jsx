@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Home, Zap, Shield, Wifi } from "lucide-react";
+import { FaHouse as Home, FaBolt as Zap, FaShieldHalved as Shield, FaWifi as Wifi } from "react-icons/fa6";
 
 const ProblemSolution = () => {
   const items = [
@@ -27,7 +27,7 @@ const ProblemSolution = () => {
     <section className="bg-white py-20">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <motion.h2
-          className="text-3xl md:text-4xl font-bold text-slate-900 mb-12"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-8 md:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -48,7 +48,7 @@ const ProblemSolution = () => {
               >
                 <Icon className="w-8 h-8 text-blue-600 flex-shrink-0 mt-1" />
                 <div className="text-left">
-                  <p className="text-lg font-semibold text-slate-900">{item.problem}</p>
+                  <p className="text-base sm:text-lg font-semibold text-slate-900">{item.problem}</p>
                   <p className="text-sm text-slate-600 mt-2">{item.solution}</p>
                 </div>
               </motion.div>

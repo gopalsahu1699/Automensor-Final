@@ -1,13 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import {
-  Shield,
-  Timer,
-  Hand,
-  Wifi,
-  Headphones,
-  Plug,
-} from "lucide-react";
+  FaShieldHalved as Shield,
+  FaStopwatch as Timer,
+  FaHandPointer as Hand,
+  FaWifi as Wifi,
+  FaHeadphones as Headphones,
+  FaPlug as Plug,
+} from "react-icons/fa6";
 
 const features = [
   {
@@ -83,7 +83,7 @@ export default function FeaturesSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-medium text-gray-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-900">
             Why Choose Autommmensor
           </h2>
           <p className="mt-4 text-gray-600">
@@ -126,10 +126,10 @@ function FeatureCard({ title, description, icon: Icon, color, variants }) {
 
       {/* Content */}
       <div>
-        <h3 className="text-lg font-bold text-gray-900">
+        <h3 className="text-base sm:text-lg font-bold text-gray-900">
           {title}
         </h3>
-        <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+        <p className="text-gray-600 mt-2 text-xs sm:text-sm leading-relaxed">
           {description}
         </p>
       </div>

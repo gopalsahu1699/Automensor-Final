@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Phone, CheckCircle2, Calculator } from "lucide-react";
+import { FaArrowRight as ArrowRight, FaPhone as Phone, FaCircleCheck as CheckCircle2, FaCalculator as Calculator } from "react-icons/fa6";
 
 const CallToAction = () => {
   return (
@@ -37,7 +37,7 @@ const CallToAction = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight"
           >
             Ready to Transform Your Home
             <span className="block text-blue-600 mt-2">in Just 24 Hours?</span>
@@ -49,7 +49,7 @@ const CallToAction = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             Join <strong>200+ happy families</strong> in Chhattisgarh. Experience the comfort of voice-controlled living with a
             <span className="text-blue-600 font-semibold"> 10-Year Warranty.</span>
@@ -65,7 +65,7 @@ const CallToAction = () => {
           >
             <Link
               href="/contact-us"
-              className="group inline-flex h-14 w-full sm:w-auto items-center justify-center rounded-full bg-blue-600 px-8 text-lg font-bold text-white shadow-lg shadow-blue-200 transition-all hover:bg-blue-700 hover:shadow-xl hover:scale-105"
+              className="group inline-flex h-12 sm:h-14 w-full sm:w-auto items-center justify-center rounded-full bg-blue-600 px-6 sm:px-8 text-base sm:text-lg font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:bg-blue-700 hover:shadow-xl hover:scale-105 active:scale-95"
             >
               Book Free Site Visit
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -73,7 +73,7 @@ const CallToAction = () => {
 
             <Link
               href="/estimate-cost-calculator"
-              className="group inline-flex h-14 w-full sm:w-auto items-center justify-center rounded-full border-2 border-slate-200 bg-white px-8 text-lg font-semibold text-slate-700 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+              className="group inline-flex h-12 sm:h-14 w-full sm:w-auto items-center justify-center rounded-full border-2 border-slate-200 bg-white px-6 sm:px-8 text-base sm:text-lg font-semibold text-slate-700 transition-all hover:border-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:scale-105 active:scale-95"
             >
               <Calculator className="mr-2 h-5 w-5" />
               Calculate Cost
@@ -86,7 +86,7 @@ const CallToAction = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm font-medium text-slate-500 border-t border-slate-100 pt-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-xs sm:text-sm font-medium text-slate-500 border-t border-slate-100 pt-8"
           >
             <div className="flex flex-col items-center gap-2">
               <CheckCircle2 className="h-6 w-6 text-green-500" />

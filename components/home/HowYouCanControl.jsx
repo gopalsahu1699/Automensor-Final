@@ -3,17 +3,17 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  Lightbulb,
-  Fan,
-  Blinds,
-  Bell,
-  Tv,
-  AirVent,
-  Hand,
-  Smartphone,
-  Mic,
-  Radio,
-} from "lucide-react";
+  FaLightbulb as Lightbulb,
+  FaFan as Fan,
+  FaWindowMaximize as Blinds,
+  FaBell as Bell,
+  FaTv as Tv,
+  FaWind as AirVent,
+  FaHandPointer as Hand,
+  FaMobileScreen as Smartphone,
+  FaMicrophone as Mic,
+  FaTowerBroadcast as Radio,
+} from "react-icons/fa6";
 
 /* WHAT YOU CAN CONTROL */
 const whatYouCanControl = [
@@ -65,8 +65,8 @@ export default function ControlSection() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-blue-600 text-2xl font-bold mb-1">WHAT</h3>
-              <p className="text-gray-600 uppercase tracking-wide mb-6">
+              <h3 className="text-blue-600 text-xl sm:text-2xl font-bold mb-1">WHAT</h3>
+              <p className="text-gray-600 uppercase tracking-wide text-xs sm:text-sm mb-6">
                 You can control
               </p>
             </motion.div>
@@ -85,9 +85,9 @@ export default function ControlSection() {
                     whileHover={{ y: -5 }}
                   >
                     <div className="w-14 h-14 flex items-center justify-center border rounded-lg mb-2 bg-white shadow-sm group-hover:bg-blue-50 group-hover:border-blue-200 transition-all duration-300">
-                      <Icon className="w-7 h-7 text-blue-600" />
+                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600" />
                     </div>
-                    <p className="text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
+                    <p className="text-xs sm:text-sm font-medium text-gray-700 group-hover:text-blue-600 transition-colors">
                       {item.label}
                     </p>
                   </motion.div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { FaArrowRight as ArrowRight } from "react-icons/fa6";
 
 const HeaderSlider = () => {
   const sliderData = [
@@ -61,28 +61,28 @@ const HeaderSlider = () => {
             className="min-w-full"
           >
             <div className="max-w-7xl mx-auto px-6 py-24 grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
-              
+
               {/* LEFT CONTENT */}
               <div>
-                <p className="text-orange-600 font-medium mb-3">
+                <p className="text-orange-600 font-medium text-sm sm:text-base mb-3">
                   {slide.offer}
                 </p>
 
-                <h1 className="text-3xl md:text-5xl font-semibold text-slate-900 leading-tight max-w-xl">
+                <h1 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-slate-900 leading-tight max-w-xl">
                   {slide.title}
                 </h1>
 
                 <div className="flex items-center mt-8 gap-4">
                   <Link
                     href={slide.buttonLink1}
-                    className="px-8 py-3 bg-orange-600 text-white rounded-full font-medium hover:bg-orange-700 transition"
+                    className="px-6 sm:px-8 py-3 bg-orange-600 text-white rounded-full text-sm sm:text-base font-medium shadow-lg shadow-orange-600/30 hover:bg-orange-700 hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
                   >
                     {slide.buttonText1}
                   </Link>
 
                   <Link
                     href={slide.buttonLink2}
-                    className="group flex items-center gap-2 text-slate-900 font-medium"
+                    className="group flex items-center gap-2 text-slate-900 text-sm sm:text-base font-medium"
                   >
                     {slide.buttonText2}
                     <ArrowRight
@@ -99,6 +99,7 @@ const HeaderSlider = () => {
                   src={slide.imgSrc}
                   alt={slide.title}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   priority={index === currentSlide}
                   className="object-contain"
                 />
@@ -115,11 +116,10 @@ const HeaderSlider = () => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full transition ${
-              index === currentSlide
-                ? "bg-orange-600"
-                : "bg-orange-300/40"
-            }`}
+            className={`w-2.5 h-2.5 rounded-full transition ${index === currentSlide
+              ? "bg-orange-600"
+              : "bg-orange-300/40"
+              }`}
             aria-label={`Slide ${index + 1}`}
           />
         ))}

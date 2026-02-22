@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { FaChevronDown as ChevronDown, FaChevronUp as ChevronUp } from "react-icons/fa6";
 import Link from "next/link";
 
 
@@ -47,7 +47,7 @@ export default function FAQs() {
 
         {/* Heading */}
         <motion.h2
-          className="text-3xl sm:text-4xl font-bold text-slate-900 mb-10 text-center"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-8 md:mb-10 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -96,16 +96,16 @@ export default function FAQs() {
           ))}
         </div>
 
-     {/* Right-aligned CTA */}
-<div className="mt-10 flex justify-end">
-  <Link
-    href="/faq"
-    className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition"
-  >
-    More
-    <span className="text-lg">→</span>
-  </Link>
-</div>
+        {/* Right-aligned CTA */}
+        <div className="mt-10 flex justify-end">
+          <Link
+            href="/faq"
+            className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition"
+          >
+            More
+            <span className="text-lg">→</span>
+          </Link>
+        </div>
 
 
       </div>

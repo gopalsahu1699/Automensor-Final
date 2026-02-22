@@ -46,26 +46,26 @@ const ProductSlider = React.memo(() => {
 
         {/* LEFT CONTENT */}
         <div>
-          <h3 className="text-blue-500 font-medium text-lg mb-4">
+          <h3 className="text-blue-500 font-medium text-base sm:text-lg mb-4">
             {slides[currentSlide].title}
           </h3>
 
-          <p className="text-gray-700 text-xl leading-relaxed max-w-md">
+          <p className="text-gray-700 text-lg sm:text-xl leading-relaxed max-w-md">
             {slides[currentSlide].description}
           </p>
         </div>
 
         {/* RIGHT IMAGE */}
-      <div className="relative w-full h-[240px] sm:h-[320px] md:h-[420px] lg:h-[480px]">
-  <Image
-    src={slides[currentSlide].image}
-    alt={slides[currentSlide].title}
-    fill
-    className="object-cover"
-    sizes="100vw"
-    priority
-  />
-</div>
+        <div className="relative w-full h-[240px] sm:h-[320px] md:h-[420px] lg:h-[480px]">
+          <Image
+            src={slides[currentSlide].image}
+            alt={slides[currentSlide].title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+          />
+        </div>
 
 
       </div>
@@ -76,11 +76,10 @@ const ProductSlider = React.memo(() => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full transition ${
-              index === currentSlide
-                ? "bg-blue-600"
-                : "border border-blue-500"
-            }`}
+            className={`w-2.5 h-2.5 rounded-full transition ${index === currentSlide
+              ? "bg-blue-600"
+              : "border border-blue-500"
+              }`}
             aria-label={`Slide ${index + 1}`}
           />
         ))}

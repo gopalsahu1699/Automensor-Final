@@ -24,6 +24,11 @@ export const metadata: Metadata = {
     },
 };
 
-export default function Home() {
-    return <HomeClient />;
+import { getActiveProducts } from "@/lib/products";
+
+export const dynamic = 'force-dynamic';
+
+export default async function Home() {
+    const products = await getActiveProducts();
+    return <HomeClient initialProducts={products} />;
 }
