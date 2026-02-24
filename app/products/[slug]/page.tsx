@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { getProductBySlug } from '@/lib/products';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import WhatsAppFloat from '@/components/WhatsAppFloat';
 import { CheckCircle2, PhoneCall, ShieldCheck, ArrowLeft } from 'lucide-react';
+
+import ProductImageGallery from '@/components/ProductImageGallery';
 
 export const dynamic = 'force-dynamic';
 
@@ -49,28 +50,13 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
                     <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-10">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 
-                            {/* Left Column - Image */}
+                            {/* Left Column - Image Gallery */}
                             <div className="flex flex-col gap-6">
-                                <div className="relative aspect-square rounded-2xl bg-slate-100 overflow-hidden border border-slate-100 group">
-                                    {product.image_url ? (
-                                        <Image
-                                            src={product.image_url}
-                                            alt={product.name}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                            priority
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 flex items-center justify-center text-slate-400">
-                                            No Image Available
-                                        </div>
-                                    )}
-                                    {product.is_featured && (
-                                        <div className="absolute top-6 left-6 px-4 py-1.5 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-bold rounded-full shadow-lg">
-                                            Featured
-                                        </div>
-                                    )}
-                                </div>
+                                <ProductImageGallery
+                                    images={[product.image_url, ...(product.gallery_urls || [])].filter(Boolean)}
+                                    productName={product.name}
+                                    isFeatured={product.is_featured}
+                                />
                             </div>
 
                             {/* Right Column - Details */}
@@ -155,7 +141,6 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
                 </div>
             </main>
 
-            <WhatsAppFloat />
             <Footer />
         </div>
     );

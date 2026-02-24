@@ -170,3 +170,49 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
     />
   );
 }
+
+export function SiteNavigationSchema() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "SiteNavigationElement",
+        "position": 1,
+        "name": "Products",
+        "url": "https://autommensor.in/all-products"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 2,
+        "name": "Estimate Cost Calculator",
+        "url": "https://autommensor.in/estimate-cost-calculator"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 3,
+        "name": "Scene Creation",
+        "url": "https://autommensor.in/all-products/scene-creation"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 4,
+        "name": "About Us",
+        "url": "https://autommensor.in/about-us"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 5,
+        "name": "Contact Us",
+        "url": "https://autommensor.in/contact-us"
+      }
+    ]
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

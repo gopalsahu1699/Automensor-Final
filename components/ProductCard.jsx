@@ -34,7 +34,7 @@ const ProductCard = ({ product }) => {
   return (
     <motion.div
       onClick={handleClick}
-      className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden border border-gray-200 hover:border-orange-300"
+      className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden border border-gray-200 hover:border-orange-400"
       whileHover={{ y: -8 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
@@ -63,7 +63,7 @@ const ProductCard = ({ product }) => {
 
         {/* Category Badge */}
         {product.category && (
-          <div className="absolute top-3 left-3 bg-orange-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
+          <div className="absolute top-3 left-3 bg-orange-700 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg">
             {product.category}
           </div>
         )}
@@ -72,7 +72,7 @@ const ProductCard = ({ product }) => {
       {/* Product Info */}
       <div className="p-4 space-y-3">
         {/* Product Name */}
-        <h3 className="font-bold text-base md:text-lg text-gray-900 line-clamp-2 leading-tight group-hover:text-orange-600 transition-colors">
+        <h3 className="font-bold text-base md:text-lg text-gray-900 line-clamp-2 leading-tight group-hover:text-orange-700 transition-colors">
           {product.name}
         </h3>
 
@@ -86,7 +86,7 @@ const ProductCard = ({ product }) => {
         {/* View Details Button */}
         <div className="flex items-center justify-between pt-2">
           <span className="text-sm font-medium text-gray-500">View Details</span>
-          <div className="flex items-center gap-2 text-orange-600 font-semibold group-hover:gap-3 transition-all">
+          <div className="flex items-center gap-2 text-orange-700 font-bold group-hover:gap-3 transition-all">
             <span className="text-sm">Explore</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </div>

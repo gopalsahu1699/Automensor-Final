@@ -24,7 +24,7 @@ const EstimateCostCalculator = () => {
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-center leading-tight text-gray-900">
             Estimate Your Automation Cost
           </h2>
-          <div className="w-28 h-1 bg-orange-600 rounded mt-4" />
+          <div className="w-28 h-1 bg-orange-700 rounded mt-4" />
         </header>
 
         {/* Card Container - Responsive Layout */}
@@ -41,6 +41,7 @@ const EstimateCostCalculator = () => {
                 className="hover:scale-105 transition-transform duration-500 w-full h-64 lg:h-full object-cover"
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                {...({ fetchPriority: "high" })}
               />
             </div>
 
@@ -58,7 +59,7 @@ const EstimateCostCalculator = () => {
               {/* CTA Button */}
               <Link
                 href={product.route}
-                className="inline-flex items-center justify-center gap-2 sm:gap-3 font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-full transition-all duration-300 mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-lg hover:shadow-xl hover:scale-105 group"
+                className="inline-flex items-center justify-center gap-2 sm:gap-3 font-semibold text-white bg-orange-700 hover:bg-orange-800 rounded-full transition-all duration-300 mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-lg hover:shadow-xl hover:scale-105 group"
                 aria-label={`Get personalized estimate for: ${product.title}`}
               >
                 Get Estimate Cost

@@ -21,11 +21,14 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
         technical_details: initialData?.technical_details || '',
         price_range: initialData?.price_range || '',
         image_url: initialData?.image_url || '',
+        gallery_urls: initialData?.gallery_urls || [],
         is_active: initialData?.is_active ?? true,
         is_featured: initialData?.is_featured ?? false,
         sort_order: initialData?.sort_order || 0,
         features: initialData?.features?.join(', ') || ''
     });
+
+    const [isCustomCategory, setIsCustomCategory] = useState(!['comfort', 'security', 'control'].includes(initialData?.category || 'comfort'));
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -50,7 +53,26 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
             ...prev,
             image_url: result.info.secure_url
         }));
-        toast.success("Image uploaded successfully");
+        toast.success("Main image updated");
+    };
+
+    const handleGalleryUpload = (result: any) => {
+        if (formData.gallery_urls.length >= 3) {
+            toast.error("Maximum 4 images allowed total (1 Main + 3 Gallery)");
+            return;
+        }
+        setFormData(prev => ({
+            ...prev,
+            gallery_urls: [...prev.gallery_urls, result.info.secure_url]
+        }));
+        toast.success("Gallery image added");
+    };
+
+    const removeGalleryImage = (index: number) => {
+        setFormData(prev => ({
+            ...prev,
+            gallery_urls: prev.gallery_urls.filter((_, i) => i !== index)
+        }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -116,11 +138,52 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-300">Category <span className="text-red-500">*</span></label>
-                            <select required name="category" value={formData.category} onChange={handleChange} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
-                                <option value="comfort">Comfort & Luxury</option>
-                                <option value="security">Safety & Security</option>
-                                <option value="control">Control Systems</option>
-                            </select>
+                            <div className="flex gap-2">
+                                {!isCustomCategory ? (
+                                    <>
+                                        <select
+                                            required
+                                            name="category"
+                                            value={formData.category}
+                                            onChange={(e) => {
+                                                if (e.target.value === 'custom') {
+                                                    setIsCustomCategory(true);
+                                                    setFormData(p => ({ ...p, category: '' }));
+                                                } else {
+                                                    handleChange(e);
+                                                }
+                                            }}
+                                            className="grow px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                                        >
+                                            <option value="comfort">Comfort & Luxury</option>
+                                            <option value="security">Safety & Security</option>
+                                            <option value="control">Control Systems</option>
+                                            <option value="custom">+ New Category...</option>
+                                        </select>
+                                    </>
+                                ) : (
+                                    <div className="relative grow">
+                                        <input
+                                            required
+                                            name="category"
+                                            value={formData.category}
+                                            onChange={handleChange}
+                                            placeholder="Enter new category..."
+                                            className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setIsCustomCategory(false);
+                                                setFormData(p => ({ ...p, category: 'comfort' }));
+                                            }}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-blue-400 hover:text-blue-300"
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div className="space-y-2">
@@ -135,31 +198,78 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
                     <h2 className="text-xl font-bold text-white mb-6">Media & Content</h2>
 
                     <div className="space-y-6">
-                        <div className="space-y-2 flex flex-col">
-                            <label className="text-sm font-medium text-slate-300">Main Image</label>
-                            {formData.image_url ? (
-                                <div className="relative w-48 h-48 rounded-xl overflow-hidden border border-slate-700 group">
-                                    <Image src={formData.image_url} alt="Product" fill className="object-cover" />
-                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                        <button type="button" onClick={() => setFormData(p => ({ ...p, image_url: '' }))} className="p-2 bg-red-500 text-white rounded-full">
-                                            <X className="w-5 h-5" />
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <CldUploadWidget
-                                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
-                                    onSuccess={handleUploadSuccess}
-                                    options={{ maxFiles: 1 }}
-                                >
-                                    {({ open }) => (
-                                        <button type="button" onClick={() => open()} className="w-48 h-48 border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-xl flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors bg-slate-800/30 font-medium">
-                                            <ImagePlus className="w-8 h-8 mb-2" />
-                                            Upload Image
-                                        </button>
+                        <div className="space-y-4">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <label className="text-sm font-medium text-slate-300">Product Images (Up to 4)</label>
+                                <span className="text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded">
+                                    Recommended: Square (1:1), 800x800px minimum
+                                </span>
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                {/* Slot 1: Main Image */}
+                                <div className="space-y-2">
+                                    <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Main Image</span>
+                                    {formData.image_url ? (
+                                        <div className="relative aspect-square rounded-xl overflow-hidden border border-slate-700 group">
+                                            <Image src={formData.image_url} alt="Product" fill className="object-cover" />
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                <button type="button" onClick={() => setFormData(p => ({ ...p, image_url: '' }))} className="p-2 bg-red-500 text-white rounded-full">
+                                                    <X className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <CldUploadWidget
+                                            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
+                                            onSuccess={handleUploadSuccess}
+                                            options={{ maxFiles: 1, cropping: true, croppingAspectRatio: 1 }}
+                                        >
+                                            {({ open }) => (
+                                                <button type="button" onClick={() => open()} className="aspect-square border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-xl flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors bg-slate-800/30">
+                                                    <ImagePlus className="w-6 h-6 mb-1" />
+                                                    <span className="text-[10px] font-bold">Upload</span>
+                                                </button>
+                                            )}
+                                        </CldUploadWidget>
                                     )}
-                                </CldUploadWidget>
-                            )}
+                                </div>
+
+                                {/* Slots 2-4: Gallery */}
+                                {[0, 1, 2].map((i) => (
+                                    <div key={i} className="space-y-2">
+                                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Gallery {i + 1}</span>
+                                        {formData.gallery_urls[i] ? (
+                                            <div className="relative aspect-square rounded-xl overflow-hidden border border-slate-700 group">
+                                                <Image src={formData.gallery_urls[i]} alt="Gallery" fill className="object-cover" />
+                                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                    <button type="button" onClick={() => removeGalleryImage(i)} className="p-2 bg-red-500 text-white rounded-full">
+                                                        <X className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <CldUploadWidget
+                                                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
+                                                onSuccess={handleGalleryUpload}
+                                                options={{ maxFiles: 1, cropping: true, croppingAspectRatio: 1 }}
+                                            >
+                                                {({ open }) => (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => open()}
+                                                        disabled={i > 0 && !formData.gallery_urls[i - 1] && !formData.image_url}
+                                                        className="aspect-square border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-xl flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors bg-slate-800/30 disabled:opacity-30 disabled:cursor-not-allowed"
+                                                    >
+                                                        <ImagePlus className="w-6 h-6 mb-1" />
+                                                        <span className="text-[10px] font-bold">Upload</span>
+                                                    </button>
+                                                )}
+                                            </CldUploadWidget>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         <div className="space-y-2">

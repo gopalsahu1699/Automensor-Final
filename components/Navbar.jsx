@@ -54,6 +54,7 @@ const NavbarHero = () => {
   const navItems = [
     { href: "/", label: "Home", icon: Home },
     { href: "/all-products", label: "Products", icon: ShoppingBag },
+    { href: "/estimate-cost-calculator", label: "Cost Calculator", icon: Zap },
     { href: "/about-us", label: "About", icon: Info },
     { href: "/contact-us", label: "Contact", icon: Mail },
   ];
@@ -67,7 +68,7 @@ const NavbarHero = () => {
         href={href}
         onClick={() => setSidebarOpen(false)}
         className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 group ${isActive
-          ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold shadow-md"
+          ? "bg-gradient-to-r from-blue-700 to-blue-600 text-white font-semibold shadow-md"
           : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
           }`}
       >
@@ -177,7 +178,7 @@ const NavbarHero = () => {
                   key={item.href}
                   href={item.href}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all group ${isActive
-                    ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg"
+                    ? "bg-gradient-to-r from-blue-700 to-blue-600 text-white shadow-lg"
                     : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                     }`}
                 >

@@ -3,7 +3,6 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import AllProductsClient from "@/components/products/AllProductsClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { getActiveProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -39,7 +38,6 @@ export default async function AllProductsPage() {
         />
         <AllProductsClient initialProducts={products} />
       </div>
-      <WhatsAppFloat />
       <Footer />
     </>
   );

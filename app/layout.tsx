@@ -3,9 +3,7 @@ import { Outfit } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { OrganizationSchema } from "@/components/StructuredData";
+import { OrganizationSchema, SiteNavigationSchema } from "@/components/StructuredData";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const outfit = Outfit({
@@ -176,7 +174,7 @@ export default function RootLayout({
           href="https://www.google-analytics.com"
         />
 
-        {/* Google Analytics */}
+        {/* Google Analytics - Consolidated */}
         {GA_TRACKING_ID && (
           <>
             <Script
@@ -193,15 +191,20 @@ export default function RootLayout({
                   gtag('js', new Date());
                   gtag('config', '${GA_TRACKING_ID}', {
                     'send_page_view': true,
-                    'anonymize_ip': true,
-                    'allow_google_signals': true,
-                    'allow_ad_personalization_signals': true
+                    'anonymize_ip': true
                   });
                 `,
               }}
             />
           </>
         )}
+
+        {/* SEO Meta Tags */}
+        <meta name="subject" content="Smart Home Automation" />
+        <meta name="copyright" content="autommensor" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="author" content="autommensor" />
 
         <Script
           id="json-ld-organization"
@@ -312,33 +315,18 @@ export default function RootLayout({
             ]),
           }}
         />
-
-        {/* SEO Meta Tags */}
-        <meta name="subject" content="Smart Home Automation" />
-        <meta name="copyright" content="autommensor" />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="author" content="autommensor" />
-
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SV8F3VF6NX"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-SV8F3VF6NX');
-    `,
-        }} />
       </head>
       <body className={outfit.className}>
         {/* Structured Data Component */}
         <OrganizationSchema />
+        <SiteNavigationSchema />
 
         {/* Context Provider (No Auth) */}
 
         {/* Main Content */}
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
         <WhatsAppFloat />
         {/* Toast Notifications */}
         <Toaster
@@ -358,21 +346,6 @@ export default function RootLayout({
               duration: 4000,
             },
           }}
-        />
-
-        {/* React Toastify Container */}
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={true}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          limit={3}
         />
 
       </body>

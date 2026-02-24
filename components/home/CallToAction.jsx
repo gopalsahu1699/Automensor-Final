@@ -101,7 +101,7 @@ const CallToAction = () => {
               <span>24/7 Local Support</span>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <Phone className="h-6 w-6 text-orange-500" />
+              <Phone className="h-6 w-6 text-orange-700" />
               <span>+91-8085782471</span>
             </div>
           </motion.div>

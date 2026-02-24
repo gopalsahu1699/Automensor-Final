@@ -7,7 +7,11 @@ export default function WhatsAppFloat() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 3000); // 3-second delay
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (!mounted) return null;

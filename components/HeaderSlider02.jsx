@@ -64,7 +64,7 @@ const HeaderSlider = () => {
 
               {/* LEFT CONTENT */}
               <div>
-                <p className="text-orange-600 font-medium text-sm sm:text-base mb-3">
+                <p className="text-orange-700 font-bold text-sm sm:text-base mb-3">
                   {slide.offer}
                 </p>
 
@@ -75,7 +75,7 @@ const HeaderSlider = () => {
                 <div className="flex items-center mt-8 gap-4">
                   <Link
                     href={slide.buttonLink1}
-                    className="px-6 sm:px-8 py-3 bg-orange-600 text-white rounded-full text-sm sm:text-base font-medium shadow-lg shadow-orange-600/30 hover:bg-orange-700 hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
+                    className="px-6 sm:px-8 py-3 bg-orange-700 text-white rounded-full text-sm sm:text-base font-medium shadow-lg shadow-orange-700/30 hover:bg-orange-800 hover:shadow-xl hover:scale-105 active:scale-95 transition-all"
                   >
                     {slide.buttonText1}
                   </Link>
@@ -84,7 +84,7 @@ const HeaderSlider = () => {
                     href={slide.buttonLink2}
                     className="group flex items-center gap-2 text-slate-900 text-sm sm:text-base font-medium"
                   >
-                    {slide.buttonText2}
+                    {slide.buttonText2 === "Learn More" ? "About Autommensor" : slide.buttonText2}
                     <ArrowRight
                       size={20}
                       className="group-hover:translate-x-1 transition"
@@ -100,7 +100,8 @@ const HeaderSlider = () => {
                   alt={slide.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority={index === currentSlide}
+                  priority={index === 0}
+                  {...(index === 0 ? { fetchPriority: "high" } : {})}
                   className="object-contain"
                 />
               </div>
@@ -111,17 +112,19 @@ const HeaderSlider = () => {
       </div>
 
       {/* SLIDER DOTS */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4">
         {sliderData.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full transition ${index === currentSlide
-              ? "bg-orange-600"
-              : "bg-orange-300/40"
-              }`}
-            aria-label={`Slide ${index + 1}`}
-          />
+            className={`flex items-center justify-center w-8 h-8 rounded-full transition-all`}
+            aria-label={`Show slide ${index + 1}`}
+          >
+            <div className={`w-3.5 h-3.5 rounded-full transition-all ${index === currentSlide
+              ? "bg-orange-700 scale-125"
+              : "bg-orange-300/60 scale-100"
+              }`} />
+          </button>
         ))}
       </div>
     </section>

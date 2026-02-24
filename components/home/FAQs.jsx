@@ -100,9 +100,9 @@ export default function FAQs() {
         <div className="mt-10 flex justify-end">
           <Link
             href="/faq"
-            className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition"
           >
-            More
+            Explore More FAQs
             <span className="text-lg">→</span>
           </Link>
         </div>

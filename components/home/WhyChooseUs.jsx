@@ -15,42 +15,42 @@ const features = [
     description:
       "Market-leading warranty coverage. We stand by our quality for a decade.",
     icon: Shield,
-    color: "bg-violet-500",
+    color: "bg-violet-700",
   },
   {
     title: "Free Site Visit",
     description:
       "Expert consultation at your doorstep in Bilaspur & Raipur. No obligation.",
     icon: Timer,
-    color: "bg-blue-500",
+    color: "bg-blue-700",
   },
   {
     title: "24/7 Local Support",
     description:
       "We are based in Chhattisgarh. Support is just a phone call away.",
     icon: Headphones,
-    color: "bg-gray-700",
+    color: "bg-slate-800",
   },
   {
     title: "Zero Rewiring Needed",
     description:
       "Upgrade your existing home without breaking a single wall.",
     icon: Plug,
-    color: "bg-emerald-500",
+    color: "bg-emerald-700",
   },
   {
     title: "Voice & App Control",
     description:
       "Control your entire home with Alexa, Google Home, or our mobile app.",
     icon: Hand,
-    color: "bg-indigo-500",
+    color: "bg-indigo-700",
   },
   {
     title: "Wi-Fi Based System",
     description:
       "Seamless wireless connectivity for a clutter-free smart home.",
     icon: Wifi,
-    color: "bg-orange-500",
+    color: "bg-orange-700",
   },
 
 ];

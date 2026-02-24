@@ -1,26 +1,21 @@
 "use client";
 import React from "react";
 import dynamic from 'next/dynamic';
+import HeroSection from "@/components/home/HeroSection";
 
 const HeaderSlider1 = dynamic(() => import("@/components/HeaderSlider01"), { ssr: false });
 const HeaderSlider2 = dynamic(() => import("@/components/HeaderSlider02"), { ssr: false });
 const Navbar = dynamic(() => import("@/components/Navbar"));
 const Footer = dynamic(() => import("@/components/Footer"));
-// EstimateCostCalculator is used below fold
-const EstimateCostCalculator = dynamic(() => import("@/components/EstimateCostCalculator"));
-
-import HowYouCanControl from "@/components/home/HowYouCanControl";
-
-import ComparisonSection from "@/components/home/ComparisonSection";
-
-import HeroSection from "@/components/home/HeroSection";
-import ProblemSolution from "@/components/home/ProblemToSolution";
-
 // Below fold components
+const EstimateCostCalculator = dynamic(() => import("@/components/EstimateCostCalculator"));
 const FAQs = dynamic(() => import("@/components/home/FAQs"));
 const FeaturedProducts = dynamic(() => import("@/components/home/FeaturedProducts"));
 const WhyChooseUs = dynamic(() => import("@/components/home/WhyChooseUs"));
 const CallToAction = dynamic(() => import("@/components/home/CallToAction"));
+const ProblemSolution = dynamic(() => import("@/components/home/ProblemToSolution"), { ssr: false });
+const ComparisonSection = dynamic(() => import("@/components/home/ComparisonSection"), { ssr: false });
+const HowYouCanControl = dynamic(() => import("@/components/home/HowYouCanControl"), { ssr: false });
 
 const HomeClient = ({ initialProducts }) => {
     // Loading state removed for immediate LCP

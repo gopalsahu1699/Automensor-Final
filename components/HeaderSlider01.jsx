@@ -46,7 +46,7 @@ const ProductSlider = React.memo(() => {
 
         {/* LEFT CONTENT */}
         <div>
-          <h3 className="text-blue-500 font-medium text-base sm:text-lg mb-4">
+          <h3 className="text-blue-700 font-medium text-base sm:text-lg mb-4">
             {slides[currentSlide].title}
           </h3>
 
@@ -64,6 +64,7 @@ const ProductSlider = React.memo(() => {
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
             priority
+            {...({ fetchPriority: "high" })}
           />
         </div>
 
@@ -71,17 +72,19 @@ const ProductSlider = React.memo(() => {
       </div>
 
       {/* DOTS */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2.5 h-2.5 rounded-full transition ${index === currentSlide
-              ? "bg-blue-600"
-              : "border border-blue-500"
-              }`}
-            aria-label={`Slide ${index + 1}`}
-          />
+            className={`flex items-center justify-center w-8 h-8 rounded-full transition-all`}
+            aria-label={`Show slide ${index + 1}`}
+          >
+            <div className={`w-3.5 h-3.5 rounded-full transition-all ${index === currentSlide
+              ? "bg-blue-600 scale-125"
+              : "border-2 border-blue-500 scale-100"
+              }`} />
+          </button>
         ))}
       </div>
     </section>
