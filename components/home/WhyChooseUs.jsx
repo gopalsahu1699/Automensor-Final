@@ -1,139 +1,75 @@
 "use client";
-import { motion } from "framer-motion";
-import {
-  FaShieldHalved as Shield,
-  FaStopwatch as Timer,
-  FaHandPointer as Hand,
-  FaWifi as Wifi,
-  FaHeadphones as Headphones,
-  FaPlug as Plug,
-} from "react-icons/fa6";
+import React from "react";
 
 const features = [
   {
-    title: "10-Year Warranty",
-    description:
-      "Market-leading warranty coverage. We stand by our quality for a decade.",
-    icon: Shield,
-    color: "bg-violet-700",
+    icon: "energy_savings_leaf",
+    title: "Smart Energy Management",
+    description: "Reduce electricity bills with automated lighting and AC control that adjusts based on occupancy and time of day.",
   },
   {
-    title: "Free Site Visit",
-    description:
-      "Expert consultation at your doorstep in Bilaspur & Raipur. No obligation.",
-    icon: Timer,
-    color: "bg-blue-700",
+    icon: "shield_lock",
+    title: "Smart Home Security System",
+    description: "Protect what matters most with 24/7 monitoring, smart locks, and instant mobile alerts for any unusual activity.",
   },
   {
-    title: "24/7 Local Support",
-    description:
-      "We are based in Chhattisgarh. Support is just a phone call away.",
-    icon: Headphones,
-    color: "bg-slate-800",
+    icon: "lightbulb",
+    title: "Automated everything Solutions",
+    description: "Set the perfect mood for every occasion. Create custom scenes for dining, movies, or sleep with elegant touch panels.",
   },
   {
-    title: "Zero Rewiring Needed",
-    description:
-      "Upgrade your existing home without breaking a single wall.",
-    icon: Plug,
-    color: "bg-emerald-700",
+    icon: "mic",
+    title: "Voice Controlled Home",
+    description: "Seamless integration with Alexa and Google Home. Control your entire environment using simple voice commands.",
   },
   {
-    title: "Voice & App Control",
-    description:
-      "Control your entire home with Alexa, Google Home, or our mobile app.",
-    icon: Hand,
-    color: "bg-indigo-700",
+    icon: "devices",
+    title: "Centralized App Control",
+    description: "Manage your Chhattisgarh home from anywhere in the world with our intuitive, high-speed mobile application.",
   },
   {
-    title: "Wi-Fi Based System",
-    description:
-      "Seamless wireless connectivity for a clutter-free smart home.",
-    icon: Wifi,
-    color: "bg-orange-700",
+    icon: "support_agent",
+    title: "24/7 Local Presence",
+    description: "Experience peace of mind with our dedicated support centers in Bilaspur and Raipur, offering on-site assistance whenever needed.",
   },
-
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } }
-};
-
-export default function FeaturesSection() {
+export default function WhyChooseUs() {
   return (
-    <section className="bg-gray-50 py-24">
-      <div className="max-w-6xl mx-auto px-6">
-
+    <section className="py-10 md:py-stack-xl relative overflow-hidden">
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 blur-[120px] rounded-full -translate-x-1/2" />
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
         {/* Section Title */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-900">
-            Why Choose Autommmensor
+        <div className="text-center mb-stack-md">
+          <span className="text-electric-blue font-label-md tracking-[0.1em] md:tracking-[0.3em] uppercase mb-4 block">Engineered for Excellence</span>
+          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-6">
+            Complete <span className="gradient-text">Smart Home Solutions</span>
           </h2>
-          <p className="mt-4 text-gray-600">
-            Designed for comfort, reliability, and modern living
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
+            Experience a lifestyle of ultimate comfort and efficiency. Our retrofit home automation systems are designed to modernize your space without traditional renovation headaches.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Features List */}
-        <motion.div
-          className="space-y-6 md:space-y-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
-        >
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {features.map((feature, index) => (
-            <FeatureCard key={index} {...feature} variants={item} />
+            <div
+              key={index}
+              className="glass p-5 md:p-10 rounded-2xl md:rounded-3xl hover:bg-white/10 hover:translate-y-[-8px] transition-all duration-500 group border-white/5"
+            >
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-electric-blue/10 flex items-center justify-center text-electric-blue mb-4 md:mb-8 group-hover:scale-110 group-hover:primary-gradient group-hover:text-white transition-all">
+                <span className="material-symbols-outlined text-[24px] md:text-[36px]">{feature.icon}</span>
+              </div>
+              <h3 className="text-base md:font-headline-sm text-headline-sm mb-4 group-hover:text-electric-blue transition-colors">
+                {feature.title}
+              </h3>
+              <p className="text-on-surface-variant leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
           ))}
-        </motion.div>
-
+        </div>
       </div>
     </section>
-  );
-}
-
-/* ================= Feature Card ================= */
-function FeatureCard({ title, description, icon: Icon, color, variants }) {
-  return (
-    <motion.div
-      variants={variants}
-      className="flex items-start gap-4 bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-gray-100"
-    >
-
-      {/* Icon */}
-      <div
-        className={`w-12 h-12 shrink-0 flex items-center justify-center rounded-xl ${color} shadow-md`}
-      >
-        <Icon size={24} className="text-white" />
-      </div>
-
-      {/* Content */}
-      <div>
-        <h3 className="text-base sm:text-lg font-bold text-gray-900">
-          {title}
-        </h3>
-        <p className="text-gray-600 mt-2 text-xs sm:text-sm leading-relaxed">
-          {description}
-        </p>
-      </div>
-
-    </motion.div>
   );
 }

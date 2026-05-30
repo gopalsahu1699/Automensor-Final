@@ -43,7 +43,7 @@ const faqItems = [
 
 export default function FAQs() {
   return (
-    <section className="py-stack-xl bg-surface-container-lowest/20">
+    <section className="py-10 md:py-stack-xl bg-surface-container-lowest/20">
       <div className="max-w-[900px] mx-auto px-margin-mobile">
         {/* Heading */}
         <div className="text-center mb-stack-md">
@@ -60,7 +60,7 @@ export default function FAQs() {
         </div>
 
         {/* More FAQs Link */}
-        <div className="mt-12 text-center">
+        <div className="mt-6 md:mt-12 text-center">
           <Link href="/faq" className="inline-flex items-center gap-3 text-electric-blue font-label-md hover:gap-5 transition-all group">
             More Technical FAQs
             <span className="material-symbols-outlined">arrow_forward</span>
@@ -75,13 +75,13 @@ function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className={`glass border-white/5 rounded-3xl overflow-hidden transition-all ${isOpen ? "bg-white/5" : "hover:bg-white/5"}`}>
+    <div className={`glass border-white/5 rounded-xl md:rounded-3xl overflow-hidden transition-all ${isOpen ? "bg-white/5" : "hover:bg-white/5"}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center p-8 text-left group"
+        className="w-full flex justify-between items-center p-4 md:p-8 text-left group"
         aria-expanded={isOpen}
       >
-        <span className="font-headline-sm text-[20px] group-hover:text-electric-blue transition-colors pr-4">
+        <span className="font-headline-sm text-sm md:text-[20px] group-hover:text-electric-blue transition-colors pr-4">
           {question}
         </span>
         <span
@@ -95,7 +95,7 @@ function FAQItem({ question, answer }) {
         className="overflow-hidden transition-all duration-300"
         style={{ maxHeight: isOpen ? "500px" : "0px", opacity: isOpen ? 1 : 0 }}
       >
-        <p className="px-8 pb-8 text-on-surface-variant font-body-md leading-relaxed">
+        <p className="px-4 pb-4 md:px-8 md:pb-8 text-on-surface-variant text-sm md:font-body-md leading-relaxed">
           {answer}
         </p>
       </div>

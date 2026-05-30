@@ -1,98 +1,77 @@
 "use client";
-import React from 'react';
-import Image from "next/image";
-import { motion } from "framer-motion";
+import React from "react";
+
+const oldItems = ["Messy Wall Cutting", "Limited Control Options", "High Maintenance Risks"];
+const newItems = ["No Wall Cutting Required", "Installs in Existing Switch Boxes", "100% Reliable Wireless Connectivity"];
 
 export default function ComparisonSection() {
   return (
-    <section className="relative w-full h-[80vh] md:h-screen flex flex-col justify-center overflow-hidden">
-
-
-      {/* Center Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="absolute top-10 md:top-20 w-full text-center z-20 px-4"
-      >
-        <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-black mb-2">
-          TURN TO THE NEW WAY
-        </h2>
-        <p className="text-xs sm:text-sm md:text-lg text-black font-medium px-2">
-          "WiFi Based Home Automation - No Special Wiring Required"
-        </p>
-      </motion.div>
-
-      {/* Split Layout */}
-      <div className="flex w-full h-full">
-        {/* LEFT - OLD */}
-        <motion.div
-          initial={{ x: -100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="w-1/2 bg-[#d1d5db] flex flex-col items-center justify-center text-center px-4 md:px-8 border-r border-gray-400/20"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Image
-              src="https://res.cloudinary.com/dn9rohd6h/image/upload/v1768528700/Switch_vzrmnz.webp"
-              alt="Old Switch"
-              width={120}
-              height={120}
-              style={{ width: "auto", height: "auto" }}
-              className="drop-shadow-xl opacity-80 grayscale hover:grayscale-0 transition-all duration-500"
-            />
-          </motion.div>
-          <p className="mt-4 md:mt-8 text-sm sm:text-base md:text-xl font-medium text-slate-700 leading-relaxed">
-            Outdated<br />
-            Difficult to Maintain<br />
-            Old Fashioned
+    <section className="py-10 md:py-stack-xl bg-surface-container-lowest/30">
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        {/* Heading */}
+        <div className="text-center mb-stack-md">
+          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">
+            The Future of <span className="gradient-text">Living</span>
+          </h2>
+          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+            Upgrade from legacy manual switches to the convenience of intelligent automation.
           </p>
-        </motion.div>
+        </div>
 
-        {/* RIGHT - NEW */}
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="w-1/2 bg-[#e0f2fe] flex flex-col items-center justify-center text-center px-4 md:px-8"
-        >
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: 2 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Image
-              src="https://res.cloudinary.com/dn9rohd6h/image/upload/v1768528699/panel_1_fuot6k.webp"
-              alt="Smart Switch"
-              width={140}
-              height={140}
-              style={{ width: "auto", height: "auto" }}
-              className="drop-shadow-2xl"
-            />
-          </motion.div>
-          <p className="mt-4 md:mt-8 text-sm sm:text-base md:text-xl font-bold text-blue-900 leading-relaxed">
-            Cutting-Edge Technology<br />
-            Easy To Maintain<br />
-            Intelligent Touch Controls
-          </p>
-        </motion.div>
+        {/* Comparison Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Old Way */}
+          <div className="relative glass rounded-2xl md:rounded-[40px] p-5 md:p-12 overflow-hidden group grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+            <div className="absolute top-8 left-8 px-5 py-2 rounded-full bg-white/10 text-white font-label-md text-[10px] md:text-label-sm uppercase tracking-widest">Old Way</div>
+            <div className="flex flex-col items-center text-center space-y-8">
+              <div className="relative">
+                <img
+                  src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/old-switch.jpg"
+                  alt="Traditional Old Switchboard"
+                  className="relative z-10 w-full max-w-[200px] md:max-w-sm rounded-2xl"
+                />
+              </div>
+              <div className="space-y-4">
+                <h4 className="font-headline-md text-on-surface">Manual Switching</h4>
+                <ul className="space-y-4 font-body-md text-on-surface-variant">
+                  {oldItems.map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 justify-center">
+                      <span className="material-symbols-outlined text-error">cancel</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* New Way */}
+          <div className="relative rounded-[40px] p-1 py-1 primary-gradient shadow-2xl shadow-electric-blue/20">
+            <div className="bg-[#0b1323] rounded-[38px] p-5 md:p-12 overflow-hidden relative">
+              <div className="absolute top-8 right-8 px-5 py-2 rounded-full primary-gradient text-white font-label-md text-[10px] md:text-label-sm uppercase tracking-widest animate-pulse">Better Way</div>
+              <div className="flex flex-col items-center text-center space-y-8">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-electric-blue/30 blur-[40px] rounded-full" />
+                  <img
+                    src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/smart-panel.jpg"
+                    alt="Premium Retrofit Home Automation छत्तीसगढ़"
+                    className="relative z-10 w-full max-w-[200px] md:max-w-sm rounded-2xl animate-float"
+                  />
+                </div>
+                <div className="space-y-4">
+                  <h4 className="font-headline-md text-on-surface">Seamless Touch Technology</h4>
+                  <ul className="space-y-4 font-body-md text-on-surface">
+                    {newItems.map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 justify-center font-semibold text-electric-blue">
+                        <span className="material-symbols-outlined fill-1">check_circle</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/* Bottom Text */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.8 }}
-        viewport={{ once: true }}
-        className="absolute bottom-6 w-full text-center text-slate-600 text-xs md:text-sm tracking-[0.2em] uppercase font-medium"
-      >
-        #Touch The Future Today
-      </motion.div>
     </section>
   );
 }

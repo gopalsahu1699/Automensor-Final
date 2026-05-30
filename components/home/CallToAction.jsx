@@ -1,115 +1,55 @@
 "use client";
-
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { FaArrowRight as ArrowRight, FaPhone as Phone, FaCircleCheck as CheckCircle2, FaCalculator as Calculator } from "react-icons/fa6";
 
-const CallToAction = () => {
+const trustItems = [
+  { icon: "verified", label: "5-Year replacement Warranty" },
+  { icon: "bolt", label: "No Rewiring Required" },
+  { icon: "support", label: "Local Support Center" },
+  { icon: "call", label: "+91-8085782471" },
+];
+
+export default function CallToAction() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      {/* Background Gradients */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-      <div className="absolute inset-y-0 right-0 w-1/2 bg-blue-50/30 -skew-x-12 transform origin-bottom-right" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-100/20 rounded-full blur-3xl opacity-50 pointer-events-none" />
+    <section className="py-10 md:py-stack-xl relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-electric-blue/10 blur-[150px] rounded-full translate-x-1/3 -translate-y-1/3" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-glow-cyan/10 blur-[150px] rounded-full -translate-x-1/3 translate-y-1/3" />
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+        <div className="glass p-6 md:p-32 rounded-2xl md:rounded-[80px] border-white/10 bg-gradient-to-b from-surface-container-high/80 to-surface-container-lowest text-center">
+          <span className="text-electric-blue font-label-md tracking-[0.5em] uppercase mb-4 md:mb-10 block">Elevate Your Lifestyle</span>
 
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-semibold text-blue-600 mb-8"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-            </span>
-            Premium Support in Bilaspur & Raipur
-          </motion.div>
+          <h2 className="text-headline-lg-mobile md:text-headline-xl mb-4 md:mb-10 leading-tight">
+            Claim Your Free <br /><span className="gradient-text">Smart Home Consultation</span>
+          </h2>
 
-          {/* Headline */}
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 tracking-tight"
-          >
-            Ready to Transform Your Home
-            <span className="block text-blue-600 mt-2">in Just 24 Hours?</span>
-          </motion.h2>
+          <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-3xl mx-auto mb-6 md:mb-16 leading-relaxed">
+            Join <span className="text-on-surface font-bold">200+ happy families</span> across Chhattisgarh who chose Autommensor for a smarter, safer, and more energy-efficient life.
+          </p>
 
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-base sm:text-lg md:text-xl text-slate-600 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed"
-          >
-            Join <strong>200+ happy families</strong> in Chhattisgarh. Experience the comfort of voice-controlled living with a
-            <span className="text-blue-600 font-semibold"> 10-Year Warranty.</span>
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-          >
-            <Link
-              href="/contact-us"
-              className="group inline-flex h-12 sm:h-14 w-full sm:w-auto items-center justify-center rounded-full bg-blue-600 px-6 sm:px-8 text-base sm:text-lg font-bold text-white shadow-lg shadow-blue-600/30 transition-all hover:bg-blue-700 hover:shadow-xl hover:scale-105 active:scale-95"
-            >
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-8 justify-center items-center">
+            <Link href="/contact-us" className="primary-gradient px-6 py-3 md:px-14 md:py-6 rounded-full font-headline-sm text-sm md:text-[24px] shadow-2xl shadow-electric-blue/40 hover:scale-105 transition-all text-white">
               Book Free Site Visit
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
-
-            <Link
-              href="/estimate-cost-calculator"
-              className="group inline-flex h-12 sm:h-14 w-full sm:w-auto items-center justify-center rounded-full border-2 border-slate-200 bg-white px-6 sm:px-8 text-base sm:text-lg font-semibold text-slate-700 transition-all hover:border-blue-600 hover:bg-blue-50 hover:text-blue-700 hover:scale-105 active:scale-95"
-            >
-              <Calculator className="mr-2 h-5 w-5" />
-              Calculate Cost
+            <Link href="/estimate-cost-calculator" className="px-6 py-3 md:px-14 md:py-6 rounded-full border-2 border-white/20 font-headline-sm text-sm md:text-[24px] glass hover:bg-white/10 transition-all text-on-surface">
+              Get Estimate Cost
             </Link>
-          </motion.div>
+          </div>
 
-          {/* Trust Signals */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-xs sm:text-sm font-medium text-slate-500 border-t border-slate-100 pt-8"
-          >
-            <div className="flex flex-col items-center gap-2">
-              <CheckCircle2 className="h-6 w-6 text-green-500" />
-              <span>10-Year Warranty</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <CheckCircle2 className="h-6 w-6 text-blue-500" />
-              <span>No Rewiring Needed</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <CheckCircle2 className="h-6 w-6 text-purple-500" />
-              <span>24/7 Local Support</span>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <Phone className="h-6 w-6 text-orange-700" />
-              <span>+91-8085782471</span>
-            </div>
-          </motion.div>
-
+          {/* Trust Row */}
+          <div className="mt-8 md:mt-24 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-10 opacity-70">
+            {trustItems.map((item, index) => (
+              <div key={index} className="flex flex-col items-center gap-3">
+                <span className="material-symbols-outlined text-electric-blue text-[20px] md:text-[32px]">{item.icon}</span>
+                <span className="font-label-md text-[10px] md:font-label-md uppercase tracking-wider md:tracking-widest font-bold">{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default CallToAction;
+}
