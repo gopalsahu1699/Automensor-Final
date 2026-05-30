@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Zap, Home, Building2, Sparkles, CheckCircle2, TrendingUp } from "lucide-react";
+import { ArrowRight, Zap, Home, Building2, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const products = [
@@ -17,7 +17,7 @@ const products = [
     icon: Home,
     badge: "Popular",
     delay: 0.1,
-    color: "from-blue-600 to-blue-500",
+    accentColor: "electric-blue",
     features: ["Easy Installation", "Budget-Friendly", "Home Integration"],
   },
   {
@@ -29,7 +29,7 @@ const products = [
     icon: Building2,
     badge: "Premium",
     delay: 0.2,
-    color: "from-green-600 to-green-500",
+    accentColor: "glow-cyan",
     features: ["Luxury Features", "Advanced Control", "Full Integration"],
   },
   {
@@ -41,7 +41,7 @@ const products = [
     icon: Zap,
     badge: "Commercial",
     delay: 0.3,
-    color: "from-purple-600 to-purple-500",
+    accentColor: "tertiary",
     features: ["Guest Control", "Energy Efficient", "Scalable"],
   },
 ];
@@ -57,22 +57,28 @@ const ProductCard = ({ product }: { product: typeof products[0] }) => {
       transition={{ duration: 0.5, delay: product.delay }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer bg-white"
+      className="group relative rounded-2xl overflow-hidden glass-card hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer"
     >
-      {/* Animated Border */}
+      {/* Glow effect on hover */}
       <div
-        className={`absolute inset-0 bg-gradient-to-r ${product.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none rounded-2xl`}
+        className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl ${
+          product.accentColor === "electric-blue"
+            ? "shadow-[0_0_40px_rgba(59,130,246,0.15)]"
+            : product.accentColor === "glow-cyan"
+            ? "shadow-[0_0_40px_rgba(6,182,212,0.15)]"
+            : "shadow-[0_0_40px_rgba(255,181,157,0.15)]"
+        }`}
       />
 
       {/* Image Container with Overlay */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-300 to-slate-400 h-56 sm:h-64">
+      <div className="relative overflow-hidden bg-surface-container-high h-56 sm:h-64">
         <Image
           src={product.image}
           alt={product.title}
           width={800}
           height={600}
           className={`w-full h-full object-cover transition-all duration-500 ${
-            isHovered ? "scale-110 brightness-50" : "scale-100 brightness-100"
+            isHovered ? "scale-110 brightness-50" : "scale-100 brightness-75"
           }`}
           priority={product.id === 1}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -83,7 +89,7 @@ const ProductCard = ({ product }: { product: typeof products[0] }) => {
           initial={{ y: -20, opacity: 0 }}
           animate={isHovered ? { y: 0, opacity: 1 } : { y: -20, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`absolute top-4 right-4 bg-gradient-to-r ${product.color} text-white px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full shadow-lg`}
+          className="absolute top-4 right-4 primary-gradient text-white px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full shadow-lg"
         >
           {product.badge}
         </motion.div>
@@ -108,39 +114,39 @@ const ProductCard = ({ product }: { product: typeof products[0] }) => {
       </div>
 
       {/* Content Section */}
-      <div className="bg-white p-6 flex-grow flex flex-col justify-between relative overflow-hidden">
+      <div className="bg-surface-container p-6 flex-grow flex flex-col justify-between relative overflow-hidden">
         {/* Accent Line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ duration: 0.3 }}
-          className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${product.color} origin-left`}
+          className={`absolute top-0 left-0 right-0 h-1 primary-gradient origin-left`}
         />
 
         {/* Badge and Icon */}
         <div className="mb-4 flex items-center gap-3">
-          <div className={`p-2.5 bg-gradient-to-r ${product.color} rounded-lg`}>
+          <div className="p-2.5 primary-gradient rounded-lg">
             <Icon className="w-5 h-5 text-white" />
           </div>
-          <span className="inline-block bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full">
+          <span className="inline-block bg-electric-blue/10 text-electric-blue px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full border border-electric-blue/20">
             {product.badge}
           </span>
         </div>
 
         {/* Title and Description */}
         <div className="mb-6">
-          <h3 className="font-bold text-xl sm:text-2xl text-gray-900 leading-snug mb-3 group-hover:text-orange-600 transition-colors duration-300">
+          <h3 className="font-bold text-base sm:text-xl md:text-2xl text-on-surface leading-snug mb-3 group-hover:text-electric-blue transition-colors duration-300">
             {product.title}
           </h3>
-          <p className="text-sm text-gray-600 leading-relaxed mb-4">
+          <p className="text-xs md:text-sm text-on-surface-variant leading-relaxed mb-2 md:mb-4">
             {product.description}
           </p>
 
           {/* Features */}
           <div className="space-y-2">
             {product.features.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-2 text-sm text-gray-700">
-                <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+              <div key={idx} className="flex items-center gap-2 text-xs md:text-sm text-on-surface-variant">
+                <CheckCircle2 className="w-4 h-4 text-success-emerald flex-shrink-0" />
                 <span>{feature}</span>
               </div>
             ))}
@@ -150,9 +156,7 @@ const ProductCard = ({ product }: { product: typeof products[0] }) => {
         {/* CTA Button */}
         <Link
           href={product.route}
-          className={`inline-flex items-center justify-center gap-2 font-semibold text-white bg-gradient-to-r ${product.color} hover:shadow-lg hover:shadow-orange-600/40 active:scale-95 rounded-full transition-all duration-300 px-6 py-3 text-base whitespace-nowrap relative overflow-hidden group/btn shadow-md self-start w-full sm:w-auto ${
-            isHovered ? "-translate-y-1" : ""
-          }`}
+          className="inline-flex items-center justify-center gap-2 font-semibold text-white primary-gradient hover:shadow-lg hover:shadow-electric-blue/40 active:scale-95 rounded-full transition-all duration-300 px-6 py-3 text-base whitespace-nowrap relative overflow-hidden group/btn shadow-md self-start w-full sm:w-auto"
           aria-label={`Get personalized estimate for: ${product.title}`}
         >
           {/* Shimmer effect */}
@@ -197,12 +201,15 @@ export default function EstimateCostCalculatorClient() {
   };
 
   return (
-    <section className="relative min-h-screen px-6 sm:px-10 md:px-20 py-16 md:py-24 overflow-hidden bg-white">
-      {/* Background Elements - Subtle and Light */}
+    <section className="relative min-h-screen px-6 sm:px-10 md:px-20 py-8 md:py-16 lg:py-24 overflow-hidden bg-background">
+      {/* Background mesh gradient */}
+      <div className="absolute inset-0 pointer-events-none hero-mesh" />
+
+      {/* Floating orbs */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-100/40 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-100/30 rounded-full blur-3xl" />
+        <div className="absolute top-20 right-0 w-96 h-96 bg-electric-blue/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-glow-cyan/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -211,32 +218,32 @@ export default function EstimateCostCalculatorClient() {
           initial={{ opacity: 0, y: 20 }}
           animate={mounted ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="flex flex-col items-center mb-20"
+          className="flex flex-col items-center mb-8 md:mb-16 lg:mb-20"
         >
           {/* Floating Badge */}
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
-            className="mb-6 inline-flex items-center gap-2 bg-orange-100 px-4 py-2 rounded-full border border-orange-200"
+            className="mb-6 inline-flex items-center gap-2 glass px-4 py-2 rounded-full border border-electric-blue/20"
           >
-            <Sparkles className="w-4 h-4 text-orange-600" />
-            <span className="text-sm font-semibold text-orange-600">
+            <Sparkles className="w-4 h-4 text-electric-blue" />
+            <span className="text-sm font-semibold text-electric-blue">
               Instant Cost Calculation
             </span>
           </motion.div>
 
-          {/* Main Heading - Improved Visibility */}
+          {/* Main Heading */}
           <div className="mb-6 text-center">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-tight text-gray-900 mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-black leading-tight text-on-surface mb-4 font-outfit">
               Choose Your
               <br />
-              <span className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+              <span className="gradient-text">
                 Smart Solution
               </span>
             </h1>
           </div>
 
-          <p className="text-center text-gray-600 max-w-2xl text-base sm:text-lg leading-relaxed mb-8">
+          <p className="text-center text-on-surface-variant max-w-2xl text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-8">
             Select the perfect automation solution for your space and get an instant customized cost estimate with real device recommendations
           </p>
 
@@ -245,11 +252,9 @@ export default function EstimateCostCalculatorClient() {
             initial={{ width: 0 }}
             animate={mounted ? { width: "140px" } : {}}
             transition={{ duration: 1, delay: 0.3 }}
-            className="h-2 bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 rounded-full shadow-lg shadow-orange-500/50"
+            className="h-2 primary-gradient rounded-full shadow-lg shadow-electric-blue/50"
           />
         </motion.header>
-
-      
 
         {/* Products Grid */}
         <motion.div
@@ -268,23 +273,22 @@ export default function EstimateCostCalculatorClient() {
           initial={{ opacity: 0, y: 20 }}
           animate={mounted ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="text-center bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 rounded-2xl p-8 sm:p-12 border border-orange-200"
+          className="text-center glass-card rounded-2xl p-4 sm:p-8 md:p-12 border border-outline-variant/30"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+          <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-on-background mb-3 font-outfit">
             Need Help Choosing?
           </h3>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-on-surface-variant mb-4 md:mb-8 max-w-2xl mx-auto text-sm md:text-base">
             Our automation experts are ready to help you find the perfect solution for your space
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact-us"
-              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white font-bold rounded-full hover:from-orange-700 hover:to-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-8 md:py-4 text-sm md:text-base primary-gradient text-white font-bold rounded-full hover:shadow-lg hover:shadow-electric-blue/40 transition-all duration-300 shadow-md hover:-translate-y-0.5"
             >
               Contact Experts
               <ArrowRight className="w-4 h-4" />
             </Link>
-           
           </div>
         </motion.div>
       </div>

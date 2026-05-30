@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import Footer from "@/components/Footer";
-import NavbarHero from "@/components/Navbar";
 
 const faqs = [
   {
@@ -67,15 +65,14 @@ export default function FAQPage() {
 
   return (
     <>
-    <NavbarHero />
-    <section className="bg-[#f5f6f7] py-16 px-4">
+    <section className="bg-[#f5f6f7] pt-20 pb-8 px-4 md:pt-28 md:pb-16">
       <div className="max-w-4xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+          <h1 className="text-xl md:text-3xl lg:text-4xl font-bold text-gray-900">
             Frequently Asked Questions
           </h1>
-          <p className="text-gray-600 mt-3">
+          <p className="text-gray-600 mt-2 text-sm md:text-base">
             Everything you need to know about smart home automation
           </p>
         </div>
@@ -89,9 +86,9 @@ export default function FAQPage() {
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between p-6 text-left"
+                className="w-full flex items-center justify-between p-4 md:p-6 text-left"
               >
-                <span className="text-lg font-medium text-gray-900">
+                <span className="text-sm md:text-lg font-medium text-gray-900">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -102,7 +99,7 @@ export default function FAQPage() {
               </button>
 
               {openIndex === index && (
-                <div className="px-6 pb-6 text-gray-600">
+                <div className="px-4 pb-4 md:px-6 md:pb-6 text-gray-600 text-sm md:text-base">
                   {faq.answer}
                 </div>
               )}
@@ -117,7 +114,7 @@ export default function FAQPage() {
           </p>
           <a
             href="/contact-us"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-medium transition"
           >
             Contact Support
             <span className="text-lg">→</span>
@@ -125,7 +122,6 @@ export default function FAQPage() {
         </div>
       </div>
     </section>
-    <Footer/>
     </>
   );
 }

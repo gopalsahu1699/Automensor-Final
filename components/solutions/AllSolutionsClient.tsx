@@ -1,162 +1,187 @@
 "use client";
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Package, Search } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
-export default function AllProductsClient({ initialProducts }: { initialProducts: any[] }) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  category: string;
+  short_description: string | null;
+  full_description: string | null;
+  technical_details: string | null;
+  price_range: string | null;
+  features: string[] | null;
+  image_url: string | null;
+  gallery_urls: string[] | null;
+  is_featured: boolean;
+  is_active: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
 
-  const categories = [
-    { id: 'all', label: 'All Products' },
-    { id: 'security', label: 'Safety & Security' },
-    { id: 'comfort', label: 'Comfort & Luxury' },
-    { id: 'control', label: 'Control Systems' },
-  ];
+export default function AllSolutionsClient() {
+  const [solutions, setSolutions] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const filteredProducts = initialProducts.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (product.short_description && product.short_description.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
+  useEffect(() => {
+    const fetchSolutions = async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true })
+        .order('created_at', { ascending: false });
 
-    return matchesSearch && matchesCategory;
-  });
+      if (!error && data) {
+        setSolutions(data);
+      }
+      setLoading(false);
+    };
+    fetchSolutions();
+  }, []);
+
+  // Build dynamic categories from fetched data
+  const categories = ["All", ...Array.from(new Set(solutions.map((s) => s.category)))];
+
+  // Filter solutions by active category
+  const filteredSolutions =
+    activeFilter === "All"
+      ? solutions
+      : solutions.filter((s) => s.category === activeFilter);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-on-surface-variant text-lg">Loading solutions...</p>
+      </div>
+    );
+  }
 
   return (
-    <main className="w-full bg-slate-50 min-h-screen pb-24">
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <header className="relative pt-24 pb-10 md:pt-40 md:pb-20 hero-mesh overflow-hidden">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+          <div className="inline-flex items-center px-4 py-1.5 mb-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm">
+            <span className="relative flex h-2 w-2 mr-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            Wireless Technology Showroom
+          </div>
+          <h1 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl mb-6 tracking-tight leading-tight max-w-4xl mx-auto">
+            Innovation for <span className="text-gradient">Every Corner</span>
+          </h1>
+          <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+            Transform your living spaces with intelligent wireless technology. Discover a seamless blend of high-end design and futuristic automation tailored for your modern lifestyle.
+          </p>
+        </div>
+      </header>
 
-      {/* Search & Filter Header (CSS + Next.js Server Components handled the large hero text already ) */}
-      <div className="bg-white border-b border-slate-200 sticky top-[72px] z-30 shadow-sm">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-
-            {/* Categories */}
-            <div className="flex overflow-x-auto w-full md:w-auto pb-2 md:pb-0 gap-2 shrink-0 hide-scrollbar cursor-pointer">
-              {categories.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setActiveCategory(cat.id)}
-                  className={`whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${activeCategory === cat.id
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                    }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Search */}
-            <div className="relative w-full md:w-72 shrink-0">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input
-                type="text"
-                placeholder="Search products..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all"
-              />
-            </div>
-
+      {/* Filter Bar */}
+      <section className="sticky top-20 z-40 bg-background/60 backdrop-blur-md border-b border-white/5 py-4">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+          <div className="flex items-center gap-4 overflow-x-auto no-scrollbar pb-2">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveFilter(category)}
+                className={`px-6 py-2 rounded-full font-label-md whitespace-nowrap transition-all ${
+                  activeFilter === category
+                    ? 'bg-primary text-on-primary'
+                    : 'glass-card text-on-surface-variant hover:text-on-surface'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Product Grid */}
-      <div className="container mx-auto px-6 pt-12">
-        {filteredProducts.length > 0 ? (
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-          >
-            <AnimatePresence>
-              {filteredProducts.map((product) => (
-                <motion.div
-                  key={product.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.2 }}
-                  className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col h-full cursor-pointer hover:-translate-y-1"
-                >
-                  <Link href={`/products/${product.slug}`} className="flex flex-col h-full">
-                    {/* Image Area */}
-                    <div className="relative aspect-square bg-slate-100 overflow-hidden">
-                      {product.image_url ? (
-                        <Image
-                          src={product.image_url}
-                          alt={product.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400">
-                          <Package className="w-12 h-12 mb-2 opacity-20" />
-                          <span className="text-sm font-medium">No Image</span>
-                        </div>
+      {/* Solution Grid */}
+      <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 md:py-10 lg:py-stack-lg">
+        {filteredSolutions.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+            {filteredSolutions.map((solution) => (
+              <Link
+                key={solution.id}
+                href={`/solutions/${solution.slug}`}
+                className="group relative flex flex-col glass-card rounded-2xl overflow-hidden glow-hover transition-all duration-500"
+              >
+                {solution.image_url ? (
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={solution.image_url}
+                      alt={solution.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[4/3] bg-surface-container flex items-center justify-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-primary/20 blur-3xl animate-pulse"></div>
+                      <span className="material-symbols-outlined text-primary text-9xl relative z-10" style={{ fontVariationSettings: "'FILL' 1" }}>devices</span>
+                    </div>
+                  </div>
+                )}
+                <div className="p-4 md:p-6 lg:p-8 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="font-headline-sm text-lg md:text-headline-sm mb-1">{solution.name}</h3>
+                      <p className="font-label-sm text-primary capitalize">{solution.category}</p>
+                    </div>
+                    <span className="material-symbols-outlined text-primary">arrow_forward</span>
+                  </div>
+                  {solution.short_description && (
+                    <p className="text-on-surface-variant font-body-md mb-4 line-clamp-2">
+                      {solution.short_description}
+                    </p>
+                  )}
+                  {solution.price_range && (
+                    <p className="text-sm font-semibold text-on-surface mb-4">{solution.price_range}</p>
+                  )}
+                  {solution.features && solution.features.length > 0 && (
+                    <ul className="space-y-2 mb-4 md:mb-6 lg:mb-8 flex-grow">
+                      {solution.features.slice(0, 3).map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-on-surface-variant font-body-md">
+                          <span className="material-symbols-outlined text-success-emerald mr-2 text-sm">check_circle</span>
+                          {feature}
+                        </li>
+                      ))}
+                      {solution.features.length > 3 && (
+                        <li className="text-on-surface-variant font-body-md text-sm">
+                          +{solution.features.length - 3} more features
+                        </li>
                       )}
-
-                      {/* Badges */}
-                      <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        {product.is_featured && (
-                          <span className="px-3 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
-                            Featured
-                          </span>
-                        )}
-                        <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold rounded-full shadow-lg capitalize">
-                          {product.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Content Area */}
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 line-clamp-1">
-                        {product.name}
-                      </h3>
-
-                      <p className="text-slate-600 text-sm mb-4 line-clamp-2 flex-1">
-                        {product.short_description || "High-quality smart home device to enhance your modern living experience."}
-                      </p>
-
-                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
-                        <div className="font-bold text-slate-900">
-                          {product.price_range || "Price on Request"}
-                        </div>
-                        <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white text-blue-600 transition-colors">
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+                    </ul>
+                  )}
+                  <span className="w-full py-3 rounded-xl bg-white/5 border border-white/10 font-label-md text-center group-hover:bg-primary group-hover:text-on-primary transition-all">
+                    View Details
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-6">
-              <Search className="w-8 h-8 text-slate-400" />
-            </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-2">No products found</h3>
-            <p className="text-slate-500 max-w-md">
-              We couldn&apos;t find any products matching your search criteria. Try adjusting your filters.
+          <div className="text-center py-20">
+            <p className="text-on-surface-variant font-body-lg">
+              {activeFilter === "All"
+                ? "No solutions available yet. Check back soon!"
+                : `No solutions found in "${activeFilter}" category.`}
             </p>
-            <button
-              onClick={() => { setSearchTerm(''); setActiveCategory('all'); }}
-              className="mt-6 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors"
-            >
-              Clear Filters
-            </button>
           </div>
         )}
-      </div>
-    </main>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-surface-container-lowest border-t border-outline-variant w-full mt-stack-xl">
+      </footer>
+    </div>
   );
 }
