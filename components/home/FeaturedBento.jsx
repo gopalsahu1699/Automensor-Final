@@ -45,7 +45,7 @@ export default function FeaturedBento() {
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">
               Elite <span className="gradient-text">Automation Solution</span>
             </h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">
+            <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant">
               Aesthetic brilliance meet technical precision. Our panels are the heart of any voice controlled home.
             </p>
           </div>

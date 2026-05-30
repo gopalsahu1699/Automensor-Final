@@ -13,7 +13,7 @@ export default function ComparisonSection() {
           <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">
             The Future of <span className="gradient-text">Living</span>
           </h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+          <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-2xl mx-auto">
             Upgrade from legacy manual switches to the convenience of intelligent automation.
           </p>
         </div>
@@ -32,7 +32,7 @@ export default function ComparisonSection() {
                 />
               </div>
               <div className="space-y-4">
-                <h4 className="font-headline-md text-on-surface">Manual Switching</h4>
+                <h4 className="text-base md:font-headline-md text-on-surface">Manual Switching</h4>
                 <ul className="space-y-4 font-body-md text-on-surface-variant">
                   {oldItems.map((item, i) => (
                     <li key={i} className="flex items-center gap-3 justify-center">
@@ -58,7 +58,7 @@ export default function ComparisonSection() {
                   />
                 </div>
                 <div className="space-y-4">
-                  <h4 className="font-headline-md text-on-surface">Seamless Touch Technology</h4>
+                  <h4 className="text-base md:font-headline-md text-on-surface">Seamless Touch Technology</h4>
                   <ul className="space-y-4 font-body-md text-on-surface">
                     {newItems.map((item, i) => (
                       <li key={i} className="flex items-center gap-3 justify-center font-semibold text-electric-blue">

@@ -77,7 +77,7 @@ export default function Footer() {
 
         {/* Column 2: Solutions */}
         <div className="md:pl-0 lg:pl-6">
-          <h4 className="font-outfit text-headline-sm text-headline-sm mb-3 md:mb-8">Solutions</h4>
+          <h4 className="font-outfit text-lg md:text-headline-sm text-lg md:text-headline-sm mb-3 md:mb-8">Solutions</h4>
           <ul className="space-y-2 md:space-y-5">
             {solutions.map((item) => (
               <li key={item}>
@@ -94,7 +94,7 @@ export default function Footer() {
 
         {/* Column 3: Local Support */}
         <div>
-          <h4 className="font-outfit text-headline-sm text-headline-sm mb-3 md:mb-8">Local Support</h4>
+          <h4 className="font-outfit text-lg md:text-headline-sm text-lg md:text-headline-sm mb-3 md:mb-8">Local Support</h4>
           <ul className="space-y-2 md:space-y-5 text-on-surface-variant">
             <li className="flex items-start gap-3 md:gap-4">
               <span className="material-symbols-outlined text-electric-blue text-[20px] md:text-[24px] flex-shrink-0">call</span>
@@ -118,7 +118,7 @@ export default function Footer() {
 
         {/* Column 4: Why Trust Us */}
         <div>
-          <h4 className="font-outfit text-headline-sm text-headline-sm mb-3 md:mb-8">Why Trust Us</h4>
+          <h4 className="font-outfit text-lg md:text-headline-sm text-lg md:text-headline-sm mb-3 md:mb-8">Why Trust Us</h4>
           <div className="space-y-2 md:space-y-5">
             <div className="glass p-3 md:p-6 rounded-2xl flex items-center gap-2 md:gap-4">
               <span className="material-symbols-outlined text-success-emerald text-[18px] md:text-[28px]">verified</span>

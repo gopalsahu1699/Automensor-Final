@@ -27,7 +27,7 @@ export default function EstimateCostCTA() {
               Planning your smart home doesn&apos;t have to be guesswork. Use our calculator to find the exact cost for your 2BHK, 3BHK or Bungalow in Chhattisgarh and see how much you&apos;ll save on energy bills.
             </p>
             <div className="flex flex-wrap gap-8 items-center">
-              <Link href="/estimate-cost-calculator" className="primary-gradient px-6 py-3 md:px-12 md:py-5 rounded-full font-headline-sm text-sm md:text-[20px] shadow-2xl shadow-electric-blue/40 flex items-center gap-4 group text-white">
+              <Link href="/estimate-cost-calculator" className="primary-gradient px-6 py-3 md:px-12 md:py-5 rounded-full text-lg md:font-headline-sm text-sm md:text-[20px] shadow-2xl shadow-electric-blue/40 flex items-center gap-4 group text-white">
                 Estimate&nbsp; Cost Calculator
                 <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">trending_flat</span>
               </Link>

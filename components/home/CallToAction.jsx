@@ -31,10 +31,10 @@ export default function CallToAction() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 md:gap-8 justify-center items-center">
-            <Link href="/contact-us" className="primary-gradient px-6 py-3 md:px-14 md:py-6 rounded-full font-headline-sm text-sm md:text-[24px] shadow-2xl shadow-electric-blue/40 hover:scale-105 transition-all text-white">
+            <Link href="/contact-us" className="primary-gradient px-6 py-3 md:px-14 md:py-6 rounded-full text-lg md:font-headline-sm text-sm md:text-[24px] shadow-2xl shadow-electric-blue/40 hover:scale-105 transition-all text-white">
               Book Free Site Visit
             </Link>
-            <Link href="/estimate-cost-calculator" className="px-6 py-3 md:px-14 md:py-6 rounded-full border-2 border-white/20 font-headline-sm text-sm md:text-[24px] glass hover:bg-white/10 transition-all text-on-surface">
+            <Link href="/estimate-cost-calculator" className="px-6 py-3 md:px-14 md:py-6 rounded-full border-2 border-white/20 text-lg md:font-headline-sm text-sm md:text-[24px] glass hover:bg-white/10 transition-all text-on-surface">
               Get Estimate Cost
             </Link>
           </div>

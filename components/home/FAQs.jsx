@@ -81,7 +81,7 @@ function FAQItem({ question, answer }) {
         className="w-full flex justify-between items-center p-4 md:p-8 text-left group"
         aria-expanded={isOpen}
       >
-        <span className="font-headline-sm text-sm md:text-[20px] group-hover:text-electric-blue transition-colors pr-4">
+        <span className="text-lg md:font-headline-sm text-sm md:text-[20px] group-hover:text-electric-blue transition-colors pr-4">
           {question}
         </span>
         <span

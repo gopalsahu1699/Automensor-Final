@@ -45,7 +45,7 @@ export default function WhyChooseUs() {
           <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-6">
             Complete <span className="gradient-text">Smart Home Solutions</span>
           </h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
+          <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
             Experience a lifestyle of ultimate comfort and efficiency. Our retrofit home automation systems are designed to modernize your space without traditional renovation headaches.
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function WhyChooseUs() {
               <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-electric-blue/10 flex items-center justify-center text-electric-blue mb-4 md:mb-8 group-hover:scale-110 group-hover:primary-gradient group-hover:text-white transition-all">
                 <span className="material-symbols-outlined text-[24px] md:text-[36px]">{feature.icon}</span>
               </div>
-              <h3 className="text-base md:font-headline-sm text-headline-sm mb-4 group-hover:text-electric-blue transition-colors">
+              <h3 className="text-base md:font-headline-sm text-lg md:text-headline-sm mb-4 group-hover:text-electric-blue transition-colors">
                 {feature.title}
               </h3>
               <p className="text-on-surface-variant leading-relaxed">

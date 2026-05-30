@@ -39,7 +39,7 @@ export default function HeroSection() {
           </h1>
 
           {/* Subtitle */}
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
+          <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
             Expert installation by certified professionals. Control lighting, security, and climate with a single touch or voice—<span className="text-on-surface font-semibold underline decoration-electric-blue/40 underline-offset-4">Zero Rewiring Required.</span>
           </p>
 
@@ -47,14 +47,14 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-3 md:gap-6 pt-8">
             <Link
               href="/contact-us"
-              className="primary-gradient px-6 py-3 md:px-10 md:py-5 rounded-full font-headline-sm text-sm md:text-[20px] flex items-center justify-center gap-3 shadow-2xl shadow-electric-blue/40 hover:scale-105 transition-transform text-white"
+              className="primary-gradient px-6 py-3 md:px-10 md:py-5 rounded-full text-lg md:font-headline-sm text-sm md:text-[20px] flex items-center justify-center gap-3 shadow-2xl shadow-electric-blue/40 hover:scale-105 transition-transform text-white"
             >
               Claim Free Consultation
               <span className="material-symbols-outlined">arrow_forward</span>
             </Link>
             <Link
               href="/estimate-cost-calculator"
-              className="px-6 py-3 md:px-10 md:py-5 rounded-full font-headline-sm text-sm md:text-[20px] glass border-white/20 hover:bg-white/10 transition-all flex items-center justify-center gap-3 text-on-surface"
+              className="px-6 py-3 md:px-10 md:py-5 rounded-full text-lg md:font-headline-sm text-sm md:text-[20px] glass border-white/20 hover:bg-white/10 transition-all flex items-center justify-center gap-3 text-on-surface"
             >
               See Your Savings
               <span className="material-symbols-outlined">calculate</span>
