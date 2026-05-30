@@ -7,26 +7,20 @@ export function OrganizationSchema() {
     logo: "https://autommensor.in/logo.png",
     description: "Smart home automation solutions made in India",
     foundingDate: "2024",
-    sameAs: [
-      "https://twitter.com/autommensor",
-      "https://facebook.com/autommensor",
-      "https://linkedin.com/company/autommensor",
-      "https://youtube.com/@autommensor",
-    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Customer Service",
-      email: "support@autommensor.in",
-      telephone: "+91-XXXXXXXXXX",
+      email: "autommensor@gmail.com",
+      telephone: "+91-8085782471",
       areaServed: "IN",
       availableLanguage: ["en", "hi"],
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Your Street Address",
-      addressLocality: "Your City",
-      addressRegion: "Your State",
-      postalCode: "Your Postal Code",
+      streetAddress: "Seepat, Talapara",
+      addressLocality: "Bilaspur",
+      addressRegion: "Chhattisgarh",
+      postalCode: "495001",
       addressCountry: "IN",
     },
   };
@@ -47,22 +41,22 @@ export function LocalBusinessSchema() {
     image: "https://autommensor.in/logo.png",
     description: "Smart home automation solutions made in India",
     url: "https://autommensor.in",
-    telephone: "+91-XXXXXXXXXX",
-    email: "support@autommensor.in",
+    telephone: "+91-8085782471",
+    email: "autommensor@gmail.com",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Your Street Address",
-      addressLocality: "Your City",
-      addressRegion: "Your State",
-      postalCode: "Your Postal Code",
+      streetAddress: "Seepat, Talapara",
+      addressLocality: "Bilaspur",
+      addressRegion: "Chhattisgarh",
+      postalCode: "495001",
       addressCountry: "IN",
     },
     priceRange: "$$",
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       opens: "09:00",
-      closes: "18:00",
+      closes: "20:00",
     },
     areaServed: "IN",
   };
@@ -179,8 +173,8 @@ export function SiteNavigationSchema() {
       {
         "@type": "SiteNavigationElement",
         "position": 1,
-        "name": "Products",
-        "url": "https://autommensor.in/all-products"
+        "name": "Solutions",
+        "url": "https://autommensor.in/all-solutions"
       },
       {
         "@type": "SiteNavigationElement",
@@ -192,7 +186,7 @@ export function SiteNavigationSchema() {
         "@type": "SiteNavigationElement",
         "position": 3,
         "name": "Scene Creation",
-        "url": "https://autommensor.in/all-products/scene-creation"
+        "url": "https://autommensor.in/all-solutions/scene-creation"
       },
       {
         "@type": "SiteNavigationElement",

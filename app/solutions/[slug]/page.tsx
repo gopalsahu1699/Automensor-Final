@@ -1,0 +1,172 @@
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import Script from 'next/script';
+import { getSolutionBySlug } from '@/lib/solutions';
+
+import { CheckCircle2, PhoneCall, ShieldCheck, ArrowLeft } from 'lucide-react';
+
+import ProductImageGallery from '@/components/ProductImageGallery';
+
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const resolvedParams = await params;
+    const solution = await getSolutionBySlug(resolvedParams.slug);
+
+    if (!solution) {
+        return { title: 'Solution Not Found' };
+    }
+
+    return {
+        title: `${solution.name} | Autommensor Smart Home`,
+        description: solution.short_description,
+        openGraph: {
+            images: [solution.image_url || '/assets/og-products.jpg'],
+        },
+    };
+}
+
+export default async function SolutionPage(props: { params: Promise<{ slug: string }> }) {
+    const params = await props.params;
+    const solution = await getSolutionBySlug(params.slug);
+
+    if (!solution) {
+        notFound();
+    }
+
+    const productSchema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: solution.name,
+        description: solution.short_description,
+        image: solution.image_url || "https://autommensor.in/logo.png",
+        brand: {
+            "@type": "Brand",
+            name: "Autommensor",
+        },
+        url: `https://autommensor.in/solutions/${solution.slug}`,
+        offers: {
+            "@type": "Offer",
+            priceCurrency: "INR",
+            price: solution.price_range ? solution.price_range.replace(/[^0-9]/g, '').split('-')[0] : undefined,
+            availability: "https://schema.org/InStock",
+            seller: {
+                "@type": "Organization",
+                name: "Autommensor",
+            },
+        },
+    };
+
+    return (
+        <div className="min-h-screen bg-background font-sans flex flex-col">
+            <Script
+                id={`product-schema-${solution.slug}`}
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+            />
+
+            <main className="flex-1 pt-28 pb-20">
+                <div className="container mx-auto px-6 max-w-7xl">
+
+                    <Link href="/all-solutions" className="inline-flex items-center gap-2 text-on-surface-variant hover:text-electric-blue transition-colors mb-8 text-sm font-semibold">
+                        <ArrowLeft className="w-4 h-4" />
+                        Back to Solutions
+                    </Link>
+
+                    <div className="bg-surface-container rounded-3xl border border-white/10 p-6 md:p-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+
+                            {/* Left Column - Image Gallery */}
+                            <div className="flex flex-col gap-6">
+                                <ProductImageGallery
+                                    images={[solution.image_url, ...(solution.gallery_urls || [])].filter(Boolean)}
+                                    productName={solution.name}
+                                    isFeatured={solution.is_featured}
+                                />
+                            </div>
+
+                            {/* Right Column - Details */}
+                            <div className="flex flex-col">
+                                <div className="mb-2">
+                                    <span className="text-sm font-bold text-electric-blue uppercase tracking-wider bg-electric-blue/10 px-3 py-1 rounded-full">
+                                        {solution.category}
+                                    </span>
+                                </div>
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-on-surface mb-4">{solution.name}</h1>
+                                <p className="text-lg sm:text-xl text-on-surface-variant leading-relaxed mb-6 border-b border-white/10 pb-8">
+                                    {solution.short_description}
+                                </p>
+
+                                <div className="mb-10">
+                                    <div className="text-sm font-semibold text-on-surface-variant uppercase tracking-wider mb-2">Price Estimate</div>
+                                    <div className="text-3xl font-bold text-on-surface">
+                                        {solution.price_range || "Price on Request"}
+                                    </div>
+                                    {!solution.price_range && (
+                                        <p className="text-sm text-on-surface-variant mt-1">Price varies based on installation requirements.</p>
+                                    )}
+                                </div>
+
+                                {solution.features && solution.features.length > 0 && (
+                                    <div className="mb-10 flex-1">
+                                        <h3 className="text-lg font-bold text-on-surface mb-4">Key Features</h3>
+                                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                                            {solution.features.map((feature: string, idx: number) => (
+                                                <li key={idx} className="flex items-start gap-3">
+                                                    <CheckCircle2 className="w-5 h-5 text-success-emerald shrink-0 mt-0.5" />
+                                                    <span className="text-on-surface-variant font-medium">{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                <div className="flex flex-col sm:flex-row gap-4 mt-auto border-t border-white/10 pt-8">
+                                    <Link
+                                        href="/contact-us"
+                                        className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 sm:py-4 px-6 sm:px-8 rounded-xl font-bold text-base sm:text-lg shadow-lg shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
+                                    >
+                                        <PhoneCall className="w-5 h-5" />
+                                        Enquire Now
+                                    </Link>
+                                    <div className="flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-on-surface-variant py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-sm sm:text-base font-semibold">
+                                        <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                                        10-Year Warranty
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {/* Bottom - Full Description */}
+                        {solution.full_description && (
+                            <div className="mt-16 pt-12 border-t border-white/10">
+                                <h2 className="text-xl sm:text-2xl font-bold text-on-surface mb-4 sm:mb-6">Solution Details</h2>
+                                <div className="prose prose-invert max-w-4xl text-sm sm:text-base text-on-surface-variant leading-relaxed">
+                                    {solution.full_description.split('\n').map((paragraph: string, idx: number) => (
+                                        <p key={idx} className="mb-4">{paragraph}</p>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Technical Details */}
+                        {solution.technical_details && (
+                            <div className="mt-12 pt-12 border-t border-white/10">
+                                <h2 className="text-xl sm:text-2xl font-bold text-on-surface mb-4 sm:mb-6">Technical Details</h2>
+                                <div className="bg-surface-container-lowest p-6 md:p-8 rounded-2xl border border-white/10">
+                                    <ul className="list-disc list-outside ml-5 space-y-2 text-sm sm:text-base text-on-surface-variant">
+                                        {solution.technical_details.split('\n').filter((line: string) => line.trim() !== '').map((paragraph: string, idx: number) => (
+                                            <li key={idx} className="pl-2">{paragraph}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </main>
+        </div>
+    );
+}

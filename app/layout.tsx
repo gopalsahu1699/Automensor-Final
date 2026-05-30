@@ -1,15 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
+import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { OrganizationSchema, SiteNavigationSchema } from "@/components/StructuredData";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const outfit = Outfit({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
+  variable: "--font-outfit",
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-jakarta",
 });
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
@@ -18,17 +28,17 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#2563eb",
-  colorScheme: "light",
+  themeColor: "#0b1323",
+  colorScheme: "dark",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://autommensor.in"),
   title: {
-    default: "Autommensor - Smart Home Automation Bilaspur Raipur | Best Automation Company",
-    template: "%s | Autommensor - Smart Home Automation Bilaspur Raipur",
+    default: "AUTOMMENSOR | Premium Wireless Home Automation in Chhattisgarh",
+    template: "%s | AUTOMMENSOR",
   },
-  description: "Leading smart home automation company in Bilaspur and Raipur, Chhattisgarh. Transform your home with Alexa/Google control, smart lighting, security, and IoT solutions. Trusted by 200+ families with a 10-Year Warranty. Best automation services in CG.",
+  description: "India's most trusted smart home automation company in Bilaspur & Raipur, Chhattisgarh. 10-Year Warranty • 200+ Happy Families • Alexa & Google Home Control • Zero Rewiring. Get a free site visit today!",
   keywords: [
     "smart home automation Bilaspur",
     "home automation Raipur",
@@ -52,11 +62,11 @@ export const metadata: Metadata = {
     "Google Home automation Raipur",
     "best home automation company Bilaspur",
     "smart villa automation Raipur",
-    "hotel automation system Chhattisgarh"
+    "hotel automation system Chhattisgarh",
   ],
-  authors: [{ name: "Autommensor Automation", url: "https://autommensor.in" }],
-  creator: "Autommensor Automation",
-  publisher: "Autommensor Automation",
+  authors: [{ name: "Autommensor", url: "https://autommensor.in" }],
+  creator: "Autommensor",
+  publisher: "Autommensor",
   category: "Technology",
   classification: "Smart Home Technology Service",
   formatDetection: {
@@ -82,61 +92,38 @@ export const metadata: Metadata = {
       "en-IN": "https://autommensor.in",
     },
   },
-  verification: {
-    google: 'google5722deaa13644eaa',
-  },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://autommensor.in",
-    siteName: "Autommensor Automation",
-    title: "Autommensor - Best Home Automation Company in Bilaspur & Raipur",
-    description:
-      "Transform your home with intelligent automation. We provide smart lighting, security, and control solutions in Bilaspur, Raipur, and across Chhattisgarh.",
+    siteName: "AUTOMMENSOR",
+    title: "AUTOMMENSOR | Premium Wireless Home Automation in Chhattisgarh",
+    description: "Transform your home with intelligent automation. Smart lighting, security, and control solutions in Bilaspur, Raipur, and across Chhattisgarh.",
     images: [
       {
-        url: "https://autommensor.in/og-image.jpg",
+        url: "https://res.cloudinary.com/dn9rohd6h/image/upload/v1762664809/home_kjbuox.webp",
         width: 1200,
         height: 630,
         alt: "Autommensor Smart Home Automation Bilaspur Raipur",
-        type: "image/jpeg",
-      },
-      {
-        url: "https://autommensor.in/og-image-square.jpg",
-        width: 800,
-        height: 800,
-        alt: "Autommensor Automation Logo",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@autommensor",
-    creator: "@autommensor",
-    title: "Autommensor - Smart Home Automation Bilaspur Raipur",
+    title: "AUTOMMENSOR | Smart Home Automation Bilaspur Raipur",
     description: "Leading home automation solutions in Bilaspur, Raipur & Chhattisgarh.",
     images: {
-      url: "https://autommensor.in/og-image.jpg",
+      url: "https://res.cloudinary.com/dn9rohd6h/image/upload/v1762664809/home_kjbuox.webp",
       alt: "Autommensor Automation",
     },
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Autommensor",
-  },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-    ],
   },
   other: {
     "geo.region": "IN-CT",
     "geo.placename": "Bilaspur",
     "geo.position": "22.0797;82.1409",
-    "ICBM": "22.0797, 82.1409"
-  }
+    "ICBM": "22.0797, 82.1409",
+  },
 };
 
 export default function RootLayout({
@@ -145,36 +132,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        {/* Character Set and Compatibility */}
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-
-        {/* App Configuration */}
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
-
-        {/* Preconnect to External Domains for Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preconnect"
-          href="https://www.googletagmanager.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://www.google-analytics.com"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-        {/* Google Analytics - Consolidated */}
         {GA_TRACKING_ID && (
           <>
             <Script
@@ -191,7 +156,7 @@ export default function RootLayout({
                   gtag('js', new Date());
                   gtag('config', '${GA_TRACKING_ID}', {
                     'send_page_view': true,
-                    'anonymize_ip': true
+                    'anonymize_ip': true,
                   });
                 `,
               }}
@@ -199,136 +164,17 @@ export default function RootLayout({
           </>
         )}
 
-        {/* SEO Meta Tags */}
-        <meta name="subject" content="Smart Home Automation" />
-        <meta name="copyright" content="autommensor" />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="author" content="autommensor" />
 
-        <Script
-          id="json-ld-organization"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "HomeAndConstructionBusiness",
-                name: "Autommensor Automation - Bilaspur",
-                image: [
-                  "https://autommensor.in/logo.png",
-                  "https://autommensor.in/og-image.jpg"
-                ],
-                "@id": "https://autommensor.in/#bilaspur",
-                url: "https://autommensor.in",
-                telephone: "+91-8718847083",
-                email: "contact@autommensor.in",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "Vyapar Vihar Rd, Talapara",
-                  addressLocality: "Bilaspur",
-                  addressRegion: "Chhattisgarh",
-                  postalCode: "495001",
-                  addressCountry: "IN"
-                },
-                geo: {
-                  "@type": "GeoCoordinates",
-                  latitude: 22.0797,
-                  longitude: 82.1409
-                },
-                openingHoursSpecification: [
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    dayOfWeek: [
-                      "Monday",
-                      "Tuesday",
-                      "Wednesday",
-                      "Thursday",
-                      "Friday",
-                      "Saturday"
-                    ],
-                    opens: "09:00",
-                    closes: "20:00"
-                  }
-                ],
-                areaServed: [
-                  { "@type": "City", name: "Bilaspur" },
-                  { "@type": "Place", name: "Vyapar Vihar" },
-                  { "@type": "Place", name: "Talapara" },
-                  { "@type": "Place", name: "Civil Lines" },
-                  { "@type": "Place", name: "Sarkanda" },
-                  { "@type": "Place", name: "Nehru Nagar" }
-                ],
-                priceRange: "₹₹"
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "HomeAndConstructionBusiness",
-                name: "Autommensor Automation - Raipur",
-                image: [
-                  "https://autommensor.in/logo.png",
-                  "https://autommensor.in/og-image.jpg"
-                ],
-                "@id": "https://autommensor.in/#raipur",
-                url: "https://autommensor.in",
-                telephone: "+91-8085782471",
-                email: "contact@autommensor.in",
-                address: {
-                  "@type": "PostalAddress",
-                  streetAddress: "Centre Mall, Orange Eye Resort, Mandi Rd, Piche, Devendra Nagar",
-                  addressLocality: "Raipur",
-                  addressRegion: "Chhattisgarh",
-                  postalCode: "492004",
-                  addressCountry: "IN"
-                },
-                geo: {
-                  "@type": "GeoCoordinates",
-                  latitude: 21.2514,
-                  longitude: 81.6296
-                },
-                openingHoursSpecification: [
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    dayOfWeek: [
-                      "Monday",
-                      "Tuesday",
-                      "Wednesday",
-                      "Thursday",
-                      "Friday",
-                      "Saturday"
-                    ],
-                    opens: "09:00",
-                    closes: "20:00"
-                  }
-                ],
-                areaServed: [
-                  { "@type": "City", name: "Raipur" },
-                  { "@type": "Place", name: "Shankar Nagar" },
-                  { "@type": "Place", name: "Devendra Nagar" },
-                  { "@type": "Place", name: "Civil Lines" },
-                  { "@type": "Place", name: "Pandri" },
-                  { "@type": "Place", name: "Telibandha" },
-                  { "@type": "Place", name: "Naya Raipur" }
-                ],
-                priceRange: "₹₹"
-              }
-            ]),
-          }}
-        />
       </head>
-      <body className={outfit.className}>
-        {/* Structured Data Component */}
+      <body className={`${outfit.variable} ${plusJakarta.variable} font-jakarta text-body-md`}>
         <OrganizationSchema />
         <SiteNavigationSchema />
-
-        {/* Context Provider (No Auth) */}
-
-        {/* Main Content */}
+        <Navbar />
         <main id="main-content">
           {children}
         </main>
+        <Footer />
         <WhatsAppFloat />
-        {/* Toast Notifications */}
         <Toaster
           position="top-right"
           reverseOrder={false}
@@ -336,18 +182,12 @@ export default function RootLayout({
           toastOptions={{
             duration: 4000,
             style: {
-              background: "#363636",
-              color: "#fff",
-            },
-            success: {
-              duration: 3000,
-            },
-            error: {
-              duration: 4000,
+              background: "#18202f",
+              color: "#dbe2f8",
+              border: "1px solid rgba(255,255,255,0.08)",
             },
           }}
         />
-
       </body>
     </html>
   );

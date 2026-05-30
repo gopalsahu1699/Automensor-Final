@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomeClient from "./HomeClient";
+import { FAQSchema } from "@/components/StructuredData";
 
 export const metadata: Metadata = {
     title: "Autommensor - Home Automation Bilaspur Raipur | 10-Year Warranty",
@@ -24,11 +25,13 @@ export const metadata: Metadata = {
     },
 };
 
-import { getActiveProducts } from "@/lib/products";
-
 export const dynamic = 'force-dynamic';
 
-export default async function Home() {
-    const products = await getActiveProducts();
-    return <HomeClient initialProducts={products} />;
+export default function Home() {
+    return (
+        <>
+            <FAQSchema />
+            <HomeClient />
+        </>
+    );
 }

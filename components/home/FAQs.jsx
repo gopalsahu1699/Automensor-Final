@@ -1,114 +1,104 @@
 "use client";
-
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronDown as ChevronDown, FaChevronUp as ChevronUp } from "react-icons/fa6";
+import React from "react";
 import Link from "next/link";
 
+const faqItems = [
+  {
+    question: "Is wireless home automation reliable for large homes?",
+    answer: "Absolutely. Our systems use advanced mesh networking technology designed for maximum reliability across multiple floors. We ensure consistent connectivity for every smart light and security sensor in your Chhattisgarh home.",
+  },
+  {
+    question: "Does retrofit home automation require breaking walls?",
+    answer: "No, that's the beauty of our system. It is designed to fit directly into your existing electrical switch boxes. There is zero wall-breaking, zero dust, and zero structural changes required for installation.",
+  },
+  {
+    question: "How long is the warranty and where is support located?",
+    answer: "We provide a market-leading 10-year warranty on our premium hardware. Our local support teams are stationed in Raipur and Bilaspur, ensuring we can reach any project in Chhattisgarh for maintenance within 24 hours.",
+  },
+  {
+    question: "How much does home automation cost in Bilaspur?",
+    answer: "Autommensor offers flexible packages starting from ₹15,000 for basic smart lighting setups. Our standard and advanced packages range from ₹40,000 to ₹1,00,000+ depending on the number of rooms and devices. We offer a free site visit in Bilaspur to give you an exact quote tailored to your home.",
+  },
+  {
+    question: "Do I need to rewire my house for smart home automation?",
+    answer: "No, Autommensor specializes in wireless home automation that requires zero rewiring. Our systems are retrofitted directly into your existing switch boxes without any wall-breaking or structural changes. This makes installation quick, clean, and affordable for homeowners across Chhattisgarh.",
+  },
+  {
+    question: "Can I control my smart home with Alexa in India?",
+    answer: "Yes! Autommensor systems are fully compatible with Alexa and Google Home. You can use voice commands in English or Hindi to control lights, fans, ACs, curtains, and security devices. Our setup works seamlessly across Bilaspur, Raipur, and all of Chhattisgarh.",
+  },
+  {
+    question: "What is the price of a video door phone in Bilaspur?",
+    answer: "Autommensor offers video door phones starting from ₹8,000 in Bilaspur. Prices vary based on screen size, camera quality, and features like night vision and two-way audio. Contact us for a free consultation and site visit to find the best solution for your home.",
+  },
+  {
+    question: "What areas do you serve in Chhattisgarh?",
+    answer: "Autommensor serves all major cities in Chhattisgarh including Bilaspur, Raipur, Durg, Bhilai, Korba, Raigarh, and Jagdalpur. Our local teams provide installation, support, and maintenance across the state. We also offer free site visits in Bilaspur and Raipur.",
+  },
+  {
+    question: "Do you offer warranty on home automation systems?",
+    answer: "Yes, Autommensor provides an industry-leading 10-year warranty on all premium hardware. This covers smart switches, controllers, and sensors. Our warranty includes free replacement and maintenance support through our local teams in Bilaspur and Raipur, Chhattisgarh.",
+  },
+];
 
 export default function FAQs() {
-  const faqItems = [
-    {
-      question: "What is home automation?",
-      answer:
-        "Home automation allows you to control lights, climate, security, and appliances from a single app or device, making your home smarter and more efficient.",
-    },
-    {
-      question: "Do I need a special Wi-Fi for automation?",
-      answer:
-        "No. Our solutions are designed to work on standard home Wi-Fi networks, ensuring seamless connectivity for all your devices.",
-    },
-    {
-      question: "Can I control my home remotely?",
-      answer:
-        "Yes! Autommensor allows full remote control via your smartphone or tablet from anywhere in the world.",
-    },
-    {
-      question: "Is installation complicated?",
-      answer:
-        "Not at all. Our certified professionals handle installation and setup, ensuring everything works perfectly.",
-    },
-    {
-      question: "Do you provide warranty?",
-      answer:
-        "Absolutely! We offer a 10 year warranty on all our products and systems and on site service, giving you peace of mind.",
-    },
-  ];
-
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleIndex = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <section className="bg-gray-50 py-16 sm:py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
-
+    <section className="py-stack-xl bg-surface-container-lowest/20">
+      <div className="max-w-[900px] mx-auto px-margin-mobile">
         {/* Heading */}
-        <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-8 md:mb-10 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Frequently Asked Questions
-        </motion.h2>
+        <div className="text-center mb-stack-md">
+          <span className="text-electric-blue font-label-md tracking-[0.3em] uppercase mb-4 block">Help Center</span>
+          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">Common Questions</h2>
+          <p className="font-body-lg text-on-surface-variant">Learn more about wireless home automation in Chhattisgarh.</p>
+        </div>
 
         {/* FAQ Items */}
-        <div className="space-y-4">
+        <div className="space-y-5">
           {faqItems.map((item, index) => (
-            <motion.div
-              key={index}
-              className="bg-white rounded-lg shadow-sm overflow-hidden"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.08 }}
-            >
-              <button
-                onClick={() => toggleIndex(index)}
-                className="w-full flex items-center justify-between px-6 py-4 text-left focus:outline-none"
-              >
-                <span className="text-base sm:text-lg font-medium text-slate-900">
-                  {item.question}
-                </span>
-                {openIndex === index ? (
-                  <ChevronUp className="w-5 h-5 text-blue-600" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-blue-600" />
-                )}
-              </button>
-
-              <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-6 pb-4 text-sm sm:text-base text-slate-600"
-                  >
-                    {item.answer}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+            <FAQItem key={index} question={item.question} answer={item.answer} />
           ))}
         </div>
 
-        {/* Right-aligned CTA */}
-        <div className="mt-10 flex justify-end">
-          <Link
-            href="/faq"
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition"
-          >
-            Explore More FAQs
-            <span className="text-lg">→</span>
+        {/* More FAQs Link */}
+        <div className="mt-12 text-center">
+          <Link href="/faq" className="inline-flex items-center gap-3 text-electric-blue font-label-md hover:gap-5 transition-all group">
+            More Technical FAQs
+            <span className="material-symbols-outlined">arrow_forward</span>
           </Link>
         </div>
-
-
       </div>
     </section>
+  );
+}
+
+function FAQItem({ question, answer }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <div className={`glass border-white/5 rounded-3xl overflow-hidden transition-all ${isOpen ? "bg-white/5" : "hover:bg-white/5"}`}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex justify-between items-center p-8 text-left group"
+        aria-expanded={isOpen}
+      >
+        <span className="font-headline-sm text-[20px] group-hover:text-electric-blue transition-colors pr-4">
+          {question}
+        </span>
+        <span
+          className="material-symbols-outlined text-electric-blue transition-transform duration-300 flex-shrink-0"
+          style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
+          expand_more
+        </span>
+      </button>
+      <div
+        className="overflow-hidden transition-all duration-300"
+        style={{ maxHeight: isOpen ? "500px" : "0px", opacity: isOpen ? 1 : 0 }}
+      >
+        <p className="px-8 pb-8 text-on-surface-variant font-body-md leading-relaxed">
+          {answer}
+        </p>
+      </div>
+    </div>
   );
 }
