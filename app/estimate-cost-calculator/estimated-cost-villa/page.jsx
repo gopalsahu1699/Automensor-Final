@@ -353,9 +353,10 @@ const EstimateVillaAutomation = () => {
   const hasAreas = Object.values(areas).some(val => val > 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50 py-12 px-6">
+    <div className="min-h-screen bg-background py-12 px-6">
+      <div className="absolute inset-0 pointer-events-none hero-mesh" />
       <motion.section
-        className="max-w-4xl mx-auto flex flex-col gap-8"
+        className="relative z-10 max-w-4xl mx-auto flex flex-col gap-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -363,29 +364,29 @@ const EstimateVillaAutomation = () => {
         {/* Header */}
         <div className="text-center">
           <motion.div
-            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mx-auto mb-6"
+            className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-electric-blue/10 mx-auto mb-6"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200 }}
           >
-            <Building2 className="w-10 h-10 text-green-600" />
+            <Building2 className="w-10 h-10 text-electric-blue" />
           </motion.div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-on-background mb-4 font-outfit">
             Villa Automation
           </h1>
-          <p className="text-lg text-gray-600 mx-auto max-w-xl">
+          <p className="text-lg text-on-surface-variant mx-auto max-w-xl">
             Select your package and specify villa areas to see what devices are included.
           </p>
         </div>
 
         {/* Package Selection */}
         <motion.div
-          className="bg-white rounded-2xl shadow-lg p-8"
+          className="bg-surface-container rounded-2xl p-8 border border-outline-variant/30"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Select Package</h2>
+          <h2 className="text-2xl font-bold text-on-background mb-6 font-outfit">Select Package</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             {Object.entries(automationPackages).map(([key, pkg]) => (
               <motion.button
@@ -393,8 +394,8 @@ const EstimateVillaAutomation = () => {
                 onClick={() => setAutomationPackage(key)}
                 className={`p-6 rounded-xl font-semibold transition-all text-center ${
                   automationPackage === key
-                    ? `bg-gradient-to-r ${pkg.color} text-white shadow-lg scale-105`
-                    : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                    ? "primary-gradient text-white shadow-lg shadow-electric-blue/30 scale-105"
+                    : "bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest border border-outline-variant/30"
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -412,29 +413,29 @@ const EstimateVillaAutomation = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="border-t pt-8"
+              className="border-t border-outline-variant/30 pt-8"
             >
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Villa Details</h3>
+              <h3 className="text-xl font-bold text-on-background mb-6 font-outfit">Villa Details</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {villaAreas.map(({ key, label }) => (
                   <div key={key}>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold text-on-surface-variant mb-3">
                       {label}
                     </label>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleDecrement(key)}
-                        className="w-10 h-10 flex items-center justify-center bg-red-500 text-white rounded-lg hover:bg-red-600 shadow-md transition"
+                        className="w-10 h-10 flex items-center justify-center bg-error-container/80 text-white rounded-lg hover:bg-error-container shadow-md transition"
                         aria-label={`Decrease ${label}`}
                       >
                         <Minus size={18} />
                       </button>
-                      <span className="flex-1 text-center text-lg font-bold text-gray-900 bg-gray-100 rounded-lg py-2">
+                      <span className="flex-1 text-center text-lg font-bold text-on-background bg-surface-container-high rounded-lg py-2">
                         {areas[key]}
                       </span>
                       <button
                         onClick={() => handleIncrement(key)}
-                        className="w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-lg hover:bg-green-600 shadow-md transition"
+                        className="w-10 h-10 flex items-center justify-center primary-gradient text-white rounded-lg hover:shadow-lg hover:shadow-electric-blue/30 shadow-md transition"
                         aria-label={`Increase ${label}`}
                       >
                         <Plus size={18} />
@@ -456,9 +457,9 @@ const EstimateVillaAutomation = () => {
             className="space-y-6"
           >
             {/* Included Devices */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                <Package className="w-6 h-6 text-green-600" />
+            <div className="bg-surface-container rounded-2xl p-8 border border-outline-variant/30">
+              <h3 className="text-2xl font-bold text-on-background mb-6 flex items-center gap-3 font-outfit">
+                <Package className="w-6 h-6 text-electric-blue" />
                 Included Devices
               </h3>
               <div className="space-y-4">
@@ -468,22 +469,22 @@ const EstimateVillaAutomation = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="flex items-start justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg hover:shadow-md border-l-4 border-green-600 transition"
+                    className="flex items-start justify-between p-4 bg-surface-container-high rounded-lg hover:bg-surface-container-highest border-l-4 border-electric-blue transition"
                   >
                     <div className="flex-1">
-                      <div className="font-semibold text-gray-900 flex items-center gap-2">
-                        <Check className="w-5 h-5 text-green-600" />
+                      <div className="font-semibold text-on-background flex items-center gap-2">
+                        <Check className="w-5 h-5 text-success-emerald" />
                         {device.label}
                       </div>
-                      <div className="text-sm text-gray-600 mt-1">
+                      <div className="text-sm text-on-surface-variant mt-1">
                         {device.description}
                       </div>
                     </div>
                     <div className="text-right ml-4">
-                      <div className="text-2xl font-bold text-green-600">
+                      <div className="text-2xl font-bold text-electric-blue">
                         {deviceQuantities[device.label] || 0}
                       </div>
-                      <div className="text-xs text-gray-600">units</div>
+                      <div className="text-xs text-on-surface-variant">units</div>
                     </div>
                   </motion.div>
                 ))}
@@ -492,9 +493,9 @@ const EstimateVillaAutomation = () => {
 
             {/* Optional Devices */}
             {automationPackages[automationPackage].optionalDevices.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                  <Package className="w-5 h-5 text-purple-600" />
+              <div className="bg-surface-container rounded-2xl p-8 border border-outline-variant/30">
+                <h4 className="text-xl font-bold text-on-background mb-6 flex items-center gap-3 font-outfit">
+                  <Package className="w-5 h-5 text-glow-cyan" />
                   Optional Add-ons
                 </h4>
                 <div className="space-y-3">
@@ -504,20 +505,20 @@ const EstimateVillaAutomation = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
-                      className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-600"
+                      className="p-4 bg-surface-container-high rounded-lg border-l-4 border-glow-cyan"
                     >
-                      <div className="font-semibold text-gray-900 flex items-center gap-2">
-                        <Package className="w-4 h-4 text-purple-600" />
+                      <div className="font-semibold text-on-background flex items-center gap-2">
+                        <Package className="w-4 h-4 text-glow-cyan" />
                         {device.label}
                       </div>
-                      <div className="text-sm text-gray-600 mt-1">
+                      <div className="text-sm text-on-surface-variant mt-1">
                         {device.description}
                       </div>
                     </motion.div>
                   ))}
                 </div>
-                <p className="text-sm text-gray-600 mt-6 p-4 bg-gray-50 rounded-lg">
-                  ℹ️ Contact us to add any of these optional devices to your package.
+                <p className="text-sm text-on-surface-variant mt-6 p-4 bg-surface-container-high rounded-lg">
+                  Contact us to add any of these optional devices to your package.
                 </p>
               </div>
             )}
@@ -525,37 +526,37 @@ const EstimateVillaAutomation = () => {
             {/* Total Estimated Cost */}
             {hasAreas ? (
               <motion.div
-                className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl shadow-lg p-8 text-white"
+                className="glass-card rounded-2xl p-8 border border-electric-blue/30"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold flex items-center gap-2">
-                    <IndianRupee className="w-6 h-6" />
+                  <h3 className="text-2xl font-bold flex items-center gap-2 text-on-background font-outfit">
+                    <IndianRupee className="w-6 h-6 text-electric-blue" />
                     Total Estimated Cost
                   </h3>
                 </div>
-                <div className="text-5xl font-extrabold mb-4">
+                <div className="text-5xl font-extrabold mb-4 gradient-text">
                   ₹{calculateEstimate().toLocaleString("en-IN")}
                 </div>
-                <p className="text-green-100 text-sm mb-6">
+                <p className="text-on-surface-variant text-sm mb-6">
                   For your villa with {automationPackages[automationPackage].label} package including all selected areas. This is an estimated cost. Contact us for a personalized quotation and installation details.
                 </p>
                 <Link
                   href="/contact-us"
-                  className="inline-block w-full sm:w-auto bg-white text-green-600 font-bold py-3 px-8 rounded-xl text-center hover:bg-green-50 transition shadow-lg"
+                  className="inline-block w-full sm:w-auto primary-gradient text-white font-bold py-3 px-8 rounded-xl text-center hover:shadow-lg hover:shadow-electric-blue/40 transition shadow-md"
                 >
                   Get Detailed Quotation
                 </Link>
               </motion.div>
             ) : (
               <motion.div
-                className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl shadow-lg p-8 text-white text-center"
+                className="glass-card rounded-2xl p-8 text-center border border-outline-variant/30"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
               >
-                <p className="text-lg font-semibold">
+                <p className="text-lg font-semibold text-on-surface-variant">
                   Add villa areas to see the estimated cost
                 </p>
               </motion.div>
@@ -572,8 +573,8 @@ const EstimateVillaAutomation = () => {
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
-            <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-600 text-lg font-medium">
+            <Building2 className="w-16 h-16 text-on-surface-variant/40 mx-auto mb-4" />
+            <p className="text-on-surface-variant text-lg font-medium">
               Select a package to see included devices
             </p>
           </motion.div>
@@ -588,24 +589,24 @@ const EstimateVillaAutomation = () => {
         >
           <Link
             href="/estimate-cost-calculator/estimated-cost-home"
-            className="group block bg-white rounded-xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition border-l-4 border-blue-600"
+            className="group block bg-surface-container rounded-xl p-6 border border-outline-variant/30 hover:border-electric-blue/50 hover:bg-surface-container-high transition"
           >
-            <div className="flex items-center gap-3 text-blue-600 font-bold group-hover:gap-4 transition-all">
+            <div className="flex items-center gap-3 text-electric-blue font-bold group-hover:gap-4 transition-all">
               <ArrowBigRight className="w-6 h-6" />
               Smart Home
             </div>
-            <p className="text-gray-600 text-sm mt-2">View smart home packages</p>
+            <p className="text-on-surface-variant text-sm mt-2">View smart home packages</p>
           </Link>
 
           <Link
             href="/estimate-cost-calculator/estimated-cost-hotel-room"
-            className="group block bg-white rounded-xl p-6 shadow-lg hover:shadow-xl hover:-translate-y-1 transition border-l-4 border-purple-600"
+            className="group block bg-surface-container rounded-xl p-6 border border-outline-variant/30 hover:border-glow-cyan/50 hover:bg-surface-container-high transition"
           >
-            <div className="flex items-center gap-3 text-purple-600 font-bold group-hover:gap-4 transition-all">
+            <div className="flex items-center gap-3 text-glow-cyan font-bold group-hover:gap-4 transition-all">
               <ArrowBigRight className="w-6 h-6" />
               Hotel Room
             </div>
-            <p className="text-gray-600 text-sm mt-2">View hotel room packages</p>
+            <p className="text-on-surface-variant text-sm mt-2">View hotel room packages</p>
           </Link>
         </motion.div>
       </motion.section>

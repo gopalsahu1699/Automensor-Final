@@ -1,0 +1,227 @@
+================================================================
+  SEO + AI OPTIMIZATION MASTER PLAN FOR AUTOMMENSOR.IN
+  Generated: May 30, 2026
+================================================================
+
+YOUR CURRENT STATE:
+  Domain: autommensor.in
+  Location: Bilaspur, Chhattisgarh serves Bilaspur, Raipur, Durg, Bhilai
+  Tech: Next.js 16, React 19, Supabase, Cloudinary
+  SEO Foundation: GOOD - has structured data, sitemap, robots.txt, metadata
+  Critical Issues: All 7 FIXED in commit af794fe
+
+================================================================
+  PART 1: TECHNICAL SEO QUICK WINS - ALL COMPLETED (Commit af794fe)
+================================================================
+
+  [DONE] robots.ts          - Unblocked /estimate-cost-calculator, privacy, terms
+  [DONE] StructuredData.tsx - Fixed phone, email, address (removed placeholders)
+  [DONE] layout.tsx         - Removed duplicate schema, fixed 10-Year warranty
+  [DONE] sitemap.ts         - Added 4 city landing page URLs
+  [DONE] page.tsx           - Added FAQSchema component to home page
+  [DONE] FAQs.jsx           - Added 6 SEO-optimized questions with answers
+  [DONE] solutions/[slug]   - Added Product JSON-LD schema per product page
+
+================================================================
+  PART 2: KEYWORD STRATEGY
+================================================================
+
+PRIMARY KEYWORDS (Bottom Funnel / Buy Intent):
+  1. home automation bilaspur
+  2. smart home automation raipur
+  3. home automation company bilaspur
+  4. smart home system bilaspur
+  5. home automation chhattisgarh
+  6. automation company raipur
+  7. smart home installer bilaspur
+
+SECONDARY KEYWORDS (Long Tail):
+  8. smart lighting control bilaspur
+  9. video door phone price bilaspur
+  10. smart door lock installation raipur
+  11. curtain automation system bilaspur
+  12. home theatre automation raipur
+  13. google home setup bilaspur
+  14. alexa home automation chhattisgarh
+  15. smart home cost calculator india
+  16. best smart home company chhattisgarh
+  17. automated gate system bilaspur
+  18. IP camera installation raipur
+  19. smart switch price bilaspur
+  20. home automation package price raipur
+  21. 2BHK smart home cost bilaspur
+  22. hotel automation system chhattisgarh
+
+CONTENT KEYWORDS (Informational / Blog):
+  23. home automation cost in Chhattisgarh 2025
+  24. smart home vs traditional home wiring bilaspur
+  25. best smart door lock India under 10000
+  26. how to choose home automation company
+  27. Alexa compatible devices India price list
+  28. video door phone vs smart camera comparison
+  29. home automation for villa India
+  30. smart lighting ideas for Indian homes
+
+================================================================
+  PART 3: CONTENT STRATEGY
+================================================================
+
+BLOG SECTION NEEDED - Create /blog with 2-3 posts per week:
+
+Priority Blog Posts (Write First):
+  a) "Home Automation Cost in Bilaspur & Raipur 2025: Complete Guide"
+  b) "Best Smart Home Installation Company in Bilaspur: Top 5 Compared"
+  c) "Complete Guide to Wireless Home Automation in Chhattisgarh"
+  d) "Video Door Phone Price in Bilaspur: Best Options Under Rs 15,000"
+  e) "Smart Home Packages for 2BHK/3BHK in Chhattisgarh"
+  f) "Alexa vs Google Home for Indian Homes: Which is Better?"
+
+City Landing Pages (Already in sitemap, need actual pages):
+  - /home-automation-bilaspur
+  - /home-automation-raipur
+  - /home-automation-durg
+  - /smart-home-bhilai
+
+Additional Pages Needed:
+  - /reviews (Customer testimonials with schema)
+  - /portfolio (Case studies with before/after photos)
+
+================================================================
+  PART 4: GOOGLE BUSINESS PROFILE (LOCAL SEO) - DO NEXT
+================================================================
+
+If not already done, this is HIGHEST priority after code fixes:
+
+  [ ] Create GBP at https://business.google.com
+      Name: "Autommensor - Smart Home Automation Bilaspur"
+      Category: "Home Automation Service"
+      Address: Seepat, Talapara, Bilaspur, CG 495001
+      Phone: +91-8085782471
+      Website: https://autommensor.in
+      Hours: Mon-Sat 9AM-8PM
+      Service Areas: Bilaspur, Raipur, Durg, Bhilai, Korba, Raigarh
+  
+  [ ] Add 20+ photos to GBP (before/after installations)
+  [ ] Write business description with keywords
+  [ ] Add services list with descriptions
+  [ ] Post weekly updates on GBP
+  [ ] Collect 100+ Google reviews from customers
+  [ ] Reply to every review
+
+================================================================
+  PART 5: AI OPTIMIZATION (AEO) - Get AI tools to mention you
+================================================================
+
+  [ ] Fix structured data, claim GBP, become the "go-to" entity
+  [ ] Guest post on Indian tech/smart home blogs
+  [ ] Get press coverage in local newspapers
+  [ ] Create platform presence:
+      - Trustpilot profile + 20 reviews
+      - Sulekha.com business listing
+      - JustDial listing
+      - Quora answers about home automation in Chhattisgarh
+  [ ] Add clear factual content to homepage that AI can parse:
+      "Autommensor is a home automation company headquartered in Bilaspur,
+      Chhattisgarh, India. Founded in 2024, it provides smart home automation
+      services including smart lighting, security systems, video door phones,
+      digital locks, curtain automation, and home theatre setup to residential
+      and commercial clients across Chhattisgarh."
+  [ ] Monitor & optimize for "People Also Ask" on Google
+
+================================================================
+  PART 6: BACKLINK STRATEGY
+================================================================
+
+Tier 1 (Easy - Do First):
+  [ ] JustDial.com
+  [ ] Sulekha.com
+  [ ] IndiaMart.com
+  [ ] TradeIndia.com
+  [ ] Facebook Business Page
+  [ ] Instagram Business
+  [ ] YouTube channel (installation videos)
+  [ ] Pinterest boards (smart home ideas)
+
+Tier 2 (Medium Effort):
+  [ ] Guest posts on Chhattisgarh business sites
+  [ ] Real estate blog partnerships (99acres, Housing.com, MagicBricks)
+  [ ] Interior designer blog collaborations
+  [ ] Smart home review site product submissions
+
+Tier 3 (Premium):
+  [ ] PR in Indian media: Inc42, YourStory
+  [ ] Podcast interviews
+  [ ] YouTube tech reviewer collaborations
+
+================================================================
+  PART 7: WEEK-BY-WEEK ACTION PLAN
+================================================================
+
+Week 1: DONE - Technical SEO fixes (robots, schema, sitemap, FAQ, product schema)
+
+Week 2: Google Business Profile + Local SEO
+  - Create/optimize GBP
+  - List on JustDial, Sulekha, IndiaMart, TradeIndia
+  - Setup Instagram + Facebook business pages
+
+Week 3: Content Batch 1
+  - Write 3 blog posts
+  - Create city landing pages
+
+Week 4: Content + Backlinks
+  - Write 2 more blog posts
+  - Start directory outreach
+  - Create YouTube channel, first video
+  - Setup Google Search Console
+
+Week 5-8: Scale Up
+  - 2 blog posts/week
+  - Guest post outreach
+  - Collect Google reviews from past customers
+  - Create portfolio pages
+
+Week 9-12: Authority Building
+  - Continue 2 posts/week
+  - PR outreach
+  - YouTube weekly videos
+  - Partner with interior designers/real estate agents
+  - Target 50+ Google reviews
+
+================================================================
+  PART 8: TOOLS NEEDED
+================================================================
+
+FREE:
+  - Google Search Console (search.google.com/search-console)
+  - Google Business Profile (business.google.com)
+  - Google Analytics 4 (already have GA)
+  - Google PageSpeed Insights
+  - Schema Markup Validator (validator.schema.org)
+
+PAID (when budget allows):
+  - Semrush or Ahrefs (Rs 8,000-12,000/month) - keyword tracking
+  - SurferSEO (Rs 5,000/month) - content optimization
+  - Screaming Frog (free for 500 URLs) - technical audits
+
+================================================================
+  EXECUTIVE SUMMARY
+================================================================
+
+Completed:
+  All 7 code-level SEO fixes (commit af794fe)
+
+Next Priority:
+  1. Google Business Profile (biggest local SEO impact)
+  2. Blog with 3 posts (content is king for rankings)
+  3. Indian business directories (JustDial, Sulekha, IndiaMart)
+  4. Collect Google reviews from past 200+ customers
+
+Key Insight:
+  You have good technical foundation. Missing pieces are:
+  - CONTENT (blog + city pages)
+  - LOCAL SEO (Google Business Profile + reviews)
+  - BACKLINKS (directories + guest posts)
+  - AI VISIBILITY (Quora + platform presence)
+
+  Do these consistently for 6 months and you WILL rank #1.
+================================================================

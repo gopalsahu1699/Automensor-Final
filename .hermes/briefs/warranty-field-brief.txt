@@ -1,0 +1,55 @@
+TASK: Add warranty details field to the solution edit/create form
+
+Currently the ProductForm has no warranty details field. You need to:
+1. Add a warranty_details column to the products table
+2. Add a warranty details textarea to the ProductForm component
+3. Make sure it works for both create and edit (same form component)
+
+---
+
+STEP 1 - Database migration
+
+Run this SQL against the Supabase database using the service role key:
+
+  ALTER TABLE products ADD COLUMN IF NOT EXISTS warranty_details text;
+
+Use the Supabase REST API to run this. The SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are in C:\auto_proj\.env.local
+
+You can run it via curl like:
+  curl -X POST "<SUPABASE_URL>/rest/v1/rpc/execute_sql" \
+    -H "apikey: <SUPABASE_SERVICE_ROLE_KEY>" \
+    -H "Content-Type: application/json" \
+    -d '{"query": "ALTER TABLE products ADD COLUMN IF NOT EXISTS warranty_details text;"}'
+
+Or use the supabase client via a Node script. Read .env.local first to get the keys.
+
+---
+
+STEP 2 - Update ProductForm at C:\auto_proj\components\admin\ProductForm.tsx
+
+2a. Add warranty_details to the useState initial data:
+    warranty_details: initialData?.warranty_details || '',
+
+    Add it right after the `features` line (line 28), around line 29.
+
+2b. Add a textarea field in the "Media & Content" card, AFTER the Technical Details textarea and BEFORE the closing `</div>` of the space-y-6 div.
+
+    The new field should be a div with space-y-2 containing:
+    - Label: "Warranty Details" with className "text-sm font-medium text-slate-300"
+    - textarea with:
+      name="warranty_details"
+      value={formData.warranty_details}
+      onChange={handleChange}
+      rows={3}
+      placeholder="Warranty information like duration, coverage, terms..."
+      className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+
+2c. The form submit already spreads formData into payload, so warranty_details will be included automatically. No change needed to handleSubmit.
+
+---
+
+RULES:
+- Do NOT run git push
+- Do run npx tsc --noEmit after changes and fix any type errors
+- Verify with git log --oneline -3 that no unintended commits were made
+- Match existing code style exactly

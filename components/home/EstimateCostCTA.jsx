@@ -24,7 +24,7 @@ export default function EstimateCostCTA() {
               See Your&nbsp;&nbsp;<span className="gradient-text">Investment</span>
             </h2>
             <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant leading-relaxed">
-              Planning your smart home doesn&apos;t have to be guesswork. Use our calculator to find the exact cost for your 2BHK, 3BHK or Bungalow in Chhattisgarh and see how much you&apos;ll save on energy bills.
+              Planning your smart home doesn&apos;t have to be guesswork. Use our calculator to find the exact cost for your 2BHK, 3BHK or Bungalow in Chhattisgarh .
             </p>
             <div className="flex flex-wrap gap-8 items-center">
               <Link href="/estimate-cost-calculator" className="primary-gradient px-6 py-3 md:px-12 md:py-5 rounded-full text-lg md:font-headline-sm text-sm md:text-[20px] shadow-2xl shadow-electric-blue/40 flex items-center gap-4 group text-white">
@@ -38,7 +38,7 @@ export default function EstimateCostCTA() {
                 </div>
                 <div className="w-px h-6 md:h-10 bg-white/10" />
                 <div className="flex flex-col">
-                  <span className="text-xs md:font-label-md text-on-surface">Local Expert</span>
+                  <span className="text-xs md:font-label-md text-on-surface">Local support</span>
                   <span className="text-label-sm text-on-surface-variant">Free Visit Available</span>
                 </div>
               </div>

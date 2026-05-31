@@ -2,10 +2,10 @@
 import React from "react";
 
 const keywords = [
-  "smart touch switch bord",
-  "Energy Saver",
-  "Secured",
-  "Chhattisgarh",
+  "smart touch switch board",
+  "Energy Saver sensors ",
+  "wireless home automation",
+  "security system",
 ];
 
 export default function TrustBar() {

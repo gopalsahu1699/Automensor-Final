@@ -11,7 +11,7 @@ export default function AboutClient() {
       <section className="relative h-[80vh] flex items-center overflow-hidden pt-28">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/about-hero.jpg"
+            src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/screen%20(1).png"
             alt="Modern Living Room Hero"
             className="w-full h-full object-cover opacity-60"
           />
@@ -27,7 +27,7 @@ export default function AboutClient() {
               Modernizing Homes,<br /><span className="text-electric-blue">Empowering Lives.</span>
             </h1>
             <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant mb-10 max-w-xl">
-              With over 200+ completed projects, we are Chhattisgarh&apos;s leading home automation experts, dedicated to bringing futuristic comfort to Bilaspur and Raipur.
+               We are Chhattisgarh&apos;s leading home automation experts, dedicated to bringing futuristic comfort across the Chhattisgarh region.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="/contact-us" className="bg-electric-blue text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 group hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all">
@@ -35,7 +35,7 @@ export default function AboutClient() {
                 <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
               </a>
               <a href="/all-solutions" className="border-2 border-white/20 text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
-                View 200+ Projects
+                View solutions
               </a>
             </div>
           </div>
@@ -60,17 +60,15 @@ export default function AboutClient() {
               <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-8">Smart Living for Everyone in Chhattisgarh</h2>
               <div className="space-y-6">
                 <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant">
-                  Our mission is simple: To make smart living accessible to every household in Bilaspur and Raipur without the complexity and mess of traditional installations.
+                  Our mission is simple: To make smart living accessible to every household across Chhattisgarh without the complexity and mess of traditional installations.
                 </p>
                 <div className="p-6 glass-card rounded-2xl">
                   <h3 className="font-headline-sm text-lg md:text-headline-sm text-electric-blue mb-2">Zero Rewiring Technology</h3>
                   <p className="font-body-md text-body-md text-on-surface-variant">
-                    We specialize in retrofitting existing homes. Our wireless systems integrate seamlessly with your current electrical setup, meaning no broken walls or messy cables.
+                    We specialize in home automation. Our wireless systems integrate seamlessly with your current electrical setup, meaning no broken walls or messy cables.
                   </p>
                 </div>
-                <p className="font-body-md text-body-md text-on-surface-variant">
-                  Whether you&apos;re in the heart of Raipur or a quiet neighborhood in Bilaspur, Autommensor brings global automation standards right to your doorstep.
-                </p>
+                
               </div>
             </div>
           </div>
@@ -85,16 +83,16 @@ export default function AboutClient() {
             <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant">Market-leading standards built for local needs.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-gutter h-auto md:h-[600px]">
-            {/* 10-Year Warranty */}
+            {/* 5-Year replacement Warranty */}
             <div className="md:col-span-2 md:row-span-1 glass-card p-8 rounded-3xl flex flex-col justify-between hover:border-electric-blue/50 transition-colors group">
               <div className="flex justify-between items-start">
                 <div className="w-12 h-12 rounded-2xl bg-electric-blue/10 flex items-center justify-center text-electric-blue">
                   <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
                 </div>
-                <span className="text-electric-blue font-headline-lg-mobile md:font-headline-xl opacity-20">10y</span>
+                <span className="text-electric-blue font-headline-lg-mobile md:font-headline-xl opacity-20">5y</span>
               </div>
               <div>
-                <h3 className="font-headline-md text-base md:text-headline-md mb-2">10-Year Warranty</h3>
+                <h3 className="font-headline-md text-base md:text-headline-md mb-2">5-Year replacement Warranty</h3>
                 <p className="text-on-surface-variant">Industry-leading coverage that guarantees peace of mind for a decade.</p>
               </div>
             </div>
@@ -147,8 +145,8 @@ export default function AboutClient() {
           <div className="glass-card p-5 md:p-16 rounded-2xl md:rounded-[40px] flex flex-col md:flex-row gap-12 items-center">
             <div className="w-24 h-24 md:w-48 md:h-48 rounded-full overflow-hidden border-2 md:border-4 border-electric-blue/30 shrink-0 shadow-[0_0_40px_rgba(59,130,246,0.3)]">
               <img
-                src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/about-founder.jpg"
-                alt="Founder Portrait"
+                // src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/about-founder.jpg"
+                alt="#"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -171,7 +169,7 @@ export default function AboutClient() {
           <div className="max-w-3xl mx-auto">
             <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-6">Ready to Transform Your Home?</h2>
             <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant mb-12">
-              Join 200+ happy families in Chhattisgarh. Experience the comfort of voice-controlled living with our zero-rewiring solution.
+              Join happy families in Chhattisgarh. Experience the comfort of voice-controlled living with our zero-rewiring solution.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <a href="/contact-us" className="bg-electric-blue text-white px-6 py-3 md:px-10 md:py-5 rounded-full font-label-md text-label-md text-sm md:text-label-md shadow-[0_10px_30px_rgba(59,130,246,0.5)] hover:scale-105 transition-all">
@@ -183,9 +181,9 @@ export default function AboutClient() {
               </a>
             </div>
             <div className="mt-8 md:mt-16 flex flex-wrap justify-center gap-4 md:gap-8 opacity-60">
-              <div className="flex items-center gap-2"><span className="material-symbols-outlined text-electric-blue">verified</span> 10-Year Warranty</div>
+              <div className="flex items-center gap-2"><span className="material-symbols-outlined text-electric-blue">verified</span> 5-Year Replacement Warranty</div>
               <div className="flex items-center gap-2"><span className="material-symbols-outlined text-electric-blue">handyman</span> Zero Rewiring</div>
-              <div className="flex items-center gap-2"><span className="material-symbols-outlined text-electric-blue">location_on</span> Based in Bilaspur</div>
+              <div className="flex items-center gap-2"><span className="material-symbols-outlined text-electric-blue">location_on</span> Based in chhattisgarh</div>
             </div>
           </div>
         </div>

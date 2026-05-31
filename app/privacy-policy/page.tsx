@@ -1,7 +1,6 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -114,8 +113,7 @@ export default function PrivacyPolicyClient() {
 
   return (
     <>
-      <Navbar />
-      <main className="bg-white min-h-screen">
+      <main className="bg-white min-h-screen pt-28">
         {/* Hero Section */}
         <motion.section
           initial={{ opacity: 0, y: -20 }}
@@ -392,7 +390,6 @@ export default function PrivacyPolicyClient() {
           </motion.div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CldUploadWidget } from 'next-cloudinary';
-import { ImagePlus, X, Save, Loader2, ArrowLeft } from 'lucide-react';
+import { ImagePlus, X, Save, Loader2, ArrowLeft, Video } from 'lucide-react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,7 +25,8 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
         is_active: initialData?.is_active ?? true,
         is_featured: initialData?.is_featured ?? false,
         sort_order: initialData?.sort_order || 0,
-        features: initialData?.features?.join(', ') || ''
+        features: initialData?.features?.join(', ') || '',
+        warranty_details: initialData?.warranty_details || ''
     });
 
     const [isCustomCategory, setIsCustomCategory] = useState(!['comfort', 'security', 'control'].includes(initialData?.category || 'comfort'));
@@ -57,10 +58,6 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
     };
 
     const handleGalleryUpload = (result: any) => {
-        if (formData.gallery_urls.length >= 3) {
-            toast.error("Maximum 4 images allowed total (1 Main + 3 Gallery)");
-            return;
-        }
         setFormData(prev => ({
             ...prev,
             gallery_urls: [...prev.gallery_urls, result.info.secure_url]
@@ -95,12 +92,12 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
             });
 
             if (res.ok) {
-                toast.success(initialData ? 'Product updated' : 'Product created');
-                router.push('/admin/products');
+                toast.success(initialData ? 'Solution updated' : 'Solution created');
+                router.push('/admin/solutions');
                 router.refresh();
             } else {
                 const data = await res.json();
-                toast.error(data.error || 'Failed to save product');
+                toast.error(data.error || 'Failed to save solution');
             }
         } catch (error) {
             toast.error('An unexpected error occurred');
@@ -112,11 +109,11 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
     return (
         <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-4 mb-8">
-                <Link href="/admin/products" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-full transition-colors">
+                <Link href="/admin/solutions" className="p-2 bg-slate-800 hover:bg-slate-700 rounded-full transition-colors">
                     <ArrowLeft className="w-5 h-5 text-slate-300" />
                 </Link>
                 <h1 className="text-3xl font-bold text-white">
-                    {initialData ? 'Edit Product' : 'Add New Product'}
+                    {initialData ? 'Edit Solution' : 'Add New Solution'}
                 </h1>
             </div>
 
@@ -127,7 +124,7 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
                     <h2 className="text-xl font-bold text-white mb-6">Basic Information</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-300">Product Name <span className="text-red-500">*</span></label>
+                            <label className="text-sm font-medium text-slate-300">Solution Name <span className="text-red-500">*</span></label>
                             <input required name="name" value={formData.name} onChange={handleChange} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" />
                         </div>
 
@@ -200,9 +197,9 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
                     <div className="space-y-6">
                         <div className="space-y-4">
                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                <label className="text-sm font-medium text-slate-300">Product Images (Up to 4)</label>
+                                <label className="text-sm font-medium text-slate-300">Solution Images & Videos (Unlimited)</label>
                                 <span className="text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded">
-                                    Recommended: Square (1:1), 800x800px minimum
+                                     Recommended: Square (1:1), 800x800px minimum — Main Image is required
                                 </span>
                             </div>
 
@@ -234,47 +231,71 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
                                         </CldUploadWidget>
                                     )}
                                 </div>
+                            </div>
 
-                                {/* Slots 2-4: Gallery */}
-                                {[0, 1, 2].map((i) => (
-                                    <div key={i} className="space-y-2">
-                                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Gallery {i + 1}</span>
-                                        {formData.gallery_urls[i] ? (
-                                            <div className="relative aspect-square rounded-xl overflow-hidden border border-slate-700 group">
-                                                <Image src={formData.gallery_urls[i]} alt="Gallery" fill className="object-cover" />
-                                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <button type="button" onClick={() => removeGalleryImage(i)} className="p-2 bg-red-500 text-white rounded-full">
-                                                        <X className="w-4 h-4" />
-                                                    </button>
+                            {/* Gallery Items - rendered dynamically with no limit */}
+                            {formData.gallery_urls.length > 0 && (
+                                <div className="space-y-4">
+                                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                        <label className="text-sm font-medium text-slate-300">Gallery ({formData.gallery_urls.length} items)</label>
+                                    </div>
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                        {formData.gallery_urls.map((url: string, i: number) => (
+                                            <div key={i} className="space-y-2">
+                                                <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+                                                    {url.match(/\.(mp4|mov|webm|avi|mkv)(\?|$)/i) ? `Video ${i + 1}` : `Image ${i + 1}`}
+                                                </span>
+                                                <div className="relative aspect-square rounded-xl overflow-hidden border border-slate-700 group">
+                                                    {url.match(/\.(mp4|mov|webm|avi|mkv)(\?|$)/i) ? (
+                                                        <video src={url} className="w-full h-full object-cover" muted playsInline />
+                                                    ) : (
+                                                        <Image src={url} alt={`Gallery ${i + 1}`} fill className="object-cover" />
+                                                    )}
+                                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                        <button type="button" onClick={() => removeGalleryImage(i)} className="p-2 bg-red-500 text-white rounded-full">
+                                                            <X className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        ) : (
-                                            <CldUploadWidget
-                                                uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
-                                                onSuccess={handleGalleryUpload}
-                                                options={{ maxFiles: 1, cropping: true, croppingAspectRatio: 1 }}
-                                            >
-                                                {({ open }) => (
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => open()}
-                                                        disabled={i > 0 && !formData.gallery_urls[i - 1] && !formData.image_url}
-                                                        className="aspect-square border-2 border-dashed border-slate-700 hover:border-blue-500 rounded-xl flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors bg-slate-800/30 disabled:opacity-30 disabled:cursor-not-allowed"
-                                                    >
-                                                        <ImagePlus className="w-6 h-6 mb-1" />
-                                                        <span className="text-[10px] font-bold">Upload</span>
-                                                    </button>
-                                                )}
-                                            </CldUploadWidget>
-                                        )}
+                                        ))}
                                     </div>
-                                ))}
+                                </div>
+                            )}
+
+                            {/* Upload buttons - no limits */}
+                            <div className="flex flex-col sm:flex-row gap-3">
+                                <CldUploadWidget
+                                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
+                                    onSuccess={handleGalleryUpload}
+                                    options={{ maxFiles: 1, cropping: true, croppingAspectRatio: 1, resourceType: "image" }}
+                                >
+                                    {({ open }) => (
+                                        <button type="button" onClick={() => open()} className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl transition-colors">
+                                            <ImagePlus className="w-5 h-5" />
+                                            <span className="text-sm font-medium">Add Image</span>
+                                        </button>
+                                    )}
+                                </CldUploadWidget>
+
+                                <CldUploadWidget
+                                    uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
+                                    onSuccess={handleGalleryUpload}
+                                    options={{ maxFiles: 1, resourceType: "video" }}
+                                >
+                                    {({ open }) => (
+                                        <button type="button" onClick={() => open()} className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl transition-colors">
+                                            <Video className="w-5 h-5" />
+                                            <span className="text-sm font-medium">Add Video</span>
+                                        </button>
+                                    )}
+                                </CldUploadWidget>
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-300">Short Description</label>
-                            <textarea name="short_description" value={formData.short_description} onChange={handleChange} rows={2} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="A brief summary for the product card..." />
+                            <textarea name="short_description" value={formData.short_description} onChange={handleChange} rows={2} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="A brief summary for the solution card..." />
                         </div>
 
                         <div className="space-y-2">
@@ -284,12 +305,17 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-300">Full Description</label>
-                            <textarea name="full_description" value={formData.full_description} onChange={handleChange} rows={6} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Detailed product overview..." />
+                            <textarea name="full_description" value={formData.full_description} onChange={handleChange} rows={6} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Detailed solution overview..." />
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-300">Technical Details</label>
-                            <textarea name="technical_details" value={formData.technical_details} onChange={handleChange} rows={6} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Technical specifications like voltage, dimensions, connectivity..." />
+                            <textarea name="technical_details" value={formData.technical_details} onChange={handleChange} rows={4} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Technical specifications like voltage, dimensions, connectivity..." />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300">Warranty Details</label>
+                            <textarea name="warranty_details" value={formData.warranty_details} onChange={handleChange} rows={3} className="w-full px-4 py-3 bg-slate-800 border-slate-700 border text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Warranty information like duration, coverage, terms..." />
                         </div>
                     </div>
                 </div>
@@ -302,7 +328,7 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
                             <input type="checkbox" name="is_active" checked={formData.is_active} onChange={handleChange} className="w-5 h-5 rounded border-slate-600 bg-slate-700 text-blue-500 focus:ring-blue-500 focus:ring-offset-slate-900" />
                             <div className="flex flex-col">
                                 <span className="text-white font-medium">Active (Visible)</span>
-                                <span className="text-xs text-slate-400">Show this product on the website</span>
+                                <span className="text-xs text-slate-400">Show this solution on the website</span>
                             </div>
                         </label>
 
@@ -328,7 +354,7 @@ export default function ProductForm({ initialData = null }: { initialData?: any 
                         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-lg shadow-blue-500/20 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
                     >
                         {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
-                        {initialData ? 'Update Product' : 'Save Product'}
+                        {initialData ? 'Update Solution' : 'Save Solution'}
                     </button>
                 </div>
             </form>

@@ -7,18 +7,18 @@ interface Params {
     id: string;
 }
 
-export default async function EditProductPage(props: { params: Promise<Params> }) {
+export default async function EditSolutionPage(props: { params: Promise<Params> }) {
     const params = await props.params;
     const supabase = getServiceSupabase();
-    const { data: product } = await supabase
+    const { data: solution } = await supabase
         .from('products')
         .select('*')
         .eq('id', params.id)
         .single();
 
-    if (!product) {
+    if (!solution) {
         notFound();
     }
 
-    return <ProductForm initialData={product} />;
+    return <ProductForm initialData={solution} />;
 }

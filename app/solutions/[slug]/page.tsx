@@ -132,7 +132,7 @@ export default async function SolutionPage(props: { params: Promise<{ slug: stri
                                     </Link>
                                     <div className="flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-on-surface-variant py-2 md:py-3 lg:py-4 px-3 md:px-4 lg:px-6 rounded-xl text-xs md:text-sm lg:text-base font-semibold">
                                         <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                                        10-Year Warranty
+                                        {solution.warranty_details ? solution.warranty_details.split('\n')[0].slice(0, 40) : '10-Year Warranty'}
                                     </div>
                                 </div>
 
@@ -159,6 +159,20 @@ export default async function SolutionPage(props: { params: Promise<{ slug: stri
                                     <ul className="list-disc list-outside ml-5 space-y-1 md:space-y-2 text-xs sm:text-sm md:text-base text-on-surface-variant">
                                         {solution.technical_details.split('\n').filter((line: string) => line.trim() !== '').map((paragraph: string, idx: number) => (
                                             <li key={idx} className="pl-2">{paragraph}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Warranty Details */}
+                        {solution.warranty_details && (
+                            <div className="mt-6 pt-4 md:mt-12 md:pt-12 border-t border-white/10">
+                                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-on-surface mb-2 md:mb-4 lg:mb-6">Warranty Details</h2>
+                                <div className="bg-surface-container-lowest p-3 md:p-6 lg:p-8 rounded-xl md:rounded-2xl border border-white/10">
+                                    <ul className="list-disc list-outside ml-5 space-y-1 md:space-y-2 text-xs sm:text-sm md:text-base text-on-surface-variant">
+                                        {solution.warranty_details.split('\n').filter((line: string) => line.trim() !== '').map((line: string, idx: number) => (
+                                            <li key={idx} className="pl-2">{line}</li>
                                         ))}
                                     </ul>
                                 </div>

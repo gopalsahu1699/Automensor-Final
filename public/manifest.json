@@ -1,0 +1,10 @@
+{
+  "name": "Autommensor - Smart Home Automation",
+  "short_name": "Autommensor",
+  "description": "Smart home automation in Bilaspur, Raipur & Chhattisgarh",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1323",
+  "theme_color": "#0b1323",
+  "icons": []
+}

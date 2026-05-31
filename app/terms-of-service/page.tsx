@@ -1,7 +1,6 @@
 "use client";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -30,7 +29,7 @@ const sections: Section[] = [
     title: "Acceptance of Terms",
     icon: FileText,
     description:
-      "By accessing and using autommensor's products and services, you agree to be bound by these Terms of Service.",
+      "By accessing and using autommensor's solutions and services, you agree to be bound by these Terms of Service.",
     details: [
       "You must be at least 18 years old to use our services",
       "You are responsible for maintaining account confidentiality",
@@ -42,7 +41,7 @@ const sections: Section[] = [
     title: "Service Description",
     icon: Zap,
     description:
-      "autommensor provides smart home automation products and services designed to enhance your living experience.",
+      "autommensor provides smart home automation solutions and services designed to enhance your living experience.",
     details: [
       "We offer device configuration and control services",
       "Services include mobile app access and cloud integration",
@@ -159,8 +158,7 @@ export default function TermsOfServiceClient() {
 
   return (
     <>
-      <Navbar />
-      <main className="bg-white min-h-screen">
+      <main className="bg-white min-h-screen pt-28">
         {/* Hero Section */}
         <motion.section
           initial={{ opacity: 0, y: -20 }}
@@ -449,7 +447,6 @@ export default function TermsOfServiceClient() {
           </motion.div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

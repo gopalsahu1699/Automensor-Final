@@ -6,7 +6,7 @@ import Link from "next/link";
 const trustItems = [
   { icon: "verified_user", label: "5-Year replacement Warranty", sub: "Market Leading", color: "text-success-emerald" },
   { icon: "location_on", label: "Local Support", sub: "Bilaspur & Raipur", color: "text-success-emerald" },
-  { icon: "build", label: "No Rewiring", sub: "Quick Retrofit", color: "text-success-emerald" },
+  { icon: "build", label: "No Rewiring", sub: "Quick Installation", color: "text-success-emerald" },
   { icon: "engineering", label: "Expert Team", sub: "Certified Pros", color: "text-success-emerald" },
 ];
 
@@ -16,7 +16,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/hero-home.jpg"
+          src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/screen2.png"
           alt="Premium Wireless Home Automation Chhattisgarh"
           className="w-full h-full object-cover scale-105 brightness-90"
         />
@@ -28,8 +28,8 @@ export default function HeroSection() {
         <div className="max-w-3xl space-y-stack-sm">
           {/* Trust Badge */}
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border-white/10 text-electric-blue">
-            <span className="material-symbols-outlined text-[20px] fill-1">verified</span>
-            <span className="font-label-sm text-label-sm uppercase tracking-[0.15em] font-semibold">Trusted by 200+ Families in Chhattisgarh</span>
+            <span className="material-symbols-outlined text-[16px] md:text-[20px] fill-1">verified</span>
+            <span className="font-label-sm text-label-sm uppercase tracking-[0.15em] font-semibold">Trusted by many Families in Chhattisgarh</span>
           </div>
 
           {/* Heading */}

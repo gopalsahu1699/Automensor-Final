@@ -20,7 +20,7 @@ export async function PUT(request: Request, props: { params: Promise<{ id: strin
 
         return NextResponse.json({ success: true });
     } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Failed to update product' }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Failed to update solution' }, { status: 500 });
     }
 }
 
@@ -41,6 +41,6 @@ export async function DELETE(request: Request, props: { params: Promise<{ id: st
 
         return NextResponse.json({ success: true });
     } catch (error: any) {
-        return NextResponse.json({ error: error.message || 'Failed to delete product' }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Failed to delete solution' }, { status: 500 });
     }
 }

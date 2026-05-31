@@ -1,0 +1,56 @@
+TASK: Add delete button to each solution row in admin solutions list page
+
+FILES TO CREATE:
+1. C:\auto_proj\app\admin\solutions\[id]\delete\page.tsx
+
+FILES TO MODIFY:
+2. C:\auto_proj\app\admin\solutions\page.tsx
+
+---
+
+FILE 1: Create C:\auto_proj\app\admin\solutions\[id]\delete\page.tsx
+
+Create a delete confirmation page following the EXACT same pattern as:
+  C:\auto_proj\app\admin\testimonials\[id]\delete\page.tsx
+
+Changes from testimonials pattern:
+- Rename "Testimonial" to "Solution" everywhere
+- Table is 'products' (not 'testimonials')
+- The name field to display is `solution.name` (not `customer_name`)
+- There is no customer_image_url to delete from storage, so skip the storage deletion logic
+- There is no image_url storage cleanup needed (Cloudinary URLs, not Supabase storage)
+- Redirect to '/admin/solutions' after delete
+- Use ArrowLeft and Trash2 from lucide-react
+- Use getServiceSupabase from '@/lib/supabase'
+- Use the pattern: .select('*').eq('id', params.id).limit(1) then access [0]
+  (NOT .single() which throws with RLS)
+- Route params pattern: `props: { params: Promise<{ id: string }> }` (Next.js 15 async params)
+- Use 'use server' for the server action form handler
+
+The page should show:
+- Back arrow link to /admin/solutions
+- Trash icon in red circle "Are you sure?" heading
+- Text: "You are about to delete the solution named <name>. This action cannot be undone."
+- Cancel button (link back to /admin/solutions) and "Yes, Delete" red button
+
+---
+
+FILE 2: Modify C:\auto_proj\app\admin\solutions\page.tsx
+
+Add a delete button next to the existing edit button in each row's Actions column:
+
+1. Import Trash2 from lucide-react (add to existing lucide import line)
+2. Inside the Actions <td> after the Edit Link, add another Link:
+   href: `/admin/solutions/${solution.id}/delete`
+   className: "p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+   Contains: <Trash2 className="w-4 h-4" />
+
+The edit button currently has blue hover colors. The delete button should have red hover colors.
+
+---
+
+RULES:
+- Do NOT run git push
+- Do run npx tsc --noEmit after changes and report any errors
+- Verify with git log --oneline -3 that no unintended commits were made
+- Match existing code style exactly

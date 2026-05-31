@@ -43,7 +43,7 @@ export default function ContactClient() {
         <div className="absolute inset-0 z-0 opacity-30">
           <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
           <img
-            src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/contact-hero.jpg"
+            src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/screen.png"
             alt="Smart Home Control"
             className="w-full h-full object-cover"
           />
@@ -62,7 +62,7 @@ export default function ContactClient() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-gutter">
             <div className="flex items-center gap-3 glass-card px-6 py-3 rounded-xl">
               <span className="material-symbols-outlined text-success-emerald" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
-              <span className="font-label-md text-label-md">Free Site Visits in Bilaspur &amp; Raipur</span>
+              <span className="font-label-md text-label-md">Free Site Visit</span>
             </div>
             <div className="flex items-center gap-3 glass-card px-6 py-3 rounded-xl">
               <span className="material-symbols-outlined text-electric-blue" style={{ fontVariationSettings: "'FILL' 1" }}>support_agent</span>
@@ -140,7 +140,7 @@ export default function ContactClient() {
                     <span className="material-symbols-outlined text-electric-blue text-[20px] md:text-[32px]">storefront</span>
                   </div>
                   <div>
-                    <h3 className="font-headline-sm text-lg md:text-headline-sm text-on-surface mb-2">Visit Our Showroom</h3>
+                    <h3 className="font-headline-sm text-lg md:text-headline-sm text-on-surface mb-2">Visit Our Hub</h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">Seepat, Bilaspur, Chhattisgarh, India - 495559</p>
                     <a href="https://maps.google.com/?q=Seepat+Bilaspur+Chhattisgarh" target="_blank" rel="noopener noreferrer"
                       className="mt-4 text-electric-blue font-label-md text-label-md flex items-center gap-2 group-hover:gap-3 transition-all inline-flex">
@@ -192,7 +192,7 @@ export default function ContactClient() {
           <div className="bg-midnight-slate/80 backdrop-blur-md px-4 py-2 md:px-8 md:py-4 rounded-full border border-electric-blue/30 shadow-2xl">
             <span className="font-label-md text-label-md text-on-surface flex items-center gap-2">
               <span className="material-symbols-outlined text-electric-blue" style={{ fontVariationSettings: "'FILL' 1" }}>location_on</span>
-              Autommensor Showroom, Seepat Bilaspur
+              Autommensor, Seepat Bilaspur
             </span>
           </div>
         </div>

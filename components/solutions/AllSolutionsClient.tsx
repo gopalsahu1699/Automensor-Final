@@ -65,6 +65,14 @@ export default function AllSolutionsClient() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
+         <div className="absolute inset-0 z-0">
+          <img
+            src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/screen%20(1).png"
+            alt="Modern Living Room Hero"
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+        </div>
       <header className="relative pt-24 pb-10 md:pt-40 md:pb-20 hero-mesh overflow-hidden">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
           <div className="inline-flex items-center px-4 py-1.5 mb-8 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm">

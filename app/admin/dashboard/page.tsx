@@ -20,13 +20,13 @@ export default async function AdminDashboard() {
     ]);
 
     const stats = [
-        { label: 'Total Products', value: productsCount || 0, icon: Package, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+        { label: 'Total Solutions', value: productsCount || 0, icon: Package, color: 'text-blue-500', bg: 'bg-blue-500/10' },
         { label: 'Total Leads', value: leadsCount || 0, icon: Users, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
         { label: 'Conversion Rate', value: 'Coming Soon', icon: TrendingUp, color: 'text-purple-500', bg: 'bg-purple-500/10' },
     ];
 
     return (
-        <div>
+        <div >
             <h1 className="text-3xl font-bold text-white mb-8">Dashboard Overview</h1>
 
             {/* Stats Grid */}

@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import AboutClient from "@/components/Clients/AboutClient";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 
 export const metadata: Metadata = {
   title: "About Autommensor Automation - Best Home Automation in Bilaspur & Raipur",
@@ -83,9 +82,7 @@ export default function AboutPage() {
           }}
         />
       </section>
-      <Navbar />
       <AboutClient />
-      <Footer />
     </>
   );
 }

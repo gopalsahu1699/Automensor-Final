@@ -1,44 +1,36 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
-import AllProductsClient from "@/components/products/AllProductsClient";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { getActiveProducts } from "@/lib/products";
+import AllSolutionsClient from "@/components/solutions/AllSolutionsClient";
+
 
 export const metadata: Metadata = {
-  title: "Smart Home Products Directory | Autommensor Bilaspur Raipur",
+  title: "Autommensor | Premium Solutions Gallery",
   description:
-    "Explore our complete range of smart home automation products including digital door locks, smart panels, active sensors, and motorized curtains available in Bilaspur and Raipur.",
+    "Transform your living spaces with intelligent wireless technology. Discover a seamless blend of high-end design and futuristic automation tailored for your modern lifestyle.",
   alternates: {
-    canonical: "https://autommensor.in/all-products",
+    canonical: "https://autommensor.in/all-solutions",
   },
   openGraph: {
-    title: "Complete Smart Home Product Range | Autommensor",
+    title: "Complete Smart Home Solutions Range | Autommensor",
     description:
       "Browse our catalog of premium home automation devices. Smart living solutions tailored for Indian homes.",
-    url: "https://autommensor.in/all-products",
+    url: "https://autommensor.in/all-solutions",
     images: ["/assets/og-products.jpg"],
   },
 };
 
-export const dynamic = 'force-dynamic';
-
-export default async function AllProductsPage() {
-  const products = await getActiveProducts();
-
+export default function AllSolutionsPage() {
   return (
     <>
-      <Navbar />
-      <div className="pt-20"> {/* Add padding for fixed navbar */}
+      <div className="pt-28">
         <BreadcrumbSchema
           items={[
             { name: "Home", url: "/" },
-            { name: "All Products", url: "/all-products" },
+            { name: "All Solutions", url: "/all-solutions" },
           ]}
         />
-        <AllProductsClient initialProducts={products} />
+        <AllSolutionsClient />
       </div>
-      <Footer />
     </>
   );
 }

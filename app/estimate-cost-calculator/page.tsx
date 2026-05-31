@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import EstimateCostCalculatorClient from "@/components/Clients/EstimateCostCalculatorClient";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 
 export const metadata: Metadata = {
   title: "Home Automation Cost Calculator Bilaspur Raipur | Autommensor",

@@ -1,8 +1,13 @@
 "use client";
 import React from "react";
 
-const oldItems = ["Messy Wall Cutting", "Limited Control Options", "High Maintenance Risks"];
-const newItems = ["No Wall Cutting Required", "Installs in Existing Switch Boxes", "100% Reliable Wireless Connectivity"];
+const oldItems = ["Standard plastic/modular design", "Limited access Options", "Basic on/off control" ,"Physical press switch only at switch location"];
+const newItems = ["Premium glass panel, modern look", "Touch, app, voice, remote control", 
+  "100% Reliable Wireless Connectivity",
+  "Timers, schedules, scenes",
+  "Control from anywhere with smartphone",
+  "Energy-saving automation features",
+];
 
 export default function ComparisonSection() {
   return (

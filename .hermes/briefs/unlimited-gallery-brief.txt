@@ -1,0 +1,164 @@
+TASK: Remove all limits on image/video uploads in the ProductForm admin edit/create page, and handle video display in the gallery.
+
+CURRENT STATE:
+- Main image: single upload (keep as-is, image only)
+- Gallery: hardcoded 3 slots ([0, 1, 2].map), capped at 3 items
+- No video support anywhere
+
+DESIRED STATE:
+- Main image: single upload, image only (keep unchanged)
+- Gallery: unlimited uploads, images AND videos both accepted
+- Each gallery slot shows delete (X) button on hover
+- Add separate "Add Image" and "Add Video" upload buttons that stack vertically below the gallery grid
+- No cap/limit on total gallery items
+
+FILES TO MODIFY:
+1. C:\auto_proj\components\admin\ProductForm.tsx
+2. C:\auto_proj\components\ProductImageGallery.tsx
+
+---
+
+FILE 1: C:\auto_proj\components\admin\ProductForm.tsx
+
+Changes needed:
+
+1a. Remove the gallery cap in handleGalleryUpload:
+    DELETE these lines:
+        if (formData.gallery_urls.length >= 3) {
+            toast.error("Maximum 4 images allowed total (1 Main + 3 Gallery)");
+            return;
+        }
+    The function should just append: setFormData(prev => ({ ...prev, gallery_urls: [...prev.gallery_urls, result.info.secure_url] }));
+
+1b. Change the label text from "Solution Images (Up to 4)" to "Solution Images & Videos (Unlimited)"
+
+1c. Remove the gallery upload options from the grid. Currently the grid has 4 cols (1 main + 3 gallery). Keep only the Main Image slot in the grid.
+
+1d. After the Main Image slot div closes (end of the grid div), add a new section for gallery items:
+
+    {/* Gallery Items - rendered dynamically with no limit */}
+    {formData.gallery_urls.length > 0 && (
+        <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <label className="text-sm font-medium text-slate-300">Gallery ({formData.gallery_urls.length} items)</label>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {formData.gallery_urls.map((url: string, i: number) => (
+                    <div key={i} className="space-y-2">
+                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+                            {url.match(/\.(mp4|mov|webm|avi|mkv)(\?|$)/i) ? `Video ${i + 1}` : `Image ${i + 1}`}
+                        </span>
+                        <div className="relative aspect-square rounded-xl overflow-hidden border border-slate-700 group">
+                            {url.match(/\.(mp4|mov|webm|avi|mkv)(\?|$)/i) ? (
+                                <video src={url} className="w-full h-full object-cover" muted playsInline />
+                            ) : (
+                                <Image src={url} alt={`Gallery ${i + 1}`} fill className="object-cover" />
+                            )}
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <button type="button" onClick={() => removeGalleryImage(i)} className="p-2 bg-red-500 text-white rounded-full">
+                                    <X className="w-4 h-4" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )}
+
+1e. After the gallery items section, add two upload buttons stacked vertically:
+
+    {/* Upload buttons - no limits */}
+    <div className="flex flex-col sm:flex-row gap-3">
+        <CldUploadWidget
+            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
+            onSuccess={handleGalleryUpload}
+            options={{ maxFiles: 1, cropping: true, croppingAspectRatio: 1, resourceType: "image", acceptedFiles: "image/*" }}
+        >
+            {({ open }) => (
+                <button type="button" onClick={() => open()} className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl transition-colors">
+                    <ImagePlus className="w-5 h-5" />
+                    <span className="text-sm font-medium">Add Image</span>
+                </button>
+            )}
+        </CldUploadWidget>
+
+        <CldUploadWidget
+            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "automensor_gallery"}
+            onSuccess={handleGalleryUpload}
+            options={{ maxFiles: 1, resourceType: "video", acceptedFiles: "video/*" }}
+        >
+            {({ open }) => (
+                <button type="button" onClick={() => open()} className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white rounded-xl transition-colors">
+                    <Video className="w-5 h-5" />
+                    <span className="text-sm font-medium">Add Video</span>
+                </button>
+            )}
+        </CldUploadWidget>
+    </div>
+
+1f. Import Video from lucide-react (add to the lucide import line):
+    import { ImagePlus, X, Save, Loader2, ArrowLeft, Video } from 'lucide-react';
+
+1g. Update the recommended text span inside the Main Image section to say:
+    Recommended: Square (1:1), 800x800px minimum — Main Image is required
+    (keep the same styling)
+
+---
+
+FILE 2: C:\auto_proj\components\ProductImageGallery.tsx
+
+The solution detail page gallery receives images via:
+    [solution.image_url, ...(solution.gallery_urls || [])].filter(Boolean)
+
+This currently only passes image URLs. Videos in gallery_urls will also be passed here.
+Update the gallery component to handle both images and videos:
+
+2a. Import Play from lucide-react:
+    import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+
+2b. In the main image viewer (where it currently renders <Image>), check if the current item is a video:
+
+    Replace the <Image> block inside the main viewer with:
+    {images[currentIndex].match(/\.(mp4|mov|webm|avi|mkv)(\?|$)/i) ? (
+        <video
+            src={images[currentIndex]}
+            className="w-full h-full object-contain bg-black"
+            controls
+            autoPlay={false}
+            playsInline
+        />
+    ) : (
+        <Image
+            src={images[currentIndex]}
+            alt={`${productName} - View ${currentIndex + 1}`}
+            fill
+            className="object-cover transition-all duration-500"
+            priority={currentIndex === 0}
+        />
+    )}
+
+2c. In the thumbnail grid, add a play icon overlay for video thumbnails:
+
+    Inside each thumbnail button, after the <Image>, add:
+    {img.match(/\.(mp4|mov|webm|avi|mkv)(\?|$)/i) && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+            <Play className="w-6 h-6 text-white fill-white" />
+        </div>
+    )}
+
+2d. The thumbnail grid is currently grid-cols-4. Update it to use responsive scrolling for large counts:
+    Change the thumbnail container from:
+        <div className="grid grid-cols-4 gap-3 sm:gap-4">
+    To:
+        <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2">
+    And add flex-shrink-0 w-16 sm:w-20 to each thumbnail button:
+        <button ... className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 w-16 sm:w-20 ${...}`}>
+
+---
+
+RULES:
+- Do NOT run git push
+- Do run npx tsc --noEmit after changes and fix any type errors
+- Verify with git log --oneline -3 that no unintended commits were made
+- Match existing code style exactly

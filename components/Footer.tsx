@@ -8,8 +8,10 @@ import { Mail } from "lucide-react";
 const solutions = [
   "Lighting Automation",
   "Smart Security Systems",
-  "Climate Control",
-  "Retrofit Tech",
+  "Smart Gate Automation",
+  "Energy Management",
+  "Voice Control Integration",
+  "Remote Access Solutions",
 ];
 
 export default function Footer() {
@@ -26,7 +28,7 @@ export default function Footer() {
             />
           </div>
           <p className="text-on-surface-variant font-body-md text-body-md leading-relaxed">
-            Autommensor is Chhattisgarh&apos;s premier provider of wireless home automation. We specialize in retrofitting modern smart technology into existing homes to enhance security, luxury, and energy efficiency.
+            Autommensor is Chhattisgarh&apos;s premier provider of wireless home automation. We specialize in  modern smart technology into homes to enhance security, luxury, and energy efficiency.
           </p>
           <div className="flex gap-4 md:gap-5">
             <a
@@ -92,9 +94,9 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Column 3: Local Support */}
+        {/* Column 3: Premium Support */}
         <div>
-          <h4 className="font-outfit text-lg md:text-headline-sm text-lg md:text-headline-sm mb-3 md:mb-8">Local Support</h4>
+          <h4 className="font-outfit text-lg md:text-headline-sm text-lg md:text-headline-sm mb-3 md:mb-8">Premium Support</h4>
           <ul className="space-y-2 md:space-y-5 text-on-surface-variant">
             <li className="flex items-start gap-3 md:gap-4">
               <span className="material-symbols-outlined text-electric-blue text-[20px] md:text-[24px] flex-shrink-0">call</span>

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { BreadcrumbSchema } from "@/components/StructuredData";
 import ContactClient from "@/components/Clients/ContactClient";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 
 export const metadata: Metadata = {
   title: "Contact Autommensor Automation | Smart Home Inquiry Bilaspur Raipur",
@@ -46,9 +45,7 @@ export default function ContactPage() {
   return (
     <>
       <BreadcrumbSchema items={breadcrumbs} />
-      <Navbar />
       <ContactClient />
-      <Footer />
     </>
   );
 }

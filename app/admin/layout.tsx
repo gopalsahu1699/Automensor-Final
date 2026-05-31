@@ -23,7 +23,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
 
     return (
-        <div className="flex min-h-screen bg-slate-950 text-slate-200 font-sans">
+        <div className="flex min-h-screen bg-slate-950 text-slate-200 font-sans pt-28">
             <AdminSidebar />
             <main className="flex-1 ml-0 md:ml-0 h-screen overflow-y-auto w-full">
                 {/* Mobile Header */}
