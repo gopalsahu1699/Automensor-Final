@@ -63,15 +63,7 @@ export default function Navbar() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             <div className="flex items-center justify-between p-6 border-b border-white/5">
-              {/* <div className="bg-white rounded-lg p-2">
-                <Image
-                  src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/logo.png"
-                  alt="Autommensor"
-                  width={140}
-                  height={40}
-                  className="h-9 object-contain"
-                />
-              </div> */}
+         
               <button
                 onClick={() => setSidebarOpen(false)}
                 className="p-1 hover:bg-white/10 rounded-lg transition-all"
@@ -130,15 +122,16 @@ export default function Navbar() {
             onKeyDown={(e) => e.key === "Enter" && router.push("/")}
             className="cursor-pointer flex items-center gap-2"
           >
-            <div className="bg-white rounded-lg p-2">
-              <Image
-                src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/logo.png"
-                alt="Autommensor"
-                width={140}
-                height={40}
-                className="h-9 md:h-10 object-contain"
-              />
-            </div>
+
+<div className="inline-flex items-center bg-gradient-to-r from-white/5 via-white/15 to-white/50 backdrop-blur-2xl border border-white/10 rounded-2xl px-4 py-2 shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
+  <Image
+    src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/logo.png"
+    alt="Autommensor"
+    width={140}
+    height={40}
+    className="h-8 md:h-10 w-auto object-contain"
+  />
+</div>
           </div>
 
           {/* Desktop Nav */}

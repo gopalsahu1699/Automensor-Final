@@ -93,24 +93,24 @@ export default function AllSolutionsClient() {
 
       {/* Filter Bar */}
       <section className="sticky top-20 z-40 bg-background/60 backdrop-blur-md border-b border-white/5 py-4">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="flex items-center gap-4 overflow-x-auto no-scrollbar pb-2">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveFilter(category)}
-                className={`px-6 py-2 rounded-full font-label-md whitespace-nowrap transition-all ${
-                  activeFilter === category
-                    ? 'bg-primary text-on-primary'
-                    : 'glass-card text-on-surface-variant hover:text-on-surface'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
+<div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 w-full">
+  {categories.map((category) => (
+    <button
+      key={category}
+      onClick={() => setActiveFilter(category)}
+      className={`flex-shrink-0 px-4 md:px-6 py-2 rounded-full text-sm md:text-base whitespace-nowrap transition-all ${
+        activeFilter === category
+          ? "bg-primary text-on-primary"
+          : "glass-card text-on-surface-variant hover:text-on-surface"
+      }`}
+    >
+      {category}
+    </button>
+  ))}
+</div>
       </section>
+
+
 
       {/* Solution Grid */}
       <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-6 md:py-10 lg:py-stack-lg">

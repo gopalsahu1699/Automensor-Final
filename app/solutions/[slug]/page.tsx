@@ -82,7 +82,7 @@ export default async function SolutionPage(props: { params: Promise<{ slug: stri
                                 <ProductImageGallery
                                     images={[solution.image_url, ...(solution.gallery_urls || [])].filter(Boolean)}
                                     productName={solution.name}
-                                    isFeatured={solution.is_featured}
+                                    // isFeatured={solution.is_featured}
                                 />
                             </div>
 
