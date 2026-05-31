@@ -38,7 +38,7 @@ export default function Testimonials() {
                 <div className="text-center mb-stack-md">
                     <span className="text-electric-blue font-label-md tracking-[0.3em] uppercase mb-4 block">Customer Stories</span>
                     <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-6">
-                        Trusted by <span className="gradient-text">200+ Families</span>
+                        Trusted by <span className="gradient-text">Many Families</span>
                     </h2>
                     <p className="font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-3xl mx-auto leading-relaxed">
                         See what our customers across Chhattisgarh have to say about their smart home experience.

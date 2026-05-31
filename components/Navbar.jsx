@@ -63,7 +63,7 @@ export default function Navbar() {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             <div className="flex items-center justify-between p-6 border-b border-white/5">
-              <div className="bg-white rounded-lg p-2">
+              {/* <div className="bg-white rounded-lg p-2">
                 <Image
                   src="https://abneywcnsdpriagqolvf.supabase.co/storage/v1/object/public/images/logo.png"
                   alt="Autommensor"
@@ -71,7 +71,7 @@ export default function Navbar() {
                   height={40}
                   className="h-9 object-contain"
                 />
-              </div>
+              </div> */}
               <button
                 onClick={() => setSidebarOpen(false)}
                 className="p-1 hover:bg-white/10 rounded-lg transition-all"
